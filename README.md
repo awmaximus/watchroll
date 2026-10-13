@@ -51,6 +51,9 @@ assistir") às vezes está errado. A extensão não depende dele. Para cada sér
 
 Regras adotadas:
 
+- **Começado:** só conta a partir de **1 minuto** de reprodução, ou se a Crunchyroll marcou
+  como assistido. Ela cria registros com 0 ou poucos segundos só por você abrir a página do
+  episódio ou pelo início automático do player; esses são ignorados.
 - **Visto:** a Crunchyroll marcou `fully_watched`, ou você passou de 90% da duração.
   Vale para qualquer áudio: ver legendado conta para o modo dublado e vice-versa.
 - **Legendado:** usa a lista de episódios do áudio original.

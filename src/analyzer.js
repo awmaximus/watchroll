@@ -12,12 +12,16 @@
 
 /* global browser, CRApi */
 var CRAnalyzer = (() => {
-  const CACHE_KEY = "crnovos:v3:cache"; // v3: modo dublado passou a checar o áudio de cada episódio
+  const CACHE_KEY = "crnovos:v4:cache"; // v4: ignora registros de reprodução de menos de 1 minuto
   const CACHE_TTL = 20 * 60 * 1000;
   // Quantas séries são consultadas ao mesmo tempo (configurável na página).
   const CONCURRENCY = { default: 4, min: 1, max: 16 };
   const MAX_SEASONS_BACK = 6;
   const WATCHED_RATIO = 0.9;
+  // A Crunchyroll cria registros de reprodução com poucos segundos (ou zero) só por
+  // abrir a página do episódio ou pelo início automático do player. Abaixo disso, o
+  // registro é ignorado: não conta como "já comecei a assistir".
+  const MIN_STARTED_SECONDS = 60;
 
   // ---------- utilidades ----------
   function pickImage(images, wanted = 320) {
@@ -214,6 +218,7 @@ var CRAnalyzer = (() => {
         for (const id of versionIds(ep)) {
           const p = ph.get(id);
           if (!p) continue;
+          if (!p.fully_watched && (p.playhead || 0) < MIN_STARTED_SECONDS) continue;
           started = true;
           maxPos = Math.max(maxPos, p.playhead || 0);
           if (p.fully_watched) fully = true;
@@ -342,5 +347,5 @@ var CRAnalyzer = (() => {
     return result;
   }
 
-  return { run, runOne, CONCURRENCY, concurrencyFrom };
+  return { run, runOne, CONCURRENCY, concurrencyFrom, MIN_STARTED_SECONDS };
 })();

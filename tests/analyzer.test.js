@@ -589,3 +589,68 @@ test("dublado: decide pelo audio_locale do episódio e ignora is_dubbed", async 
   assert.deepEqual(ids(r), ["p2"]); // o 2 está em pt-BR, apesar de is_dubbed=false
   assert.equal(r.waitingDub, 1); // o 3 está em ja-JP, apesar de is_dubbed=true
 });
+
+describe("registros de reprodução curtos (dados reais: No Longer Allowed in Another World)", () => {
+  const eps = require("./fixtures/no-longer-allowed-s1-episodes.json").data;
+  const season = {
+    id: "G6WEC315N",
+    season_sequence_number: 1,
+    versions: [{ guid: "G6WEC315N", audio_locale: "ja-JP", original: true }],
+  };
+  const run = async (playheads, mode = "sub") => {
+    const { analyzer } = setup({
+      watchlist: [series("GXJHM3G7X")],
+      seasons: { GXJHM3G7X: [season] },
+      episodes: { G6WEC315N: eps },
+      playheads,
+    });
+    const [r] = await analyzer.run({ settings: settings({ defaultMode: mode }) });
+    return r;
+  };
+  const e = (n) => eps[n - 1].id;
+
+  test("registro com 0 s (só abriu a página) não conta como começado", async () => {
+    const r = await run({ [e(1)]: playhead(e(1), 0, false) });
+    assert.equal(r.status, "never");
+  });
+
+  test("o registro real enviado pelo usuário (playhead 0 no E1) não conta como começado", async () => {
+    // Resposta real de /content/v2/{conta}/playheads para esta série.
+    const real = {
+      total: 1,
+      data: [{ playhead: 0, content_id: "GG1U2J9Q1", fully_watched: false, last_modified: "2026-10-13T19:56:06Z" }],
+    };
+    const r = await run(Object.fromEntries(real.data.map((p) => [p.content_id, p])));
+    assert.equal(r.status, "never");
+    assert.deepEqual(ids(r), []);
+  });
+
+  test("alguns segundos de reprodução automática também não", async () => {
+    const r = await run({ [e(1)]: playhead(e(1), 15, false), [e(3)]: playhead(e(3), 59, false) });
+    assert.equal(r.status, "never");
+  });
+
+  test("a partir de 1 minuto conta como começado", async () => {
+    const r = await run({ [e(1)]: playhead(e(1), 60, false) });
+    assert.equal(r.status, "pending");
+    assert.equal(r.pending[0].id, e(1));
+    assert.equal(r.pending[0].inProgress, true);
+  });
+
+  test("fully_watched conta mesmo com playhead 0", async () => {
+    const r = await run({ [e(1)]: playhead(e(1), 0, true) });
+    assert.equal(plain(r.pending.map((p) => p.number))[0], "2");
+  });
+
+  test("registro curto num episódio adiante não pula os anteriores", async () => {
+    // Viu de verdade o 1; abriu o 8 por engano por 5 s.
+    const r = await run({ [e(1)]: playhead(e(1), 1420, true), [e(8)]: playhead(e(8), 5, false) });
+    assert.equal(plain(r.pending.map((p) => p.number)).join(","), "2,3,4,5,6,7,8,9,10,11,12");
+  });
+
+  test("is_dubbed é true mas não há pt-BR: modo dublado não anuncia nada", async () => {
+    assert.ok(eps.every((x) => x.is_dubbed === true));
+    const r = await run({ [e(1)]: playhead(e(1), 1420, true) }, "dub");
+    assert.deepEqual(ids(r), []);
+  });
+});
