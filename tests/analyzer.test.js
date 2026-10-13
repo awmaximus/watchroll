@@ -820,3 +820,79 @@ describe("legenda no modo legendado", () => {
     assert.equal(count(), 2);
   });
 });
+
+describe("especiais e recapitulações", () => {
+  const db = (eps, ph, seasons) => ({
+    watchlist: [series("X")],
+    seasons: { X: seasons || [{ id: "T", season_sequence_number: 1 }] },
+    episodes: { T: eps },
+    playheads: ph,
+  });
+
+  test("classifica episódios extras pela numeração e pelo título", () => {
+    const { analyzer } = setup(db([], {}));
+    const k = (ep, season) => analyzer.extraKind(ep, season);
+    assert.equal(k({ episode: "5", episode_number: 5, title: "A batalha" }), null);
+    assert.equal(k({ episode: "13.5", episode_number: null, title: "Bônus" }), "especial");
+    assert.equal(k({ episode: "SP", episode_number: null, title: "Especial de verão" }), "especial");
+    assert.equal(k({ episode: "", episode_number: null, title: "Sem número" }), "especial");
+    assert.equal(k({ episode: "7", episode_number: 7, title: "Recap: até aqui" }), "recap");
+    assert.equal(k({ episode: "7", episode_number: 7, title: "Recapitulação" }), "recap");
+    assert.equal(k({ episode: "3", episode_number: 3, title: "Um dia especial" }), null, "palavra 'especial' no título não basta");
+    assert.equal(k({ episode: "1", episode_number: 1, title: "Início" }, { title: "Specials" }), "especial");
+    assert.equal(k({ episode: "1", episode_number: 1, title: "Início" }, { title: "OVA", season_number: 2 }), "especial");
+  });
+
+  test("extras aparecem marcados e não entram na contagem do ícone", async () => {
+    const e135 = { ...episode("e13h", 13.5), episode: "13.5", episode_number: null };
+    const { analyzer } = setup(
+      db([episode("e12", 12), episode("e13", 13), e135, episode("e14", 14)], { e12: playhead("e12", FULL, true) })
+    );
+    const [r] = await analyzer.run({ settings: settings() });
+    assert.deepEqual(ids(r), ["e13", "e13h", "e14"]);
+    assert.equal(r.pending[1].extra, "especial");
+    const { CRChecker } = load(["src/checker.js"], { browser: fakeBrowser() });
+    assert.equal(CRChecker.summarize([r]).episodes, 2);
+  });
+
+  test("com 'mostrar especiais' desligado, os extras somem", async () => {
+    const recap = { ...episode("r", 13), title: "Recap" };
+    const { analyzer } = setup(db([episode("e12", 12), recap, episode("e14", 14)], { e12: playhead("e12", FULL, true) }));
+    const [r] = await analyzer.run({ settings: settings({ showExtras: false }) });
+    assert.deepEqual(ids(r), ["e14"]);
+  });
+
+  test("temporada de especiais não prende a busca pela temporada atual", async () => {
+    const { analyzer } = setup({
+      watchlist: [series("X")],
+      seasons: {
+        X: [
+          { id: "S1", season_sequence_number: 1, season_number: 1, title: "Temporada 1" },
+          { id: "S2", season_sequence_number: 2, season_number: 2, title: "Temporada 2" },
+          { id: "SP", season_sequence_number: 3, season_number: 3, title: "Specials" },
+        ],
+      },
+      episodes: {
+        S1: [episode("a1", 1)],
+        S2: [episode("b1", 1, { season: 2 }), episode("b2", 2, { season: 2 })],
+        SP: [episode("sp1", 1, { season: 3 })],
+      },
+      playheads: { b1: playhead("b1", FULL, true) },
+    });
+    const [r] = await analyzer.run({ settings: settings() });
+    assert.deepEqual(ids(r), ["b2"]);
+  });
+
+  test("só extras pendentes: card existe, mas a contagem é zero", async () => {
+    const recap = { ...episode("r", 3), title: "Resumo da temporada" };
+    const { analyzer } = setup(db([episode("e1", 1), episode("e2", 2), recap], {
+      e1: playhead("e1", FULL, true),
+      e2: playhead("e2", FULL, true),
+    }));
+    const [r] = await analyzer.run({ settings: settings() });
+    assert.equal(r.status, "pending");
+    assert.deepEqual(ids(r), ["r"]);
+    const { CRChecker } = load(["src/checker.js"], { browser: fakeBrowser() });
+    assert.equal(CRChecker.summarize([r]).episodes, 0);
+  });
+});

@@ -346,6 +346,16 @@ select.actions:hover {
 .eps a:hover .eptitle {
   text-decoration: underline;
 }
+.tag {
+  flex: 0 0 auto;
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  border: 1px solid #4a4e58;
+  padding: 0 4px;
+}
 .epnum {
   flex: 0 0 auto;
   color: var(--orange);

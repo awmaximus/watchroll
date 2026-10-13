@@ -65,6 +65,24 @@ var CRAnalyzer = (() => {
     return ep.subtitle_locales.includes(lang);
   }
 
+  // ---------- especiais e recapitulações ----------
+  const SPECIAL_SEASON = /\b(specials?|especia(?:l|is)|ovas?|oads?|extras?)\b/i;
+  const RECAP_TITLE = /\b(recap|recapitula[çc][ãa]o|resumo)\b/i;
+
+  function isSpecialSeason(season) {
+    return season.season_number === 0 || SPECIAL_SEASON.test(season.title || "");
+  }
+
+  // "especial" (numeração fora do normal ou temporada especial), "recap" ou null.
+  function extraKind(ep, season) {
+    if (season && isSpecialSeason(season)) return "especial";
+    const num = String(ep.episode ?? "").trim();
+    if (num && !/^\d+$/.test(num)) return "especial"; // 13.5, SP, OVA...
+    if (!num && ep.episode_number == null) return "especial";
+    if (RECAP_TITLE.test(ep.title || "")) return "recap";
+    return null;
+  }
+
   const originalVersion = (obj) => (obj.versions || []).find((v) => v.original);
   const seasonKey = (s) => (originalVersion(s) && originalVersion(s).guid) || s.id;
 
@@ -86,8 +104,11 @@ var CRAnalyzer = (() => {
       seen.add(k);
       unique.push(s);
     }
+    // Temporadas especiais vão antes das normais: a busca começa pela temporada
+    // normal mais recente e não fica presa numa temporada de especiais.
     return unique.sort(
       (a, b) =>
+        Number(isSpecialSeason(b)) - Number(isSpecialSeason(a)) ||
         (a.season_sequence_number ?? a.season_number ?? 0) -
           (b.season_sequence_number ?? b.season_number ?? 0) ||
         (a.season_number ?? 0) - (b.season_number ?? 0)
@@ -126,7 +147,13 @@ var CRAnalyzer = (() => {
     await browser.storage.local.set({ [CACHE_KEY]: all });
   }
   const cacheSignature = (mode, settings) =>
-    [mode, mode === "dub" ? settings.dubLang : "", mode === "sub" ? settings.subLang || "pt-BR" : "", settings.locale].join("|");
+    [
+      mode,
+      mode === "dub" ? settings.dubLang : "",
+      mode === "sub" ? settings.subLang || "pt-BR" : "",
+      settings.locale,
+      settings.showExtras === false ? "sem-extras" : "",
+    ].join("|");
 
   // ---------- Fila ----------
   function normalizeItem(item) {
@@ -297,6 +324,8 @@ var CRAnalyzer = (() => {
       if (!isAvailable(s.ep, now)) continue;
 
       const ep = s.ep;
+      const kind = extraKind(ep, s.season);
+      if (kind && settings.showExtras === false) continue;
       // sub/dub: a própria lista já está no áudio certo. No modo "qualquer áudio",
       // um episódio começado abre na versão em que você parou; os demais abrem na
       // versão listada (a de outro áudio pode ainda não ter sido lançada).
@@ -313,6 +342,7 @@ var CRAnalyzer = (() => {
         inProgress: s.started && !s.fully,
         progress: s.progress,
         availableAt: Date.parse(ep.availability_starts || ep.premium_available_date || "") || 0,
+        extra: kind, // null, "especial" ou "recap": fora das contagens
       });
     }
 
@@ -454,5 +484,5 @@ var CRAnalyzer = (() => {
     return result;
   }
 
-  return { run, runOne, diagnose, sanitize, CONCURRENCY, concurrencyFrom, MIN_STARTED_SECONDS };
+  return { run, runOne, diagnose, sanitize, extraKind, CONCURRENCY, concurrencyFrom, MIN_STARTED_SECONDS };
 })();

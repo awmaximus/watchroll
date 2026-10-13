@@ -20,6 +20,7 @@ var CRChecker = (() => {
     concurrency: 4,
     autoCheckMinutes: 60,
     notify: true,
+    showExtras: true,
     seriesModes: {},
   };
 

@@ -76,6 +76,7 @@
       String(CRChecker.autoCheckMinutes(settings))
     );
     $("set-notify").checked = settings.notify !== false;
+    $("set-extras").checked = settings.showExtras !== false;
   }
 
   // ---------- links ----------
@@ -143,6 +144,7 @@
         "a",
         { href: watchUrl(ep), target: "_blank", rel: "noopener", title: ep.title },
         el("span", { class: "epnum", text: `T${ep.season ?? "?"} E${ep.number || "?"}` }),
+        ep.extra ? el("span", { class: "tag", text: ep.extra === "recap" ? "recap" : "especial" }) : null,
         el("span", { class: "eptitle", text: ep.title || ep.seasonTitle }),
         ep.inProgress
           ? el(
@@ -155,10 +157,19 @@
     );
   }
 
+  // Rótulo do card: episódios normais; se só houver extras, diz isso.
+  function badgeLabel(s) {
+    const main = s.pending.filter((p) => !p.extra).length;
+    if (main) return `${main} novo${main > 1 ? "s" : ""}`;
+    const extras = s.pending.length;
+    return extras === 1 ? "1 especial" : `${extras} especiais`;
+  }
+
   function card(s) {
     const shown = s.pending.slice(0, MAX_EPS);
     const extra = s.pending.length - shown.length;
-    const first = s.pending[0];
+    // O link principal vai para o próximo episódio normal (se houver).
+    const first = s.pending.find((p) => !p.extra) || s.pending[0];
     return el(
       "article",
       { class: "card", "data-series": s.seriesId },
@@ -166,7 +177,7 @@
         "a",
         { class: "thumb", href: watchUrl(first), target: "_blank", rel: "noopener", title: "Assistir o próximo" },
         s.image ? el("img", { src: s.image, alt: "", loading: "lazy" }) : null,
-        el("span", { class: "badge", text: `${s.pending.length} novo${s.pending.length > 1 ? "s" : ""}` }),
+        el("span", { class: "badge", text: badgeLabel(s) }),
         el("span", { class: "play", "aria-hidden": "true", text: "▶" })
       ),
       el(
@@ -236,10 +247,11 @@
     const never = results.filter((r) => r.status === "never").sort(byTitle);
     const errors = results.filter((r) => r.status === "error").sort(byTitle);
 
-    const totalEps = pending.reduce((n, r) => n + r.pending.length, 0);
+    // Mesma contagem do ícone: sem especiais/recaps.
+    const { episodes: totalEps, series: totalSeries } = CRChecker.summarize(results);
     $("status").textContent = results.length
-      ? pending.length
-        ? `${totalEps} episódio${totalEps > 1 ? "s" : ""} em ${pending.length} série${pending.length > 1 ? "s" : ""}`
+      ? totalEps
+        ? `${totalEps} episódio${totalEps > 1 ? "s" : ""} em ${totalSeries} série${totalSeries > 1 ? "s" : ""}`
         : "Tudo em dia"
       : "";
 
@@ -457,6 +469,11 @@
     $("set-notify").addEventListener("change", async (e) => {
       settings.notify = e.target.checked;
       await saveSettings();
+    });
+    $("set-extras").addEventListener("change", async (e) => {
+      settings.showExtras = e.target.checked;
+      await saveSettings();
+      refresh(false);
     });
     // Só vale para a próxima verificação; não precisa refazer a atual.
     $("set-concurrency").addEventListener("change", async (e) => {

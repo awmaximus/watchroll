@@ -82,6 +82,11 @@ Regras adotadas:
   Crunchyroll completa a lista dublada com a versão original quando a dublagem ainda não
   saiu.
 - **Qualquer áudio:** avisa assim que o episódio sair em qualquer versão.
+- **Especiais e recapitulações:** episódios com numeração fora do normal (13.5, SP, OVA),
+  sem número, com título de recapitulação, ou de temporadas especiais aparecem com uma
+  etiqueta e **não entram** nas contagens (card, ícone, notificação). Temporadas especiais
+  são ordenadas antes das normais, para não atrapalhar a busca pela temporada atual. Dá
+  para escondê-los em Configurações.
 
 ## Instalação
 
