@@ -301,3 +301,34 @@ describe("ocultar / adiar série", () => {
     assert.equal(s.defaultMode, "dub");
   });
 });
+
+describe("busca e ordenação", () => {
+  const { CRChecker } = load(["src/checker.js"], { browser: richBrowser() });
+
+  test("busca ignora acentos e maiúsculas, e exige todas as palavras", () => {
+    assert.equal(CRChecker.matchesSearch("Kaguya-sama: Love is War", "kaguya"), true);
+    assert.equal(CRChecker.matchesSearch("Não Mais Permitido", "nao mais"), true);
+    assert.equal(CRChecker.matchesSearch("Saga of Tanya the Evil", "TANYA evil"), true);
+    assert.equal(CRChecker.matchesSearch("Saga of Tanya the Evil", "tanya war"), false);
+    assert.equal(CRChecker.matchesSearch("Qualquer", "   "), true);
+  });
+
+  const list = [
+    { title: "Bravo", lastWatchedAt: 300, pending: [{ availableAt: 10 }] },
+    { title: "Alfa", lastWatchedAt: 100, pending: [{ availableAt: 30 }, { availableAt: 5 }, { availableAt: 1, extra: "recap" }] },
+    { title: "Charlie", lastWatchedAt: 200, pending: [{ availableAt: 20 }, { availableAt: 21 }, { availableAt: 22 }] },
+  ];
+  const order = (by) => plain(CRChecker.sortPending(list, by).map((r) => r.title));
+
+  test("lançamento mais recente (padrão)", () => {
+    assert.deepEqual(order("released"), ["Alfa", "Charlie", "Bravo"]);
+    assert.deepEqual(order("desconhecido"), ["Alfa", "Charlie", "Bravo"]);
+  });
+  test("visto mais recentemente", () => assert.deepEqual(order("watched"), ["Bravo", "Charlie", "Alfa"]));
+  test("mais episódios (sem contar extras)", () => assert.deepEqual(order("count"), ["Charlie", "Alfa", "Bravo"]));
+  test("título", () => assert.deepEqual(order("title"), ["Alfa", "Bravo", "Charlie"]));
+  test("não altera a lista original", () => {
+    CRChecker.sortPending(list, "title");
+    assert.equal(list[0].title, "Bravo");
+  });
+});

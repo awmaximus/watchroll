@@ -133,6 +133,29 @@ main {
   font-size: 0.85rem;
 }
 
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  margin-bottom: 16px;
+}
+.toolbar input[type="search"] {
+  flex: 1 1 240px;
+  max-width: 420px;
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--line);
+  padding: 7px 10px;
+  font: inherit;
+}
+.toolbar .sort {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
 .settings {
   background: var(--surface);
   padding: 16px;

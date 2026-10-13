@@ -25,6 +25,7 @@ var CRChecker = (() => {
     minStartedSeconds: 60,
     seriesModes: {},
     hidden: {}, // seriesId -> { kind: "untilNew" | "week" | "forever", at, until?, seen? }
+    sortBy: "released",
   };
 
   async function loadSettings(b = browser) {
@@ -80,6 +81,41 @@ var CRChecker = (() => {
 
   const visibleResults = (results, settings, now = Date.now()) =>
     (results || []).filter((r) => !isHidden(r, ((settings && settings.hidden) || {})[r.seriesId], now));
+
+  // ---------- busca e ordenação ----------
+  const fold = (t) =>
+    String(t || "")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
+
+  // Todas as palavras da busca precisam aparecer no título (sem acento/caixa).
+  function matchesSearch(title, query) {
+    const words = fold(query).split(/\s+/).filter(Boolean);
+    if (!words.length) return true;
+    const t = fold(title);
+    return words.every((w) => t.includes(w));
+  }
+
+  const SORTS = {
+    released: "Lançamento mais recente",
+    watched: "Visto mais recentemente",
+    count: "Mais episódios",
+    title: "Título",
+  };
+  const mainCount = (r) => r.pending.filter((p) => !p.extra && !p.skipped).length;
+  const newestRelease = (r) => Math.max(0, ...r.pending.map((p) => p.availableAt || 0));
+  const byTitle = (a, b) => (a.title || "").localeCompare(b.title || "", "pt-BR");
+
+  function sortPending(list, by) {
+    const cmp = {
+      released: (a, b) => newestRelease(b) - newestRelease(a) || byTitle(a, b),
+      watched: (a, b) => (b.lastWatchedAt || 0) - (a.lastWatchedAt || 0) || byTitle(a, b),
+      count: (a, b) => mainCount(b) - mainCount(a) || byTitle(a, b),
+      title: byTitle,
+    }[by] || ((a, b) => newestRelease(b) - newestRelease(a) || byTitle(a, b));
+    return [...list].sort(cmp);
+  }
 
   function summarize(results) {
     const items = pendingItems(results);
@@ -191,6 +227,9 @@ var CRChecker = (() => {
     autoCheckMinutes,
     pendingItems,
     summarize,
+    matchesSearch,
+    SORTS,
+    sortPending,
     makeHide,
     isHidden,
     visibleResults,

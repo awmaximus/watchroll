@@ -21,6 +21,7 @@
   let settings = { ...CRChecker.DEFAULT_SETTINGS };
   let results = [];
   let busy = false;
+  let query = "";
 
   const $ = (id) => document.getElementById(id);
 
@@ -280,6 +281,7 @@
   const plural = (n, one, many) => (n === 1 ? `1 ${one}` : `${n} ${many}`);
 
   function section(title, count, content, { open = true, id } = {}) {
+    if (query.trim()) open = count > 0; // buscando: abre só onde há resultado
     return el(
       "details",
       { class: "section", open: open || null, id },
@@ -289,7 +291,6 @@
   }
 
   // ---------- render ----------
-  const maxAvail = (r) => Math.max(0, ...r.pending.map((p) => p.availableAt || 0));
   const byTitle = (a, b) => (a.title || "").localeCompare(b.title || "", "pt-BR");
 
   function render() {
@@ -298,10 +299,17 @@
     renderSections(CRChecker.visibleResults(results, settings), hidden);
   }
 
-  // "visible" = resultados sem as séries ocultas.
-  function renderSections(visible, hidden) {
-    const results = visible;
-    const pending = results.filter((r) => r.status === "pending").sort((a, b) => maxAvail(b) - maxAvail(a));
+  // "visible" = resultados sem as séries ocultas. A busca filtra só o que é
+  // listado; o status do topo continua contando tudo.
+  function renderSections(visible, hiddenAll) {
+    const match = (r) => CRChecker.matchesSearch(r.title, query);
+    const searching = query.trim() !== "";
+    const results = visible.filter(match);
+    const hidden = hiddenAll.filter(match);
+    const pending = CRChecker.sortPending(
+      results.filter((r) => r.status === "pending"),
+      settings.sortBy
+    );
     // Sem dublagem: a temporada atual não tem nenhum episódio no idioma escolhido
     // (a dublagem pode nunca sair). Aguardando: a dublagem existe e está atrasada.
     const noDub = results.filter((r) => r.status === "uptodate" && r.noDub && r.waitingDub).sort(byTitle);
@@ -311,9 +319,9 @@
     const never = results.filter((r) => r.status === "never").sort(byTitle);
     const errors = results.filter((r) => r.status === "error").sort(byTitle);
 
-    // Mesma contagem do ícone: sem especiais/recaps.
-    const { episodes: totalEps, series: totalSeries } = CRChecker.summarize(results);
-    $("status").textContent = results.length
+    // Mesma contagem do ícone: sem especiais/recaps (e sem filtro da busca).
+    const { episodes: totalEps, series: totalSeries } = CRChecker.summarize(visible);
+    $("status").textContent = visible.length
       ? totalEps
         ? `${totalEps} episódio${totalEps > 1 ? "s" : ""} em ${totalSeries} série${totalSeries > 1 ? "s" : ""}`
         : "Tudo em dia"
@@ -326,7 +334,10 @@
         pending.length,
         pending.length
           ? el("div", { class: "grid" }, pending.map(card))
-          : el("p", { class: "empty", text: "Nenhum episódio novo nas séries que você já começou." })
+          : el("p", {
+              class: "empty",
+              text: searching ? "Nenhuma série encontrada aqui." : "Nenhum episódio novo nas séries que você já começou.",
+            })
       )
     );
     if (waiting.length) {
@@ -602,6 +613,21 @@
       settings.concurrency = CRAnalyzer.concurrencyFrom({ concurrency: e.target.value });
       e.target.value = settings.concurrency;
       await saveSettings();
+    });
+
+    fillSelect($("sort"), Object.entries(CRChecker.SORTS), settings.sortBy);
+    $("sort").addEventListener("change", async (e) => {
+      settings.sortBy = e.target.value;
+      await saveSettings();
+      render();
+    });
+    let searchTimer = null;
+    $("search").addEventListener("input", (e) => {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => {
+        query = e.target.value;
+        render();
+      }, 120);
     });
 
     // Mostra na hora o último resultado conhecido enquanto atualiza.

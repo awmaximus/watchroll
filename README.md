@@ -25,6 +25,10 @@ funcionando. Só depende da API.
 3. Em cada série, use o seletor para trocar o modo só daquela série. O menu **⋯** oculta a
    série (até sair episódio novo, por 1 semana ou sempre) ou exporta o diagnóstico.
 
+Acima da lista há uma busca por título, que ignora acentos e maiúsculas e abre as seções
+com resultado. Ao lado fica a ordenação dos cards de "Para assistir": lançamento mais
+recente, visto mais recentemente, mais episódios ou título. A escolha fica salva.
+
 A página tem estas seções:
 
 | Seção | O que mostra |
