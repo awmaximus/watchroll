@@ -42,6 +42,10 @@ A página tem estas seções:
 | Em dia | Séries sem nada pendente |
 | Ainda não começadas | Séries da Fila que você nunca assistiu |
 
+Se a Crunchyroll responder HTTP 429 ("muitas requisições"), a extensão espera o tempo que
+ela pedir (cabeçalho `Retry-After`; sem ele, 1 s, 2 s, 4 s, 8 s, até 60 s) e tenta de novo,
+no máximo 4 vezes. A pausa vale para todas as consultas em andamento.
+
 As séries são consultadas em paralelo, até o limite configurado. Dentro de cada série, as
 temporadas são lidas da mais nova para a mais antiga e a busca para assim que encontra
 atividade sua, para não fazer requisições à toa. Se o token vencer no meio da verificação,

@@ -348,3 +348,72 @@ describe("perfis", () => {
     assert.equal(notices.length, 0);
   });
 });
+
+describe("HTTP 429 (muitas requisições)", () => {
+  const tooMany = (retryAfter) =>
+    new Response("{}", { status: 429, headers: retryAfter != null ? { "Retry-After": String(retryAfter) } : {} });
+
+  function setupRetry(responses) {
+    let i = 0;
+    const r = setup(() => responses[Math.min(i++, responses.length - 1)](), { sessionToken: validSession() });
+    const waits = [];
+    r.api.setSleep(async (ms) => waits.push(ms));
+    const notices = [];
+    r.api.setNoticeHandler((m) => notices.push(m));
+    return { ...r, waits, notices };
+  }
+
+  test("espera o Retry-After e tenta de novo", async () => {
+    const { api, waits, notices, requests } = setupRetry([() => tooMany(3), () => json({ data: [{ id: "ok" }] })]);
+    const data = await api.seasons("S", "pt-BR");
+    assert.equal(data[0].id, "ok");
+    assert.equal(requests.length, 2);
+    assert.equal(waits.length, 1);
+    assert.ok(waits[0] > 2500 && waits[0] <= 3000, `esperou ${waits[0]} ms`);
+    assert.match(notices.join(" "), /mais devagar/);
+  });
+
+  test("sem Retry-After: 1 s, 2 s, 4 s…", async () => {
+    const { api, waits } = setupRetry([() => tooMany(), () => tooMany(), () => tooMany(), () => json({ data: [] })]);
+    await api.seasons("S", "pt-BR");
+    assert.equal(waits.length, 3);
+    assert.ok(waits[0] <= 1000 && waits[0] > 900);
+    assert.ok(waits[1] <= 2000 && waits[1] > 1900);
+    assert.ok(waits[2] <= 4000 && waits[2] > 3900);
+  });
+
+  test("desiste depois de 4 novas tentativas", async () => {
+    const { api, requests } = setupRetry([() => tooMany(1)]);
+    await assert.rejects(api.seasons("S", "pt-BR"), /HTTP 429/);
+    assert.equal(requests.length, 5);
+  });
+
+  test("Retry-After como data HTTP e limite de 60 s", () => {
+    const { api } = setup(() => json({}), { sessionToken: validSession() });
+    const now = Date.UTC(2026, 9, 13, 12, 0, 0);
+    assert.equal(api.retryDelayMs(new Date(now + 5000).toUTCString(), 0, now), 5000);
+    assert.equal(api.retryDelayMs("120", 0, now), 60000);
+    assert.equal(api.retryDelayMs("0", 0, now), 1000, "mínimo de 1 s");
+    assert.equal(api.retryDelayMs("lixo", 2, now), 4000, "valor inválido cai no exponencial");
+  });
+
+  test("pausa compartilhada: depois do 429, as outras requisições também esperam", async () => {
+    let first = true;
+    const { api, waits } = setupRetry([
+      () => {
+        if (first) {
+          first = false;
+          return tooMany(2);
+        }
+        return json({ data: [] });
+      },
+    ]);
+    await api.seasons("A", "pt-BR"); // recebe 429, espera ~2 s (simulado), consegue
+    assert.equal(waits.length, 1);
+    // A espera simulada não avança o relógio: a pausa de 2 s ainda vale, então a
+    // próxima requisição (outra série) também tem de esperar antes de sair.
+    await api.seasons("B", "pt-BR");
+    assert.equal(waits.length, 2, "a segunda requisição respeitou a pausa");
+    assert.ok(waits[1] > 1500 && waits[1] <= 2000, `esperou ${waits[1]} ms`);
+  });
+});

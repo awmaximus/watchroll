@@ -47,7 +47,7 @@ var CRApi = (() => {
       headers: req.headers || {},
       body: req.body,
     });
-    return { status: res.status, text: await res.text() };
+    return { status: res.status, text: await res.text(), retryAfter: res.headers.get("retry-after") };
   }
 
   const looksBlocked = (r) =>
@@ -128,7 +128,35 @@ var CRApi = (() => {
     return r;
   }
 
+  // ---------- HTTP 429: espera e tenta de novo ----------
+  // A pausa é compartilhada: com várias séries em paralelo, todas esperam juntas.
+  const RETRY = { attempts: 4, maxWaitMs: 60000 };
+  let cooldownUntil = 0;
+  let sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  function retryDelayMs(retryAfter, attempt, now = Date.now()) {
+    let ms = NaN;
+    if (retryAfter != null && String(retryAfter).trim() !== "") {
+      const v = String(retryAfter).trim();
+      ms = /^\d+(\.\d+)?$/.test(v) ? Number(v) * 1000 : Date.parse(v) - now;
+    }
+    if (!Number.isFinite(ms) || ms < 0) ms = 1000 * 2 ** attempt; // 1 s, 2 s, 4 s, 8 s
+    return Math.min(RETRY.maxWaitMs, Math.max(1000, ms));
+  }
+
   async function send(req) {
+    for (let attempt = 0; ; attempt++) {
+      const wait = cooldownUntil - Date.now();
+      if (wait > 0) await sleep(wait);
+      const r = await sendOnce(req);
+      if (r.status !== 429 || attempt >= RETRY.attempts) return r;
+      const delay = retryDelayMs(r.retryAfter, attempt);
+      cooldownUntil = Math.max(cooldownUntil, Date.now() + delay);
+      onNotice(`A Crunchyroll pediu para ir mais devagar; tentando de novo em ${Math.ceil(delay / 1000)} s…`);
+    }
+  }
+
+  async function sendOnce(req) {
     if (transport === "direct") {
       try {
         const r = await directSend(req);
@@ -342,6 +370,9 @@ var CRApi = (() => {
   return {
     setNoticeHandler: (fn) => (onNotice = fn),
     setAllowOpenTab: (v) => (allowOpenTab = !!v),
+    retryDelayMs,
+    // Para testes: troca a espera por uma função instantânea.
+    setSleep: (fn) => (sleep = fn),
     getAccountId,
     getProfileId,
     profiles,

@@ -47,7 +47,11 @@
         headers: req.headers || {},
         body: req.body || undefined,
       })
-        .then(async (res) => ({ status: res.status, text: await res.text() }))
+        .then(async (res) => ({
+          status: res.status,
+          text: await res.text(),
+          retryAfter: res.headers.get("retry-after"),
+        }))
         .catch((err) => ({ error: String(err && err.message ? err.message : err) }));
     }
   });
