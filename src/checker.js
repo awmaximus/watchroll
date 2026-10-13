@@ -22,6 +22,7 @@ var CRChecker = (() => {
     notify: true,
     showExtras: true,
     showSkipped: false,
+    minStartedSeconds: 60,
     seriesModes: {},
   };
 

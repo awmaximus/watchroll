@@ -78,6 +78,10 @@
     $("set-notify").checked = settings.notify !== false;
     $("set-extras").checked = settings.showExtras !== false;
     $("set-skipped").checked = !!settings.showSkipped;
+    const ms = $("set-minstarted");
+    ms.min = CRAnalyzer.MIN_STARTED.min;
+    ms.max = CRAnalyzer.MIN_STARTED.max;
+    ms.value = CRAnalyzer.minStartedFrom(settings);
   }
 
   // ---------- links ----------
@@ -495,6 +499,12 @@
       settings.showSkipped = e.target.checked;
       await saveSettings();
       refresh(false);
+    });
+    $("set-minstarted").addEventListener("change", async (e) => {
+      settings.minStartedSeconds = CRAnalyzer.minStartedFrom({ minStartedSeconds: e.target.value });
+      e.target.value = settings.minStartedSeconds;
+      await saveSettings();
+      refresh(false); // muda o resultado: o cache dessa regra não serve
     });
     // Só vale para a próxima verificação; não precisa refazer a atual.
     $("set-concurrency").addEventListener("change", async (e) => {

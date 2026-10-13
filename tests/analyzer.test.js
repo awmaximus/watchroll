@@ -964,3 +964,54 @@ describe("episódios pulados", () => {
     assert.equal(count(), 2);
   });
 });
+
+describe("limite de 'começado' configurável", () => {
+  const db = (secs) => ({
+    watchlist: [series("X")],
+    seasons: { X: [{ id: "T", season_sequence_number: 1 }] },
+    episodes: { T: [episode("e1", 1), episode("e2", 2)] },
+    playheads: { e1: playhead("e1", secs, false) },
+  });
+
+  test("com 0, qualquer registro conta (até 0 s)", async () => {
+    const { analyzer } = setup(db(0));
+    const [r] = await analyzer.run({ settings: settings({ minStartedSeconds: 0 }) });
+    assert.equal(r.status, "pending");
+  });
+
+  test("com 300, 2 minutos não contam", async () => {
+    const { analyzer } = setup(db(120));
+    const [r] = await analyzer.run({ settings: settings({ minStartedSeconds: 300 }) });
+    assert.equal(r.status, "never");
+  });
+
+  test("padrão continua 60", async () => {
+    const { analyzer } = setup(db(59));
+    const [r] = await analyzer.run({ settings: settings() });
+    assert.equal(r.status, "never");
+    const { analyzer: a2 } = setup(db(60));
+    const [r2] = await a2.run({ settings: settings() });
+    assert.equal(r2.status, "pending");
+  });
+
+  test("valores inválidos são ajustados", () => {
+    const { analyzer } = setup(db(0));
+    const m = (v) => analyzer.minStartedFrom({ minStartedSeconds: v });
+    assert.equal(m(-10), 0);
+    assert.equal(m(9999), 600);
+    assert.equal(m("90"), 90);
+    assert.equal(m(""), 60);
+    assert.equal(m("abc"), 60);
+    assert.equal(analyzer.minStartedFrom({}), 60);
+  });
+
+  test("mudar o limite invalida o cache", async () => {
+    const { analyzer, calls } = setup(db(120));
+    const count = () => calls.filter((c) => c[0] === "seasons").length;
+    await analyzer.run({ settings: settings() });
+    await analyzer.run({ settings: settings({ minStartedSeconds: 60 }) });
+    assert.equal(count(), 1, "60 explícito = padrão");
+    await analyzer.run({ settings: settings({ minStartedSeconds: 300 }) });
+    assert.equal(count(), 2);
+  });
+});

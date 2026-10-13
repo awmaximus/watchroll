@@ -68,6 +68,11 @@
             <span>Mostrar episódios pulados (anteriores ao último que você viu)</span>
           </label>
           <label>
+            <span>Contar como começado a partir de (segundos)</span>
+            <input id="set-minstarted" type="number" inputmode="numeric" step="5" />
+            <small>A Crunchyroll registra alguns segundos só por abrir a página do episódio. Abaixo deste tempo, o registro é ignorado. Entre 0 e 600.</small>
+          </label>
+          <label>
             <span>Séries consultadas ao mesmo tempo</span>
             <input id="set-concurrency" type="number" inputmode="numeric" step="1" />
             <small>Mais rápido com números maiores. Se aparecerem erros de “muitas requisições” (HTTP 429), diminua. Entre 1 e 16.</small>

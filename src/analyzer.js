@@ -21,7 +21,9 @@ var CRAnalyzer = (() => {
   // A Crunchyroll cria registros de reprodução com poucos segundos (ou zero) só por
   // abrir a página do episódio ou pelo início automático do player. Abaixo disso, o
   // registro é ignorado: não conta como "já comecei a assistir".
-  const MIN_STARTED_SECONDS = 60;
+  // Configurável na página (Configurações → Contar como começado a partir de).
+  const MIN_STARTED = { default: 60, min: 0, max: 600 };
+  const MIN_STARTED_SECONDS = MIN_STARTED.default;
 
   // ---------- utilidades ----------
   function pickImage(images, wanted = 320) {
@@ -123,6 +125,14 @@ var CRAnalyzer = (() => {
     return Math.min(CONCURRENCY.max, Math.max(CONCURRENCY.min, n));
   }
 
+  function minStartedFrom(settings) {
+    const raw = settings ? settings.minStartedSeconds : undefined;
+    if (raw === undefined || raw === null || String(raw).trim() === "") return MIN_STARTED.default;
+    const n = Math.round(Number(raw));
+    if (!Number.isFinite(n)) return MIN_STARTED.default;
+    return Math.min(MIN_STARTED.max, Math.max(MIN_STARTED.min, n));
+  }
+
   async function pool(items, limit, worker) {
     const results = new Array(items.length);
     let next = 0;
@@ -154,6 +164,7 @@ var CRAnalyzer = (() => {
       settings.locale,
       settings.showExtras === false ? "sem-extras" : "",
       settings.showSkipped ? "com-pulados" : "",
+      minStartedFrom(settings),
     ].join("|");
 
   // ---------- Fila ----------
@@ -177,6 +188,7 @@ var CRAnalyzer = (() => {
     const now = Date.now();
     const { locale, dubLang } = settings;
     const subLang = settings.subLang || "pt-BR";
+    const minStarted = minStartedFrom(settings);
     const seasons = sortSeasons(await api.seasons(entry.seriesId, locale));
 
     const ordered = [];
@@ -265,7 +277,7 @@ var CRAnalyzer = (() => {
         for (const id of versionIds(ep)) {
           const p = ph.get(id);
           if (!p) continue;
-          if (!p.fully_watched && (p.playhead || 0) < MIN_STARTED_SECONDS) continue;
+          if (!p.fully_watched && (p.playhead || 0) < minStarted) continue;
           started = true;
           maxPos = Math.max(maxPos, p.playhead || 0);
           if (p.fully_watched) fully = true;
@@ -506,5 +518,5 @@ var CRAnalyzer = (() => {
     return result;
   }
 
-  return { run, runOne, cacheScope, diagnose, sanitize, extraKind, CONCURRENCY, concurrencyFrom, MIN_STARTED_SECONDS };
+  return { run, runOne, cacheScope, diagnose, sanitize, extraKind, CONCURRENCY, concurrencyFrom, MIN_STARTED, MIN_STARTED_SECONDS, minStartedFrom };
 })();
