@@ -144,6 +144,10 @@ var CRAnalyzer = (() => {
     let anyActivity = false;
     let dubMissingSomewhere = false;
     let waitingDubLatest = 0;
+    // Modo dublado: a temporada mais recente tem algum episódio no idioma escolhido?
+    // null = ainda não examinada. false = não tem nenhum ("sem dublagem", não
+    // "aguardando": a dublagem pode nunca sair).
+    let latestHasDub = null;
 
     for (let i = seasons.length - 1, back = 0; i >= 0 && back < MAX_SEASONS_BACK; i--, back++) {
       const season = seasons[i];
@@ -174,6 +178,10 @@ var CRAnalyzer = (() => {
         .filter((e) => !e.is_clip)
         .sort((a, b) => (a.sequence_number ?? 0) - (b.sequence_number ?? 0));
       if (!eps.length) continue;
+
+      if (mode === "dub" && latestHasDub === null) {
+        latestHasDub = eligible && eps.some((e) => isInAudio(e, dubLang));
+      }
 
       const ids = [];
       for (const ep of eps) ids.push(...versionIds(ep));
@@ -288,6 +296,7 @@ var CRAnalyzer = (() => {
       pending,
       waitingDub: waitingDub + waitingDubLatest,
       dubMissing: mode === "dub" && dubMissingSomewhere,
+      noDub: mode === "dub" && latestHasDub === false,
       lastWatchedAt: last.lastMod || 0,
     };
   }

@@ -654,3 +654,84 @@ describe("registros de reprodução curtos (dados reais: No Longer Allowed in An
     assert.deepEqual(ids(r), []);
   });
 });
+
+describe("sem dublagem × aguardando dublagem", () => {
+  test("No Longer Allowed (sem nenhum episódio pt-BR): noDub, com os legendados contados", async () => {
+    const eps = require("./fixtures/no-longer-allowed-s1-episodes.json").data;
+    const season = {
+      id: "G6WEC315N",
+      season_sequence_number: 1,
+      versions: [{ guid: "G6WEC315N", audio_locale: "ja-JP", original: true }],
+    };
+    const { analyzer } = setup({
+      watchlist: [series("GXJHM3G7X")],
+      seasons: { GXJHM3G7X: [season] },
+      episodes: { G6WEC315N: eps },
+      playheads: Object.fromEntries(eps.slice(0, 5).map((e) => [e.id, playhead(e.id, 1420, true)])),
+    });
+    const [r] = await analyzer.run({ settings: settings({ defaultMode: "dub" }) });
+    assert.equal(r.status, "uptodate");
+    assert.equal(r.noDub, true);
+    assert.equal(r.waitingDub, 7);
+  });
+
+  test("Tanya T2 (dublagem pt-BR existe, falta o 12): aguardando, não 'sem dublagem'", async () => {
+    const fixture = require("./fixtures/tanya-s2-ptbr-episodes.json").data;
+    const season = {
+      id: "GS00380130JAJP",
+      season_sequence_number: 4,
+      versions: [
+        { guid: "GS00380130JAJP", audio_locale: "ja-JP", original: true },
+        { guid: "GS00380130PTBR", audio_locale: "pt-BR", original: false },
+      ],
+    };
+    const ph = Object.fromEntries(
+      fixture.slice(0, 11).map((e) => {
+        const pt = e.versions.find((v) => v.audio_locale === "pt-BR");
+        return [pt.guid, playhead(pt.guid, 1500, true)];
+      })
+    );
+    const { analyzer } = setup({
+      watchlist: [series("GR9P57W96")],
+      seasons: { GR9P57W96: [season] },
+      episodes: { GS00380130PTBR: fixture, GS00380130JAJP: [] },
+      playheads: ph,
+    });
+    const [r] = await analyzer.run({ settings: settings({ defaultMode: "dub" }) });
+    assert.equal(r.noDub, false);
+    assert.equal(r.waitingDub, 1);
+  });
+
+  test("lista dublada que só traz episódios no áudio original também é 'sem dublagem'", async () => {
+    const season = {
+      id: "SJ",
+      season_sequence_number: 1,
+      versions: [
+        { guid: "SJ", audio_locale: "ja-JP", original: true },
+        { guid: "SP", audio_locale: "pt-BR" },
+      ],
+    };
+    const { analyzer } = setup({
+      watchlist: [series("Z")],
+      seasons: { Z: [season] },
+      episodes: { SP: [episode("j1", 1), episode("j2", 2)], SJ: [episode("j1", 1), episode("j2", 2)] },
+      playheads: { j1: playhead("j1", FULL, true) },
+    });
+    const [r] = await analyzer.run({ settings: settings({ defaultMode: "dub" }) });
+    assert.equal(r.noDub, true);
+  });
+
+  test("fora do modo dublado, noDub é sempre falso", async () => {
+    const eps = require("./fixtures/no-longer-allowed-s1-episodes.json").data;
+    const { analyzer } = setup({
+      watchlist: [series("GXJHM3G7X")],
+      seasons: { GXJHM3G7X: [{ id: "G6WEC315N", season_sequence_number: 1 }] },
+      episodes: { G6WEC315N: eps },
+      playheads: { [eps[0].id]: playhead(eps[0].id, 1420, true) },
+    });
+    for (const mode of ["sub", "auto"]) {
+      const [r] = await analyzer.run({ settings: settings({ defaultMode: mode }), force: true });
+      assert.equal(r.noDub, false, mode);
+    }
+  });
+});

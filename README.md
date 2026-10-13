@@ -26,7 +26,8 @@ A página tem estas seções:
 | Seção | O que mostra |
 |---|---|
 | Para assistir | Episódios liberados depois do último que você viu, com progresso dos que estão pela metade |
-| Aguardando dublagem | Séries em modo dublado com episódios que já saíram, mas ainda só legendados |
+| Aguardando dublagem | Séries em modo dublado com episódios que já saíram, mas ainda só legendados (a temporada já tem dublagem no seu idioma) |
+| Sem dublagem em … | Séries em modo dublado cuja temporada atual não tem **nenhum** episódio no seu idioma; o botão "Ver legendado" troca o modo |
 | Não consegui verificar | Séries que deram erro na consulta |
 | Em dia | Séries sem nada pendente |
 | Ainda não começadas | Séries da Fila que você nunca assistiu |

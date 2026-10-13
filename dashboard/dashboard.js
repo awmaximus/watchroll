@@ -191,7 +191,7 @@
     );
   }
 
-  function row(s, note) {
+  function row(s, note, extraButton = null) {
     return el(
       "li",
       { class: "row", "data-series": s.seriesId },
@@ -200,11 +200,13 @@
         "div",
         { class: "row-text" },
         el("a", { href: seriesUrl(s), target: "_blank", rel: "noopener", text: s.title }),
-        note ? el("small", { text: note }) : null
+        note ? el("small", { text: note, title: note }) : null
       ),
-      el("div", { class: "row-actions" }, modeSelect(s), actionsSelect(s))
+      el("div", { class: "row-actions" }, extraButton, modeSelect(s), actionsSelect(s))
     );
   }
+
+  const plural = (n, one, many) => (n === 1 ? `1 ${one}` : `${n} ${many}`);
 
   function section(title, count, content, { open = true, id } = {}) {
     return el(
@@ -221,7 +223,10 @@
 
   function render() {
     const pending = results.filter((r) => r.status === "pending").sort((a, b) => maxAvail(b) - maxAvail(a));
-    const waiting = results.filter((r) => r.status === "uptodate" && r.waitingDub).sort(byTitle);
+    // Sem dublagem: a temporada atual não tem nenhum episódio no idioma escolhido
+    // (a dublagem pode nunca sair). Aguardando: a dublagem existe e está atrasada.
+    const noDub = results.filter((r) => r.status === "uptodate" && r.noDub && r.waitingDub).sort(byTitle);
+    const waiting = results.filter((r) => r.status === "uptodate" && !r.noDub && r.waitingDub).sort(byTitle);
     const upToDate = results.filter((r) => r.status === "uptodate" && !r.waitingDub).sort(byTitle);
     const never = results.filter((r) => r.status === "never").sort(byTitle);
     const errors = results.filter((r) => r.status === "error").sort(byTitle);
@@ -256,6 +261,31 @@
         )
       );
     }
+    if (noDub.length) {
+      parts.push(
+        section(
+          `Sem dublagem em ${langName(settings.dubLang)}`,
+          noDub.length,
+          el(
+            "ul",
+            { class: "rows" },
+            noDub.map((s) =>
+              row(
+                s,
+                `Temporada atual sem dublagem ${settings.dubLang} · ${plural(s.waitingDub, "episódio legendado", "episódios legendados")} para ver`,
+                el("button", {
+                  class: "btn ghost small",
+                  type: "button",
+                  text: "Ver legendado",
+                  title: "Muda esta série para o modo legendado",
+                  onclick: () => changeMode(s, "sub"),
+                })
+              )
+            )
+          )
+        )
+      );
+    }
     if (errors.length) {
       parts.push(
         section(
@@ -273,7 +303,7 @@
           "ul",
           { class: "rows" },
           upToDate.map((s) =>
-            row(s, s.dubMissing ? `Sem dublagem ${settings.dubLang} nesta temporada` : null)
+            row(s, s.noDub ? `Sem dublagem ${settings.dubLang} na temporada atual` : null)
           )
         ),
         { open: false }
