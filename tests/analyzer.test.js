@@ -896,3 +896,24 @@ describe("especiais e recapitulações", () => {
     assert.equal(CRChecker.summarize([r]).episodes, 0);
   });
 });
+
+test("cache separado por perfil: trocar de perfil recalcula", async () => {
+  let profile = "p1";
+  let seasonsCalls = 0;
+  const CRApi = {
+    getAccountId: async () => "conta",
+    getProfileId: async () => profile,
+    watchlist: async () => [series("A")],
+    seasons: async () => (seasonsCalls++, [{ id: "T", season_sequence_number: 1 }]),
+    episodes: async () => [episode("e1", 1)],
+    playheads: async () => new Map(),
+  };
+  const ctx = load(["src/analyzer.js"], { browser: fakeBrowser(), CRApi });
+  assert.equal(await ctx.CRAnalyzer.cacheScope(), "conta:p1");
+  await ctx.CRAnalyzer.run({ settings: settings() });
+  await ctx.CRAnalyzer.run({ settings: settings() });
+  assert.equal(seasonsCalls, 1, "mesmo perfil: do cache");
+  profile = "p2";
+  await ctx.CRAnalyzer.run({ settings: settings() });
+  assert.equal(seasonsCalls, 2, "outro perfil: recalcula");
+});

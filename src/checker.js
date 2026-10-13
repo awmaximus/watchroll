@@ -86,14 +86,20 @@ var CRChecker = (() => {
    * aparecido antes. Na primeira vez (nada guardado), só registra: não há "novo".
    * Com notify, mostra uma notificação dos novos (se a preferência permitir).
    */
-  async function record(results, { notify = false, settings = DEFAULT_SETTINGS, b = browser } = {}) {
+  async function record(results, { notify = false, settings = DEFAULT_SETTINGS, scope = "", b = browser } = {}) {
     const items = pendingItems(results);
-    const stored = (await b.storage.local.get(SEEN_KEY))[SEEN_KEY];
+    // "Já visto" é por perfil (scope): trocar de perfil não notifica os episódios
+    // do outro perfil. Formato antigo (lista simples) vale como escopo "".
+    let all = (await b.storage.local.get(SEEN_KEY))[SEEN_KEY];
+    if (Array.isArray(all)) all = { "": all };
+    all = all || {};
+    const stored = all[scope];
     const prev = new Set(stored || []);
     const fresh = stored ? items.filter((i) => !prev.has(i.key)) : [];
+    all[scope] = items.map((i) => i.key);
     await b.storage.local.set({
-      [SEEN_KEY]: items.map((i) => i.key),
-      [LAST_KEY]: { at: Date.now(), results },
+      [SEEN_KEY]: all,
+      [LAST_KEY]: { at: Date.now(), results, scope },
     });
     await updateBadge(results, b);
     if (notify && settings.notify !== false && fresh.length && b.notifications) {
@@ -120,7 +126,8 @@ var CRChecker = (() => {
       const settings = await loadSettings(b);
       try {
         const results = await analyzer.run({ settings });
-        const fresh = await record(results, { notify: true, settings, b });
+        const scope = analyzer.cacheScope ? await analyzer.cacheScope() : "";
+        const fresh = await record(results, { notify: true, settings, scope, b });
         return { ok: true, results, fresh };
       } catch (err) {
         // Sem sessão, sem aba para a ponte, offline...: tenta de novo no próximo alarme.

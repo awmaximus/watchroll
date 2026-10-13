@@ -375,7 +375,8 @@
       results = await CRAnalyzer.run({ settings, force, onProgress: setProgress });
       render();
       // O que está na tela conta como visto: não vira notificação depois.
-      await CRChecker.record(results);
+      await CRChecker.record(results, { scope: await CRAnalyzer.cacheScope() });
+      showProfile();
     } catch (err) {
       console.error("[Novos Episódios]", err);
       $("status").textContent = "";
@@ -419,6 +420,17 @@
     }
   }
 
+  // Nome do perfil no topo, só se a conta tiver mais de um perfil.
+  async function showProfile() {
+    try {
+      const [list, id] = await Promise.all([CRApi.profiles(), CRApi.getProfileId()]);
+      const current = list.find((p) => p.profile_id === id) || list.find((p) => p.is_selected);
+      $("profile").textContent = list.length > 1 && current ? ` · perfil ${current.profile_name}` : "";
+    } catch (_) {
+      $("profile").textContent = ""; // informação extra; sem ela a página funciona igual
+    }
+  }
+
   async function changeMode(s, value) {
     if (busy) {
       render(); // verificação completa em andamento: desfaz a mudança na tela
@@ -434,7 +446,7 @@
     try {
       const updated = await CRAnalyzer.runOne(s, settings);
       results = results.map((r) => (r.seriesId === s.seriesId ? updated : r));
-      await CRChecker.record(results);
+      await CRChecker.record(results, { scope: await CRAnalyzer.cacheScope() });
     } finally {
       await CRApi.release();
       render();

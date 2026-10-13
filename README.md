@@ -117,6 +117,10 @@ navegador.
 - **Token próprio.** Se não houver token recente, a extensão pede um em `/auth/v1/token`
   com `grant_type=etp_rt_cookie`. É o mesmo pedido que o site faz ao carregar, usando o
   cookie da sua sessão.
+- **Perfis.** O histórico é por perfil, e o perfil vem do token. Por isso a extensão prefere
+  o token do site, que é o do perfil aberto no navegador. Cache, "já visto" e último resultado
+  são guardados por perfil. Se a conta tiver mais de um perfil, o nome dele aparece no topo
+  da página. Se a extensão precisar usar uma sessão própria de outro perfil, ela avisa.
 - **Acesso direto ou pela ponte.** A página da extensão tenta falar direto com a API. Se o
   Cloudflare bloquear, ela passa as requisições por uma aba do crunchyroll.com, usando
   `src/bridge.js`. Se não houver aba aberta, abre uma em segundo plano e a fecha no fim.

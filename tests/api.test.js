@@ -299,3 +299,52 @@ test("em segundo plano (sem permissão de abrir abas), não abre aba para a pont
   await assert.rejects(api.seasons("S", "pt-BR"), /Nenhuma aba do crunchyroll\.com aberta/);
   assert.equal(created, 0);
 });
+
+describe("perfis", () => {
+  test("o perfil vem do token em uso (claim profile_id)", async () => {
+    const { api } = setup(() => json({ data: [] }), { sessionToken: validSession({ account_id: ACC, profile_id: "perfil-site" }) });
+    assert.equal(await api.getProfileId(), "perfil-site");
+  });
+
+  test("lista os perfis da conta", async () => {
+    const { api, requests } = setup(
+      () => json({ profiles: [{ profile_id: "p1", profile_name: "Ana" }, { profile_id: "p2", profile_name: "Beto" }] }),
+      { sessionToken: validSession() }
+    );
+    const list = await api.profiles();
+    assert.deepEqual(plain(list.map((p) => p.profile_name)), ["Ana", "Beto"]);
+    assert.match(requests[0].url, /\/accounts\/v1\/me\/multiprofile$/);
+  });
+
+  test("avisa quando o token próprio é de outro perfil que o aberto no site", async () => {
+    const browser = fakeBrowser();
+    browser.storage.local.data.crSiteProfile = "perfil-site";
+    const { api } = setup(
+      (url) =>
+        url.endsWith("/auth/v1/token")
+          ? json({ access_token: jwt({ profile_id: "outro-perfil", exp: 9999999999 }), account_id: ACC })
+          : json({ data: [] }),
+      { browser }
+    );
+    const notices = [];
+    api.setNoticeHandler((m) => notices.push(m));
+    await api.watchlist("pt-BR");
+    assert.match(notices.join(" "), /outro perfil/);
+  });
+
+  test("não avisa quando o perfil é o mesmo", async () => {
+    const browser = fakeBrowser();
+    browser.storage.local.data.crSiteProfile = "perfil-site";
+    const { api } = setup(
+      (url) =>
+        url.endsWith("/auth/v1/token")
+          ? json({ access_token: jwt({ profile_id: "perfil-site", exp: 9999999999 }), account_id: ACC })
+          : json({ data: [] }),
+      { browser }
+    );
+    const notices = [];
+    api.setNoticeHandler((m) => notices.push(m));
+    await api.watchlist("pt-BR");
+    assert.equal(notices.length, 0);
+  });
+});

@@ -372,8 +372,15 @@ var CRAnalyzer = (() => {
   }
 
   // ---------- execução completa ----------
-  async function run({ settings, force = false, onProgress = () => {} }) {
+  // Cache separado por conta e perfil (o histórico é do perfil).
+  async function cacheScope() {
     const accountId = await CRApi.getAccountId();
+    const profileId = CRApi.getProfileId ? await CRApi.getProfileId() : "";
+    return profileId ? `${accountId}:${profileId}` : accountId;
+  }
+
+  async function run({ settings, force = false, onProgress = () => {} }) {
+    const accountId = await cacheScope();
     const items = (await CRApi.watchlist(settings.locale)).map(normalizeItem).filter(Boolean);
     const unique = [...new Map(items.map((i) => [i.seriesId, i])).values()];
 
@@ -474,7 +481,7 @@ var CRAnalyzer = (() => {
 
   // Reanalisa uma série só (ex.: depois de trocar o modo de áudio dela).
   async function runOne(entry, settings) {
-    const accountId = await CRApi.getAccountId();
+    const accountId = await cacheScope();
     const result = await analyzeSafe(entry, settings);
     if (result.status !== "error") {
       const cache = await loadCache(accountId);
@@ -484,5 +491,5 @@ var CRAnalyzer = (() => {
     return result;
   }
 
-  return { run, runOne, diagnose, sanitize, extraKind, CONCURRENCY, concurrencyFrom, MIN_STARTED_SECONDS };
+  return { run, runOne, cacheScope, diagnose, sanitize, extraKind, CONCURRENCY, concurrencyFrom, MIN_STARTED_SECONDS };
 })();

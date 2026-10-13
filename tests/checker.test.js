@@ -210,3 +210,41 @@ describe("segundo plano", () => {
     assert.deepEqual(b.opened, ["moz-extension://x/dashboard/dashboard.html"]);
   });
 });
+
+describe("perfis no registro de novidades", () => {
+  test("cada perfil tem seu 'já visto': trocar de perfil não notifica em massa", async () => {
+    const b = richBrowser();
+    const { CRChecker } = load(["src/checker.js"], { browser: b });
+    await CRChecker.record([pending("A", "Série A", [ep("a1", 1)])], { scope: "conta:p1" });
+    const fresh = await CRChecker.record([pending("Z", "Série Z", [ep("z1", 1)])], { notify: true, scope: "conta:p2" });
+    assert.equal(fresh.length, 0, "primeira vez no perfil 2 só registra");
+    assert.equal(b.notified.length, 0);
+    const again = await CRChecker.record([pending("A", "Série A", [ep("a1", 1), ep("a2", 2)])], {
+      notify: true,
+      scope: "conta:p1",
+    });
+    assert.deepEqual(plain(again.map((f) => f.key)), ["A:a2"]);
+  });
+
+  test("formato antigo do 'já visto' (lista simples) continua valendo", async () => {
+    const b = richBrowser();
+    b.storage.local.data["crnovos:seen"] = ["A:a1"];
+    const { CRChecker } = load(["src/checker.js"], { browser: b });
+    const fresh = await CRChecker.record([pending("A", "Série A", [ep("a1", 1), ep("a2", 2)])], { notify: true });
+    assert.deepEqual(plain(fresh.map((f) => f.key)), ["A:a2"]);
+  });
+});
+
+test("segundo plano guarda o perfil aberto no site a partir do token capturado", async () => {
+  const b = richBrowser();
+  const quiet = { ...console, warn: () => {} };
+  load(["src/checker.js", "src/background.js"], { browser: b, CRAnalyzer: {}, CRApi: {}, console: quiet, atob });
+  const payload = Buffer.from(JSON.stringify({ profile_id: "perfil-site", exp: 9999999999 })).toString("base64url");
+  const token = `x.${payload}.y`;
+  await b.runtime.onMessage.fire({ type: "crnovos-token", token }, { url: "https://www.crunchyroll.com/pt-br" });
+  assert.equal(b.storage.local.data.crSiteProfile, "perfil-site");
+  assert.equal(b.storage.session.data.crToken.token, token);
+  // De outra origem, ignora.
+  await b.runtime.onMessage.fire({ type: "crnovos-token", token: "a.b.c" }, { url: "https://example.com/" });
+  assert.equal(b.storage.session.data.crToken.token, token);
+});

@@ -26,6 +26,15 @@ if (browser.notifications) {
   });
 }
 
+function jwtProfile(token) {
+  try {
+    const p = JSON.parse(atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")));
+    return typeof p.profile_id === "string" ? p.profile_id : "";
+  } catch (_) {
+    return "";
+  }
+}
+
 function jwtExp(token) {
   try {
     const p = JSON.parse(atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")));
@@ -38,9 +47,13 @@ browser.runtime.onMessage.addListener((msg, sender) => {
   if (msg && msg.type === "crnovos-token" && typeof msg.token === "string") {
     // Só aceita vindo de uma aba da Crunchyroll.
     if (!sender.url || !sender.url.startsWith("https://www.crunchyroll.com/")) return;
-    return browser.storage.session.set({
-      crToken: { token: msg.token, exp: jwtExp(msg.token), at: Date.now() },
-    });
+    const profile = jwtProfile(msg.token);
+    return Promise.all([
+      browser.storage.session.set({ crToken: { token: msg.token, exp: jwtExp(msg.token), at: Date.now() } }),
+      // Perfil aberto no site (persistente): serve para avisar se a extensão acabar
+      // usando uma sessão de outro perfil.
+      profile ? browser.storage.local.set({ crSiteProfile: profile }) : null,
+    ]);
   }
 });
 

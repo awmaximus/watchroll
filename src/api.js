@@ -207,7 +207,37 @@ var CRApi = (() => {
     const data = JSON.parse(r.text);
     token = { value: data.access_token, exp: Date.now() + (data.expires_in || 300) * 1000 };
     if (isUuidish(data.account_id)) accountId = data.account_id;
+    await warnIfOtherProfile(token.value);
     return token.value;
+  }
+
+  // ---------- perfis ----------
+  // O perfil vem do token (claim profile_id). O token capturado do site é o do perfil
+  // aberto no navegador; o background guarda esse perfil em crSiteProfile.
+  const profileOf = (t) => {
+    const p = (t && jwtPayload(t)) || {};
+    return typeof p.profile_id === "string" ? p.profile_id : "";
+  };
+
+  async function warnIfOtherProfile(t) {
+    try {
+      const { crSiteProfile } = await browser.storage.local.get("crSiteProfile");
+      const mine = profileOf(t);
+      if (crSiteProfile && mine && crSiteProfile !== mine) {
+        onNotice(
+          "A sessão usada agora é de outro perfil da conta. Abra crunchyroll.com no perfil que você usa e clique em Atualizar."
+        );
+      }
+    } catch (_) {}
+  }
+
+  async function getProfileId() {
+    return profileOf(await getToken());
+  }
+
+  async function profiles() {
+    const r = await get("/accounts/v1/me/multiprofile");
+    return Array.isArray(r.profiles) ? r.profiles : [];
   }
 
   async function getToken({ forceNew = false } = {}) {
@@ -305,6 +335,8 @@ var CRApi = (() => {
     setNoticeHandler: (fn) => (onNotice = fn),
     setAllowOpenTab: (v) => (allowOpenTab = !!v),
     getAccountId,
+    getProfileId,
+    profiles,
     watchlist,
     seasons,
     episodes,
