@@ -544,10 +544,42 @@ var CRAnalyzer = (() => {
     return profileId ? `${accountId}:${profileId}` : accountId;
   }
 
+  // Séries/filmes com atividade real no histórico (parent_id -> último play).
+  // Registros curtos (abaixo do limite de "começado") não contam.
+  function historyActivity(history, settings) {
+    const map = new Map();
+    if (!history) return map;
+    const min = minStartedFrom(settings);
+    for (const h of history.entries || []) {
+      if (!h || !h.parent_id) continue;
+      if (!h.fully_watched && (h.playhead || 0) < min) continue;
+      const at = Date.parse(h.date_played || "") || 0;
+      map.set(h.parent_id, Math.max(map.get(h.parent_id) || 0, at));
+    }
+    return map;
+  }
+
+  async function loadHistory(settings) {
+    if (!CRApi.watchHistory) return null;
+    try {
+      return await CRApi.watchHistory(settings.locale);
+    } catch (err) {
+      console.warn("[Novos Episódios] histórico indisponível, seguindo sem ele:", err);
+      return null;
+    }
+  }
+
+  // Atalho seguro para "nunca assistida": o histórico foi lido até o fim, a série
+  // não aparece nele com atividade E a própria Crunchyroll diz never_watched.
+  const surelyNever = (entry, history, activity) =>
+    !!(history && history.complete && entry.neverWatchedFlag && !activity.has(entry.seriesId));
+
   async function run({ settings, force = false, onProgress = () => {} }) {
     const accountId = await cacheScope();
     const items = (await CRApi.watchlist(settings.locale)).map(normalizeItem).filter(Boolean);
     const unique = [...new Map(items.map((i) => [i.seriesId, i])).values()];
+    const history = await loadHistory(settings);
+    const activity = historyActivity(history, settings);
 
     const cache = force ? {} : await loadCache(accountId);
     let done = 0;
@@ -559,6 +591,9 @@ var CRAnalyzer = (() => {
       let result;
       if (hit && hit.signature === sig && Date.now() - hit.checkedAt < CACHE_TTL) {
         result = { ...hit, title: entry.title, image: hit.image || entry.image };
+      } else if (surelyNever(entry, history, activity)) {
+        const mode = modeFor(entry.seriesId, settings);
+        result = { ...entry, kind: entry.kind, mode, checkedAt: Date.now(), signature: sig, status: "never", pending: [], viaHistory: true };
       } else {
         result = await analyzeSafe(entry, settings);
         if (result.status !== "error") cache[entry.seriesId] = result;
@@ -667,5 +702,5 @@ var CRAnalyzer = (() => {
     return result;
   }
 
-  return { run, runOne, cacheScope, diagnose, sanitize, extraKind, CONCURRENCY, concurrencyFrom, MIN_STARTED, MIN_STARTED_SECONDS, minStartedFrom };
+  return { run, runOne, cacheScope, historyActivity, diagnose, sanitize, extraKind, CONCURRENCY, concurrencyFrom, MIN_STARTED, MIN_STARTED_SECONDS, minStartedFrom };
 })();

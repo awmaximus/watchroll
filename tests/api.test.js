@@ -417,3 +417,33 @@ describe("HTTP 429 (muitas requisições)", () => {
     assert.ok(waits[1] > 1500 && waits[1] <= 2000, `esperou ${waits[1]} ms`);
   });
 });
+
+describe("histórico de reprodução (watch-history)", () => {
+  test("pagina até next_page vazio e marca como completo", async () => {
+    const { api, requests } = setup(
+      (url) => {
+        const page = Number(new URL(url).searchParams.get("page"));
+        return json({
+          data: Array.from({ length: page < 3 ? 100 : 40 }, (_, i) => ({ id: `e${page}-${i}`, parent_id: "S" })),
+          meta: { next_page: page < 3 ? `/x?page=${page + 1}` : "" },
+        });
+      },
+      { sessionToken: validSession() }
+    );
+    const h = await api.watchHistory("pt-BR");
+    assert.equal(h.entries.length, 240);
+    assert.equal(h.complete, true);
+    assert.deepEqual(plain(requests.map((r) => new URL(r.url).searchParams.get("page"))), ["1", "2", "3"]);
+    assert.match(requests[0].url, new RegExp(`/content/v2/${ACC}/watch-history`));
+  });
+
+  test("para no limite de páginas e marca como incompleto", async () => {
+    const { api } = setup(
+      () => json({ data: Array.from({ length: 100 }, (_, i) => ({ id: `e${i}` })), meta: { next_page: "/mais" } }),
+      { sessionToken: validSession() }
+    );
+    const h = await api.watchHistory("pt-BR", { maxPages: 2 });
+    assert.equal(h.entries.length, 200);
+    assert.equal(h.complete, false);
+  });
+});

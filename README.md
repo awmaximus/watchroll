@@ -42,6 +42,13 @@ A página tem estas seções:
 | Em dia | Séries sem nada pendente |
 | Ainda não começadas | Séries da Fila que você nunca assistiu |
 
+Antes de analisar as séries, a extensão lê o seu histórico de reprodução
+(`/content/v2/{conta}/watch-history`, até 10 páginas de 100). Uma série vai direto para "Ainda
+não começadas", sem nenhuma outra consulta, só quando três condições valem juntas: o histórico
+foi lido até o fim, a série não aparece nele com atividade real e a própria Crunchyroll
+também a marca como nunca vista. Em qualquer outro caso, inclusive se o histórico falhar, a
+análise completa é feita.
+
 Se a Crunchyroll responder HTTP 429 ("muitas requisições"), a extensão espera o tempo que
 ela pedir (cabeçalho `Retry-After`; sem ele, 1 s, 2 s, 4 s, 8 s, até 60 s) e tenta de novo,
 no máximo 4 vezes. A pausa vale para todas as consultas em andamento.

@@ -335,6 +335,26 @@ var CRApi = (() => {
   const episodes = (seasonId, locale) =>
     get(`/content/v2/cms/seasons/${seasonId}/episodes`, { locale }).then((r) => r.data || []);
 
+  // Histórico de reprodução (do perfil do token). complete=false se parou no limite
+  // de páginas antes do fim: nesse caso, ausência no histórico não prova nada.
+  async function watchHistory(locale, { pageSize = 100, maxPages = 10 } = {}) {
+    const acc = await getAccountId();
+    const entries = [];
+    for (let page = 1; page <= maxPages; page++) {
+      const r = await get(`/content/v2/${acc}/watch-history`, { page, page_size: pageSize, locale });
+      const data = r.data || [];
+      entries.push(...data);
+      const next = r.meta && r.meta.next_page;
+      const done =
+        data.length < pageSize ||
+        next === "" ||
+        next === null ||
+        (next === undefined && typeof r.total === "number" && entries.length >= r.total);
+      if (done) return { entries, complete: true };
+    }
+    return { entries, complete: false };
+  }
+
   async function movieListing(id, locale) {
     const r = await get(`/content/v2/cms/movie_listings/${id}`, { locale });
     return (r.data || [])[0] || null;
@@ -377,6 +397,7 @@ var CRApi = (() => {
     getProfileId,
     profiles,
     watchlist,
+    watchHistory,
     seasons,
     episodes,
     movieListing,
