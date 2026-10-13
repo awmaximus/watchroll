@@ -1,9 +1,8 @@
 // Página da extensão: lista o que falta assistir e guarda as preferências.
 // Conteúdo vindo da API entra sempre por textContent/atributos (nada de innerHTML).
 
-/* global browser, CRApi, CRAnalyzer */
+/* global browser, CRApi, CRAnalyzer, CRChecker */
 (() => {
-  const SETTINGS_KEY = "crnovos:settings";
   const LANGS = [
     ["pt-BR", "Português (Brasil)"],
     ["es-419", "Espanhol (América Latina)"],
@@ -19,15 +18,7 @@
   const langName = (code) => (LANGS.find(([c]) => c === code) || [code, code])[1];
   const MAX_EPS = 5;
 
-  const DEFAULTS = {
-    locale: "pt-BR",
-    dubLang: "pt-BR",
-    subLang: "pt-BR",
-    defaultMode: "sub",
-    concurrency: CRAnalyzer.CONCURRENCY.default,
-    seriesModes: {},
-  };
-  let settings = { ...DEFAULTS };
+  let settings = { ...CRChecker.DEFAULT_SETTINGS };
   let results = [];
   let busy = false;
 
@@ -48,10 +39,9 @@
 
   // ---------- preferências ----------
   async function loadSettings() {
-    const saved = (await browser.storage.local.get(SETTINGS_KEY))[SETTINGS_KEY] || {};
-    settings = { ...DEFAULTS, ...saved, seriesModes: { ...(saved.seriesModes || {}) } };
+    settings = await CRChecker.loadSettings();
   }
-  const saveSettings = () => browser.storage.local.set({ [SETTINGS_KEY]: settings });
+  const saveSettings = () => CRChecker.saveSettings(settings);
 
   const shortMode = (m) => (m === "dub" ? `dublado ${settings.dubLang}` : m === "sub" ? "legendado" : "qualquer áudio");
 
@@ -77,6 +67,15 @@
     conc.min = CRAnalyzer.CONCURRENCY.min;
     conc.max = CRAnalyzer.CONCURRENCY.max;
     conc.value = CRAnalyzer.concurrencyFrom(settings);
+    fillSelect(
+      $("set-auto"),
+      CRChecker.AUTO_CHECK_OPTIONS.map((m) => [
+        String(m),
+        m === 0 ? "Desligado" : m < 60 ? `A cada ${m} minutos` : m === 60 ? "A cada hora" : `A cada ${m / 60} horas`,
+      ]),
+      String(CRChecker.autoCheckMinutes(settings))
+    );
+    $("set-notify").checked = settings.notify !== false;
   }
 
   // ---------- links ----------
@@ -363,6 +362,8 @@
       setProgress(0, 0);
       results = await CRAnalyzer.run({ settings, force, onProgress: setProgress });
       render();
+      // O que está na tela conta como visto: não vira notificação depois.
+      await CRChecker.record(results);
     } catch (err) {
       console.error("[Novos Episódios]", err);
       $("status").textContent = "";
@@ -421,6 +422,7 @@
     try {
       const updated = await CRAnalyzer.runOne(s, settings);
       results = results.map((r) => (r.seriesId === s.seriesId ? updated : r));
+      await CRChecker.record(results);
     } finally {
       await CRApi.release();
       render();
@@ -448,12 +450,27 @@
     $("set-sub").addEventListener("change", onSetting("subLang"));
     $("set-mode").addEventListener("change", onSetting("defaultMode"));
     $("set-locale").addEventListener("change", onSetting("locale"));
+    $("set-auto").addEventListener("change", async (e) => {
+      settings.autoCheckMinutes = Number(e.target.value);
+      await saveSettings(); // o segundo plano reagenda ao ver a mudança
+    });
+    $("set-notify").addEventListener("change", async (e) => {
+      settings.notify = e.target.checked;
+      await saveSettings();
+    });
     // Só vale para a próxima verificação; não precisa refazer a atual.
     $("set-concurrency").addEventListener("change", async (e) => {
       settings.concurrency = CRAnalyzer.concurrencyFrom({ concurrency: e.target.value });
       e.target.value = settings.concurrency;
       await saveSettings();
     });
+
+    // Mostra na hora o último resultado conhecido enquanto atualiza.
+    const last = await CRChecker.lastResults();
+    if (last && Array.isArray(last.results)) {
+      results = last.results;
+      render();
+    }
 
     refresh(false);
   }

@@ -25,6 +25,8 @@ var CRApi = (() => {
   let token = null; // { value, exp }
   let accountId = null;
   let onNotice = () => {};
+  // Em segundo plano a extensão não deve abrir abas sozinha.
+  let allowOpenTab = true;
 
   // ---------- JWT ----------
   function jwtPayload(t) {
@@ -98,6 +100,9 @@ var CRApi = (() => {
     if (proxyTabId != null && (await bridgeAlive(proxyTabId))) return proxyTabId;
 
     let tab = await findCrTab();
+    if (!tab && !allowOpenTab) {
+      throw new Error("Nenhuma aba do crunchyroll.com aberta para usar a sua sessão.");
+    }
     if (!tab) {
       onNotice("Abrindo crunchyroll.com em segundo plano para usar sua sessão…");
       tab = await browser.tabs.create({ url: BASE + "/", active: false });
@@ -298,6 +303,7 @@ var CRApi = (() => {
 
   return {
     setNoticeHandler: (fn) => (onNotice = fn),
+    setAllowOpenTab: (v) => (allowOpenTab = !!v),
     getAccountId,
     watchlist,
     seasons,

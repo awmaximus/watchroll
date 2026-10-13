@@ -51,6 +51,15 @@
             <select id="set-locale"></select>
           </label>
           <label>
+            <span>Verificar automaticamente</span>
+            <select id="set-auto"></select>
+            <small>Em segundo plano, atualiza o número no ícone da extensão. Precisa de uma aba do crunchyroll.com aberta se o acesso direto for bloqueado.</small>
+          </label>
+          <label class="check">
+            <input id="set-notify" type="checkbox" />
+            <span>Notificar quando sair episódio novo</span>
+          </label>
+          <label>
             <span>Séries consultadas ao mesmo tempo</span>
             <input id="set-concurrency" type="number" inputmode="numeric" step="1" />
             <small>Mais rápido com números maiores. Se aparecerem erros de “muitas requisições” (HTTP 429), diminua. Entre 1 e 16.</small>
@@ -64,6 +73,7 @@
 
     <script src="../src/api.js"></script>
     <script src="../src/analyzer.js"></script>
+    <script src="../src/checker.js"></script>
     <script src="dashboard.js"></script>
   </body>
 </html>

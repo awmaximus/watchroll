@@ -285,3 +285,17 @@ describe("requisições em paralelo", () => {
     assert.equal(created, 1);
   });
 });
+
+test("em segundo plano (sem permissão de abrir abas), não abre aba para a ponte", async () => {
+  let created = 0;
+  const browser = fakeBrowser({ tabs: { query: async () => [], create: async () => (created++, { id: 1 }) } });
+  const { api } = setup(
+    () => {
+      throw new TypeError("NetworkError");
+    },
+    { browser, sessionToken: validSession() }
+  );
+  api.setAllowOpenTab(false);
+  await assert.rejects(api.seasons("S", "pt-BR"), /Nenhuma aba do crunchyroll\.com aberta/);
+  assert.equal(created, 0);
+});

@@ -1,11 +1,14 @@
-// Background mínimo:
+// Segundo plano:
 //  - o botão na barra abre (ou foca) a página da extensão;
-//  - guarda, só em memória de sessão, o último token que o site da Crunchyroll usou.
+//  - guarda, só em memória de sessão, o último token que o site da Crunchyroll usou;
+//  - verificação automática periódica: atualiza o número no ícone e notifica
+//    episódios novos. Nunca abre abas sozinho.
 
-/* global browser */
+/* global browser, CRApi, CRAnalyzer, CRChecker */
 const PAGE = browser.runtime.getURL("dashboard/dashboard.html");
+const ALARM = "crnovos-verificacao";
 
-browser.action.onClicked.addListener(async () => {
+async function openPage() {
   const [tab] = await browser.tabs.query({ url: PAGE });
   if (tab) {
     await browser.tabs.update(tab.id, { active: true });
@@ -13,7 +16,15 @@ browser.action.onClicked.addListener(async () => {
   } else {
     await browser.tabs.create({ url: PAGE });
   }
-});
+}
+
+browser.action.onClicked.addListener(openPage);
+
+if (browser.notifications) {
+  browser.notifications.onClicked.addListener((id) => {
+    if (id === CRChecker.NOTIFICATION_ID) return openPage();
+  });
+}
 
 function jwtExp(token) {
   try {
@@ -31,4 +42,37 @@ browser.runtime.onMessage.addListener((msg, sender) => {
       crToken: { token: msg.token, exp: jwtExp(msg.token), at: Date.now() },
     });
   }
+});
+
+// ---------- verificação automática ----------
+async function schedule() {
+  const minutes = CRChecker.autoCheckMinutes(await CRChecker.loadSettings());
+  await browser.alarms.clear(ALARM);
+  if (minutes > 0) {
+    await browser.alarms.create(ALARM, { delayInMinutes: 1, periodInMinutes: minutes });
+  }
+}
+
+function check() {
+  CRApi.setAllowOpenTab(false);
+  return CRChecker.checkNow({ analyzer: CRAnalyzer, api: CRApi });
+}
+
+browser.alarms.onAlarm.addListener((alarm) => {
+  if (alarm.name === ALARM) check();
+});
+
+browser.runtime.onInstalled.addListener(schedule);
+browser.runtime.onStartup.addListener(async () => {
+  await schedule();
+  // Restaura o número no ícone com o último resultado conhecido.
+  const last = await CRChecker.lastResults();
+  if (last) await CRChecker.updateBadge(last.results);
+});
+
+browser.storage.onChanged.addListener((changes, area) => {
+  if (area !== "local" || !changes[CRChecker.SETTINGS_KEY]) return;
+  const before = changes[CRChecker.SETTINGS_KEY].oldValue || {};
+  const after = changes[CRChecker.SETTINGS_KEY].newValue || {};
+  if (CRChecker.autoCheckMinutes(before) !== CRChecker.autoCheckMinutes(after)) schedule();
 });

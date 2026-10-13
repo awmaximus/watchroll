@@ -153,6 +153,17 @@ main {
   gap: 6px;
   font-size: 0.85rem;
 }
+.settings label.check {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  align-self: center;
+}
+.settings label.check input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--orange);
+}
 .settings small {
   color: var(--muted);
 }

@@ -17,6 +17,8 @@ funcionando. Só depende da API.
    - o idioma da legenda;
    - o modo padrão das séries (legendado, dublado ou qualquer áudio);
    - o idioma dos títulos e links;
+   - a verificação automática (desligada, ou a cada 30 min, 1 h, 3 h ou 6 h; padrão 1 h) e
+     se quer notificação de episódio novo;
    - quantas séries consultar ao mesmo tempo (padrão 4, de 1 a 16). Números maiores
      deixam a verificação mais rápida; se aparecerem erros HTTP 429 ("muitas
      requisições"), diminua.
@@ -38,6 +40,18 @@ As séries são consultadas em paralelo, até o limite configurado. Dentro de ca
 temporadas são lidas da mais nova para a mais antiga e a busca para assim que encontra
 atividade sua, para não fazer requisições à toa. Se o token vencer no meio da verificação,
 as consultas em andamento esperam um único pedido de token novo.
+
+### Verificação automática e contador no ícone
+
+Em segundo plano, a extensão verifica no intervalo escolhido e mostra no ícone quantos
+episódios novos há. Se sair algum que você ainda não viu na página, aparece uma notificação;
+clicar nela abre a página. Detalhes:
+
+- Na primeira verificação a extensão só registra o que já existe, sem notificar.
+- O que você já viu na página não gera notificação depois.
+- Em segundo plano ela nunca abre abas. Se o acesso direto à API for bloqueado e não houver
+  uma aba do crunchyroll.com aberta, aquela verificação é pulada.
+- Ao abrir a página, o último resultado aparece na hora e é atualizado em seguida.
 
 Os resultados ficam em cache por 20 minutos. O botão **Atualizar** força uma nova consulta.
 
@@ -187,7 +201,8 @@ O GitHub Actions roda o `./build.sh` a cada push e guarda o `.zip` como artefato
 manifest.json           MV3, Firefox
 build.sh                build: testes, lint, pacote e assinatura
 dashboard/              página da extensão (HTML, CSS, JS)
-src/background.js       abre a página pelo botão e guarda o token da sessão
+src/background.js       botão, token da sessão e verificação automática (alarme)
+src/checker.js          preferências, contador do ícone, novidades e notificação
 src/page-hook.js        observa o token usado pelo site (world: MAIN)
 src/bridge.js           ponte invisível para requisições pelo crunchyroll.com
 src/api.js              chamadas à API, autenticação e transporte
