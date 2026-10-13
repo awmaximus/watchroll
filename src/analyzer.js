@@ -13,7 +13,8 @@
 /* global browser, CRApi */
 var CRAnalyzer = (() => {
   const CACHE_KEY = "crnovos:v4:cache"; // v4: ignora registros de reprodução de menos de 1 minuto
-  const CACHE_TTL = 20 * 60 * 1000;
+  const CACHE_TTL = 20 * 60 * 1000; // dentro disso: reaproveita sem nenhuma consulta
+  const REVALIDATE_TTL = 6 * 60 * 60 * 1000; // até isso: reaproveita se nada mudou
   // Quantas séries são consultadas ao mesmo tempo (configurável na página).
   const CONCURRENCY = { default: 4, min: 1, max: 16 };
   const MAX_SEASONS_BACK = 6;
@@ -196,12 +197,19 @@ var CRAnalyzer = (() => {
   }
 
   // ---------- análise de uma série ----------
-  async function analyzeSeries(entry, mode, settings, api = CRApi) {
+  // Impressão digital das temporadas: muda quando entra temporada, episódio ou versão.
+  const seasonsKey = (list) =>
+    sortSeasons(list || [])
+      .map((x) => `${x.id}:${x.number_of_episodes ?? ""}:${(x.versions || []).length}`)
+      .join("|");
+
+  async function analyzeSeries(entry, mode, settings, api = CRApi, prefetchedSeasons = null) {
     const now = Date.now();
     const { locale, dubLang } = settings;
     const subLang = settings.subLang || "pt-BR";
     const minStarted = minStartedFrom(settings);
-    const seasons = sortSeasons(await api.seasons(entry.seriesId, locale));
+    const rawSeasons = prefetchedSeasons || (await api.seasons(entry.seriesId, locale));
+    const seasons = sortSeasons(rawSeasons);
 
     const ordered = [];
     let anyActivity = false;
@@ -326,7 +334,13 @@ var CRAnalyzer = (() => {
       if (entry.neverWatchedFlag && back >= 1) break;
     }
 
-    const base = { ...entry, mode, checkedAt: now, signature: cacheSignature(mode, settings) };
+    const base = {
+      ...entry,
+      mode,
+      checkedAt: now,
+      signature: cacheSignature(mode, settings),
+      fp: { seasons: seasonsKey(rawSeasons) },
+    };
     if (!anyActivity) return { ...base, status: "never", pending: [] };
 
     let lastIdx = -1;
@@ -521,15 +535,17 @@ var CRAnalyzer = (() => {
     return best;
   }
 
-  const analyzeEntry = (entry, mode, settings, api = CRApi) =>
-    entry.kind === "movie" ? analyzeMovie(entry, mode, settings, api) : analyzeSeries(entry, mode, settings, api);
+  const analyzeEntry = (entry, mode, settings, api = CRApi, prefetchedSeasons = null) =>
+    entry.kind === "movie"
+      ? analyzeMovie(entry, mode, settings, api)
+      : analyzeSeries(entry, mode, settings, api, prefetchedSeasons);
 
   const modeFor = (seriesId, settings) => settings.seriesModes[seriesId] || settings.defaultMode;
 
-  async function analyzeSafe(entry, settings) {
+  async function analyzeSafe(entry, settings, prefetchedSeasons = null) {
     const mode = modeFor(entry.seriesId, settings);
     try {
-      return await analyzeEntry(entry, mode, settings);
+      return await analyzeEntry(entry, mode, settings, CRApi, prefetchedSeasons);
     } catch (err) {
       console.warn("[Novos Episódios]", entry.title, err);
       return { ...entry, mode, status: "error", error: String(err.message || err), pending: [] };
@@ -585,18 +601,55 @@ var CRAnalyzer = (() => {
     let done = 0;
     onProgress(done, unique.length);
 
+    // Último play conhecido da série no histórico; undefined = não dá para saber
+    // (histórico ausente, ou incompleto e a série não apareceu nele).
+    const lastPlayedOf = (id) =>
+      !history ? undefined : activity.has(id) ? activity.get(id) : history.complete ? 0 : undefined;
+
     const results = await pool(unique, concurrencyFrom(settings), async (entry) => {
       const sig = cacheSignature(modeFor(entry.seriesId, settings), settings);
       const hit = cache[entry.seriesId];
+      const now = Date.now();
+      const lastPlayed = lastPlayedOf(entry.seriesId);
+      const reuse = (r) => ({ ...r, title: entry.title, image: r.image || entry.image });
       let result;
-      if (hit && hit.signature === sig && Date.now() - hit.checkedAt < CACHE_TTL) {
-        result = { ...hit, title: entry.title, image: hit.image || entry.image };
+      let prefetched = null;
+
+      const freshAt = hit ? Math.max(hit.checkedAt || 0, hit.revalidatedAt || 0) : 0;
+      if (hit && hit.signature === sig && now - freshAt < CACHE_TTL) {
+        result = reuse(hit);
       } else if (surelyNever(entry, history, activity)) {
         const mode = modeFor(entry.seriesId, settings);
-        result = { ...entry, kind: entry.kind, mode, checkedAt: Date.now(), signature: sig, status: "never", pending: [], viaHistory: true };
+        result = { ...entry, kind: entry.kind, mode, checkedAt: now, signature: sig, status: "never", pending: [], viaHistory: true };
       } else {
-        result = await analyzeSafe(entry, settings);
-        if (result.status !== "error") cache[entry.seriesId] = result;
+        // Revalidação barata: só as temporadas (1 consulta) + histórico (já baixado).
+        const canRevalidate =
+          hit &&
+          entry.kind !== "movie" &&
+          hit.signature === sig &&
+          hit.fp &&
+          now - hit.checkedAt < REVALIDATE_TTL &&
+          lastPlayed !== undefined &&
+          hit.fp.lastPlayed === lastPlayed &&
+          !(hit.next && hit.next.at <= now);
+        if (canRevalidate) {
+          try {
+            prefetched = await CRApi.seasons(entry.seriesId, settings.locale);
+            if (seasonsKey(prefetched) === hit.fp.seasons) {
+              cache[entry.seriesId] = { ...hit, revalidatedAt: now };
+              result = reuse(cache[entry.seriesId]);
+            }
+          } catch (_) {
+            prefetched = null; // segue para a análise completa
+          }
+        }
+        if (!result) {
+          result = await analyzeSafe(entry, settings, prefetched);
+          if (result.status !== "error") {
+            if (result.fp) result.fp.lastPlayed = lastPlayed;
+            cache[entry.seriesId] = result;
+          }
+        }
       }
       onProgress(++done, unique.length);
       return result;

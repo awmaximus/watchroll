@@ -1274,3 +1274,113 @@ describe("atalho pelo histórico de reprodução", () => {
     assert.deepEqual(calls, []);
   });
 });
+
+describe("revalidar só o que mudou", () => {
+  const MIN = 60000;
+  function world() {
+    const state = {
+      seasons: [{ id: "T", season_sequence_number: 1, number_of_episodes: 3 }],
+      eps: [episode("e1", 1), episode("e2", 2), episode("e3", 3)],
+      ph: { e1: playhead("e1", FULL, true) },
+      history: { entries: [{ parent_id: "X", playhead: FULL, fully_watched: true, date_played: "2026-10-01T00:00:00Z" }], complete: true },
+    };
+    const calls = [];
+    const CRApi = {
+      getAccountId: async () => "conta",
+      watchlist: async () => [series("X")],
+      watchHistory: async () => state.history,
+      seasons: async () => (calls.push("seasons"), state.seasons),
+      episodes: async () => (calls.push("episodes"), state.eps),
+      playheads: async (ids) => (calls.push("playheads"), new Map(ids.filter((i) => state.ph[i]).map((i) => [i, state.ph[i]]))),
+    };
+    const browser = fakeBrowser();
+    const ctx = load(["src/analyzer.js"], { browser, CRApi });
+    // Envelhece a análise guardada no cache.
+    const age = (ms) => {
+      const all = browser.storage.local.data["crnovos:v4:cache"];
+      for (const scope of Object.values(all)) {
+        for (const r of Object.values(scope)) {
+          r.checkedAt -= ms;
+          if (r.revalidatedAt) r.revalidatedAt -= ms;
+        }
+      }
+    };
+    const run = async () => (await ctx.CRAnalyzer.run({ settings: settings() }))[0];
+    const take = () => calls.splice(0);
+    return { state, run, age, take };
+  }
+
+  test("depois de 20 min, sem mudanças: só a consulta de temporadas", async () => {
+    const w = world();
+    await w.run();
+    w.take();
+    w.age(30 * MIN);
+    const r = await w.run();
+    assert.deepEqual(w.take(), ["seasons"]);
+    assert.deepEqual(ids(r), ["e2", "e3"]);
+  });
+
+  test("revalidada, vale mais 20 min sem nenhuma consulta", async () => {
+    const w = world();
+    await w.run();
+    w.age(30 * MIN);
+    await w.run();
+    w.take();
+    await w.run();
+    assert.deepEqual(w.take(), []);
+  });
+
+  test("episódio novo na temporada (contagem muda): análise completa", async () => {
+    const w = world();
+    await w.run();
+    w.take();
+    w.age(30 * MIN);
+    w.state.seasons = [{ id: "T", season_sequence_number: 1, number_of_episodes: 4 }];
+    w.state.eps = [...w.state.eps, episode("e4", 4)];
+    const r = await w.run();
+    assert.deepEqual(w.take(), ["seasons", "episodes", "playheads"]);
+    assert.deepEqual(ids(r), ["e2", "e3", "e4"]);
+  });
+
+  test("você assistiu algo (histórico mudou): análise completa", async () => {
+    const w = world();
+    await w.run();
+    w.take();
+    w.age(30 * MIN);
+    w.state.history = { entries: [{ parent_id: "X", playhead: FULL, fully_watched: true, date_played: "2026-10-13T20:00:00Z" }], complete: true };
+    w.state.ph.e2 = playhead("e2", FULL, true);
+    const r = await w.run();
+    assert.ok(w.take().includes("episodes"));
+    assert.deepEqual(ids(r), ["e3"]);
+  });
+
+  test("lançamento agendado que já passou: análise completa", async () => {
+    const w = world();
+    w.state.eps = [episode("e1", 1), episode("e2", 2, { availableAt: Date.now() + 1000 })];
+    await w.run();
+    w.take();
+    w.age(30 * MIN);
+    await new Promise((r) => setTimeout(r, 1100)); // o lançamento passa
+    await w.run();
+    assert.ok(w.take().includes("episodes"));
+  });
+
+  test("análise com mais de 6 h: completa, mesmo sem mudanças", async () => {
+    const w = world();
+    await w.run();
+    w.take();
+    w.age(7 * 60 * MIN);
+    await w.run();
+    assert.deepEqual(w.take(), ["seasons", "episodes", "playheads"]);
+  });
+
+  test("histórico incompleto sem a série: não arrisca, análise completa", async () => {
+    const w = world();
+    w.state.history = { entries: [], complete: false };
+    await w.run();
+    w.take();
+    w.age(30 * MIN);
+    await w.run();
+    assert.ok(w.take().includes("episodes"));
+  });
+});

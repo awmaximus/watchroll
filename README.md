@@ -73,7 +73,12 @@ clicar nela abre a página. Detalhes:
   uma aba do crunchyroll.com aberta, aquela verificação é pulada.
 - Ao abrir a página, o último resultado aparece na hora e é atualizado em seguida.
 
-Os resultados ficam em cache por 20 minutos. O botão **Atualizar** força uma nova consulta.
+Os resultados ficam em cache por 20 minutos, sem nenhuma consulta. Entre 20 minutos e 6 horas,
+a extensão faz uma revalidação barata: busca só a lista de temporadas da série (1 consulta) e
+olha o histórico, que é baixado uma vez para todas as séries. Se nada mudou (nenhuma
+temporada, episódio ou versão nova, nada assistido desde então, nenhum lançamento agendado que
+já passou), ela reaproveita a análise. Senão, analisa de novo. Depois de 6 horas, ou ao clicar
+em **Atualizar**, a análise é sempre completa.
 
 ## Por que não usar o "A Seguir" da Crunchyroll
 
