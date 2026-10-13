@@ -237,3 +237,51 @@ describe("endpoints", () => {
     await assert.rejects(api.seasons("S", "pt-BR"), /HTTP 500 em \/content\/v2\/cms\/series\/S\/seasons/);
   });
 });
+
+describe("requisições em paralelo", () => {
+  test("vários 401 ao mesmo tempo geram um único pedido de token", async () => {
+    let tokenRequests = 0;
+    const { api } = setup(
+      async (url, init) => {
+        if (url.endsWith("/auth/v1/token")) {
+          tokenRequests++;
+          await new Promise((r) => setTimeout(r, 10));
+          return json({ access_token: "renovado", account_id: ACC });
+        }
+        return init.headers.Authorization === "Bearer renovado"
+          ? json({ data: [{ ok: true }] })
+          : json({ error: "expired" }, 401);
+      },
+      { sessionToken: validSession() }
+    );
+    const all = await Promise.all(Array.from({ length: 8 }, (_, i) => api.seasons(`S${i}`, "pt-BR")));
+    assert.equal(all.length, 8);
+    assert.ok(all.every((d) => d.length === 1));
+    assert.equal(tokenRequests, 1);
+  });
+
+  test("várias requisições pela ponte ao mesmo tempo abrem uma única aba", async () => {
+    let created = 0;
+    let browser;
+    browser = fakeBrowser({
+      tabs: {
+        query: async () => [],
+        create: async () => {
+          created++;
+          setTimeout(() => browser.tabs.onUpdated.fire(50, { status: "complete" }), 5);
+          return { id: 50, status: "loading" };
+        },
+        sendMessage: async (id, msg) =>
+          msg.type === "crnovos-ping" ? { ok: true } : { status: 200, text: '{"data":[]}' },
+      },
+    });
+    const { api } = setup(
+      () => {
+        throw new TypeError("NetworkError");
+      },
+      { browser, sessionToken: validSession() }
+    );
+    await Promise.all(Array.from({ length: 6 }, (_, i) => api.episodes(`T${i}`, "pt-BR")));
+    assert.equal(created, 1);
+  });
+});

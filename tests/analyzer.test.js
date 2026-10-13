@@ -367,3 +367,225 @@ describe("Fila, cache e erros", () => {
     assert.deepEqual(ids(again), ["a2"]);
   });
 });
+
+describe("paralelismo", () => {
+  function setupWithDelay(seriesCount, delayMs = 15) {
+    const stats = { inFlight: 0, max: 0, order: [] };
+    const CRApi = {
+      getAccountId: async () => "conta-1",
+      watchlist: async () => Array.from({ length: seriesCount }, (_, i) => series(`S${i}`)),
+      seasons: async (id) => {
+        stats.inFlight++;
+        stats.max = Math.max(stats.max, stats.inFlight);
+        stats.order.push(id);
+        await new Promise((r) => setTimeout(r, delayMs));
+        stats.inFlight--;
+        return [{ id: `T-${id}`, season_sequence_number: 1 }];
+      },
+      episodes: async (id) => [episode(`e-${id}`, 1)],
+      playheads: async () => new Map(),
+    };
+    const quiet = { ...console, warn: () => {} };
+    const ctx = load(["src/analyzer.js"], { browser: fakeBrowser(), CRApi, console: quiet });
+    return { analyzer: ctx.CRAnalyzer, stats };
+  }
+
+  test("respeita a quantidade de séries simultâneas configurada", async () => {
+    for (const n of [1, 3, 8]) {
+      const { analyzer, stats } = setupWithDelay(12);
+      const results = await analyzer.run({ settings: settings({ concurrency: n }) });
+      assert.equal(stats.max, n, `com concurrency=${n}`);
+      assert.equal(results.length, 12);
+    }
+  });
+
+  test("sem configuração usa o padrão (4)", async () => {
+    const { analyzer, stats } = setupWithDelay(10);
+    await analyzer.run({ settings: settings() });
+    assert.equal(stats.max, 4);
+  });
+
+  test("nunca abre mais consultas do que séries existentes", async () => {
+    const { analyzer, stats } = setupWithDelay(2);
+    await analyzer.run({ settings: settings({ concurrency: 16 }) });
+    assert.equal(stats.max, 2);
+  });
+
+  test("em paralelo é mais rápido que em série", async () => {
+    const time = async (n) => {
+      const { analyzer } = setupWithDelay(8, 25);
+      const t0 = Date.now();
+      await analyzer.run({ settings: settings({ concurrency: n }) });
+      return Date.now() - t0;
+    };
+    const serial = await time(1);
+    const parallel = await time(8);
+    assert.ok(parallel * 3 < serial, `paralelo ${parallel}ms vs serial ${serial}ms`);
+  });
+
+  test("resultados saem na ordem da Fila, mesmo terminando fora de ordem", async () => {
+    const CRApi = {
+      getAccountId: async () => "conta-1",
+      watchlist: async () => [series("LENTA"), series("RAPIDA")],
+      seasons: async (id) => {
+        await new Promise((r) => setTimeout(r, id === "LENTA" ? 40 : 1));
+        return [];
+      },
+      episodes: async () => [],
+      playheads: async () => new Map(),
+    };
+    const ctx = load(["src/analyzer.js"], { browser: fakeBrowser(), CRApi });
+    const results = await ctx.CRAnalyzer.run({ settings: settings({ concurrency: 2 }) });
+    assert.deepEqual(plain(results.map((r) => r.seriesId)), ["LENTA", "RAPIDA"]);
+  });
+
+  test("valores inválidos da configuração são ajustados", () => {
+    const { analyzer } = setup({ watchlist: [], seasons: {}, episodes: {}, playheads: {} });
+    const c = (v) => analyzer.concurrencyFrom({ concurrency: v });
+    assert.equal(c(0), 1);
+    assert.equal(c(-5), 1);
+    assert.equal(c(100), 16);
+    assert.equal(c("6"), 6);
+    assert.equal(c(2.6), 3);
+    assert.equal(c("abc"), 4);
+    assert.equal(c(""), 4);
+    assert.equal(c(undefined), 4);
+    assert.equal(analyzer.concurrencyFrom(undefined), 4);
+  });
+});
+
+describe("dados reais: Saga of Tanya the Evil, 2ª temporada", () => {
+  // Resposta real da lista pt-BR: episódios 1–11 dublados, 12 só no áudio original.
+  const fixture = require("./fixtures/tanya-s2-ptbr-episodes.json").data;
+  const SEASON = {
+    id: "GS00380130JAJP",
+    season_number: 4,
+    season_sequence_number: 4,
+    versions: [
+      { guid: "GS00380130JAJP", audio_locale: "ja-JP", original: true },
+      { guid: "GS00380130PTBR", audio_locale: "pt-BR", original: false },
+    ],
+  };
+  // Lista no áudio original, derivada das versões de cada episódio da resposta real.
+  const japanese = () =>
+    fixture.map((e) => {
+      const ja = e.versions.find((v) => v.audio_locale === "ja-JP");
+      return { ...e, id: ja.guid, audio_locale: "ja-JP", availability_starts: e.episode_air_date };
+    });
+  const watchedDubbed = (n) =>
+    Object.fromEntries(
+      fixture.slice(0, n).map((e) => {
+        const pt = e.versions.find((v) => v.audio_locale === "pt-BR");
+        return [pt.guid, playhead(pt.guid, 1500, true)];
+      })
+    );
+  const db = (episodesPt) => ({
+    watchlist: [series("GR9P57W96")],
+    seasons: { GR9P57W96: [SEASON] },
+    episodes: { GS00380130PTBR: episodesPt, GS00380130JAJP: japanese() },
+    playheads: watchedDubbed(11),
+  });
+
+  test("a resposta real tem o episódio 12 em ja-JP dentro da lista pt-BR", () => {
+    const e12 = fixture.find((e) => e.episode === "12");
+    assert.equal(e12.audio_locale, "ja-JP");
+    assert.ok(fixture.filter((e) => e.episode !== "12").every((e) => e.audio_locale === "pt-BR"));
+  });
+
+  test("dublado, vistos 1–11: NÃO anuncia o 12 (o bug relatado) e o mostra aguardando dublagem", async () => {
+    const { analyzer } = setup(db(fixture));
+    const [r] = await analyzer.run({ settings: settings({ defaultMode: "dub" }) });
+    assert.equal(r.status, "uptodate");
+    assert.deepEqual(ids(r), []);
+    assert.equal(r.waitingDub, 1);
+  });
+
+  test("dublado: quando a dublagem do 12 sai, anuncia com o link da versão pt-BR", async () => {
+    const dubbed12 = fixture.map((e) =>
+      e.episode === "12"
+        ? {
+            ...e,
+            id: "GE00380142PTBR",
+            audio_locale: "pt-BR",
+            availability_starts: new Date(Date.now() - DAY).toISOString(),
+            versions: [...e.versions, { guid: "GE00380142PTBR", audio_locale: "pt-BR", original: false }],
+          }
+        : e
+    );
+    const { analyzer } = setup(db(dubbed12));
+    const [r] = await analyzer.run({ settings: settings({ defaultMode: "dub" }) });
+    assert.deepEqual(ids(r), ["GE00380142PTBR"]);
+    assert.equal(r.waitingDub, 0);
+  });
+
+  test("legendado, vistos 1–11 dublados: anuncia o 12 no áudio original", async () => {
+    const { analyzer } = setup(db(fixture));
+    const [r] = await analyzer.run({ settings: settings({ defaultMode: "sub" }) });
+    assert.deepEqual(ids(r), ["GE00380142JAJP"]);
+  });
+});
+
+test("dublado pt-BR: episódio que a lista traz com dublagem em outro idioma não conta", async () => {
+  // Caso parecido com o de You and I Are Polar Opposites: o E12 só tem dublagem em inglês.
+  const v = (n) => [
+    { guid: `j${n}`, audio_locale: "ja-JP", original: true },
+    { guid: `p${n}`, audio_locale: "pt-BR" },
+    { guid: `e${n}`, audio_locale: "en-US" },
+  ];
+  const season = {
+    id: "SJ",
+    season_sequence_number: 1,
+    versions: [
+      { guid: "SJ", audio_locale: "ja-JP", original: true },
+      { guid: "SP", audio_locale: "pt-BR" },
+    ],
+  };
+  const { analyzer } = setup({
+    watchlist: [series("P")],
+    seasons: { P: [season] },
+    episodes: {
+      SP: [
+        episode("p1", 1, { audio: "pt-BR", versions: v(1) }),
+        episode("e2", 2, { audio: "en-US", versions: v(2) }),
+      ],
+      SJ: [episode("j1", 1, { versions: v(1) }), episode("j2", 2, { versions: v(2) })],
+    },
+    playheads: { p1: playhead("p1", FULL, true) },
+  });
+  const [r] = await analyzer.run({ settings: settings({ defaultMode: "dub" }) });
+  assert.equal(r.status, "uptodate");
+  assert.equal(r.waitingDub, 1);
+});
+
+test("dublado: decide pelo audio_locale do episódio e ignora is_dubbed", async () => {
+  // is_dubbed não é confiável: aqui ele contradiz o áudio real nos dois sentidos.
+  const v = (n) => [
+    { guid: `j${n}`, audio_locale: "ja-JP", original: true },
+    { guid: `p${n}`, audio_locale: "pt-BR" },
+  ];
+  const season = {
+    id: "SJ",
+    season_sequence_number: 1,
+    versions: [
+      { guid: "SJ", audio_locale: "ja-JP", original: true },
+      { guid: "SP", audio_locale: "pt-BR" },
+    ],
+  };
+  const mentira = (ep, isDubbed) => ({ ...ep, is_dubbed: isDubbed });
+  const { analyzer } = setup({
+    watchlist: [series("X")],
+    seasons: { X: [season] },
+    episodes: {
+      SP: [
+        mentira(episode("p1", 1, { audio: "pt-BR", versions: v(1) }), false), // dublado, diz que não
+        mentira(episode("p2", 2, { audio: "pt-BR", versions: v(2) }), false), // dublado, diz que não
+        mentira(episode("j3", 3, { audio: "ja-JP", versions: v(3) }), true), // original, diz que sim
+      ],
+      SJ: [1, 2, 3].map((n) => episode(`j${n}`, n, { versions: v(n) })),
+    },
+    playheads: { p1: playhead("p1", FULL, true) },
+  });
+  const [r] = await analyzer.run({ settings: settings({ defaultMode: "dub" }) });
+  assert.deepEqual(ids(r), ["p2"]); // o 2 está em pt-BR, apesar de is_dubbed=false
+  assert.equal(r.waitingDub, 1); // o 3 está em ja-JP, apesar de is_dubbed=true
+});

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Crunchyroll – Novos Episódios",
-  "version": "0.2.1",
+  "version": "0.3.1",
   "description": "Página própria que lista os episódios que você ainda não assistiu das séries da sua Fila, respeitando se você assiste legendado ou dublado.",
   "icons": {
     "48": "icons/icon.svg",

@@ -82,7 +82,19 @@ var CRApi = (() => {
     });
   }
 
-  async function ensureProxyTab() {
+  // Várias requisições em paralelo podem pedir a aba ao mesmo tempo: todas
+  // esperam o mesmo preparo, em vez de cada uma abrir a sua.
+  let proxyTabPromise = null;
+  function ensureProxyTab() {
+    if (!proxyTabPromise) {
+      proxyTabPromise = prepareProxyTab().finally(() => {
+        proxyTabPromise = null;
+      });
+    }
+    return proxyTabPromise;
+  }
+
+  async function prepareProxyTab() {
     if (proxyTabId != null && (await bridgeAlive(proxyTabId))) return proxyTabId;
 
     let tab = await findCrTab();
@@ -148,7 +160,19 @@ var CRApi = (() => {
     return id;
   }
 
-  async function requestOwnToken() {
+  // Com várias séries em paralelo, um token vencido gera vários 401 de uma vez:
+  // todos aguardam o mesmo pedido de token.
+  let tokenPromise = null;
+  function requestOwnToken() {
+    if (!tokenPromise) {
+      tokenPromise = fetchOwnToken().finally(() => {
+        tokenPromise = null;
+      });
+    }
+    return tokenPromise;
+  }
+
+  async function fetchOwnToken() {
     const body = new URLSearchParams({
       grant_type: "etp_rt_cookie",
       device_id: await deviceId(),
@@ -201,14 +225,19 @@ var CRApi = (() => {
     const qs = new URLSearchParams(params).toString();
     const full = qs ? `${path}?${qs}` : path;
 
-    let r = await send({ path: full, headers: { Authorization: "Bearer " + (await getToken()) } });
+    const sentWith = await getToken();
+    let r = await send({ path: full, headers: { Authorization: "Bearer " + sentWith } });
     if (r.status === 401 || r.status === 403) {
-      token = null;
-      await browser.storage.session.remove("crToken");
-      r = await send({
-        path: full,
-        headers: { Authorization: "Bearer " + (await getToken({ forceNew: true })) },
-      });
+      const rejected = sentWith;
+      let retryToken;
+      if (token && token.value !== rejected && fresh(token)) {
+        retryToken = token.value; // outra série já renovou o token
+      } else {
+        token = null;
+        await browser.storage.session.remove("crToken");
+        retryToken = await getToken({ forceNew: true });
+      }
+      r = await send({ path: full, headers: { Authorization: "Bearer " + retryToken } });
     }
     if (r.status < 200 || r.status >= 300) throw new Error(`HTTP ${r.status} em ${path}`);
     return r.text ? JSON.parse(r.text) : {};

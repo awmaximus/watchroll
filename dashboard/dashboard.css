@@ -95,6 +95,7 @@ h1 {
 }
 .btn:focus-visible,
 select:focus-visible,
+input:focus-visible,
 a:focus-visible,
 summary:focus-visible {
   outline: 2px solid var(--orange);
@@ -151,7 +152,8 @@ main {
   color: var(--muted);
 }
 
-select {
+select,
+input[type="number"] {
   background: var(--surface-2);
   color: var(--text);
   border: 1px solid var(--line);

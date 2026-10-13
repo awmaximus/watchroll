@@ -19,7 +19,13 @@
   const langName = (code) => (LANGS.find(([c]) => c === code) || [code, code])[1];
   const MAX_EPS = 5;
 
-  const DEFAULTS = { locale: "pt-BR", dubLang: "pt-BR", defaultMode: "sub", seriesModes: {} };
+  const DEFAULTS = {
+    locale: "pt-BR",
+    dubLang: "pt-BR",
+    defaultMode: "sub",
+    concurrency: CRAnalyzer.CONCURRENCY.default,
+    seriesModes: {},
+  };
   let settings = { ...DEFAULTS };
   let results = [];
   let busy = false;
@@ -65,6 +71,10 @@
       settings.defaultMode
     );
     fillSelect($("set-locale"), LANGS, settings.locale);
+    const conc = $("set-concurrency");
+    conc.min = CRAnalyzer.CONCURRENCY.min;
+    conc.max = CRAnalyzer.CONCURRENCY.max;
+    conc.value = CRAnalyzer.concurrencyFrom(settings);
   }
 
   // ---------- links ----------
@@ -340,6 +350,12 @@
     $("set-dub").addEventListener("change", onSetting("dubLang"));
     $("set-mode").addEventListener("change", onSetting("defaultMode"));
     $("set-locale").addEventListener("change", onSetting("locale"));
+    // Só vale para a próxima verificação; não precisa refazer a atual.
+    $("set-concurrency").addEventListener("change", async (e) => {
+      settings.concurrency = CRAnalyzer.concurrencyFrom({ concurrency: e.target.value });
+      e.target.value = settings.concurrency;
+      await saveSettings();
+    });
 
     refresh(false);
   }

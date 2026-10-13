@@ -1,0 +1,13 @@
+node_modules/
+web-ext-artifacts/
+dist/
+*.zip
+*.xpi
+.amo-upload-uuid
+.amo-credentials
+env.sh
+.env
+.env.*
+*.env
+*credentials*
+*secret*

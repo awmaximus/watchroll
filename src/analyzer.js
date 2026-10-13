@@ -12,9 +12,10 @@
 
 /* global browser, CRApi */
 var CRAnalyzer = (() => {
-  const CACHE_KEY = "crnovos:v2:cache";
+  const CACHE_KEY = "crnovos:v3:cache"; // v3: modo dublado passou a checar o áudio de cada episódio
   const CACHE_TTL = 20 * 60 * 1000;
-  const CONCURRENCY = 4;
+  // Quantas séries são consultadas ao mesmo tempo (configurável na página).
+  const CONCURRENCY = { default: 4, min: 1, max: 16 };
   const MAX_SEASONS_BACK = 6;
   const WATCHED_RATIO = 0.9;
 
@@ -40,6 +41,15 @@ var CRAnalyzer = (() => {
     const start = Date.parse(ep.availability_starts || ep.premium_available_date || "");
     if (start && start > now) return false;
     return true;
+  }
+
+  // O episódio está mesmo neste áudio? Atenção: a lista de episódios da temporada
+  // dublada pode trazer episódios no áudio original quando a dublagem ainda não saiu
+  // (ex.: Saga of Tanya the Evil T2, lista pt-BR, episódio 12 em ja-JP). Por isso o
+  // que vale é o áudio do próprio episódio, não o da lista.
+  function isInAudio(ep, audio) {
+    if (ep.audio_locale) return ep.audio_locale === audio;
+    return (ep.versions || []).some((v) => v.guid === ep.id && v.audio_locale === audio);
   }
 
   const originalVersion = (obj) => (obj.versions || []).find((v) => v.original);
@@ -69,6 +79,14 @@ var CRAnalyzer = (() => {
           (b.season_sequence_number ?? b.season_number ?? 0) ||
         (a.season_number ?? 0) - (b.season_number ?? 0)
     );
+  }
+
+  function concurrencyFrom(settings) {
+    const raw = settings ? settings.concurrency : undefined;
+    if (raw === undefined || raw === null || String(raw).trim() === "") return CONCURRENCY.default;
+    const n = Math.round(Number(raw));
+    if (!Number.isFinite(n)) return CONCURRENCY.default;
+    return Math.min(CONCURRENCY.max, Math.max(CONCURRENCY.min, n));
   }
 
   async function pool(items, limit, worker) {
@@ -161,12 +179,22 @@ var CRAnalyzer = (() => {
       if (mode === "dub" && eligible && back === 0) {
         const origId = (originalVersion(season) && originalVersion(season).guid) || season.id;
         if (origId !== listId) {
-          const lastDubSeq = Math.max(
-            -Infinity,
-            ...eps.filter((e) => isAvailable(e, now)).map((e) => e.sequence_number ?? 0)
+          const dubbedSeqs = eps
+            .filter((e) => isInAudio(e, dubLang) && isAvailable(e, now))
+            .map((e) => e.sequence_number ?? 0);
+          const lastDubSeq = Math.max(-Infinity, ...dubbedSeqs);
+          // Episódios que aparecem na lista dublada mas no áudio original já são
+          // contados no laço principal; aqui ficam os demais (inclusive os que têm
+          // dublagem agendada para o futuro).
+          const inList = new Set(
+            eps.filter((e) => !isInAudio(e, dubLang)).map((e) => e.sequence_number ?? 0)
           );
           origOnly = (await CRApi.episodes(origId, locale)).filter(
-            (e) => !e.is_clip && (e.sequence_number ?? 0) > lastDubSeq && isAvailable(e, now)
+            (e) =>
+              !e.is_clip &&
+              (e.sequence_number ?? 0) > lastDubSeq &&
+              !inList.has(e.sequence_number ?? 0) &&
+              isAvailable(e, now)
           );
           for (const e of origOnly) ids.push(...versionIds(e));
         }
@@ -197,7 +225,9 @@ var CRAnalyzer = (() => {
         }
         if (durSec && maxPos >= durSec * WATCHED_RATIO) fully = true;
         const progress = durSec ? Math.min(1, maxPos / durSec) : 0;
-        return { ep, season, eligible, fully, started, progress, lastMod, lastId };
+        // No modo dublado, só conta o episódio que está de fato no áudio escolhido.
+        const epEligible = eligible && (mode !== "dub" || isInAudio(ep, dubLang));
+        return { ep, season, eligible: epEligible, fully, started, progress, lastMod, lastId };
       });
 
       ordered.unshift(...states);
@@ -279,7 +309,7 @@ var CRAnalyzer = (() => {
     let done = 0;
     onProgress(done, unique.length);
 
-    const results = await pool(unique, CONCURRENCY, async (entry) => {
+    const results = await pool(unique, concurrencyFrom(settings), async (entry) => {
       const sig = cacheSignature(modeFor(entry.seriesId, settings), settings);
       const hit = cache[entry.seriesId];
       let result;
@@ -312,5 +342,5 @@ var CRAnalyzer = (() => {
     return result;
   }
 
-  return { run, runOne };
+  return { run, runOne, CONCURRENCY, concurrencyFrom };
 })();

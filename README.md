@@ -15,7 +15,10 @@ funcionando. Só depende da API.
 2. Em **Configurações**, escolha:
    - o idioma em que você assiste dublado (por exemplo, Português (Brasil));
    - o modo padrão das séries (legendado, dublado ou qualquer áudio);
-   - o idioma dos títulos e links.
+   - o idioma dos títulos e links;
+   - quantas séries consultar ao mesmo tempo (padrão 4, de 1 a 16). Números maiores
+     deixam a verificação mais rápida; se aparecerem erros HTTP 429 ("muitas
+     requisições"), diminua.
 3. Em cada série, use o seletor para trocar o modo só daquela série.
 
 A página tem estas seções:
@@ -27,6 +30,11 @@ A página tem estas seções:
 | Não consegui verificar | Séries que deram erro na consulta |
 | Em dia | Séries sem nada pendente |
 | Ainda não começadas | Séries da Fila que você nunca assistiu |
+
+As séries são consultadas em paralelo, até o limite configurado. Dentro de cada série, as
+temporadas são lidas da mais nova para a mais antiga e a busca para assim que encontra
+atividade sua, para não fazer requisições à toa. Se o token vencer no meio da verificação,
+as consultas em andamento esperam um único pedido de token novo.
 
 Os resultados ficam em cache por 20 minutos. O botão **Atualizar** força uma nova consulta.
 
@@ -47,7 +55,9 @@ Regras adotadas:
   Vale para qualquer áudio: ver legendado conta para o modo dublado e vice-versa.
 - **Legendado:** usa a lista de episódios do áudio original.
 - **Dublado:** usa a lista de episódios do áudio escolhido. Um episódio só aparece depois
-  que a dublagem dele é liberada.
+  que a dublagem dele é liberada. A extensão confere o áudio de **cada episódio**, porque a
+  Crunchyroll completa a lista dublada com a versão original quando a dublagem ainda não
+  saiu.
 - **Qualquer áudio:** avisa assim que o episódio sair em qualquer versão.
 
 ## Instalação
@@ -154,9 +164,10 @@ Os testes ficam em `tests/` e rodam os scripts da extensão num contexto isolado
 da Crunchyroll e a API `browser` simuladas:
 
 - `analyzer.test.js` cobre a regra "o que falta assistir": temporadas, versões de áudio,
-  modos legendado, dublado e qualquer áudio, cache e erros.
+  modos legendado, dublado e qualquer áudio, cache, erros e o limite de séries em paralelo.
 - `api.test.js` cobre a autenticação, o token expirado, a renovação em erro 401, a troca
-  para a ponte quando o Cloudflare bloqueia, a paginação e os lotes de playheads.
+  para a ponte quando o Cloudflare bloqueia, a paginação, os lotes de playheads e as
+  requisições simultâneas (um só pedido de token e uma só aba).
 
 O GitHub Actions roda o `./build.sh` a cada push e guarda o `.zip` como artefato
 (`.github/workflows/ci.yml`).
