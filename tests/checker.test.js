@@ -248,3 +248,56 @@ test("segundo plano guarda o perfil aberto no site a partir do token capturado",
   await b.runtime.onMessage.fire({ type: "crnovos-token", token: "a.b.c" }, { url: "https://example.com/" });
   assert.equal(b.storage.session.data.crToken.token, token);
 });
+
+describe("ocultar / adiar série", () => {
+  const { CRChecker } = load(["src/checker.js"], { browser: richBrowser() });
+  const now = Date.UTC(2026, 9, 13, 12);
+  const DAY = 86400000;
+  const S = (eps) => pending("S", "Série S", eps);
+
+  test("ocultar sempre", () => {
+    const h = CRChecker.makeHide("forever", S([ep("e1", 1)]), now);
+    assert.equal(CRChecker.isHidden(S([ep("e1", 1), ep("e2", 2)]), h, now + 365 * DAY), true);
+  });
+
+  test("ocultar por 1 semana: volta depois de 7 dias", () => {
+    const h = CRChecker.makeHide("week", S([ep("e1", 1)]), now);
+    assert.equal(CRChecker.isHidden(S([ep("e1", 1)]), h, now + 6 * DAY), true);
+    assert.equal(CRChecker.isHidden(S([ep("e1", 1)]), h, now + 7 * DAY), false);
+  });
+
+  test("até sair episódio novo: continua oculta com os mesmos pendentes, volta com um novo", () => {
+    const h = CRChecker.makeHide("untilNew", S([ep("e1", 1), ep("e2", 2)]), now);
+    assert.equal(CRChecker.isHidden(S([ep("e1", 1), ep("e2", 2)]), h, now), true);
+    assert.equal(CRChecker.isHidden(S([ep("e2", 2)]), h, now), true, "viu o 1: continua oculta");
+    assert.equal(CRChecker.isHidden({ seriesId: "S", status: "uptodate", pending: [] }, h, now), true);
+    assert.equal(CRChecker.isHidden(S([ep("e2", 2), ep("e3", 3)]), h, now), false, "saiu o 3: volta");
+  });
+
+  test("até sair episódio novo: especiais e pulados não fazem a série voltar", () => {
+    const h = CRChecker.makeHide("untilNew", S([ep("e1", 1)]), now);
+    assert.equal(CRChecker.isHidden(S([ep("e1", 1), ep("x", 1.5, { extra: "especial" })]), h, now), true);
+    assert.equal(CRChecker.isHidden(S([ep("e1", 1), ep("p", 0, { skipped: true })]), h, now), true);
+  });
+
+  test("ocultas não contam no ícone nem geram notificação", async () => {
+    const b = richBrowser();
+    const { CRChecker: C } = load(["src/checker.js"], { browser: b });
+    await C.record([]);
+    const results = [pending("A", "Série A", [ep("a1", 1)]), pending("B", "Série B", [ep("b1", 1)])];
+    const settings = { notify: true, hidden: { B: { kind: "forever", at: now } } };
+    const fresh = await C.record(results, { notify: true, settings });
+    assert.deepEqual(plain(fresh.map((f) => f.key)), ["A:a1"]);
+    assert.equal(b.badge.text, "1");
+    assert.doesNotMatch(b.notified[0].message, /Série B/);
+  });
+
+  test("preferências salvas antigas (sem 'hidden') carregam com lista vazia", async () => {
+    const b = richBrowser();
+    b.storage.local.data["crnovos:settings"] = { defaultMode: "dub" };
+    const { CRChecker: C } = load(["src/checker.js"], { browser: b });
+    const s = await C.loadSettings();
+    assert.deepEqual(plain(s.hidden), {});
+    assert.equal(s.defaultMode, "dub");
+  });
+});

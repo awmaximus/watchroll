@@ -80,7 +80,7 @@ browser.runtime.onStartup.addListener(async () => {
   await schedule();
   // Restaura o número no ícone com o último resultado conhecido.
   const last = await CRChecker.lastResults();
-  if (last) await CRChecker.updateBadge(last.results);
+  if (last) await CRChecker.updateBadge(CRChecker.visibleResults(last.results, await CRChecker.loadSettings()));
 });
 
 browser.storage.onChanged.addListener((changes, area) => {

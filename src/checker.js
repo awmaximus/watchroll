@@ -24,11 +24,17 @@ var CRChecker = (() => {
     showSkipped: false,
     minStartedSeconds: 60,
     seriesModes: {},
+    hidden: {}, // seriesId -> { kind: "untilNew" | "week" | "forever", at, until?, seen? }
   };
 
   async function loadSettings(b = browser) {
     const saved = (await b.storage.local.get(SETTINGS_KEY))[SETTINGS_KEY] || {};
-    return { ...DEFAULT_SETTINGS, ...saved, seriesModes: { ...(saved.seriesModes || {}) } };
+    return {
+      ...DEFAULT_SETTINGS,
+      ...saved,
+      seriesModes: { ...(saved.seriesModes || {}) },
+      hidden: { ...(saved.hidden || {}) },
+    };
   }
   const saveSettings = (settings, b = browser) => b.storage.local.set({ [SETTINGS_KEY]: settings });
 
@@ -47,6 +53,33 @@ var CRChecker = (() => {
           .map((p) => ({ key: `${r.seriesId}:${p.id}`, series: r, ep: p }))
       );
   }
+
+  // ---------- ocultar / adiar ----------
+  const WEEK = 7 * 86400000;
+  const mainPendingIds = (r) =>
+    r && r.status === "pending" ? r.pending.filter((p) => !p.extra && !p.skipped).map((p) => p.id) : [];
+
+  function makeHide(kind, result, now = Date.now()) {
+    if (kind === "week") return { kind, at: now, until: now + WEEK };
+    if (kind === "untilNew") return { kind, at: now, seen: mainPendingIds(result) };
+    return { kind: "forever", at: now };
+  }
+
+  // A série está oculta agora? "untilNew" volta quando aparece um episódio que não
+  // estava pendente na hora de ocultar; "week" volta depois de 7 dias.
+  function isHidden(result, h, now = Date.now()) {
+    if (!h) return false;
+    if (h.kind === "forever") return true;
+    if (h.kind === "week") return now < (h.until || 0);
+    if (h.kind === "untilNew") {
+      const seen = new Set(h.seen || []);
+      return !mainPendingIds(result).some((id) => !seen.has(id));
+    }
+    return false;
+  }
+
+  const visibleResults = (results, settings, now = Date.now()) =>
+    (results || []).filter((r) => !isHidden(r, ((settings && settings.hidden) || {})[r.seriesId], now));
 
   function summarize(results) {
     const items = pendingItems(results);
@@ -89,7 +122,9 @@ var CRChecker = (() => {
    * Com notify, mostra uma notificação dos novos (se a preferência permitir).
    */
   async function record(results, { notify = false, settings = DEFAULT_SETTINGS, scope = "", b = browser } = {}) {
-    const items = pendingItems(results);
+    // Séries ocultas não contam no ícone nem geram notificação.
+    const visible = visibleResults(results, settings);
+    const items = pendingItems(visible);
     // "Já visto" é por perfil (scope): trocar de perfil não notifica os episódios
     // do outro perfil. Formato antigo (lista simples) vale como escopo "".
     let all = (await b.storage.local.get(SEEN_KEY))[SEEN_KEY];
@@ -103,7 +138,7 @@ var CRChecker = (() => {
       [SEEN_KEY]: all,
       [LAST_KEY]: { at: Date.now(), results, scope },
     });
-    await updateBadge(results, b);
+    await updateBadge(visible, b);
     if (notify && settings.notify !== false && fresh.length && b.notifications) {
       const { title, message } = notificationText(fresh);
       await b.notifications.create(NOTIFICATION_ID, {
@@ -156,6 +191,9 @@ var CRChecker = (() => {
     autoCheckMinutes,
     pendingItems,
     summarize,
+    makeHide,
+    isHidden,
+    visibleResults,
     badgeText,
     updateBadge,
     notificationText,

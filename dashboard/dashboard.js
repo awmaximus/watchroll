@@ -144,7 +144,30 @@
 
   // Menu de ações por série. Cada ação: [valor, rótulo, função].
   function seriesActions(s) {
-    return [["diag", "Exportar diagnóstico", () => exportDiagnostic(s)]];
+    const diag = ["diag", "Exportar diagnóstico", () => exportDiagnostic(s)];
+    if (hiddenEntry(s)) return [["show", "Mostrar de novo", () => setHidden(s, null)], diag];
+    return [
+      ["hide-new", "Ocultar até sair episódio novo", () => setHidden(s, "untilNew")],
+      ["hide-week", "Ocultar por 1 semana", () => setHidden(s, "week")],
+      ["hide-forever", "Ocultar sempre", () => setHidden(s, "forever")],
+      diag,
+    ];
+  }
+
+  const hiddenEntry = (s) => (CRChecker.isHidden(s, settings.hidden[s.seriesId]) ? settings.hidden[s.seriesId] : null);
+
+  function hiddenNote(h) {
+    if (h.kind === "week") return `Oculta até ${new Date(h.until).toLocaleDateString("pt-BR")}`;
+    if (h.kind === "untilNew") return "Oculta até sair episódio novo";
+    return "Oculta sempre";
+  }
+
+  async function setHidden(s, kind) {
+    if (kind) settings.hidden[s.seriesId] = CRChecker.makeHide(kind, s);
+    else delete settings.hidden[s.seriesId];
+    await saveSettings();
+    render();
+    await CRChecker.record(results, { scope: await CRAnalyzer.cacheScope(), settings });
   }
 
   function actionsSelect(s) {
@@ -270,6 +293,14 @@
   const byTitle = (a, b) => (a.title || "").localeCompare(b.title || "", "pt-BR");
 
   function render() {
+    // Ocultas ficam numa seção própria, fora das demais e das contagens.
+    const hidden = results.filter((r) => hiddenEntry(r)).sort(byTitle);
+    renderSections(CRChecker.visibleResults(results, settings), hidden);
+  }
+
+  // "visible" = resultados sem as séries ocultas.
+  function renderSections(visible, hidden) {
+    const results = visible;
     const pending = results.filter((r) => r.status === "pending").sort((a, b) => maxAvail(b) - maxAvail(a));
     // Sem dublagem: a temporada atual não tem nenhum episódio no idioma escolhido
     // (a dublagem pode nunca sair). Aguardando: a dublagem existe e está atrasada.
@@ -380,6 +411,31 @@
         { open: false }
       )
     );
+    if (hidden.length) {
+      parts.push(
+        section(
+          "Ocultas",
+          hidden.length,
+          el(
+            "ul",
+            { class: "rows" },
+            hidden.map((s) =>
+              row(
+                s,
+                hiddenNote(settings.hidden[s.seriesId]),
+                el("button", {
+                  class: "btn ghost small",
+                  type: "button",
+                  text: "Mostrar",
+                  onclick: () => setHidden(s, null),
+                })
+              )
+            )
+          ),
+          { open: false }
+        )
+      );
+    }
     $("content").replaceChildren(...parts);
   }
 
@@ -408,7 +464,7 @@
       results = await CRAnalyzer.run({ settings, force, onProgress: setProgress });
       render();
       // O que está na tela conta como visto: não vira notificação depois.
-      await CRChecker.record(results, { scope: await CRAnalyzer.cacheScope() });
+      await CRChecker.record(results, { scope: await CRAnalyzer.cacheScope(), settings });
       showProfile();
     } catch (err) {
       console.error("[Novos Episódios]", err);
@@ -479,7 +535,7 @@
     try {
       const updated = await CRAnalyzer.runOne(s, settings);
       results = results.map((r) => (r.seriesId === s.seriesId ? updated : r));
-      await CRChecker.record(results, { scope: await CRAnalyzer.cacheScope() });
+      await CRChecker.record(results, { scope: await CRAnalyzer.cacheScope(), settings });
     } finally {
       await CRApi.release();
       render();
@@ -489,6 +545,16 @@
   // ---------- início ----------
   async function init() {
     await loadSettings();
+    // Remove adiamentos de 1 semana já vencidos.
+    const now = Date.now();
+    let changed = false;
+    for (const [id, h] of Object.entries(settings.hidden)) {
+      if (h.kind === "week" && now >= (h.until || 0)) {
+        delete settings.hidden[id];
+        changed = true;
+      }
+    }
+    if (changed) await saveSettings();
     renderSettingsForm();
     CRApi.setNoticeHandler(notice);
 

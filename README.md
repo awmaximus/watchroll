@@ -22,7 +22,8 @@ funcionando. Só depende da API.
    - quantas séries consultar ao mesmo tempo (padrão 4, de 1 a 16). Números maiores
      deixam a verificação mais rápida; se aparecerem erros HTTP 429 ("muitas
      requisições"), diminua.
-3. Em cada série, use o seletor para trocar o modo só daquela série.
+3. Em cada série, use o seletor para trocar o modo só daquela série. O menu **⋯** oculta a
+   série (até sair episódio novo, por 1 semana ou sempre) ou exporta o diagnóstico.
 
 A página tem estas seções:
 
@@ -33,6 +34,7 @@ A página tem estas seções:
 | Aguardando legenda em … | Séries em modo legendado com episódios lançados sem legenda no seu idioma |
 | Sem dublagem em … | Séries em modo dublado cuja temporada atual não tem **nenhum** episódio no seu idioma; o botão "Ver legendado" troca o modo |
 | Não consegui verificar | Séries que deram erro na consulta |
+| Ocultas | Séries que você ocultou pelo menu ⋯ (até sair episódio novo, por 1 semana ou sempre); não contam no ícone nem notificam |
 | Em dia | Séries sem nada pendente |
 | Ainda não começadas | Séries da Fila que você nunca assistiu |
 
