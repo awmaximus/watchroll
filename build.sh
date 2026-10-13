@@ -119,7 +119,7 @@ fi
 # ---------- montagem (lista do que ENTRA no pacote) ----------
 # Só estes caminhos vão para o pacote e para a Mozilla. Qualquer outro arquivo do
 # projeto (env.sh, .env, anotações, credenciais...) fica de fora automaticamente.
-PACKAGE_FILES=(manifest.json src dashboard icons)
+PACKAGE_FILES=(manifest.json _locales src dashboard icons)
 
 step "Montando o pacote numa pasta limpa"
 WORK="$(mktemp -d)"

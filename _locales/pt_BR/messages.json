@@ -1,0 +1,640 @@
+{
+  "extName": {
+    "message": "Crunchyroll – Novos Episódios"
+  },
+  "extDescription": {
+    "message": "Página própria que lista os episódios que você ainda não assistiu das séries da sua Fila, respeitando se você assiste legendado ou dublado."
+  },
+  "actionTitle": {
+    "message": "Novos episódios da Crunchyroll"
+  },
+  "pageTitle": {
+    "message": "Novos episódios – Crunchyroll"
+  },
+  "heading": {
+    "message": "Novos episódios"
+  },
+  "btnSettings": {
+    "message": "Configurações"
+  },
+  "btnRefresh": {
+    "message": "Atualizar"
+  },
+  "settingsTitle": {
+    "message": "Configurações"
+  },
+  "setDubLabel": {
+    "message": "Idioma em que você assiste dublado"
+  },
+  "setDubHelp": {
+    "message": "Séries marcadas como “Dublado” só aparecem quando a dublagem nesse idioma estiver liberada."
+  },
+  "setSubLabel": {
+    "message": "Idioma da legenda"
+  },
+  "setSubHelp": {
+    "message": "Séries marcadas como “Legendado” só aparecem quando a legenda nesse idioma estiver disponível."
+  },
+  "setModeLabel": {
+    "message": "Modo padrão das séries"
+  },
+  "setModeHelp": {
+    "message": "Vale para as séries que você não configurou individualmente."
+  },
+  "setLocaleLabel": {
+    "message": "Idioma dos títulos e links"
+  },
+  "setAutoLabel": {
+    "message": "Verificar automaticamente"
+  },
+  "setAutoHelp": {
+    "message": "Em segundo plano, atualiza o número no ícone da extensão. Precisa de uma aba do crunchyroll.com aberta se o acesso direto for bloqueado."
+  },
+  "setNotifyLabel": {
+    "message": "Notificar quando sair episódio novo"
+  },
+  "setExtrasLabel": {
+    "message": "Mostrar especiais e recapitulações (não entram nas contagens)"
+  },
+  "setSkippedLabel": {
+    "message": "Mostrar episódios pulados (anteriores ao último que você viu)"
+  },
+  "setMinStartedLabel": {
+    "message": "Contar como começado a partir de (segundos)"
+  },
+  "setMinStartedHelp": {
+    "message": "A Crunchyroll registra alguns segundos só por abrir a página do episódio. Abaixo deste tempo, o registro é ignorado. Entre 0 e 600."
+  },
+  "setConcurrencyLabel": {
+    "message": "Séries consultadas ao mesmo tempo"
+  },
+  "setConcurrencyHelp": {
+    "message": "Mais rápido com números maiores. Se aparecerem erros de “muitas requisições” (HTTP 429), diminua. Entre 1 e 16."
+  },
+  "searchPlaceholder": {
+    "message": "Buscar série…"
+  },
+  "searchAria": {
+    "message": "Buscar série pelo título"
+  },
+  "sortLabel": {
+    "message": "Ordenar"
+  },
+  "modeSub": {
+    "message": "Legendado"
+  },
+  "modeDub": {
+    "message": "Dublado"
+  },
+  "modeAuto": {
+    "message": "Qualquer áudio"
+  },
+  "modeAutoLong": {
+    "message": "Qualquer áudio (avisa no primeiro que sair)"
+  },
+  "modeDubLang": {
+    "message": "Dublado $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeDefault": {
+    "message": "Padrão ($P1$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortSub": {
+    "message": "legendado"
+  },
+  "shortDub": {
+    "message": "dublado $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortAuto": {
+    "message": "qualquer áudio"
+  },
+  "modeAria": {
+    "message": "Áudio de $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeTitle": {
+    "message": "Como você assiste esta série"
+  },
+  "autoOff": {
+    "message": "Desligado"
+  },
+  "autoMinutes": {
+    "message": "A cada $P1$ minutos",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "autoHour": {
+    "message": "A cada hora"
+  },
+  "autoHours": {
+    "message": "A cada $P1$ horas",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "epMovie": {
+    "message": "Filme"
+  },
+  "epLabel": {
+    "message": "T$P1$ E$P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "relNow": {
+    "message": "agora há pouco"
+  },
+  "relHours": {
+    "message": "há $P1$ h",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "relYesterday": {
+    "message": "ontem"
+  },
+  "relDays": {
+    "message": "há $P1$ dias",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futToday": {
+    "message": "hoje às $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futTomorrow": {
+    "message": "amanhã às $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futDays": {
+    "message": "em $P1$ dias ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "nextText": {
+    "message": "Próximo: $P1$ $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "watchedPct": {
+    "message": "$P1$% assistido",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "watchNext": {
+    "message": "Assistir o próximo"
+  },
+  "tagRecap": {
+    "message": "recap"
+  },
+  "tagSpecial": {
+    "message": "especial"
+  },
+  "tagSkipped": {
+    "message": "pulado"
+  },
+  "badgeContinue": {
+    "message": "continuar"
+  },
+  "badgeMovie": {
+    "message": "filme"
+  },
+  "badgeNew_one": {
+    "message": "1 novo"
+  },
+  "badgeNew_other": {
+    "message": "$P1$ novos",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSkipped_one": {
+    "message": "1 pulado"
+  },
+  "badgeSkipped_other": {
+    "message": "$P1$ pulados",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSpecial_one": {
+    "message": "1 especial"
+  },
+  "badgeSpecial_other": {
+    "message": "$P1$ especiais",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "moreEps_one": {
+    "message": "+ 1 episódio"
+  },
+  "moreEps_other": {
+    "message": "+ $P1$ episódios",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitDub": {
+    "message": "+$P1$ aguardando dublagem",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitSub": {
+    "message": "+$P1$ aguardando legenda",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsAria": {
+    "message": "Ações para $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsTitle": {
+    "message": "Ações"
+  },
+  "actDiag": {
+    "message": "Exportar diagnóstico"
+  },
+  "actShow": {
+    "message": "Mostrar de novo"
+  },
+  "actHideNew": {
+    "message": "Ocultar até sair episódio novo"
+  },
+  "actHideWeek": {
+    "message": "Ocultar por 1 semana"
+  },
+  "actHideForever": {
+    "message": "Ocultar sempre"
+  },
+  "hiddenUntil": {
+    "message": "Oculta até $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hiddenUntilNew": {
+    "message": "Oculta até sair episódio novo"
+  },
+  "hiddenForever": {
+    "message": "Oculta sempre"
+  },
+  "epsCount_one": {
+    "message": "1 episódio"
+  },
+  "epsCount_other": {
+    "message": "$P1$ episódios",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "seriesCount_one": {
+    "message": "1 série"
+  },
+  "seriesCount_other": {
+    "message": "$P1$ séries",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusEps": {
+    "message": "$P1$ em $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "statusAllCaught": {
+    "message": "Tudo em dia"
+  },
+  "secToWatch": {
+    "message": "Para assistir"
+  },
+  "emptySearch": {
+    "message": "Nenhuma série encontrada aqui."
+  },
+  "emptyToWatch": {
+    "message": "Nenhum episódio novo nas séries que você já começou."
+  },
+  "secWaitDub": {
+    "message": "Aguardando dublagem"
+  },
+  "noteWaitDub_one": {
+    "message": "1 já saiu legendado"
+  },
+  "noteWaitDub_other": {
+    "message": "$P1$ já saíram legendados",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secWaitSub": {
+    "message": "Aguardando legenda em $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteWaitSub_one": {
+    "message": "1 episódio já saiu sem essa legenda"
+  },
+  "noteWaitSub_other": {
+    "message": "$P1$ episódios já saíram sem essa legenda",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secNoDub": {
+    "message": "Sem dublagem em $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoDub_one": {
+    "message": "Temporada atual sem dublagem $P2$ · 1 episódio legendado para ver",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoDub_other": {
+    "message": "Temporada atual sem dublagem $P2$ · $P1$ episódios legendados para ver",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeSubbed": {
+    "message": "Ver legendado"
+  },
+  "btnSeeSubbedTitle": {
+    "message": "Muda esta série para o modo legendado"
+  },
+  "secErrors": {
+    "message": "Não consegui verificar"
+  },
+  "secUpToDate": {
+    "message": "Em dia"
+  },
+  "noteNoDubSeason": {
+    "message": "Sem dublagem $P1$ na temporada atual",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secNever": {
+    "message": "Ainda não começadas"
+  },
+  "secHidden": {
+    "message": "Ocultas"
+  },
+  "btnShow": {
+    "message": "Mostrar"
+  },
+  "progressChecking": {
+    "message": "Verificando $P1$ de $P2$ séries…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "progressReading": {
+    "message": "Lendo sua Fila…"
+  },
+  "errorQuery": {
+    "message": "Não foi possível consultar a Crunchyroll: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errorHint": {
+    "message": "Confira se você está logado em crunchyroll.com e clique em Atualizar."
+  },
+  "diagSaved": {
+    "message": "Diagnóstico de “$P1$” salvo. Ele não contém token, cookie nem dados da conta.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagError": {
+    "message": "Não foi possível gerar o diagnóstico: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagFile": {
+    "message": "diagnostico"
+  },
+  "profileLabel": {
+    "message": " · perfil $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "sortReleased": {
+    "message": "Lançamento mais recente"
+  },
+  "sortWatched": {
+    "message": "Visto mais recentemente"
+  },
+  "sortCount": {
+    "message": "Mais episódios"
+  },
+  "sortTitle": {
+    "message": "Título"
+  },
+  "badgeTitleSome": {
+    "message": "Novos episódios: $P1$ em $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "badgeTitleNone": {
+    "message": "Novos episódios da Crunchyroll: tudo em dia"
+  },
+  "notifTitle_one": {
+    "message": "1 episódio novo"
+  },
+  "notifTitle_other": {
+    "message": "$P1$ episódios novos",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMore": {
+    "message": "+ $P1$ série(s)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMovie": {
+    "message": "filme"
+  },
+  "noticeOpeningTab": {
+    "message": "Abrindo crunchyroll.com em segundo plano para usar sua sessão…"
+  },
+  "noticeProxy": {
+    "message": "Acesso direto bloqueado; usando uma aba do crunchyroll.com."
+  },
+  "noticeOtherProfile": {
+    "message": "A sessão usada agora é de outro perfil da conta. Abra crunchyroll.com no perfil que você usa e clique em Atualizar."
+  },
+  "noticeSlowDown": {
+    "message": "A Crunchyroll pediu para ir mais devagar; tentando de novo em $P1$ s…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errTabTimeout": {
+    "message": "A aba do Crunchyroll demorou demais para carregar."
+  },
+  "errTabNoAnswer": {
+    "message": "A aba do Crunchyroll não respondeu."
+  },
+  "errNoTab": {
+    "message": "Nenhuma aba do crunchyroll.com aberta para usar a sua sessão."
+  },
+  "errAuth": {
+    "message": "Não consegui autenticar (HTTP $P1$). Confira se você está logado em crunchyroll.com.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errHttp": {
+    "message": "HTTP $P1$ em $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "errAccount": {
+    "message": "Não consegui descobrir o ID da sua conta."
+  }
+}

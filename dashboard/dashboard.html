@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="pt-BR">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Novos episódios – Crunchyroll</title>
+    <title data-i18n="pageTitle"></title>
     <link rel="icon" href="../icons/icon.svg" />
     <link rel="stylesheet" href="dashboard.css" />
   </head>
@@ -13,15 +13,13 @@
         <div class="brand">
           <img src="../icons/icon.svg" alt="" width="32" height="32" />
           <div>
-            <h1>Novos episódios</h1>
+            <h1 data-i18n="heading"></h1>
             <p class="status"><span id="status" aria-live="polite"></span><span id="profile"></span></p>
           </div>
         </div>
         <div class="actions">
-          <button id="btn-settings" class="btn ghost" type="button" aria-expanded="false" aria-controls="settings">
-            Configurações
-          </button>
-          <button id="btn-refresh" class="btn" type="button">Atualizar</button>
+          <button id="btn-settings" class="btn ghost" type="button" aria-expanded="false" aria-controls="settings" data-i18n="btnSettings"></button>
+          <button id="btn-refresh" class="btn" type="button" data-i18n="btnRefresh"></button>
         </div>
       </div>
       <div class="progress" id="progress" hidden><span></span></div>
@@ -29,68 +27,69 @@
 
     <main>
       <section id="settings" class="settings" hidden>
-        <h2>Configurações</h2>
+        <h2 data-i18n="settingsTitle"></h2>
         <div class="settings-grid">
           <label>
-            <span>Idioma em que você assiste dublado</span>
+            <span data-i18n="setDubLabel"></span>
             <select id="set-dub"></select>
-            <small>Séries marcadas como “Dublado” só aparecem quando a dublagem nesse idioma estiver liberada.</small>
+            <small data-i18n="setDubHelp"></small>
           </label>
           <label>
-            <span>Idioma da legenda</span>
+            <span data-i18n="setSubLabel"></span>
             <select id="set-sub"></select>
-            <small>Séries marcadas como “Legendado” só aparecem quando a legenda nesse idioma estiver disponível.</small>
+            <small data-i18n="setSubHelp"></small>
           </label>
           <label>
-            <span>Modo padrão das séries</span>
+            <span data-i18n="setModeLabel"></span>
             <select id="set-mode"></select>
-            <small>Vale para as séries que você não configurou individualmente.</small>
+            <small data-i18n="setModeHelp"></small>
           </label>
           <label>
-            <span>Idioma dos títulos e links</span>
+            <span data-i18n="setLocaleLabel"></span>
             <select id="set-locale"></select>
           </label>
           <label>
-            <span>Verificar automaticamente</span>
+            <span data-i18n="setAutoLabel"></span>
             <select id="set-auto"></select>
-            <small>Em segundo plano, atualiza o número no ícone da extensão. Precisa de uma aba do crunchyroll.com aberta se o acesso direto for bloqueado.</small>
+            <small data-i18n="setAutoHelp"></small>
           </label>
           <label class="check">
             <input id="set-notify" type="checkbox" />
-            <span>Notificar quando sair episódio novo</span>
+            <span data-i18n="setNotifyLabel"></span>
           </label>
           <label class="check">
             <input id="set-extras" type="checkbox" />
-            <span>Mostrar especiais e recapitulações (não entram nas contagens)</span>
+            <span data-i18n="setExtrasLabel"></span>
           </label>
           <label class="check">
             <input id="set-skipped" type="checkbox" />
-            <span>Mostrar episódios pulados (anteriores ao último que você viu)</span>
+            <span data-i18n="setSkippedLabel"></span>
           </label>
           <label>
-            <span>Contar como começado a partir de (segundos)</span>
+            <span data-i18n="setMinStartedLabel"></span>
             <input id="set-minstarted" type="number" inputmode="numeric" step="5" />
-            <small>A Crunchyroll registra alguns segundos só por abrir a página do episódio. Abaixo deste tempo, o registro é ignorado. Entre 0 e 600.</small>
+            <small data-i18n="setMinStartedHelp"></small>
           </label>
           <label>
-            <span>Séries consultadas ao mesmo tempo</span>
+            <span data-i18n="setConcurrencyLabel"></span>
             <input id="set-concurrency" type="number" inputmode="numeric" step="1" />
-            <small>Mais rápido com números maiores. Se aparecerem erros de “muitas requisições” (HTTP 429), diminua. Entre 1 e 16.</small>
+            <small data-i18n="setConcurrencyHelp"></small>
           </label>
         </div>
       </section>
 
       <p id="notice" class="notice" hidden></p>
       <div class="toolbar">
-        <input id="search" type="search" placeholder="Buscar série…" aria-label="Buscar série pelo título" autocomplete="off" />
+        <input id="search" type="search" data-i18n-placeholder="searchPlaceholder" data-i18n-aria-label="searchAria" autocomplete="off" />
         <label class="sort">
-          <span>Ordenar</span>
+          <span data-i18n="sortLabel"></span>
           <select id="sort"></select>
         </label>
       </div>
       <div id="content"></div>
     </main>
 
+    <script src="../src/i18n.js"></script>
     <script src="../src/api.js"></script>
     <script src="../src/analyzer.js"></script>
     <script src="../src/checker.js"></script>

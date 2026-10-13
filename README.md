@@ -241,13 +241,26 @@ da Crunchyroll e a API `browser` simuladas:
 O GitHub Actions roda o `./build.sh` a cada push e guarda o `.zip` como artefato
 (`.github/workflows/ci.yml`).
 
+### Idioma da interface
+
+A interface segue a língua do Firefox: português (padrão) ou inglês. Isso vale para a
+página, o ícone, as notificações e as mensagens de erro. Os textos ficam em
+`_locales/<língua>/messages.json`. Para adicionar uma língua, copie a pasta `pt_BR`, traduza
+as mensagens (chaves `_one`/`_other` são singular e plural) e rode `npm test`. Os testes
+conferem se as chaves e os marcadores batem com os do português.
+
+A configuração **Idioma dos títulos e links** é outra coisa: ela escolhe em que língua a
+Crunchyroll devolve os nomes das séries e dos episódios.
+
 ### Estrutura
 
 ```
 manifest.json           MV3, Firefox
+_locales/               textos da interface (pt_BR padrão, en)
 build.sh                build: testes, lint, pacote e assinatura
 dashboard/              página da extensão (HTML, CSS, JS)
 src/background.js       botão, token da sessão e verificação automática (alarme)
+src/i18n.js             traduções (t, plural, nome dos idiomas)
 src/checker.js          preferências, contador do ícone, novidades e notificação
 src/page-hook.js        observa o token usado pelo site (world: MAIN)
 src/bridge.js           ponte invisível para requisições pelo crunchyroll.com

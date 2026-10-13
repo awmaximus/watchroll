@@ -14,8 +14,9 @@
 //
 // Endpoints conferidos no crunchyroll-rs 0.19.1 (set/2026).
 
-/* global browser */
+/* global browser, CRI18n */
 var CRApi = (() => {
+  const t = (...a) => CRI18n.t(...a);
   const BASE = "https://www.crunchyroll.com";
   const FALLBACK_WEB_CLIENT_ID = "noaihdevm_6iyg0a8l0q";
 
@@ -71,7 +72,7 @@ var CRApi = (() => {
     return new Promise((resolve, reject) => {
       const timer = setTimeout(() => {
         browser.tabs.onUpdated.removeListener(listener);
-        reject(new Error("A aba do Crunchyroll demorou demais para carregar."));
+        reject(new Error(t("errTabTimeout")));
       }, timeoutMs);
       function listener(id, info) {
         if (id === tabId && info.status === "complete") {
@@ -101,10 +102,10 @@ var CRApi = (() => {
 
     let tab = await findCrTab();
     if (!tab && !allowOpenTab) {
-      throw new Error("Nenhuma aba do crunchyroll.com aberta para usar a sua sessão.");
+      throw new Error(t("errNoTab"));
     }
     if (!tab) {
-      onNotice("Abrindo crunchyroll.com em segundo plano para usar sua sessão…");
+      onNotice(t("noticeOpeningTab"));
       tab = await browser.tabs.create({ url: BASE + "/", active: false });
       openedTabId = tab.id;
       await waitComplete(tab.id);
@@ -123,7 +124,7 @@ var CRApi = (() => {
   async function proxySend(req) {
     const tabId = await ensureProxyTab();
     const r = await browser.tabs.sendMessage(tabId, { type: "crnovos-fetch", req });
-    if (!r) throw new Error("A aba do Crunchyroll não respondeu.");
+    if (!r) throw new Error(t("errTabNoAnswer"));
     if (r.error) throw new Error(r.error);
     return r;
   }
@@ -152,7 +153,7 @@ var CRApi = (() => {
       if (r.status !== 429 || attempt >= RETRY.attempts) return r;
       const delay = retryDelayMs(r.retryAfter, attempt);
       cooldownUntil = Math.max(cooldownUntil, Date.now() + delay);
-      onNotice(`A Crunchyroll pediu para ir mais devagar; tentando de novo em ${Math.ceil(delay / 1000)} s…`);
+      onNotice(t("noticeSlowDown", Math.ceil(delay / 1000)));
     }
   }
 
@@ -170,7 +171,7 @@ var CRApi = (() => {
   function switchToProxy() {
     if (transport === "proxy") return;
     transport = "proxy";
-    onNotice("Acesso direto bloqueado; usando uma aba do crunchyroll.com.");
+    onNotice(t("noticeProxy"));
   }
 
   // ---------- autenticação ----------
@@ -229,7 +230,7 @@ var CRApi = (() => {
     }
     if (r.status !== 200) {
       throw new Error(
-        `Não consegui autenticar (HTTP ${r.status}). Confira se você está logado em crunchyroll.com.`
+        t("errAuth", r.status)
       );
     }
     const data = JSON.parse(r.text);
@@ -247,15 +248,11 @@ var CRApi = (() => {
     return typeof p.profile_id === "string" ? p.profile_id : "";
   };
 
-  async function warnIfOtherProfile(t) {
+  async function warnIfOtherProfile(token) {
     try {
       const { crSiteProfile } = await browser.storage.local.get("crSiteProfile");
-      const mine = profileOf(t);
-      if (crSiteProfile && mine && crSiteProfile !== mine) {
-        onNotice(
-          "A sessão usada agora é de outro perfil da conta. Abra crunchyroll.com no perfil que você usa e clique em Atualizar."
-        );
-      }
+      const mine = profileOf(token);
+      if (crSiteProfile && mine && crSiteProfile !== mine) onNotice(t("noticeOtherProfile"));
     } catch (_) {}
   }
 
@@ -302,7 +299,7 @@ var CRApi = (() => {
       }
       r = await send({ path: full, headers: { Authorization: "Bearer " + retryToken } });
     }
-    if (r.status < 200 || r.status >= 300) throw new Error(`HTTP ${r.status} em ${path}`);
+    if (r.status < 200 || r.status >= 300) throw new Error(t("errHttp", r.status, path));
     return r.text ? JSON.parse(r.text) : {};
   }
 
@@ -311,7 +308,7 @@ var CRApi = (() => {
     await getToken();
     if (isUuidish(accountId)) return accountId;
     const me = await get("/accounts/v1/me");
-    if (!isUuidish(me.account_id)) throw new Error("Não consegui descobrir o ID da sua conta.");
+    if (!isUuidish(me.account_id)) throw new Error(t("errAccount"));
     accountId = me.account_id;
     return accountId;
   }

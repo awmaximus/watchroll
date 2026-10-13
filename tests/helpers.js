@@ -45,8 +45,37 @@ function fakeBrowser(overrides = {}) {
   };
 }
 
-/** Carrega scripts da extensão e devolve o contexto (globais `var` ficam nele). */
+// ---------- traduções ----------
+const readMessages = (folder) =>
+  JSON.parse(fs.readFileSync(path.join(ROOT, "_locales", folder, "messages.json"), "utf8"));
+
+/** Imita browser.i18n.getMessage: marcadores nomeados ($NOME$) -> $1, $2… -> substituições. */
+function formatMessage(entry, subs = []) {
+  if (!entry) return "";
+  const list = Array.isArray(subs) ? subs : [subs];
+  const fill = (text) => text.replace(/\$(\d)/g, (_, n) => (list[n - 1] != null ? String(list[n - 1]) : ""));
+  const ph = entry.placeholders || {};
+  return entry.message.replace(/\$([A-Za-z0-9_@]+)\$/g, (m, name) => {
+    const p = ph[name.toLowerCase()];
+    return p ? fill(p.content) : m;
+  });
+}
+
+/** browser.i18n falso numa língua (padrão: pt_BR, a língua padrão da extensão). */
+function fakeI18n(folder = "pt_BR", uiLanguage = folder.replace("_", "-")) {
+  const messages = readMessages(folder);
+  return {
+    messages,
+    getMessage: (key, subs) => formatMessage(messages[key], subs),
+    getUILanguage: () => uiLanguage,
+  };
+}
+
+/** Carrega scripts da extensão e devolve o contexto (globais `var` ficam nele).
+ *  src/i18n.js é carregado antes de tudo, como no manifesto e na página. */
 function load(files, globals = {}) {
+  const browser = globals.browser || {};
+  if (!browser.i18n) browser.i18n = fakeI18n();
   const ctx = vm.createContext({
     console,
     URLSearchParams,
@@ -57,7 +86,9 @@ function load(files, globals = {}) {
     btoa,
     crypto: { randomUUID: () => "device-uuid" },
     ...globals,
+    browser,
   });
+  if (!files.includes("src/i18n.js")) files = ["src/i18n.js", ...files];
   for (const f of files) {
     vm.runInContext(fs.readFileSync(path.join(ROOT, f), "utf8"), ctx, { filename: f });
   }
@@ -118,4 +149,4 @@ function apiFromDiagnostic(diag) {
   };
 }
 
-module.exports = { apiFromDiagnostic, plain, load, fakeBrowser, jwt, episode, playhead, DAY, iso };
+module.exports = { apiFromDiagnostic, plain, load, fakeBrowser, fakeI18n, formatMessage, readMessages, jwt, episode, playhead, DAY, iso, ROOT };

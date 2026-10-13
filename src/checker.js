@@ -4,8 +4,9 @@
 //  - "o que é novo desde a última vez" e a notificação correspondente;
 //  - a verificação completa usada pelo alarme.
 
-/* global browser */
+/* global browser, CRI18n */
 var CRChecker = (() => {
+  const { t, tn } = CRI18n;
   const SETTINGS_KEY = "crnovos:settings";
   const LAST_KEY = "crnovos:last"; // último resultado completo (a página mostra na hora)
   const SEEN_KEY = "crnovos:seen"; // episódios pendentes já mostrados ou notificados
@@ -97,15 +98,16 @@ var CRChecker = (() => {
     return words.every((w) => t.includes(w));
   }
 
+  // Ordenações: valor -> chave da tradução do rótulo.
   const SORTS = {
-    released: "Lançamento mais recente",
-    watched: "Visto mais recentemente",
-    count: "Mais episódios",
-    title: "Título",
+    released: "sortReleased",
+    watched: "sortWatched",
+    count: "sortCount",
+    title: "sortTitle",
   };
   const mainCount = (r) => r.pending.filter((p) => !p.extra && !p.skipped).length;
   const newestRelease = (r) => Math.max(0, ...r.pending.map((p) => p.availableAt || 0));
-  const byTitle = (a, b) => (a.title || "").localeCompare(b.title || "", "pt-BR");
+  const byTitle = (a, b) => (a.title || "").localeCompare(b.title || "", CRI18n.lang());
 
   function sortPending(list, by) {
     const cmp = {
@@ -131,8 +133,8 @@ var CRChecker = (() => {
     if (b.action.setBadgeTextColor) await b.action.setBadgeTextColor({ color: "#000000" });
     await b.action.setTitle({
       title: episodes
-        ? `Novos episódios: ${episodes} em ${series} série${series > 1 ? "s" : ""}`
-        : "Novos episódios da Crunchyroll: tudo em dia",
+        ? t("badgeTitleSome", episodes, tn("seriesCount", series))
+        : t("badgeTitleNone"),
     });
   }
 
@@ -140,14 +142,14 @@ var CRChecker = (() => {
     const bySeries = new Map();
     for (const i of fresh) {
       const list = bySeries.get(i.series.seriesId) || { title: i.series.title, eps: [] };
-      list.eps.push(i.ep.kind === "movie" ? "filme" : `T${i.ep.season ?? "?"} E${i.ep.number || "?"}`);
+      list.eps.push(i.ep.kind === "movie" ? t("notifMovie") : t("epLabel", i.ep.season ?? "?", i.ep.number || "?"));
       bySeries.set(i.series.seriesId, list);
     }
     const lines = [...bySeries.values()].map((s) => `${s.title}: ${s.eps.join(", ")}`);
     const shown = lines.slice(0, 4);
-    if (lines.length > shown.length) shown.push(`+ ${lines.length - shown.length} série(s)`);
+    if (lines.length > shown.length) shown.push(t("notifMore", lines.length - shown.length));
     return {
-      title: fresh.length === 1 ? "1 episódio novo" : `${fresh.length} episódios novos`,
+      title: tn("notifTitle", fresh.length),
       message: shown.join("\n"),
     };
   }
