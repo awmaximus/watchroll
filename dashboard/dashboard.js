@@ -77,6 +77,7 @@
     );
     $("set-notify").checked = settings.notify !== false;
     $("set-extras").checked = settings.showExtras !== false;
+    $("set-skipped").checked = !!settings.showSkipped;
   }
 
   // ---------- links ----------
@@ -145,6 +146,7 @@
         { href: watchUrl(ep), target: "_blank", rel: "noopener", title: ep.title },
         el("span", { class: "epnum", text: `T${ep.season ?? "?"} E${ep.number || "?"}` }),
         ep.extra ? el("span", { class: "tag", text: ep.extra === "recap" ? "recap" : "especial" }) : null,
+        ep.skipped ? el("span", { class: "tag", text: "pulado" }) : null,
         el("span", { class: "eptitle", text: ep.title || ep.seasonTitle }),
         ep.inProgress
           ? el(
@@ -159,8 +161,10 @@
 
   // Rótulo do card: episódios normais; se só houver extras, diz isso.
   function badgeLabel(s) {
-    const main = s.pending.filter((p) => !p.extra).length;
+    const main = s.pending.filter((p) => !p.extra && !p.skipped).length;
     if (main) return `${main} novo${main > 1 ? "s" : ""}`;
+    const skipped = s.pending.filter((p) => p.skipped).length;
+    if (skipped) return skipped === 1 ? "1 pulado" : `${skipped} pulados`;
     const extras = s.pending.length;
     return extras === 1 ? "1 especial" : `${extras} especiais`;
   }
@@ -169,7 +173,7 @@
     const shown = s.pending.slice(0, MAX_EPS);
     const extra = s.pending.length - shown.length;
     // O link principal vai para o próximo episódio normal (se houver).
-    const first = s.pending.find((p) => !p.extra) || s.pending[0];
+    const first = s.pending.find((p) => !p.extra && !p.skipped) || s.pending[0];
     return el(
       "article",
       { class: "card", "data-series": s.seriesId },
@@ -484,6 +488,11 @@
     });
     $("set-extras").addEventListener("change", async (e) => {
       settings.showExtras = e.target.checked;
+      await saveSettings();
+      refresh(false);
+    });
+    $("set-skipped").addEventListener("change", async (e) => {
+      settings.showSkipped = e.target.checked;
       await saveSettings();
       refresh(false);
     });

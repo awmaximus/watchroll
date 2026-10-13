@@ -153,6 +153,7 @@ var CRAnalyzer = (() => {
       mode === "sub" ? settings.subLang || "pt-BR" : "",
       settings.locale,
       settings.showExtras === false ? "sem-extras" : "",
+      settings.showSkipped ? "com-pulados" : "",
     ].join("|");
 
   // ---------- Fila ----------
@@ -308,9 +309,41 @@ var CRAnalyzer = (() => {
     for (let i = 0; i < ordered.length; i++) if (ordered[i].started) lastIdx = i;
     const last = ordered[lastIdx];
 
+    const toPending = (s, flags = {}) => {
+      const ep = s.ep;
+      // sub/dub: a própria lista já está no áudio certo. No modo "qualquer áudio",
+      // um episódio começado abre na versão em que você parou; os demais abrem na
+      // versão listada (a de outro áudio pode ainda não ter sido lançada).
+      let targetId = ep.id;
+      if (mode === "auto" && s.started && s.lastId) targetId = s.lastId;
+      return {
+        id: targetId,
+        slug: ep.slug_title || "",
+        title: ep.title || "",
+        season: ep.season_number,
+        seasonTitle: s.season.title || ep.season_title || "",
+        number: ep.episode || (ep.episode_number != null ? String(ep.episode_number) : ""),
+        thumb: pickImage(ep.images, 320),
+        inProgress: s.started && !s.fully,
+        progress: s.progress,
+        availableAt: Date.parse(ep.availability_starts || ep.premium_available_date || "") || 0,
+        extra: flags.extra || null, // "especial"/"recap": fora das contagens
+        skipped: !!flags.skipped, // anterior ao último visto: fora das contagens
+      };
+    };
+
     const pending = [];
     let waitingDub = 0;
     let waitingSub = 0;
+
+    // Opcional: episódios antes do último visto que ficaram sem ver ("pulados").
+    if (settings.showSkipped) {
+      for (let i = 0; i < lastIdx; i++) {
+        const s = ordered[i];
+        if (s.fully || !s.eligible || !isAvailable(s.ep, now) || extraKind(s.ep, s.season)) continue;
+        pending.push(toPending(s, { skipped: true }));
+      }
+    }
     for (let i = lastIdx; i < ordered.length; i++) {
       const s = ordered[i];
       if (s.fully) continue;
@@ -323,27 +356,9 @@ var CRAnalyzer = (() => {
       }
       if (!isAvailable(s.ep, now)) continue;
 
-      const ep = s.ep;
-      const kind = extraKind(ep, s.season);
+      const kind = extraKind(s.ep, s.season);
       if (kind && settings.showExtras === false) continue;
-      // sub/dub: a própria lista já está no áudio certo. No modo "qualquer áudio",
-      // um episódio começado abre na versão em que você parou; os demais abrem na
-      // versão listada (a de outro áudio pode ainda não ter sido lançada).
-      let targetId = ep.id;
-      if (mode === "auto" && s.started && s.lastId) targetId = s.lastId;
-      pending.push({
-        id: targetId,
-        slug: ep.slug_title || "",
-        title: ep.title || "",
-        season: ep.season_number,
-        seasonTitle: s.season.title || ep.season_title || "",
-        number: ep.episode || (ep.episode_number != null ? String(ep.episode_number) : ""),
-        thumb: pickImage(ep.images, 320),
-        inProgress: s.started && !s.fully,
-        progress: s.progress,
-        availableAt: Date.parse(ep.availability_starts || ep.premium_available_date || "") || 0,
-        extra: kind, // null, "especial" ou "recap": fora das contagens
-      });
+      pending.push(toPending(s, { extra: kind }));
     }
 
     return {

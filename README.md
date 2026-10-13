@@ -82,6 +82,10 @@ Regras adotadas:
   Crunchyroll completa a lista dublada com a versão original quando a dublagem ainda não
   saiu.
 - **Qualquer áudio:** avisa assim que o episódio sair em qualquer versão.
+- **Episódios pulados (opcional):** com "Mostrar episódios pulados" ligado, os episódios
+  anteriores ao último que você viu e que ficaram sem ver aparecem com a etiqueta "pulado",
+  fora das contagens. Vale para as temporadas que a extensão examina (a mais recente com
+  atividade e as seguintes); pulados em temporadas antigas não aparecem.
 - **Especiais e recapitulações:** episódios com numeração fora do normal (13.5, SP, OVA),
   sem número, com título de recapitulação, ou de temporadas especiais aparecem com uma
   etiqueta e **não entram** nas contagens (card, ícone, notificação). Temporadas especiais

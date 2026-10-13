@@ -21,6 +21,7 @@ var CRChecker = (() => {
     autoCheckMinutes: 60,
     notify: true,
     showExtras: true,
+    showSkipped: false,
     seriesModes: {},
   };
 

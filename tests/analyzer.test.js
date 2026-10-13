@@ -917,3 +917,50 @@ test("cache separado por perfil: trocar de perfil recalcula", async () => {
   await ctx.CRAnalyzer.run({ settings: settings() });
   assert.equal(seasonsCalls, 2, "outro perfil: recalcula");
 });
+
+describe("episódios pulados", () => {
+  const db = () => ({
+    watchlist: [series("X")],
+    seasons: { X: [{ id: "T", season_sequence_number: 1 }] },
+    episodes: {
+      T: [
+        episode("e1", 1),
+        episode("e2", 2),
+        { ...episode("e3", 3), title: "Recap" },
+        episode("e4", 4),
+        episode("e5", 5),
+        episode("e6", 6),
+      ],
+    },
+    // viu 1 e 4; pulou 2 (e o recap 3); 5 e 6 são novos
+    playheads: { e1: playhead("e1", FULL, true), e4: playhead("e4", FULL, true) },
+  });
+
+  test("desligado (padrão): só os novos depois do último visto", async () => {
+    const { analyzer } = setup(db());
+    const [r] = await analyzer.run({ settings: settings() });
+    assert.deepEqual(ids(r), ["e5", "e6"]);
+  });
+
+  test("ligado: inclui os pulados antes, marcados, sem os extras", async () => {
+    const { analyzer } = setup(db());
+    const [r] = await analyzer.run({ settings: settings({ showSkipped: true }) });
+    assert.deepEqual(ids(r), ["e2", "e5", "e6"]);
+    assert.deepEqual(plain(r.pending.map((p) => p.skipped)), [true, false, false]);
+  });
+
+  test("pulados não entram na contagem do ícone", async () => {
+    const { analyzer } = setup(db());
+    const [r] = await analyzer.run({ settings: settings({ showSkipped: true }) });
+    const { CRChecker } = load(["src/checker.js"], { browser: fakeBrowser() });
+    assert.equal(CRChecker.summarize([r]).episodes, 2);
+  });
+
+  test("ligar/desligar a opção invalida o cache", async () => {
+    const { analyzer, calls } = setup(db());
+    const count = () => calls.filter((c) => c[0] === "seasons").length;
+    await analyzer.run({ settings: settings() });
+    await analyzer.run({ settings: settings({ showSkipped: true }) });
+    assert.equal(count(), 2);
+  });
+});
