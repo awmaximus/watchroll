@@ -53,6 +53,9 @@ Se a Crunchyroll responder HTTP 429 ("muitas requisições"), a extensão espera
 ela pedir (cabeçalho `Retry-After`; sem ele, 1 s, 2 s, 4 s, 8 s, até 60 s) e tenta de novo,
 no máximo 4 vezes. A pausa vale para todas as consultas em andamento.
 
+Os pedidos de histórico de reprodução (playheads) de várias séries são juntados em lotes de
+até 50 episódios. Com 6 séries em paralelo, por exemplo, sai 1 consulta em vez de 6.
+
 As séries são consultadas em paralelo, até o limite configurado. Dentro de cada série, as
 temporadas são lidas da mais nova para a mais antiga e a busca para assim que encontra
 atividade sua, para não fazer requisições à toa. Se o token vencer no meio da verificação,
@@ -225,6 +228,7 @@ da Crunchyroll e a API `browser` simuladas:
 
 - `analyzer.test.js` cobre a regra "o que falta assistir": temporadas, versões de áudio,
   modos legendado, dublado e qualquer áudio, cache, erros e o limite de séries em paralelo.
+- `integration.test.js` roda o analisador e a API reais juntos, com só o `fetch` simulado.
 - `api.test.js` cobre a autenticação, o token expirado, a renovação em erro 401, a troca
   para a ponte quando o Cloudflare bloqueia, a paginação, os lotes de playheads e as
   requisições simultâneas (um só pedido de token e uma só aba).

@@ -447,3 +447,49 @@ describe("histórico de reprodução (watch-history)", () => {
     assert.equal(h.complete, false);
   });
 });
+
+describe("playheads em lote", () => {
+  const phRoutes = () => (url) => {
+    const ids = (new URL(url).searchParams.get("content_ids") || "").split(",");
+    return json({ data: ids.filter((id) => !id.startsWith("sem")).map((id) => ({ content_id: id, playhead: 1 })) });
+  };
+
+  test("pedidos simultâneos de várias séries viram uma consulta só", async () => {
+    const { api, requests } = setup(phRoutes(), { sessionToken: validSession() });
+    const ids = (p) => Array.from({ length: 10 }, (_, i) => `${p}${i}`);
+    const [a, b, c] = await Promise.all([api.playheads(ids("a"), "pt-BR"), api.playheads(ids("b"), "pt-BR"), api.playheads(ids("c"), "pt-BR")]);
+    assert.equal(requests.length, 1);
+    assert.equal(new URL(requests[0].url).searchParams.get("content_ids").split(",").length, 30);
+    assert.deepEqual(plain([...a.keys()]), ids("a"));
+    assert.deepEqual(plain([...b.keys()]), ids("b"));
+    assert.equal(c.size, 10);
+  });
+
+  test("cada série recebe só os seus IDs; IDs repetidos são consultados uma vez", async () => {
+    const { api, requests } = setup(phRoutes(), { sessionToken: validSession() });
+    const [a, b] = await Promise.all([api.playheads(["x", "y", "sem-registro"], "pt-BR"), api.playheads(["y", "z"], "pt-BR")]);
+    assert.deepEqual(plain([...a.keys()]), ["x", "y"]);
+    assert.deepEqual(plain([...b.keys()]), ["y", "z"]);
+    assert.equal(new URL(requests[0].url).searchParams.get("content_ids"), "x,y,sem-registro,z");
+  });
+
+  test("lote cheio (50+) sai na hora, sem esperar a janela", async () => {
+    const { api, requests } = setup(phRoutes(), { sessionToken: validSession() });
+    const big = Array.from({ length: 60 }, (_, i) => `g${i}`);
+    const r = await api.playheads(big, "pt-BR");
+    assert.equal(r.size, 60);
+    assert.equal(requests.length, 2); // 50 + 10
+  });
+
+  test("lista vazia não consulta nada", async () => {
+    const { api, requests } = setup(phRoutes(), { sessionToken: validSession() });
+    assert.equal((await api.playheads([], "pt-BR")).size, 0);
+    assert.equal(requests.length, 0);
+  });
+
+  test("erro na consulta chega a todos os chamadores do lote", async () => {
+    const { api } = setup(() => json({}, 500), { sessionToken: validSession() });
+    const results = await Promise.allSettled([api.playheads(["a"], "pt-BR"), api.playheads(["b"], "pt-BR")]);
+    assert.deepEqual(plain(results.map((r) => r.status)), ["rejected", "rejected"]);
+  });
+});

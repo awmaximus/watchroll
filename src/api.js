@@ -363,18 +363,49 @@ var CRApi = (() => {
   const movies = (listingId, locale) =>
     get(`/content/v2/cms/movie_listings/${listingId}/movies`, { locale }).then((r) => r.data || []);
 
-  async function playheads(ids, locale) {
-    const acc = await getAccountId();
-    const out = new Map();
-    for (let i = 0; i < ids.length; i += 50) {
-      const r = await get(`/content/v2/${acc}/playheads`, {
-        content_ids: ids.slice(i, i + 50).join(","),
-        locale,
-      });
-      for (const p of r.data || []) out.set(p.content_id, p);
-    }
-    return out;
+  // ---------- playheads em lote ----------
+  // Pedidos de várias séries são acumulados por alguns milissegundos e enviados
+  // juntos, em lotes de até 50 IDs; cada chamador recebe só os seus.
+  const BATCH = { size: 50, windowMs: 10 };
+  let phQueue = [];
+  let phTimer = null;
+
+  function playheads(ids, locale) {
+    const unique = [...new Set(ids)];
+    if (!unique.length) return Promise.resolve(new Map());
+    return new Promise((resolve, reject) => {
+      phQueue.push({ ids: unique, locale, resolve, reject });
+      const queued = new Set(phQueue.flatMap((q) => q.ids)).size;
+      if (queued >= BATCH.size) flushPlayheads();
+      else if (!phTimer) phTimer = setTimeout(flushPlayheads, BATCH.windowMs);
+    });
   }
+
+  async function flushPlayheads() {
+    clearTimeout(phTimer);
+    phTimer = null;
+    const batch = phQueue;
+    phQueue = [];
+    if (!batch.length) return;
+    const all = [...new Set(batch.flatMap((b) => b.ids))];
+    try {
+      const acc = await getAccountId();
+      const found = new Map();
+      for (let i = 0; i < all.length; i += BATCH.size) {
+        const r = await get(`/content/v2/${acc}/playheads`, {
+          content_ids: all.slice(i, i + BATCH.size).join(","),
+          locale: batch[0].locale,
+        });
+        for (const p of r.data || []) found.set(p.content_id, p);
+      }
+      for (const b of batch) {
+        b.resolve(new Map(b.ids.filter((id) => found.has(id)).map((id) => [id, found.get(id)])));
+      }
+    } catch (err) {
+      for (const b of batch) b.reject(err);
+    }
+  }
+
 
   // Fecha a aba que nós mesmos abrimos (se abrimos).
   async function release() {
