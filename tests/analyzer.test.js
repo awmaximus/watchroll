@@ -17,6 +17,8 @@ function setup(db) {
       return db.seasons[id] || [];
     },
     episodes: async (id) => (calls.push(["episodes", id]), db.episodes[id] || []),
+    movieListing: async (id) => (calls.push(["movieListing", id]), (db.movieListings || {})[id] || null),
+    movies: async (id) => (calls.push(["movies", id]), (db.movies || {})[id] || []),
     playheads: async (ids) => {
       calls.push(["playheads", ids.length]);
       return new Map(ids.filter((i) => db.playheads[i]).map((i) => [i, db.playheads[i]]));
@@ -284,7 +286,7 @@ describe("modo de áudio (legendado / dublado)", () => {
 });
 
 describe("Fila, cache e erros", () => {
-  test("ignora filmes, aceita painel de episódio e remove séries repetidas", async () => {
+  test("inclui filmes, aceita painel de episódio e remove séries repetidas", async () => {
     const { analyzer } = setup({
       watchlist: [
         { panel: { type: "movie_listing", id: "M" } },
@@ -302,9 +304,12 @@ describe("Fila, cache e erros", () => {
       playheads: {},
     });
     const results = await analyzer.run({ settings: settings() });
-    assert.equal(results.length, 1);
-    assert.equal(results[0].seriesId, "A");
-    assert.equal(results[0].title, "Série A");
+    assert.equal(results.length, 2);
+    const movie = results.find((r) => r.seriesId === "M");
+    assert.equal(movie.kind, "movie");
+    assert.equal(movie.status, "never");
+    const a = results.find((r) => r.seriesId === "A");
+    assert.equal(a.title, "Série A");
   });
 
   test("reaproveita o cache e só refaz quando o modo muda ou com force", async () => {
@@ -1013,5 +1018,105 @@ describe("limite de 'começado' configurável", () => {
     assert.equal(count(), 1, "60 explícito = padrão");
     await analyzer.run({ settings: settings({ minStartedSeconds: 300 }) });
     assert.equal(count(), 2);
+  });
+});
+
+describe("filmes da Fila", () => {
+  const movieItem = (id, title) => ({ panel: { type: "movie_listing", id, title, slug_title: id.toLowerCase() } });
+  const movie = (id, extra = {}) => ({
+    id,
+    title: extra.title || `Filme ${id}`,
+    slug_title: id.toLowerCase(),
+    duration_ms: 100 * 60 * 1000,
+    availability_status: "available",
+    premium_available_date: "2024-01-01T00:00:00Z",
+    images: { thumbnail: [[{ source: `https://img/${id}.jpg`, width: 320 }]] },
+    ...extra,
+  });
+  const listing = {
+    id: "L-JA",
+    versions: [
+      { guid: "L-JA", audio_locale: "ja-JP", original: true },
+      { guid: "L-PT", audio_locale: "pt-BR", original: false },
+    ],
+  };
+  const db = (playheads, extra = {}) => ({
+    watchlist: [movieItem("L-JA", "Um Filme")],
+    seasons: {},
+    episodes: {},
+    movieListings: { "L-JA": listing },
+    movies: { "L-JA": [movie("M-JA")], "L-PT": [movie("M-PT")] },
+    playheads,
+    ...extra,
+  });
+
+  test("não começado vai para 'never'", async () => {
+    const { analyzer } = setup(db({}));
+    const [r] = await analyzer.run({ settings: settings() });
+    assert.equal(r.kind, "movie");
+    assert.equal(r.status, "never");
+  });
+
+  test("visto dublado conta como visto no modo legendado (qualquer áudio vale)", async () => {
+    const { analyzer } = setup(db({ "M-PT": playhead("M-PT", 6000, true) }));
+    const [r] = await analyzer.run({ settings: settings({ defaultMode: "sub" }) });
+    assert.equal(r.status, "uptodate");
+  });
+
+  test("começado e não terminado: 'para assistir' com progresso", async () => {
+    const { analyzer } = setup(db({ "M-JA": playhead("M-JA", 1800, false) }));
+    const [r] = await analyzer.run({ settings: settings({ defaultMode: "sub" }) });
+    assert.equal(r.status, "pending");
+    assert.equal(r.pending[0].id, "M-JA");
+    assert.equal(r.pending[0].kind, "movie");
+    assert.equal(r.pending[0].inProgress, true);
+    assert.equal(r.pending[0].progress, 0.3);
+  });
+
+  test("modo dublado com versão pt-BR: link para o filme dublado", async () => {
+    const { analyzer } = setup(db({ "M-JA": playhead("M-JA", 1800, false) }));
+    const [r] = await analyzer.run({ settings: settings({ defaultMode: "dub" }) });
+    assert.equal(r.pending[0].id, "M-PT");
+    assert.equal(r.noDub, false);
+  });
+
+  test("modo dublado sem versão no idioma: noDub, link no original", async () => {
+    const onlyJa = { id: "L-JA", versions: [{ guid: "L-JA", audio_locale: "ja-JP", original: true }] };
+    const { analyzer } = setup(db({ "M-JA": playhead("M-JA", 1800, false) }, { movieListings: { "L-JA": onlyJa } }));
+    const [r] = await analyzer.run({ settings: settings({ defaultMode: "dub" }) });
+    assert.equal(r.noDub, true);
+    assert.equal(r.pending[0].id, "M-JA");
+  });
+
+  test("filme em duas partes: viu a 1ª, aparece a 2ª", async () => {
+    const { analyzer } = setup(
+      db(
+        { "P1-JA": playhead("P1-JA", 6000, true) },
+        {
+          movies: {
+            "L-JA": [movie("P1-JA", { title: "Parte 1" }), movie("P2-JA", { title: "Parte 2" })],
+            "L-PT": [movie("P1-PT"), movie("P2-PT")],
+          },
+        }
+      )
+    );
+    const [r] = await analyzer.run({ settings: settings({ defaultMode: "sub" }) });
+    assert.deepEqual(ids(r), ["P2-JA"]);
+    assert.equal(r.pending[0].inProgress, false);
+  });
+
+  test("registro curto (< limite) não conta como começado", async () => {
+    const { analyzer } = setup(db({ "M-JA": playhead("M-JA", 10, false) }));
+    const [r] = await analyzer.run({ settings: settings() });
+    assert.equal(r.status, "never");
+  });
+
+  test("painel de filme avulso (type movie) vira o título dele", async () => {
+    const { analyzer } = setup(
+      db({}, { watchlist: [{ panel: { type: "movie", id: "M-JA", movie_metadata: { movie_listing_id: "L-JA", movie_listing_title: "Um Filme" } } }] })
+    );
+    const [r] = await analyzer.run({ settings: settings() });
+    assert.equal(r.seriesId, "L-JA");
+    assert.equal(r.title, "Um Filme");
   });
 });

@@ -86,6 +86,10 @@ Regras adotadas:
   anteriores ao último que você viu e que ficaram sem ver aparecem com a etiqueta "pulado",
   fora das contagens. Vale para as temporadas que a extensão examina (a mais recente com
   atividade e as seguintes); pulados em temporadas antigas não aparecem.
+- **Filmes:** filmes da Fila também são verificados. Não começado vai para "Ainda não
+  começadas"; começado e não terminado, para "Para assistir" com o progresso; terminado,
+  para "Em dia". Ver em qualquer áudio conta. O modo de áudio da série decide o link, e um
+  filme em partes aparece parte por parte.
 - **Especiais e recapitulações:** episódios com numeração fora do normal (13.5, SP, OVA),
   sem número, com título de recapitulação, ou de temporadas especiais aparecem com uma
   etiqueta e **não entram** nas contagens (card, ícone, notificação). Temporadas especiais

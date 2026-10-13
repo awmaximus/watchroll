@@ -90,7 +90,12 @@
     return l === "en-us" ? "" : "/" + l;
   }
   const watchUrl = (ep) => `https://www.crunchyroll.com${prefix()}/watch/${ep.id}/${ep.slug}`;
-  const seriesUrl = (s) => `https://www.crunchyroll.com${prefix()}/series/${s.seriesId}/${s.slug || ""}`;
+  // Filme: o título leva ao player (o primeiro filme pendente, se houver).
+  const seriesUrl = (s) =>
+    s.kind === "movie" && s.pending && s.pending[0]
+      ? watchUrl(s.pending[0])
+      : `https://www.crunchyroll.com${prefix()}/series/${s.seriesId}/${s.slug || ""}`;
+  const epLabel = (ep) => (ep.kind === "movie" ? "Filme" : `T${ep.season ?? "?"} E${ep.number || "?"}`);
 
   function relTime(ts) {
     if (!ts) return "";
@@ -148,7 +153,7 @@
       el(
         "a",
         { href: watchUrl(ep), target: "_blank", rel: "noopener", title: ep.title },
-        el("span", { class: "epnum", text: `T${ep.season ?? "?"} E${ep.number || "?"}` }),
+        el("span", { class: "epnum", text: epLabel(ep) }),
         ep.extra ? el("span", { class: "tag", text: ep.extra === "recap" ? "recap" : "especial" }) : null,
         ep.skipped ? el("span", { class: "tag", text: "pulado" }) : null,
         el("span", { class: "eptitle", text: ep.title || ep.seasonTitle }),
@@ -166,6 +171,7 @@
   // Rótulo do card: episódios normais; se só houver extras, diz isso.
   function badgeLabel(s) {
     const main = s.pending.filter((p) => !p.extra && !p.skipped).length;
+    if (s.kind === "movie") return s.pending.some((p) => p.inProgress) ? "continuar" : "filme";
     if (main) return `${main} novo${main > 1 ? "s" : ""}`;
     const skipped = s.pending.filter((p) => p.skipped).length;
     if (skipped) return skipped === 1 ? "1 pulado" : `${skipped} pulados`;

@@ -307,6 +307,14 @@ var CRApi = (() => {
   const episodes = (seasonId, locale) =>
     get(`/content/v2/cms/seasons/${seasonId}/episodes`, { locale }).then((r) => r.data || []);
 
+  async function movieListing(id, locale) {
+    const r = await get(`/content/v2/cms/movie_listings/${id}`, { locale });
+    return (r.data || [])[0] || null;
+  }
+
+  const movies = (listingId, locale) =>
+    get(`/content/v2/cms/movie_listings/${listingId}/movies`, { locale }).then((r) => r.data || []);
+
   async function playheads(ids, locale) {
     const acc = await getAccountId();
     const out = new Map();
@@ -340,6 +348,8 @@ var CRApi = (() => {
     watchlist,
     seasons,
     episodes,
+    movieListing,
+    movies,
     playheads,
     release,
   };

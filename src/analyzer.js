@@ -171,7 +171,19 @@ var CRAnalyzer = (() => {
   function normalizeItem(item) {
     const p = item.panel || {};
     const meta = p.episode_metadata || {};
-    if (p.type === "movie_listing" || p.type === "movie") return null;
+    if (p.type === "movie_listing" || p.type === "movie") {
+      const mm = p.movie_metadata || {};
+      const listingId = p.type === "movie_listing" ? p.id : mm.movie_listing_id || p.movie_listing_id || p.listing_id;
+      if (!listingId) return null;
+      return {
+        kind: "movie",
+        seriesId: listingId,
+        title: p.type === "movie_listing" ? p.title : mm.movie_listing_title || p.movie_listing_title || p.title,
+        slug: p.type === "movie_listing" ? p.slug_title : mm.movie_listing_slug_title || p.slug_title || "",
+        image: pickImage(p.images, 320),
+        neverWatchedFlag: !!item.never_watched,
+      };
+    }
     const seriesId = p.type === "series" ? p.id : meta.series_id || p.series_id;
     if (!seriesId) return null;
     return {
@@ -386,12 +398,114 @@ var CRAnalyzer = (() => {
     };
   }
 
+  // ---------- filmes ----------
+  // Um título de filme tem uma versão por áudio; cada versão tem sua lista de filmes
+  // (em geral um só, às vezes em partes). Para saber se você viu em qualquer áudio,
+  // busca os filmes de todas as versões e alinha pela posição.
+  async function analyzeMovie(entry, mode, settings, api = CRApi) {
+    const now = Date.now();
+    const { locale, dubLang } = settings;
+    const minStarted = minStartedFrom(settings);
+    const listing = (await api.movieListing(entry.seriesId, locale)) || { id: entry.seriesId, versions: [] };
+    const versions = (listing.versions || []).length
+      ? listing.versions
+      : [{ guid: listing.id, audio_locale: listing.audio_locale, original: true }];
+
+    const lists = [];
+    for (const v of versions) {
+      const items = (await api.movies(v.guid, locale)).filter((m) => !m.is_clip);
+      lists.push({ audio: v.audio_locale, original: !!v.original, items });
+    }
+    const original = lists.find((l) => l.original) || lists[0];
+    let target = original;
+    let noDub = false;
+    if (mode === "dub") {
+      const dub = lists.find((l) => l.audio === dubLang && l.items.length);
+      if (dub) target = dub;
+      else noDub = true;
+    } else if (mode === "auto") {
+      target = lists.find((l) => l.items.length) || original;
+    }
+
+    const count = Math.max(0, ...lists.map((l) => l.items.length));
+    const idsAt = (i) => lists.map((l) => l.items[i] && l.items[i].id).filter(Boolean);
+    const ph = await api.playheads(
+      Array.from({ length: count }, (_, i) => idsAt(i)).flat(),
+      locale
+    );
+
+    const states = [];
+    for (let i = 0; i < count; i++) {
+      const movie = (target.items[i] || original.items[i] || lists.find((l) => l.items[i]).items[i]);
+      const durSec = (movie.duration_ms || 0) / 1000;
+      let fully = false;
+      let started = false;
+      let maxPos = 0;
+      let lastMod = 0;
+      for (const id of idsAt(i)) {
+        const p = ph.get(id);
+        if (!p) continue;
+        if (!p.fully_watched && (p.playhead || 0) < minStarted) continue;
+        started = true;
+        maxPos = Math.max(maxPos, p.playhead || 0);
+        if (p.fully_watched) fully = true;
+        lastMod = Math.max(lastMod, Date.parse(p.last_modified || "") || 0);
+      }
+      if (durSec && maxPos >= durSec * WATCHED_RATIO) fully = true;
+      states.push({ movie, fully, started, progress: durSec ? Math.min(1, maxPos / durSec) : 0, lastMod });
+    }
+
+    const base = {
+      ...entry,
+      kind: "movie",
+      mode,
+      checkedAt: now,
+      signature: cacheSignature(mode, settings),
+      noDub: mode === "dub" && noDub,
+      waitingDub: 0,
+      waitingSub: 0,
+    };
+    if (!states.some((s) => s.started)) return { ...base, status: "never", pending: [] };
+
+    const firstOpen = states.findIndex((s) => !s.fully);
+    const pending = [];
+    if (firstOpen >= 0) {
+      for (const s of states.slice(firstOpen)) {
+        if (s.fully || !isAvailable(s.movie, now)) continue;
+        pending.push({
+          id: s.movie.id,
+          slug: s.movie.slug_title || "",
+          title: s.movie.title || entry.title,
+          kind: "movie",
+          season: null,
+          number: "",
+          thumb: pickImage(s.movie.images, 320),
+          inProgress: s.started && !s.fully,
+          progress: s.progress,
+          availableAt: Date.parse(s.movie.premium_available_date || s.movie.availability_starts || "") || 0,
+          extra: null,
+          skipped: false,
+        });
+      }
+    }
+    return {
+      ...base,
+      image: base.image || (pending[0] && pending[0].thumb) || null,
+      status: pending.length ? "pending" : "uptodate",
+      pending,
+      lastWatchedAt: Math.max(0, ...states.map((s) => s.lastMod)),
+    };
+  }
+
+  const analyzeEntry = (entry, mode, settings, api = CRApi) =>
+    entry.kind === "movie" ? analyzeMovie(entry, mode, settings, api) : analyzeSeries(entry, mode, settings, api);
+
   const modeFor = (seriesId, settings) => settings.seriesModes[seriesId] || settings.defaultMode;
 
   async function analyzeSafe(entry, settings) {
     const mode = modeFor(entry.seriesId, settings);
     try {
-      return await analyzeSeries(entry, mode, settings);
+      return await analyzeEntry(entry, mode, settings);
     } catch (err) {
       console.warn("[Novos Episódios]", entry.title, err);
       return { ...entry, mode, status: "error", error: String(err.message || err), pending: [] };
@@ -471,6 +585,16 @@ var CRAnalyzer = (() => {
         for (const [k, v] of m) log.playheads[k] = v;
         return m;
       },
+      async movieListing(id, locale) {
+        const r = await base.movieListing(id, locale);
+        log.filmes[`titulo:${id}`] = r;
+        return r;
+      },
+      async movies(id, locale) {
+        const r = await base.movies(id, locale);
+        log.filmes[id] = r;
+        return r;
+      },
     };
   }
 
@@ -478,10 +602,10 @@ var CRAnalyzer = (() => {
   // token, cookie nem IDs de conta ou perfil: só catálogo e histórico da série.
   async function diagnose(entry, settings, { version = "", api = CRApi } = {}) {
     const mode = modeFor(entry.seriesId, settings);
-    const log = { temporadas: {}, episodios: {}, playheads: {} };
+    const log = { temporadas: {}, episodios: {}, filmes: {}, playheads: {} };
     let resultado;
     try {
-      resultado = await analyzeSeries(entry, mode, settings, recordingApi(api, log));
+      resultado = await analyzeEntry(entry, mode, settings, recordingApi(api, log));
     } catch (err) {
       resultado = { status: "error", error: String(err.message || err) };
     }
@@ -501,6 +625,7 @@ var CRAnalyzer = (() => {
       respostas: {
         temporadas: log.temporadas,
         episodios: log.episodios,
+        filmes: log.filmes,
         playheads: Object.values(log.playheads),
       },
     });

@@ -71,7 +71,7 @@ var CRChecker = (() => {
     const bySeries = new Map();
     for (const i of fresh) {
       const list = bySeries.get(i.series.seriesId) || { title: i.series.title, eps: [] };
-      list.eps.push(`T${i.ep.season ?? "?"} E${i.ep.number || "?"}`);
+      list.eps.push(i.ep.kind === "movie" ? "filme" : `T${i.ep.season ?? "?"} E${i.ep.number || "?"}`);
       bySeries.set(i.series.seriesId, list);
     }
     const lines = [...bySeries.values()].map((s) => `${s.title}: ${s.eps.join(", ")}`);
