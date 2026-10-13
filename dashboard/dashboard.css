@@ -281,10 +281,32 @@ input[type="number"] {
   gap: 6px 10px;
   margin-top: 8px;
 }
-select.mode {
+select.mode,
+select.actions {
   flex: 0 0 auto;
   font-size: 0.75rem;
   padding: 2px 4px;
+}
+select.actions {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 2.2em;
+  padding: 2px 0;
+  color: var(--text);
+  font-weight: 700;
+  text-align: center;
+  text-align-last: center;
+  cursor: pointer;
+}
+select.actions:hover {
+  border-color: var(--orange);
+}
+.row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 4px;
+  flex: 0 0 auto;
 }
 .eps {
   list-style: none;
@@ -400,7 +422,8 @@ select.mode {
   margin: 4px 0;
 }
 
-body.busy select.mode {
+body.busy select.mode,
+body.busy select.actions {
   pointer-events: none;
   opacity: 0.6;
 }

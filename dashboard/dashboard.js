@@ -113,6 +113,27 @@
     return select;
   }
 
+  // Menu de ações por série. Cada ação: [valor, rótulo, função].
+  function seriesActions(s) {
+    return [["diag", "Exportar diagnóstico", () => exportDiagnostic(s)]];
+  }
+
+  function actionsSelect(s) {
+    const actions = seriesActions(s);
+    const select = el(
+      "select",
+      { class: "actions", "aria-label": `Ações para ${s.title}`, title: "Ações" },
+      el("option", { value: "", text: "⋯" }),
+      actions.map(([v, t]) => el("option", { value: v, text: t }))
+    );
+    select.addEventListener("change", () => {
+      const chosen = actions.find(([v]) => v === select.value);
+      select.value = "";
+      if (chosen) chosen[2]();
+    });
+    return select;
+  }
+
   function episodeRow(ep) {
     return el(
       "li",
@@ -161,6 +182,7 @@
           "div",
           { class: "card-foot" },
           modeSelect(s),
+          actionsSelect(s),
           s.waitingDub
             ? el("span", { class: "hint", text: `+${s.waitingDub} aguardando dublagem` })
             : null
@@ -180,7 +202,7 @@
         el("a", { href: seriesUrl(s), target: "_blank", rel: "noopener", text: s.title }),
         note ? el("small", { text: note }) : null
       ),
-      modeSelect(s)
+      el("div", { class: "row-actions" }, modeSelect(s), actionsSelect(s))
     );
   }
 
@@ -306,6 +328,32 @@
     } finally {
       await CRApi.release();
       setBusy(false);
+    }
+  }
+
+  // Salva um JSON com tudo o que a análise da série usou (sem token/cookie/IDs de
+  // conta), para reproduzir problemas sem precisar copiar requisições do F12.
+  async function exportDiagnostic(s) {
+    const nodes = document.querySelectorAll(`[data-series="${CSS.escape(s.seriesId)}"]`);
+    nodes.forEach((n) => n.classList.add("loading"));
+    try {
+      const diag = await CRAnalyzer.diagnose(s, settings, {
+        version: browser.runtime.getManifest().version,
+      });
+      const blob = new Blob([JSON.stringify(diag, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const day = new Date().toISOString().slice(0, 10);
+      const a = el("a", { href: url, download: `diagnostico-${s.slug || s.seriesId}-${day}.json` });
+      document.body.append(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 10000);
+      notice(`Diagnóstico de “${s.title}” salvo. Ele não contém token, cookie nem dados da conta.`);
+    } catch (err) {
+      notice("Não foi possível gerar o diagnóstico: " + (err.message || err));
+    } finally {
+      nodes.forEach((n) => n.classList.remove("loading"));
+      await CRApi.release();
     }
   }
 

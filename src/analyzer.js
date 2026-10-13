@@ -135,10 +135,10 @@ var CRAnalyzer = (() => {
   }
 
   // ---------- análise de uma série ----------
-  async function analyzeSeries(entry, mode, settings) {
+  async function analyzeSeries(entry, mode, settings, api = CRApi) {
     const now = Date.now();
     const { locale, dubLang } = settings;
-    const seasons = sortSeasons(await CRApi.seasons(entry.seriesId, locale));
+    const seasons = sortSeasons(await api.seasons(entry.seriesId, locale));
 
     const ordered = [];
     let anyActivity = false;
@@ -162,9 +162,9 @@ var CRAnalyzer = (() => {
         }
       }
 
-      let eps = await CRApi.episodes(listId, locale);
+      let eps = await api.episodes(listId, locale);
       if (!eps.length && listId !== season.id) {
-        eps = await CRApi.episodes(season.id, locale);
+        eps = await api.episodes(season.id, locale);
         if (mode === "dub") {
           eligible = false;
           dubMissingSomewhere = true;
@@ -193,7 +193,7 @@ var CRAnalyzer = (() => {
           const inList = new Set(
             eps.filter((e) => !isInAudio(e, dubLang)).map((e) => e.sequence_number ?? 0)
           );
-          origOnly = (await CRApi.episodes(origId, locale)).filter(
+          origOnly = (await api.episodes(origId, locale)).filter(
             (e) =>
               !e.is_clip &&
               (e.sequence_number ?? 0) > lastDubSeq &&
@@ -204,7 +204,7 @@ var CRAnalyzer = (() => {
         }
       }
 
-      const ph = await CRApi.playheads(ids, locale);
+      const ph = await api.playheads(ids, locale);
       const seen = (e) => versionIds(e).some((id) => ph.get(id) && ph.get(id).fully_watched);
       waitingDubLatest += origOnly.filter((e) => !seen(e)).length;
 
@@ -335,6 +335,75 @@ var CRAnalyzer = (() => {
     return results;
   }
 
+  // ---------- diagnóstico ----------
+  // Chaves que nunca vão para o arquivo de diagnóstico, em qualquer nível.
+  const SENSITIVE_KEY = /token|cookie|authorization|password|secret|etp_rt|account_id|profile_id|email/i;
+
+  function sanitize(value) {
+    if (Array.isArray(value)) return value.map(sanitize);
+    if (value && typeof value === "object") {
+      const out = {};
+      for (const [k, v] of Object.entries(value)) {
+        if (SENSITIVE_KEY.test(k)) continue;
+        out[k] = sanitize(v);
+      }
+      return out;
+    }
+    return value;
+  }
+
+  // Envolve a API gravando as respostas exatamente como chegaram.
+  function recordingApi(base, log) {
+    return {
+      async seasons(id, locale) {
+        const r = await base.seasons(id, locale);
+        log.temporadas[id] = r;
+        return r;
+      },
+      async episodes(id, locale) {
+        const r = await base.episodes(id, locale);
+        log.episodios[id] = r;
+        return r;
+      },
+      async playheads(ids, locale) {
+        const m = await base.playheads(ids, locale);
+        for (const [k, v] of m) log.playheads[k] = v;
+        return m;
+      },
+    };
+  }
+
+  // Reanalisa uma série gravando tudo o que a análise usou. O arquivo não contém
+  // token, cookie nem IDs de conta ou perfil: só catálogo e histórico da série.
+  async function diagnose(entry, settings, { version = "", api = CRApi } = {}) {
+    const mode = modeFor(entry.seriesId, settings);
+    const log = { temporadas: {}, episodios: {}, playheads: {} };
+    let resultado;
+    try {
+      resultado = await analyzeSeries(entry, mode, settings, recordingApi(api, log));
+    } catch (err) {
+      resultado = { status: "error", error: String(err.message || err) };
+    }
+    return sanitize({
+      tipo: "crnovos-diagnostico",
+      formato: 1,
+      versaoExtensao: version,
+      geradoEm: new Date().toISOString(),
+      configuracao: {
+        modo: mode,
+        dubLang: settings.dubLang,
+        locale: settings.locale,
+      },
+      serie: entry,
+      resultado,
+      respostas: {
+        temporadas: log.temporadas,
+        episodios: log.episodios,
+        playheads: Object.values(log.playheads),
+      },
+    });
+  }
+
   // Reanalisa uma série só (ex.: depois de trocar o modo de áudio dela).
   async function runOne(entry, settings) {
     const accountId = await CRApi.getAccountId();
@@ -347,5 +416,5 @@ var CRAnalyzer = (() => {
     return result;
   }
 
-  return { run, runOne, CONCURRENCY, concurrencyFrom, MIN_STARTED_SECONDS };
+  return { run, runOne, diagnose, sanitize, CONCURRENCY, concurrencyFrom, MIN_STARTED_SECONDS };
 })();

@@ -189,6 +189,21 @@ src/analyzer.js         lógica "o que falta assistir" e cache
 tests/                  testes unitários
 ```
 
+### Diagnóstico de uma série
+
+Se uma série aparecer errada, use **⋯ → Exportar diagnóstico** no card dela. A página salva um
+JSON com tudo o que a análise usou: temporadas, episódios, histórico de reprodução daquela
+série e o resultado. O arquivo **não contém** token, cookie, ID da conta ou do perfil.
+Prefira mandá-lo em vez de copiar requisições do F12, que levam a sua sessão junto.
+
+O diagnóstico vira teste automático com `apiFromDiagnostic()` de `tests/helpers.js`:
+
+```js
+const diag = require("./fixtures/meu-diagnostico.json");
+const ctx = load(["src/analyzer.js"], { browser: fakeBrowser(), CRApi: apiFromDiagnostic(diag) });
+const [r] = await ctx.CRAnalyzer.run({ settings: { ...diag.configuracao, defaultMode: diag.configuracao.modo, seriesModes: {} } });
+```
+
 ### Se algo parar de funcionar
 
 Abra o console da página da extensão (F12). Os erros aparecem com o prefixo

@@ -100,4 +100,22 @@ function playhead(id, seconds, fully = false, modifiedAt = Date.now()) {
 /** Copia valores criados dentro do vm para objetos "normais" (outro realm). */
 const plain = (v) => JSON.parse(JSON.stringify(v));
 
-module.exports = { plain, load, fakeBrowser, jwt, episode, playhead, DAY, iso };
+/**
+ * API falsa que responde com o que foi gravado num diagnóstico exportado pela página
+ * ("Ações → Exportar diagnóstico"). Serve para transformar um bug relatado em teste.
+ */
+function apiFromDiagnostic(diag) {
+  const r = diag.respostas;
+  const s = diag.serie;
+  return {
+    getAccountId: async () => "conta-diagnostico",
+    watchlist: async () => [
+      { never_watched: !!s.neverWatchedFlag, panel: { type: "series", id: s.seriesId, title: s.title, slug_title: s.slug } },
+    ],
+    seasons: async (id) => r.temporadas[id] || [],
+    episodes: async (id) => r.episodios[id] || [],
+    playheads: async (ids) => new Map(r.playheads.filter((p) => ids.includes(p.content_id)).map((p) => [p.content_id, p])),
+  };
+}
+
+module.exports = { apiFromDiagnostic, plain, load, fakeBrowser, jwt, episode, playhead, DAY, iso };
