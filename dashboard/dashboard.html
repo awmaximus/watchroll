@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Novos episódios – Crunchyroll</title>
+    <link rel="icon" href="../icons/icon.svg" />
+    <link rel="stylesheet" href="dashboard.css" />
+  </head>
+  <body>
+    <header class="top">
+      <div class="top-inner">
+        <div class="brand">
+          <img src="../icons/icon.svg" alt="" width="32" height="32" />
+          <div>
+            <h1>Novos episódios</h1>
+            <p id="status" class="status" aria-live="polite"></p>
+          </div>
+        </div>
+        <div class="actions">
+          <button id="btn-settings" class="btn ghost" type="button" aria-expanded="false" aria-controls="settings">
+            Configurações
+          </button>
+          <button id="btn-refresh" class="btn" type="button">Atualizar</button>
+        </div>
+      </div>
+      <div class="progress" id="progress" hidden><span></span></div>
+    </header>
+
+    <main>
+      <section id="settings" class="settings" hidden>
+        <h2>Configurações</h2>
+        <div class="settings-grid">
+          <label>
+            <span>Idioma em que você assiste dublado</span>
+            <select id="set-dub"></select>
+            <small>Séries marcadas como “Dublado” só aparecem quando a dublagem nesse idioma estiver liberada.</small>
+          </label>
+          <label>
+            <span>Modo padrão das séries</span>
+            <select id="set-mode"></select>
+            <small>Vale para as séries que você não configurou individualmente.</small>
+          </label>
+          <label>
+            <span>Idioma dos títulos e links</span>
+            <select id="set-locale"></select>
+          </label>
+        </div>
+      </section>
+
+      <p id="notice" class="notice" hidden></p>
+      <div id="content"></div>
+    </main>
+
+    <script src="../src/api.js"></script>
+    <script src="../src/analyzer.js"></script>
+    <script src="dashboard.js"></script>
+  </body>
+</html>

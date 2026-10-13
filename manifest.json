@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "Crunchyroll – Novos Episódios",
+  "version": "0.2.0",
+  "description": "Página própria que lista os episódios que você ainda não assistiu das séries da sua Fila, respeitando se você assiste legendado ou dublado.",
+  "icons": {
+    "48": "icons/icon.svg",
+    "96": "icons/icon.svg"
+  },
+  "action": {
+    "default_title": "Novos episódios da Crunchyroll",
+    "default_icon": "icons/icon.svg"
+  },
+  "background": {
+    "scripts": ["src/background.js"]
+  },
+  "permissions": ["storage", "scripting"],
+  "host_permissions": ["https://www.crunchyroll.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://www.crunchyroll.com/*"],
+      "js": ["src/page-hook.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["https://www.crunchyroll.com/*"],
+      "js": ["src/bridge.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "crunchyroll-novos-eps@awmaximus.github.io",
+      "strict_min_version": "142.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  }
+}

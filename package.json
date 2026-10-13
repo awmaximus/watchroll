@@ -1,0 +1,16 @@
+{
+  "name": "crunchyroll-novos-eps",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Extensão do Firefox que lista os episódios ainda não assistidos das séries da sua Fila na Crunchyroll.",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test \"tests/*.test.js\"",
+    "lint": "./build.sh --skip-tests",
+    "build": "./build.sh",
+    "start": "npx --yes web-ext@10 run --start-url https://www.crunchyroll.com/"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
