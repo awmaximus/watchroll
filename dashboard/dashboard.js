@@ -22,6 +22,7 @@
   const DEFAULTS = {
     locale: "pt-BR",
     dubLang: "pt-BR",
+    subLang: "pt-BR",
     defaultMode: "sub",
     concurrency: CRAnalyzer.CONCURRENCY.default,
     seriesModes: {},
@@ -61,6 +62,7 @@
 
   function renderSettingsForm() {
     fillSelect($("set-dub"), LANGS, settings.dubLang);
+    fillSelect($("set-sub"), LANGS, settings.subLang);
     fillSelect(
       $("set-mode"),
       [
@@ -185,6 +187,9 @@
           actionsSelect(s),
           s.waitingDub
             ? el("span", { class: "hint", text: `+${s.waitingDub} aguardando dublagem` })
+            : null,
+          s.waitingSub
+            ? el("span", { class: "hint", text: `+${s.waitingSub} aguardando legenda` })
             : null
         )
       )
@@ -227,7 +232,8 @@
     // (a dublagem pode nunca sair). Aguardando: a dublagem existe e está atrasada.
     const noDub = results.filter((r) => r.status === "uptodate" && r.noDub && r.waitingDub).sort(byTitle);
     const waiting = results.filter((r) => r.status === "uptodate" && !r.noDub && r.waitingDub).sort(byTitle);
-    const upToDate = results.filter((r) => r.status === "uptodate" && !r.waitingDub).sort(byTitle);
+    const waitingSub = results.filter((r) => r.status === "uptodate" && !r.waitingDub && r.waitingSub).sort(byTitle);
+    const upToDate = results.filter((r) => r.status === "uptodate" && !r.waitingDub && !r.waitingSub).sort(byTitle);
     const never = results.filter((r) => r.status === "never").sort(byTitle);
     const errors = results.filter((r) => r.status === "error").sort(byTitle);
 
@@ -257,6 +263,19 @@
             "ul",
             { class: "rows" },
             waiting.map((s) => row(s, s.waitingDub === 1 ? "1 já saiu legendado" : `${s.waitingDub} já saíram legendados`))
+          )
+        )
+      );
+    }
+    if (waitingSub.length) {
+      parts.push(
+        section(
+          `Aguardando legenda em ${langName(settings.subLang)}`,
+          waitingSub.length,
+          el(
+            "ul",
+            { class: "rows" },
+            waitingSub.map((s) => row(s, `${plural(s.waitingSub, "episódio já saiu", "episódios já saíram")} sem essa legenda`))
           )
         )
       );
@@ -426,6 +445,7 @@
       refresh(false); // o cache só é reaproveitado onde o resultado não depende da mudança
     };
     $("set-dub").addEventListener("change", onSetting("dubLang"));
+    $("set-sub").addEventListener("change", onSetting("subLang"));
     $("set-mode").addEventListener("change", onSetting("defaultMode"));
     $("set-locale").addEventListener("change", onSetting("locale"));
     // Só vale para a próxima verificação; não precisa refazer a atual.

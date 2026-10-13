@@ -56,6 +56,15 @@ var CRAnalyzer = (() => {
     return (ep.versions || []).some((v) => v.guid === ep.id && v.audio_locale === audio);
   }
 
+  // O episódio tem legenda no idioma pedido? Sem a lista de legendas na resposta,
+  // considera que sim (melhor anunciar do que esconder sem motivo). Se o áudio já
+  // está no idioma, não precisa de legenda.
+  function hasSubtitle(ep, lang) {
+    if (ep.audio_locale === lang) return true;
+    if (!Array.isArray(ep.subtitle_locales)) return true;
+    return ep.subtitle_locales.includes(lang);
+  }
+
   const originalVersion = (obj) => (obj.versions || []).find((v) => v.original);
   const seasonKey = (s) => (originalVersion(s) && originalVersion(s).guid) || s.id;
 
@@ -116,7 +125,8 @@ var CRAnalyzer = (() => {
     all[accountId] = cache;
     await browser.storage.local.set({ [CACHE_KEY]: all });
   }
-  const cacheSignature = (mode, settings) => `${mode}|${mode === "dub" ? settings.dubLang : ""}|${settings.locale}`;
+  const cacheSignature = (mode, settings) =>
+    [mode, mode === "dub" ? settings.dubLang : "", mode === "sub" ? settings.subLang || "pt-BR" : "", settings.locale].join("|");
 
   // ---------- Fila ----------
   function normalizeItem(item) {
@@ -138,6 +148,7 @@ var CRAnalyzer = (() => {
   async function analyzeSeries(entry, mode, settings, api = CRApi) {
     const now = Date.now();
     const { locale, dubLang } = settings;
+    const subLang = settings.subLang || "pt-BR";
     const seasons = sortSeasons(await api.seasons(entry.seriesId, locale));
 
     const ordered = [];
@@ -238,9 +249,21 @@ var CRAnalyzer = (() => {
         }
         if (durSec && maxPos >= durSec * WATCHED_RATIO) fully = true;
         const progress = durSec ? Math.min(1, maxPos / durSec) : 0;
-        // No modo dublado, só conta o episódio que está de fato no áudio escolhido.
-        const epEligible = eligible && (mode !== "dub" || isInAudio(ep, dubLang));
-        return { ep, season, eligible: epEligible, fully, started, progress, lastMod, lastId };
+        // Dublado: só conta o episódio que está de fato no áudio escolhido.
+        // Legendado: só conta se já tiver legenda no idioma escolhido.
+        const audioOk = mode !== "dub" || isInAudio(ep, dubLang);
+        const subOk = mode !== "sub" || hasSubtitle(ep, subLang);
+        return {
+          ep,
+          season,
+          eligible: eligible && audioOk && subOk,
+          missingSub: eligible && audioOk && !subOk,
+          fully,
+          started,
+          progress,
+          lastMod,
+          lastId,
+        };
       });
 
       ordered.unshift(...states);
@@ -260,11 +283,15 @@ var CRAnalyzer = (() => {
 
     const pending = [];
     let waitingDub = 0;
+    let waitingSub = 0;
     for (let i = lastIdx; i < ordered.length; i++) {
       const s = ordered[i];
       if (s.fully) continue;
       if (!s.eligible) {
-        if (mode === "dub" && isAvailable(s.ep, now)) waitingDub++;
+        if (isAvailable(s.ep, now)) {
+          if (s.missingSub) waitingSub++;
+          else if (mode === "dub") waitingDub++;
+        }
         continue;
       }
       if (!isAvailable(s.ep, now)) continue;
@@ -295,6 +322,7 @@ var CRAnalyzer = (() => {
       status: pending.length ? "pending" : "uptodate",
       pending,
       waitingDub: waitingDub + waitingDubLatest,
+      waitingSub,
       dubMissing: mode === "dub" && dubMissingSomewhere,
       noDub: mode === "dub" && latestHasDub === false,
       lastWatchedAt: last.lastMod || 0,
@@ -401,6 +429,7 @@ var CRAnalyzer = (() => {
       configuracao: {
         modo: mode,
         dubLang: settings.dubLang,
+        subLang: settings.subLang || "pt-BR",
         locale: settings.locale,
       },
       serie: entry,

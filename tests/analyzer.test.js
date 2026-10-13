@@ -735,3 +735,88 @@ describe("sem dublagem × aguardando dublagem", () => {
     }
   });
 });
+
+describe("legenda no modo legendado", () => {
+  const withSubs = (ep, subs) => ({ ...ep, subtitle_locales: subs });
+  const db = (eps, ph) => ({
+    watchlist: [series("L")],
+    seasons: { L: [{ id: "T", season_sequence_number: 1 }] },
+    episodes: { T: eps },
+    playheads: ph,
+  });
+
+  test("simulcast sem legenda pt-BR ainda: não anuncia, conta como aguardando legenda", async () => {
+    const { analyzer } = setup(
+      db(
+        [
+          withSubs(episode("e1", 1), ["en-US", "pt-BR"]),
+          withSubs(episode("e2", 2), ["en-US", "pt-BR"]),
+          withSubs(episode("e3", 3), ["en-US"]), // legenda pt-BR ainda não saiu
+        ],
+        { e1: playhead("e1", FULL, true) }
+      )
+    );
+    const [r] = await analyzer.run({ settings: settings({ defaultMode: "sub" }) });
+    assert.deepEqual(ids(r), ["e2"]);
+    assert.equal(r.waitingSub, 1);
+  });
+
+  test("respeita o idioma de legenda configurado", async () => {
+    const { analyzer } = setup(
+      db([withSubs(episode("e1", 1), ["en-US"]), withSubs(episode("e2", 2), ["en-US"])], {
+        e1: playhead("e1", FULL, true),
+      })
+    );
+    const [r] = await analyzer.run({ settings: settings({ defaultMode: "sub", subLang: "en-US" }) });
+    assert.deepEqual(ids(r), ["e2"]);
+    assert.equal(r.waitingSub, 0);
+  });
+
+  test("sem a lista de legendas na resposta, anuncia (não esconde sem motivo)", async () => {
+    const { analyzer } = setup(db([episode("e1", 1), episode("e2", 2)], { e1: playhead("e1", FULL, true) }));
+    const [r] = await analyzer.run({ settings: settings({ defaultMode: "sub" }) });
+    assert.deepEqual(ids(r), ["e2"]);
+  });
+
+  test("lista de legendas vazia conta como sem legenda", async () => {
+    const { analyzer } = setup(
+      db([withSubs(episode("e1", 1), ["pt-BR"]), withSubs(episode("e2", 2), [])], { e1: playhead("e1", FULL, true) })
+    );
+    const [r] = await analyzer.run({ settings: settings({ defaultMode: "sub" }) });
+    assert.deepEqual(ids(r), []);
+    assert.equal(r.waitingSub, 1);
+  });
+
+  test("episódio com áudio no próprio idioma da legenda não precisa de legenda", async () => {
+    const { analyzer } = setup(
+      db([withSubs(episode("e1", 1, { audio: "pt-BR" }), []), withSubs(episode("e2", 2, { audio: "pt-BR" }), [])], {
+        e1: playhead("e1", FULL, true),
+      })
+    );
+    const [r] = await analyzer.run({ settings: settings({ defaultMode: "sub" }) });
+    assert.deepEqual(ids(r), ["e2"]);
+  });
+
+  test("modo qualquer áudio não exige legenda", async () => {
+    for (const mode of ["auto"]) {
+      const { analyzer } = setup(
+        db([withSubs(episode("e1", 1), ["pt-BR"]), withSubs(episode("e2", 2), ["en-US"])], {
+          e1: playhead("e1", FULL, true),
+        })
+      );
+      const [r] = await analyzer.run({ settings: settings({ defaultMode: mode }) });
+      assert.deepEqual(ids(r), ["e2"], mode);
+      assert.equal(r.waitingSub, 0, mode);
+    }
+  });
+
+  test("trocar o idioma da legenda invalida o cache do modo legendado", async () => {
+    const { analyzer, calls } = setup(db([withSubs(episode("e1", 1), ["pt-BR"])], {}));
+    const count = () => calls.filter((c) => c[0] === "seasons").length;
+    await analyzer.run({ settings: settings({ defaultMode: "sub" }) });
+    await analyzer.run({ settings: settings({ defaultMode: "sub" }) });
+    assert.equal(count(), 1);
+    await analyzer.run({ settings: settings({ defaultMode: "sub", subLang: "es-419" }) });
+    assert.equal(count(), 2);
+  });
+});

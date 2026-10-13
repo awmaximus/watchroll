@@ -14,6 +14,7 @@ funcionando. Só depende da API.
 1. Clique no ícone da extensão na barra do Firefox. A página "Novos episódios" abre.
 2. Em **Configurações**, escolha:
    - o idioma em que você assiste dublado (por exemplo, Português (Brasil));
+   - o idioma da legenda;
    - o modo padrão das séries (legendado, dublado ou qualquer áudio);
    - o idioma dos títulos e links;
    - quantas séries consultar ao mesmo tempo (padrão 4, de 1 a 16). Números maiores
@@ -27,6 +28,7 @@ A página tem estas seções:
 |---|---|
 | Para assistir | Episódios liberados depois do último que você viu, com progresso dos que estão pela metade |
 | Aguardando dublagem | Séries em modo dublado com episódios que já saíram, mas ainda só legendados (a temporada já tem dublagem no seu idioma) |
+| Aguardando legenda em … | Séries em modo legendado com episódios lançados sem legenda no seu idioma |
 | Sem dublagem em … | Séries em modo dublado cuja temporada atual não tem **nenhum** episódio no seu idioma; o botão "Ver legendado" troca o modo |
 | Não consegui verificar | Séries que deram erro na consulta |
 | Em dia | Séries sem nada pendente |
@@ -57,7 +59,10 @@ Regras adotadas:
   episódio ou pelo início automático do player; esses são ignorados.
 - **Visto:** a Crunchyroll marcou `fully_watched`, ou você passou de 90% da duração.
   Vale para qualquer áudio: ver legendado conta para o modo dublado e vice-versa.
-- **Legendado:** usa a lista de episódios do áudio original.
+- **Legendado:** usa a lista de episódios do áudio original e só anuncia um episódio quando
+  a legenda no idioma escolhido (Configurações → Idioma da legenda) já está disponível. Os
+  que saíram sem ela aparecem em "Aguardando legenda". Se a resposta da API não trouxer a
+  lista de legendas, o episódio é anunciado.
 - **Dublado:** usa a lista de episódios do áudio escolhido. Um episódio só aparece depois
   que a dublagem dele é liberada. A extensão confere o áudio de **cada episódio**, porque a
   Crunchyroll completa a lista dublada com a versão original quando a dublagem ainda não
