@@ -109,6 +109,23 @@
     return new Date(ts).toLocaleDateString("pt-BR");
   }
 
+  // Data futura em linguagem natural: "hoje às 14:30", "amanhã às 14:30",
+  // "em 3 dias (qui, 16/10)", ou só a data se for mais longe.
+  function relFuture(ts, now = Date.now()) {
+    const d = new Date(ts);
+    const time = d.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+    const startOfDay = (x) => new Date(x.getFullYear(), x.getMonth(), x.getDate()).getTime();
+    const days = Math.round((startOfDay(d) - startOfDay(new Date(now))) / 86400000);
+    if (days <= 0) return `hoje às ${time}`;
+    if (days === 1) return `amanhã às ${time}`;
+    const date = d.toLocaleDateString("pt-BR", { weekday: "short", day: "2-digit", month: "2-digit" });
+    if (days < 7) return `em ${days} dias (${date.replace(".", "")})`;
+    return d.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric" });
+  }
+
+  const nextText = (s) =>
+    s.next ? `Próximo: T${s.next.season ?? "?"} E${s.next.number || "?"} ${relFuture(s.next.at)}` : null;
+
   // ---------- componentes ----------
   function modeSelect(s) {
     const current = settings.seriesModes[s.seriesId] || "";
@@ -214,13 +231,15 @@
             : null,
           s.waitingSub
             ? el("span", { class: "hint", text: `+${s.waitingSub} aguardando legenda` })
-            : null
+            : null,
+          s.next ? el("span", { class: "hint next", text: nextText(s) }) : null
         )
       )
     );
   }
 
   function row(s, note, extraButton = null) {
+    note = [note, nextText(s)].filter(Boolean).join(" · ");
     return el(
       "li",
       { class: "row", "data-series": s.seriesId },

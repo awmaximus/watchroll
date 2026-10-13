@@ -1120,3 +1120,85 @@ describe("filmes da Fila", () => {
     assert.equal(r.title, "Um Filme");
   });
 });
+
+describe("próximo lançamento", () => {
+  const now = Date.now();
+  const at = (days) => now + days * DAY;
+
+  test("série em dia: informa o próximo episódio agendado", async () => {
+    const { analyzer } = setup({
+      watchlist: [series("X")],
+      seasons: { X: [{ id: "T", season_sequence_number: 1 }] },
+      episodes: {
+        T: [episode("e1", 1), episode("e2", 2, { availableAt: at(3) }), episode("e3", 3, { availableAt: at(10) })],
+      },
+      playheads: { e1: playhead("e1", FULL, true) },
+    });
+    const [r] = await analyzer.run({ settings: settings() });
+    assert.equal(r.status, "uptodate");
+    assert.equal(r.next.id, "e2");
+    assert.equal(r.next.number, "2");
+    assert.ok(Math.abs(r.next.at - at(3)) < 1000);
+  });
+
+  test("modo dublado: usa a data da dublagem, não a do original", async () => {
+    const v = (n) => [
+      { guid: `j${n}`, audio_locale: "ja-JP", original: true },
+      { guid: `p${n}`, audio_locale: "pt-BR" },
+    ];
+    const { analyzer } = setup({
+      watchlist: [series("D")],
+      seasons: {
+        D: [
+          {
+            id: "SJ",
+            season_sequence_number: 1,
+            versions: [
+              { guid: "SJ", audio_locale: "ja-JP", original: true },
+              { guid: "SP", audio_locale: "pt-BR" },
+            ],
+          },
+        ],
+      },
+      episodes: {
+        SP: [
+          episode("p1", 1, { audio: "pt-BR", versions: v(1) }),
+          episode("p2", 2, { audio: "pt-BR", versions: v(2), availableAt: at(14) }),
+        ],
+        SJ: [episode("j1", 1, { versions: v(1) }), episode("j2", 2, { versions: v(2), availableAt: at(1) })],
+      },
+      playheads: { p1: playhead("p1", FULL, true) },
+    });
+    const [r] = await analyzer.run({ settings: settings({ defaultMode: "dub" }) });
+    assert.equal(r.next.id, "p2");
+    assert.ok(Math.abs(r.next.at - at(14)) < 1000);
+  });
+
+  test("data '9998' (sem data) e lançamentos já passados são ignorados", async () => {
+    const { analyzer } = setup({
+      watchlist: [series("X")],
+      seasons: { X: [{ id: "T", season_sequence_number: 1 }] },
+      episodes: {
+        T: [
+          episode("e1", 1),
+          { ...episode("e2", 2), availability_starts: "9998-11-30T17:45:00Z", premium_available_date: "9998-11-30T17:45:00Z" },
+        ],
+      },
+      playheads: { e1: playhead("e1", FULL, true) },
+    });
+    const [r] = await analyzer.run({ settings: settings() });
+    assert.equal(r.next, null);
+  });
+
+  test("com episódios pendentes, também informa o próximo agendado", async () => {
+    const { analyzer } = setup({
+      watchlist: [series("X")],
+      seasons: { X: [{ id: "T", season_sequence_number: 1 }] },
+      episodes: { T: [episode("e1", 1), episode("e2", 2), episode("e3", 3, { availableAt: at(5) })] },
+      playheads: { e1: playhead("e1", FULL, true) },
+    });
+    const [r] = await analyzer.run({ settings: settings() });
+    assert.deepEqual(ids(r), ["e2"]);
+    assert.equal(r.next.id, "e3");
+  });
+});

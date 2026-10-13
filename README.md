@@ -90,6 +90,9 @@ Regras adotadas:
   começadas"; começado e não terminado, para "Para assistir" com o progresso; terminado,
   para "Em dia". Ver em qualquer áudio conta. O modo de áudio da série decide o link, e um
   filme em partes aparece parte por parte.
+- **Próximo lançamento:** quando há episódio agendado, o card e as linhas mostram "Próximo:
+  T2 E13 em 3 dias (qui, 16/10)". No modo dublado vale a data da dublagem. Datas fictícias
+  (a Crunchyroll usa o ano 9998 para "sem data") são ignoradas.
 - **Especiais e recapitulações:** episódios com numeração fora do normal (13.5, SP, OVA),
   sem número, com título de recapitulação, ou de temporadas especiais aparecem com uma
   etiqueta e **não entram** nas contagens (card, ícone, notificação). Temporadas especiais

@@ -390,6 +390,7 @@ var CRAnalyzer = (() => {
       image: base.image || (pending[0] && pending[0].thumb) || null,
       status: pending.length ? "pending" : "uptodate",
       pending,
+      next: nextRelease(ordered, mode, dubLang, now),
       waitingDub: waitingDub + waitingDubLatest,
       waitingSub,
       dubMissing: mode === "dub" && dubMissingSomewhere,
@@ -495,6 +496,29 @@ var CRAnalyzer = (() => {
       pending,
       lastWatchedAt: Math.max(0, ...states.map((s) => s.lastMod)),
     };
+  }
+
+  // Próximo lançamento agendado no modo de áudio da série (null se não houver).
+  // Datas absurdas (a Crunchyroll usa 9998-… para "sem data") são ignoradas.
+  const MAX_FUTURE = 2 * 365 * 86400000;
+  function nextRelease(ordered, mode, dubLang, now) {
+    let best = null;
+    for (const s of ordered) {
+      if (s.fully) continue;
+      if (mode === "dub" && !isInAudio(s.ep, dubLang)) continue;
+      const at = Date.parse(s.ep.availability_starts || s.ep.premium_available_date || "");
+      if (!at || at <= now || at - now > MAX_FUTURE) continue;
+      if (!best || at < best.at) {
+        best = {
+          at,
+          id: s.ep.id,
+          season: s.ep.season_number,
+          number: s.ep.episode || (s.ep.episode_number != null ? String(s.ep.episode_number) : ""),
+          title: s.ep.title || "",
+        };
+      }
+    }
+    return best;
   }
 
   const analyzeEntry = (entry, mode, settings, api = CRApi) =>

@@ -392,6 +392,9 @@ select.actions:hover {
   color: var(--muted);
   font-size: 0.75rem;
 }
+.hint.next {
+  flex-basis: 100%;
+}
 
 /* ---------- linhas compactas ---------- */
 .rows {
