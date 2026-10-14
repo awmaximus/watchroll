@@ -20,6 +20,14 @@
   "btnRefresh": {
     "message": "Atualizar"
   },
+  "versionLabel": {
+    "message": "Versão $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
   "settingsTitle": {
     "message": "Configurações"
   },

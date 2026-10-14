@@ -544,6 +544,7 @@
   // ---------- início ----------
   async function init() {
     CRI18n.applyToDocument();
+    $("version").textContent = t("versionLabel", browser.runtime.getManifest().version);
     await loadSettings();
     // Remove adiamentos de 1 semana já vencidos.
     const now = Date.now();
