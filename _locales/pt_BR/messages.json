@@ -659,5 +659,32 @@
   },
   "errAccount": {
     "message": "Não consegui descobrir o ID da sua conta."
+  },
+  "dubYes": {
+    "message": "Tem dublagem em $L$",
+    "description": "Dica do ícone de dublagem; $L$ = nome do idioma",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubOld": {
+    "message": "Dublagem em $L$ só em temporadas anteriores",
+    "description": "Dica do ícone de dublagem; $L$ = nome do idioma",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubNo": {
+    "message": "Sem dublagem em $L$",
+    "description": "Dica do ícone de dublagem; $L$ = nome do idioma",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
   }
 }

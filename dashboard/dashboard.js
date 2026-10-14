@@ -214,6 +214,41 @@
     return tn("badgeSpecial", s.pending.length);
   }
 
+  // Ícone de microfone com a situação da dublagem no idioma escolhido.
+  const SVG = "http://www.w3.org/2000/svg";
+  function micIcon(crossed) {
+    const svg = document.createElementNS(SVG, "svg");
+    svg.setAttribute("viewBox", "0 0 24 24");
+    svg.setAttribute("width", "14");
+    svg.setAttribute("height", "14");
+    svg.setAttribute("aria-hidden", "true");
+    const parts = [
+      ["rect", { x: "9", y: "3", width: "6", height: "11", rx: "3" }],
+      ["path", { d: "M5.5 11a6.5 6.5 0 0 0 13 0" }],
+      ["path", { d: "M12 17.5V21M8.5 21h7" }],
+    ];
+    if (crossed) parts.push(["path", { d: "M4 4l16 16" }]);
+    for (const [tag, attrs] of parts) {
+      const n = document.createElementNS(SVG, tag);
+      for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
+      svg.append(n);
+    }
+    return svg;
+  }
+
+  function dubBadge(s, { compact = false } = {}) {
+    const st = CRAnalyzer.dubStatus(s, settings.dubLang);
+    if (!st) return null;
+    const name = langName(settings.dubLang);
+    const tip = st === "yes" ? t("dubYes", name) : st === "old" ? t("dubOld", name) : t("dubNo", name);
+    return el(
+      "span",
+      { class: `dub dub-${st}${compact ? " compact" : ""}`, title: tip, "aria-label": tip, role: "img" },
+      micIcon(st === "no"),
+      compact ? null : el("span", { text: settings.dubLang })
+    );
+  }
+
   function card(s) {
     const shown = s.pending.slice(0, MAX_EPS);
     const extra = s.pending.length - shown.length;
@@ -233,6 +268,7 @@
         "div",
         { class: "info" },
         el("a", { class: "series", href: seriesUrl(s), target: "_blank", rel: "noopener", text: s.title, title: s.title }),
+        dubBadge(s),
         el(
           "ul",
           { class: "eps" },
@@ -265,7 +301,7 @@
       el(
         "div",
         { class: "row-text" },
-        el("a", { href: seriesUrl(s), target: "_blank", rel: "noopener", text: s.title }),
+        el("span", { class: "row-title" }, el("a", { href: seriesUrl(s), target: "_blank", rel: "noopener", text: s.title }), dubBadge(s, { compact: true })),
         note ? el("small", { text: note, title: note }) : null
       ),
       el("div", { class: "row-actions" }, extraButton, modeSelect(s), actionsSelect(s))

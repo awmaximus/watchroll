@@ -12,7 +12,7 @@
 
 /* global browser, CRApi */
 var CRAnalyzer = (() => {
-  const CACHE_KEY = "crnovos:v4:cache"; // v4: ignora registros de reprodução de menos de 1 minuto
+  const CACHE_KEY = "crnovos:v5:cache"; // v5: guarda os áudios disponíveis de cada série (ícone de dublagem)
   const CACHE_TTL = 20 * 60 * 1000; // dentro disso: reaproveita sem nenhuma consulta
   const REVALIDATE_TTL = 6 * 60 * 60 * 1000; // até isso: reaproveita se nada mudou
   // Quantas séries são consultadas ao mesmo tempo (configurável na página).
@@ -110,6 +110,36 @@ var CRAnalyzer = (() => {
       if ((season.audio_locales || []).includes(pick) && !(season.versions || []).length) add(season.id);
     }
     return out;
+  }
+
+  // Áudios que a temporada oferece (o dela, os das versões e audio_locales).
+  function seasonAudios(season) {
+    const set = new Set();
+    if (season.audio_locale) set.add(season.audio_locale);
+    for (const v of season.versions || []) if (v.audio_locale) set.add(v.audio_locale);
+    for (const a of season.audio_locales || []) if (a) set.add(a);
+    return [...set];
+  }
+
+  // Áudios da série: os da temporada mais recente e os de qualquer temporada.
+  // Guardados no resultado para a página decidir o ícone com o idioma de dublagem
+  // atual (trocar o idioma nas Configurações não exige consultar de novo).
+  function seriesAudios(seasons) {
+    if (!seasons.length) return null;
+    const any = new Set();
+    for (const s of seasons) for (const a of seasonAudios(s)) any.add(a);
+    return { latest: seasonAudios(seasons[seasons.length - 1]), any: [...any] };
+  }
+
+  // Situação da dublagem no idioma escolhido, a partir dos áudios guardados:
+  // "yes" (a temporada mais recente tem), "old" (só temporadas anteriores),
+  // "no" (nenhuma) ou null (não se sabe: a série não foi consultada).
+  function dubStatus(result, dubLang) {
+    const a = result && result.audios;
+    if (!a || !dubLang) return null;
+    if ((a.latest || []).includes(dubLang)) return "yes";
+    if ((a.any || []).includes(dubLang)) return "old";
+    return "no";
   }
 
   // Episódios do primeiro candidato que a Crunchyroll aceitar. Recusas 400/404
@@ -385,6 +415,7 @@ var CRAnalyzer = (() => {
       checkedAt: now,
       signature: cacheSignature(mode, settings),
       fp: { seasons: seasonsKey(rawSeasons) },
+      audios: seriesAudios(seasons),
     };
     if (!anyActivity) return { ...base, status: "never", pending: [] };
 
@@ -524,6 +555,10 @@ var CRAnalyzer = (() => {
       noDub: mode === "dub" && noDub,
       waitingDub: 0,
       waitingSub: 0,
+      audios: (() => {
+        const a = [...new Set(lists.filter((l) => l.items.length && l.audio).map((l) => l.audio))];
+        return a.length ? { latest: a, any: a } : null;
+      })(),
     };
     if (!states.some((s) => s.started)) return { ...base, status: "never", pending: [] };
 
@@ -809,5 +844,5 @@ var CRAnalyzer = (() => {
     return result;
   }
 
-  return { run, runOne, cacheScope, historyActivity, diagnose, sanitize, extraKind, CONCURRENCY, concurrencyFrom, PLAYHEAD_BATCH, playheadBatchFrom, MIN_STARTED, MIN_STARTED_SECONDS, minStartedFrom };
+  return { run, runOne, cacheScope, historyActivity, dubStatus, seriesAudios, diagnose, sanitize, extraKind, CONCURRENCY, concurrencyFrom, PLAYHEAD_BATCH, playheadBatchFrom, MIN_STARTED, MIN_STARTED_SECONDS, minStartedFrom };
 })();

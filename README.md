@@ -27,7 +27,11 @@ funcionando. Só depende da API.
      fazem menos consultas e, no histórico, cobrem mais registros (são lidas até 10
      páginas). Se as verificações começarem a falhar, diminua. Se a Crunchyroll devolver
      páginas menores que o pedido, a extensão relê a Fila ou o histórico com páginas de 100.
-3. Em cada série, use o seletor para trocar o modo só daquela série. O menu **⋯** oculta a
+3. Cada card mostra um microfone com o idioma de dublagem escolhido: verde quando a
+   temporada mais recente tem dublagem nesse idioma, amarelo tracejado quando só
+   temporadas anteriores têm, e cinza riscado quando não há. Nas listas, aparece só o
+   microfone. A informação vem da própria lista de temporadas, sem consultas a mais.
+4. Em cada série, use o seletor para trocar o modo só daquela série. O menu **⋯** oculta a
    série (até sair episódio novo, por 1 semana ou sempre) ou exporta o diagnóstico.
 
 Acima da lista há uma busca por título, que ignora acentos e maiúsculas e abre as seções

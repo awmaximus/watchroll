@@ -7,6 +7,8 @@
   --text: #fff;
   --muted: #a0a0a0;
   --danger: #ff8f8f;
+  --dub-yes: #6fd39a;
+  --dub-old: #f2b950;
   color-scheme: dark;
 }
 * {
@@ -504,4 +506,55 @@ body.busy select.actions {
   * {
     transition: none !important;
   }
+}
+
+/* Ícone de dublagem no idioma escolhido */
+.dub {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  width: fit-content;
+  margin: 0 0 6px;
+  padding: 1px 7px 1px 5px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+}
+.dub svg {
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.dub-yes {
+  color: var(--dub-yes);
+}
+.dub-old {
+  color: var(--dub-old);
+  border-style: dashed;
+}
+.dub-no {
+  color: var(--muted);
+  opacity: 0.85;
+}
+.dub.compact {
+  margin: 0 0 0 6px;
+  padding: 0;
+  border: 0;
+  vertical-align: -2px;
+}
+.row-title {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+.row-title a {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

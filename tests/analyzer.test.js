@@ -1334,7 +1334,7 @@ describe("revalidar só o que mudou", () => {
     const ctx = load(["src/analyzer.js"], { browser, CRApi });
     // Envelhece a análise guardada no cache.
     const age = (ms) => {
-      const all = browser.storage.local.data["crnovos:v4:cache"];
+      const all = browser.storage.local.data["crnovos:v5:cache"];
       for (const scope of Object.values(all)) {
         for (const r of Object.values(scope)) {
           r.checkedAt -= ms;
@@ -1487,5 +1487,89 @@ describe("dados reais: OVERLORD: O Reino Sagrado (versões da temporada misturam
     const ctx = load(["src/analyzer.js"], { browser: fakeBrowser(), CRApi, console: quiet });
     const [r] = await ctx.CRAnalyzer.run({ settings: settings({ defaultMode: "sub" }) });
     assert.equal(r.status, "error");
+  });
+});
+
+describe("ícone de dublagem: áudios guardados por série", () => {
+  const S = (id, seq, audio, versions = []) => ({ id, season_sequence_number: seq, audio_locale: audio, versions });
+
+  test("guarda os áudios da temporada mais recente e de todas", async () => {
+    const { analyzer } = setup({
+      watchlist: [series("A")],
+      seasons: {
+        A: [
+          S("A1", 1, "ja-JP", [{ guid: "A1", audio_locale: "ja-JP", original: true }, { guid: "A1PT", audio_locale: "pt-BR" }]),
+          S("A2", 2, "ja-JP", [{ guid: "A2", audio_locale: "ja-JP", original: true }, { guid: "A2EN", audio_locale: "en-US" }]),
+        ],
+      },
+      episodes: { A2: [episode("a1", 1)] },
+      playheads: { a1: playhead("a1", FULL, true) },
+    });
+    const [r] = await analyzer.run({ settings: settings() });
+    assert.deepEqual(plain(r.audios.latest).sort(), ["en-US", "ja-JP"]);
+    assert.deepEqual(plain(r.audios.any).sort(), ["en-US", "ja-JP", "pt-BR"]);
+    assert.equal(analyzer.dubStatus(r, "en-US"), "yes");
+    assert.equal(analyzer.dubStatus(r, "pt-BR"), "old", "só a 1ª temporada tem pt-BR");
+    assert.equal(analyzer.dubStatus(r, "es-419"), "no");
+  });
+
+  test("série nunca assistida também guarda os áudios (vem da lista de temporadas)", async () => {
+    const { analyzer } = setup({
+      watchlist: [series("B")],
+      seasons: { B: [S("B1", 1, "pt-BR", [])] },
+      episodes: { B1: [episode("b1", 1)] },
+      playheads: {},
+    });
+    const [r] = await analyzer.run({ settings: settings() });
+    assert.equal(r.status, "never");
+    assert.equal(analyzer.dubStatus(r, "pt-BR"), "yes");
+  });
+
+  test("audio_locales da temporada também conta", () => {
+    const { analyzer } = setup({ watchlist: [], seasons: {}, episodes: {}, playheads: {} });
+    const a = analyzer.seriesAudios([{ id: "X", audio_locale: "ja-JP", audio_locales: ["ja-JP", "pt-BR"] }]);
+    assert.equal(analyzer.dubStatus({ audios: a }, "pt-BR"), "yes");
+  });
+
+  test("sem informação (série não consultada): nenhum ícone", () => {
+    const { analyzer } = setup({ watchlist: [], seasons: {}, episodes: {}, playheads: {} });
+    assert.equal(analyzer.dubStatus({}, "pt-BR"), null);
+    assert.equal(analyzer.dubStatus({ audios: null }, "pt-BR"), null);
+    assert.equal(analyzer.seriesAudios([]), null);
+  });
+
+  test("dados reais: OVERLORD: O Reino Sagrado tem dublagem pt-BR", async () => {
+    const fx = require("./fixtures/overlord-sacred-kingdom.json");
+    const a = (() => {
+      const { analyzer } = setup({ watchlist: [], seasons: {}, episodes: {}, playheads: {} });
+      return { analyzer, audios: analyzer.seriesAudios(fx.seasons) };
+    })();
+    assert.equal(a.analyzer.dubStatus({ audios: a.audios }, "pt-BR"), "yes");
+    assert.equal(a.analyzer.dubStatus({ audios: a.audios }, "it-IT"), "no");
+  });
+
+  test("dados reais: No Longer Allowed in Another World não tem pt-BR", () => {
+    const eps = require("./fixtures/no-longer-allowed-s1-episodes.json").data;
+    const v = eps[0].versions.map((x) => ({ guid: x.guid, audio_locale: x.audio_locale }));
+    const { analyzer } = setup({ watchlist: [], seasons: {}, episodes: {}, playheads: {} });
+    const a = analyzer.seriesAudios([{ id: "S", audio_locale: "ja-JP", versions: v }]);
+    assert.equal(analyzer.dubStatus({ audios: a }, "pt-BR"), "no");
+    assert.equal(analyzer.dubStatus({ audios: a }, "en-US"), "yes");
+  });
+
+  test("filmes: áudios das versões que têm filme", async () => {
+    const { analyzer } = setup({
+      watchlist: [{ panel: { type: "movie_listing", id: "M", title: "Filme", slug_title: "filme" } }],
+      seasons: {},
+      episodes: {},
+      movieListings: {
+        M: { id: "M", versions: [{ guid: "MJ", audio_locale: "ja-JP", original: true }, { guid: "MP", audio_locale: "pt-BR" }, { guid: "ME", audio_locale: "en-US" }] },
+      },
+      movies: { MJ: [{ id: "mj1", duration_ms: 1000 }], MP: [{ id: "mp1", duration_ms: 1000 }], ME: [] },
+      playheads: {},
+    });
+    const [r] = await analyzer.run({ settings: settings() });
+    assert.equal(analyzer.dubStatus(r, "pt-BR"), "yes");
+    assert.equal(analyzer.dubStatus(r, "en-US"), "no", "versão sem filme não conta");
   });
 });
