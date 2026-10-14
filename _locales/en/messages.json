@@ -83,7 +83,7 @@
     "message": "Batch size"
   },
   "setPlayheadBatchHelp": {
-    "message": "How many episodes go in each query of what you have watched (playheads), and how many series come in each page of your Watchlist. Larger batches mean fewer requests. If checks start failing, lower it. Between 10 and 300."
+    "message": "How many episodes go in each query of what you have watched (playheads), and how many items come in each page of your Watchlist and watch history. Larger batches mean fewer requests. If checks start failing, lower it. Between 10 and 300."
   },
   "searchPlaceholder": {
     "message": "Search series…"

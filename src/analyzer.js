@@ -18,7 +18,7 @@ var CRAnalyzer = (() => {
   // Quantas séries são consultadas ao mesmo tempo (configurável na página).
   const CONCURRENCY = { default: 4, min: 1, max: 32 };
   // Tamanho do lote (configurável na página): quantos IDs de episódio vão em cada
-  // consulta de playheads e quantas séries vêm em cada página da Fila.
+  // consulta de playheads e quantos itens vêm em cada página da Fila e do histórico.
   // O limite real da API não é documentado; se a Crunchyroll recusar, diminua.
   const PLAYHEAD_BATCH = { default: 100, min: 10, max: 300 };
   const MAX_SEASONS_BACK = 6;
@@ -590,7 +590,10 @@ var CRAnalyzer = (() => {
   async function loadHistory(settings) {
     if (!CRApi.watchHistory) return null;
     try {
-      return await CRApi.watchHistory(settings.locale, { parallel: concurrencyFrom(settings) });
+      return await CRApi.watchHistory(settings.locale, {
+        parallel: concurrencyFrom(settings),
+        pageSize: playheadBatchFrom(settings),
+      });
     } catch (err) {
       console.warn("[Novos Episódios] histórico indisponível, seguindo sem ele:", err);
       return null;

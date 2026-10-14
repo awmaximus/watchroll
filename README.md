@@ -23,9 +23,10 @@ funcionando. Só depende da API.
      deixam a verificação mais rápida; se aparecerem erros HTTP 429 ("muitas
      requisições"), diminua;
    - o tamanho do lote (padrão 100, de 10 a 300): quantos episódios vão em cada consulta
-     de playheads e quantas séries vêm em cada página da Fila. Lotes maiores fazem menos
-     consultas; se as verificações começarem a falhar, diminua. Se a Crunchyroll devolver
-     páginas da Fila menores que o pedido, a extensão relê a Fila com páginas de 100.
+     de playheads e quantos itens vêm em cada página da Fila e do histórico. Lotes maiores
+     fazem menos consultas e, no histórico, cobrem mais registros (são lidas até 10
+     páginas). Se as verificações começarem a falhar, diminua. Se a Crunchyroll devolver
+     páginas menores que o pedido, a extensão relê a Fila ou o histórico com páginas de 100.
 3. Em cada série, use o seletor para trocar o modo só daquela série. O menu **⋯** oculta a
    série (até sair episódio novo, por 1 semana ou sempre) ou exporta o diagnóstico.
 

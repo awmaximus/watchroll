@@ -158,6 +158,60 @@ describe("histórico em páginas paralelas", () => {
   };
   const pages = (requests) => plain(requests.map((r) => param(r, "page")));
 
+  // Histórico que aceita até `cap` registros por página (page_size respeitado até ali).
+  const historicoCap = (real, cap) => (url) => {
+    const page = Number(url.searchParams.get("page"));
+    const size = Math.min(cap, Number(url.searchParams.get("page_size")));
+    const start = (page - 1) * size;
+    const n = Math.max(0, Math.min(size, real - start));
+    return json({ data: rows(n, `h${size}-${page}-`), meta: { next_page: start + n < real ? `/p${page + 1}` : "" } });
+  };
+
+  test("tamanho de página configurável: 1.000 registros em páginas de 300 = 4 consultas", async () => {
+    const { api, requests } = setup(historicoCap(1000, 1000));
+    const h = await api.watchHistory("pt-BR", { parallel: 4, pageSize: 300 });
+    assert.equal(h.entries.length, 1000);
+    assert.equal(h.complete, true);
+    assert.equal(requests.length, 4);
+    assert.ok(requests.every((r) => param(r, "page_size") === "300"));
+  });
+
+  test("páginas maiores cobrem mais registros com o mesmo limite de 10 páginas", async () => {
+    const { api } = setup(historicoCap(2500, 1000));
+    const h = await api.watchHistory("pt-BR", { parallel: 10, pageSize: 300 });
+    assert.equal(h.entries.length, 2500);
+    assert.equal(h.complete, true, "com 100 por página, pararia em 1.000 e ficaria incompleto");
+  });
+
+  test("API com limite de 100 por página: relê com 100, sem buracos nem 'completo' falso", async () => {
+    const { api, requests } = setup(historicoCap(450, 100));
+    const h = await api.watchHistory("pt-BR", { parallel: 4, pageSize: 300 });
+    assert.equal(h.entries.length, 450);
+    assert.equal(h.complete, true);
+    assert.equal(new Set(h.entries.map((e) => e.id)).size, 450);
+    assert.ok(requests.some((r) => param(r, "page_size") === "100"), "releu com 100");
+  });
+
+  test("histórico curto (cabe numa página grande): não relê", async () => {
+    const { api, requests } = setup(historicoCap(80, 1000));
+    const h = await api.watchHistory("pt-BR", { parallel: 4, pageSize: 300 });
+    assert.equal(h.entries.length, 80);
+    assert.equal(h.complete, true);
+    assert.ok(requests.every((r) => param(r, "page_size") === "300"));
+  });
+
+  test("a API sempre manda cursor, até na última página: para na página vazia", async () => {
+    const sempreCursor = (url) => {
+      const page = Number(url.searchParams.get("page"));
+      const n = Math.max(0, Math.min(100, 250 - (page - 1) * 100));
+      return json({ data: rows(n, `c${page}-`), meta: { next_page: `/p${page + 1}` } });
+    };
+    const { api } = setup(sempreCursor);
+    const h = await api.watchHistory("pt-BR", { parallel: 4 });
+    assert.equal(h.entries.length, 250);
+    assert.equal(h.complete, true);
+  });
+
   test("sem total (resposta real): páginas pedidas juntas e histórico completo", async () => {
     const { api, requests, stats } = setup(historico({ real: 340 }));
     const h = await api.watchHistory("pt-BR", { parallel: 4 });

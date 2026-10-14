@@ -83,7 +83,7 @@
     "message": "Tamanho do lote"
   },
   "setPlayheadBatchHelp": {
-    "message": "Quantos episódios vão em cada consulta do que você já assistiu (playheads) e quantas séries vêm em cada página da Fila. Lotes maiores fazem menos consultas. Se as verificações começarem a falhar, diminua. Entre 10 e 300."
+    "message": "Quantos episódios vão em cada consulta do que você já assistiu (playheads) e quantos itens vêm em cada página da Fila e do histórico. Lotes maiores fazem menos consultas. Se as verificações começarem a falhar, diminua. Entre 10 e 300."
   },
   "searchPlaceholder": {
     "message": "Buscar série…"

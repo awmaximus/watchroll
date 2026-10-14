@@ -455,13 +455,19 @@ var CRApi = (() => {
   // sem repetir registros (conferido num HAR real em out/2026).
   // Se alguém assistir algo durante a leitura, um registro pode vir repetido entre
   // páginas, mas nenhum se perde (a lista vai do mais recente ao mais antigo).
-  async function watchHistory(locale, { pageSize = 100, maxPages = 10, parallel = 4 } = {}) {
-    const acc = await getAccountId();
+  //
+  // pageSize segue o "tamanho do lote" das Configurações. Se a Crunchyroll devolver
+  // menos registros por página do que o pedido e ainda indicar uma próxima página
+  // (next_page preenchido), ela tem um limite próprio menor: o histórico é lido de
+  // novo com páginas de 100, para não ficar com buracos nem parecer completo.
+  const HISTORY_PAGE = 100;
+  async function readHistory(acc, locale, pageSize, maxPages, parallel) {
     const { responses, complete } = await readPages(
-      "watchHistory",
+      `watchHistory:${pageSize}`,
       (i) => get(`/content/v2/${acc}/watch-history`, { page: i + 1, page_size: pageSize, locale }),
       (r, count) => {
         const next = r.meta && r.meta.next_page;
+        if (typeof next === "string" && next !== "" && (r.data || []).length) return false;
         return (
           (r.data || []).length < pageSize ||
           next === "" ||
@@ -471,7 +477,27 @@ var CRApi = (() => {
       },
       { parallel, maxPages, partialOk: true }
     );
-    return { entries: responses.flatMap((r) => r.data || []), complete };
+    const first = responses[0];
+    const firstLen = first ? (first.data || []).length : 0;
+    const firstNext = first && first.meta && first.meta.next_page;
+    // Só conta como limite se a página seguinte também trouxe registros: um histórico
+    // curto (que cabe numa página) não deve provocar uma releitura.
+    const secondLen = responses[1] ? (responses[1].data || []).length : 0;
+    const capped =
+      firstLen > 0 && firstLen < pageSize && typeof firstNext === "string" && firstNext !== "" && secondLen > 0;
+    return { entries: responses.flatMap((r) => r.data || []), complete, capped };
+  }
+
+  async function watchHistory(locale, { pageSize = HISTORY_PAGE, maxPages = 10, parallel = 4 } = {}) {
+    const acc = await getAccountId();
+    const n = Math.max(1, Math.round(Number(pageSize)) || HISTORY_PAGE);
+    const r = await readHistory(acc, locale, n, maxPages, parallel);
+    if (r.capped && n > HISTORY_PAGE) {
+      console.warn("[CRApi] watch-history page size", n, "not accepted; re-reading with", HISTORY_PAGE);
+      const again = await readHistory(acc, locale, HISTORY_PAGE, maxPages, parallel);
+      return { entries: again.entries, complete: again.complete };
+    }
+    return { entries: r.entries, complete: r.complete };
   }
 
   async function movieListing(id, locale) {

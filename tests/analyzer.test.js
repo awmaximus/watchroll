@@ -461,9 +461,11 @@ describe("paralelismo", () => {
   test("a verificação repassa o tamanho do lote configurado para a API", async () => {
     const sizes = [];
     const pages = [];
+    const hist = [];
     const CRApi = {
       getAccountId: async () => "conta-1",
       watchlist: async (_locale, opts) => (pages.push(opts.pageSize), []),
+      watchHistory: async (_locale, opts) => (hist.push(opts.pageSize), { entries: [], complete: true }),
       seasons: async () => [],
       episodes: async () => [],
       playheads: async () => new Map(),
@@ -474,6 +476,7 @@ describe("paralelismo", () => {
     await ctx.CRAnalyzer.run({ settings: settings() });
     assert.deepEqual(sizes, [150, 100]);
     assert.deepEqual(pages, [150, 100], "a Fila usa o mesmo tamanho de lote");
+    assert.deepEqual(hist, [150, 100], "o histórico também");
   });
 
   test("valores inválidos da configuração são ajustados", () => {
