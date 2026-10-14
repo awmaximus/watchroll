@@ -83,6 +83,46 @@ describe("Fila em páginas paralelas", () => {
     assert.deepEqual(starts(requests), ["0", "100", "200", "300", "400", "500"]);
   });
 
+  // Fila que aceita até `cap` itens por página, como uma API com limite próprio.
+  const filaCap = (total, cap, { withTotal = true } = {}) => (url) => {
+    const start = Number(url.searchParams.get("start"));
+    const n = Math.min(cap, Number(url.searchParams.get("n")));
+    const data = rows(Math.max(0, Math.min(n, total - start)), `s${start}-`);
+    return json(withTotal ? { data, total } : { data });
+  };
+
+  test("tamanho de página configurável: 350 séries em páginas de 300 = 2 consultas", async () => {
+    const { api, requests } = setup(filaCap(350, 1000));
+    const items = await api.watchlist("pt-BR", { parallel: 4, pageSize: 300 });
+    assert.equal(items.length, 350);
+    assert.deepEqual(plain(requests.map((r) => param(r, "n"))).slice(0, 2), ["300", "300"]);
+    assert.deepEqual(starts(requests).slice(0, 2), ["0", "300"]);
+    assert.equal(new Set(items.map((i) => i.id)).size, 350, "sem repetidos");
+  });
+
+  test("API com limite menor que o pedido (com total): relê com páginas de 100", async () => {
+    const { api, requests } = setup(filaCap(350, 100));
+    const items = await api.watchlist("pt-BR", { parallel: 4, pageSize: 300 });
+    assert.equal(items.length, 350);
+    assert.equal(new Set(items.map((i) => i.id)).size, 350);
+    assert.ok(requests.some((r) => param(r, "n") === "100"), "releu com 100");
+  });
+
+  test("API com limite menor que o pedido (sem total): também relê com 100", async () => {
+    const { api } = setup(filaCap(350, 100, { withTotal: false }));
+    const items = await api.watchlist("pt-BR", { parallel: 4, pageSize: 300 });
+    assert.equal(items.length, 350);
+  });
+
+  test("Fila menor que uma página grande: uma consulta só, sem reler", async () => {
+    const { api, requests } = setup(filaCap(146, 1000));
+    await api.watchlist("pt-BR", { parallel: 4, pageSize: 300 }); // 1ª leitura aprende 1 página
+    requests.length = 0;
+    const items = await api.watchlist("pt-BR", { parallel: 4, pageSize: 300 });
+    assert.equal(items.length, 146);
+    assert.equal(requests.length, 1);
+  });
+
   test("respeita o limite de consultas simultâneas", async () => {
     const { api, stats } = setup(fila(1000));
     const items = await api.watchlist("pt-BR", { parallel: 2 });

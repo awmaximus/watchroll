@@ -17,9 +17,10 @@ var CRAnalyzer = (() => {
   const REVALIDATE_TTL = 6 * 60 * 60 * 1000; // até isso: reaproveita se nada mudou
   // Quantas séries são consultadas ao mesmo tempo (configurável na página).
   const CONCURRENCY = { default: 4, min: 1, max: 32 };
-  // Quantos IDs de episódio vão em cada consulta de playheads (configurável na página).
+  // Tamanho do lote (configurável na página): quantos IDs de episódio vão em cada
+  // consulta de playheads e quantas séries vêm em cada página da Fila.
   // O limite real da API não é documentado; se a Crunchyroll recusar, diminua.
-  const PLAYHEAD_BATCH = { default: 50, min: 10, max: 200 };
+  const PLAYHEAD_BATCH = { default: 100, min: 10, max: 300 };
   const MAX_SEASONS_BACK = 6;
   const WATCHED_RATIO = 0.9;
   // A Crunchyroll cria registros de reprodução com poucos segundos (ou zero) só por
@@ -607,7 +608,7 @@ var CRAnalyzer = (() => {
     // páginas de cada um também (até o limite de consultas simultâneas).
     const [accountId, list, history] = await Promise.all([
       cacheScope(),
-      CRApi.watchlist(settings.locale, { parallel: concurrencyFrom(settings) }),
+      CRApi.watchlist(settings.locale, { parallel: concurrencyFrom(settings), pageSize: playheadBatchFrom(settings) }),
       loadHistory(settings),
     ]);
     const items = list.map(normalizeItem).filter(Boolean);

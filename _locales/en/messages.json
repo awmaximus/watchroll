@@ -80,10 +80,10 @@
     "message": "Faster with higher numbers. If you get “too many requests” errors (HTTP 429), lower it. Between 1 and 32."
   },
   "setPlayheadBatchLabel": {
-    "message": "Episodes per watch-progress request"
+    "message": "Batch size"
   },
   "setPlayheadBatchHelp": {
-    "message": "How many episodes go in each query of what you have watched (playheads). Larger batches mean fewer requests. If checks start failing, lower it. Between 10 and 200."
+    "message": "How many episodes go in each query of what you have watched (playheads), and how many series come in each page of your Watchlist. Larger batches mean fewer requests. If checks start failing, lower it. Between 10 and 300."
   },
   "searchPlaceholder": {
     "message": "Search series…"
@@ -399,6 +399,15 @@
       },
       "p2": {
         "content": "$2"
+      }
+    }
+  },
+  "statusElapsed": {
+    "message": " · updated in $S$ s",
+    "description": "Tempo que a última atualização levou; ex.: 4,7",
+    "placeholders": {
+      "s": {
+        "content": "$1"
       }
     }
   },

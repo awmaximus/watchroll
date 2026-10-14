@@ -464,8 +464,11 @@
     notice("");
     try {
       setProgress(0, 0);
+      $("elapsed").textContent = "";
+      const t0 = performance.now();
       results = await CRAnalyzer.run({ settings, force, onProgress: setProgress });
       render();
+      showElapsed(performance.now() - t0);
       // O que está na tela conta como visto: não vira notificação depois.
       await CRChecker.record(results, { scope: await CRAnalyzer.cacheScope(), settings });
       showProfile();
@@ -513,6 +516,11 @@
   }
 
   // Nome do perfil no topo, só se a conta tiver mais de um perfil.
+  function showElapsed(ms) {
+    const secs = (ms / 1000).toLocaleString(CRI18n.lang(), { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+    $("elapsed").textContent = t("statusElapsed", secs);
+  }
+
   async function showProfile() {
     try {
       const [list, id] = await Promise.all([CRApi.profiles(), CRApi.getProfileId()]);

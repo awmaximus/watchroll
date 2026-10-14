@@ -80,10 +80,10 @@
     "message": "Mais rápido com números maiores. Se aparecerem erros de “muitas requisições” (HTTP 429), diminua. Entre 1 e 32."
   },
   "setPlayheadBatchLabel": {
-    "message": "Episódios por consulta de progresso"
+    "message": "Tamanho do lote"
   },
   "setPlayheadBatchHelp": {
-    "message": "Quantos episódios vão em cada consulta do que você já assistiu (playheads). Lotes maiores fazem menos consultas. Se as verificações começarem a falhar, diminua. Entre 10 e 200."
+    "message": "Quantos episódios vão em cada consulta do que você já assistiu (playheads) e quantas séries vêm em cada página da Fila. Lotes maiores fazem menos consultas. Se as verificações começarem a falhar, diminua. Entre 10 e 300."
   },
   "searchPlaceholder": {
     "message": "Buscar série…"
@@ -399,6 +399,15 @@
       },
       "p2": {
         "content": "$2"
+      }
+    }
+  },
+  "statusElapsed": {
+    "message": " · atualizado em $S$ s",
+    "description": "Tempo que a última atualização levou; ex.: 4,7",
+    "placeholders": {
+      "s": {
+        "content": "$1"
       }
     }
   },

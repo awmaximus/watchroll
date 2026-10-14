@@ -19,7 +19,7 @@ var CRChecker = (() => {
     subLang: "pt-BR",
     defaultMode: "sub",
     concurrency: 4,
-    playheadBatch: 50,
+    playheadBatch: 100,
     autoCheckMinutes: 60,
     notify: true,
     showExtras: true,

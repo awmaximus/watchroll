@@ -407,18 +407,39 @@ var CRApi = (() => {
     return out;
   }
 
+  // Tamanho da página da Fila: o mesmo "tamanho do lote" das Configurações.
+  // Se a Crunchyroll devolver menos itens por página do que o pedido (um limite
+  // dela que não conhecemos), a Fila sai incompleta; nesse caso, ela é lida de
+  // novo com páginas de 100, o tamanho que sempre funcionou.
   const WATCHLIST_PAGE = 100;
   const WATCHLIST_MAX = 3000;
-  async function watchlist(locale, { parallel = 4 } = {}) {
-    const acc = await getAccountId();
-    const n = WATCHLIST_PAGE;
+  async function readWatchlist(acc, locale, n, parallel) {
     const { responses } = await readPages(
-      "watchlist",
+      `watchlist:${n}`,
       (i) => get(`/content/v2/discover/${acc}/watchlist`, { order: "desc", n, start: i * n, locale }),
       (r, count) => (r.data || []).length < n || (typeof r.total === "number" && count >= r.total),
-      { parallel, maxPages: WATCHLIST_MAX / n }
+      { parallel, maxPages: Math.ceil(WATCHLIST_MAX / n) }
     );
-    return responses.flatMap((r) => r.data || []);
+    const items = responses.flatMap((r) => r.data || []);
+    const total = responses.length ? responses[0].total : undefined;
+    return { items, total, firstLen: responses.length ? (responses[0].data || []).length : 0 };
+  }
+
+  async function watchlist(locale, { parallel = 4, pageSize = WATCHLIST_PAGE } = {}) {
+    const acc = await getAccountId();
+    const n = Math.max(1, Math.round(Number(pageSize)) || WATCHLIST_PAGE);
+    const r = await readWatchlist(acc, locale, n, parallel);
+    if (n > WATCHLIST_PAGE) {
+      const capped =
+        typeof r.total === "number"
+          ? r.items.length < r.total
+          : r.firstLen > 0 && r.firstLen < n && r.firstLen % WATCHLIST_PAGE === 0; // sem total: 100, 200… redondos
+      if (capped) {
+        console.warn("[CRApi] watchlist page size", n, "not accepted; re-reading with", WATCHLIST_PAGE);
+        return (await readWatchlist(acc, locale, WATCHLIST_PAGE, parallel)).items;
+      }
+    }
+    return r.items;
   }
 
   const seasons = (seriesId, locale) =>

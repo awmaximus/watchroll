@@ -447,21 +447,23 @@ describe("paralelismo", () => {
   test("tamanho do lote de playheads: valores ajustados à faixa", () => {
     const { analyzer } = setup({ watchlist: [], seasons: {}, episodes: {}, playheads: {} });
     const b = (v) => analyzer.playheadBatchFrom({ playheadBatch: v });
-    assert.equal(b(undefined), 50);
-    assert.equal(b(""), 50);
-    assert.equal(b("abc"), 50);
+    assert.equal(b(undefined), 100);
+    assert.equal(b(""), 100);
+    assert.equal(b("abc"), 100);
     assert.equal(b(1), 10);
-    assert.equal(b(1000), 200);
+    assert.equal(b(1000), 300);
+    assert.equal(b(300), 300);
     assert.equal(b("150"), 150);
     assert.equal(b(99.6), 100);
-    assert.equal(analyzer.playheadBatchFrom(undefined), 50);
+    assert.equal(analyzer.playheadBatchFrom(undefined), 100);
   });
 
   test("a verificação repassa o tamanho do lote configurado para a API", async () => {
     const sizes = [];
+    const pages = [];
     const CRApi = {
       getAccountId: async () => "conta-1",
-      watchlist: async () => [],
+      watchlist: async (_locale, opts) => (pages.push(opts.pageSize), []),
       seasons: async () => [],
       episodes: async () => [],
       playheads: async () => new Map(),
@@ -470,7 +472,8 @@ describe("paralelismo", () => {
     const ctx = load(["src/analyzer.js"], { browser: fakeBrowser(), CRApi });
     await ctx.CRAnalyzer.run({ settings: settings({ playheadBatch: 150 }) });
     await ctx.CRAnalyzer.run({ settings: settings() });
-    assert.deepEqual(sizes, [150, 50]);
+    assert.deepEqual(sizes, [150, 100]);
+    assert.deepEqual(pages, [150, 100], "a Fila usa o mesmo tamanho de lote");
   });
 
   test("valores inválidos da configuração são ajustados", () => {
