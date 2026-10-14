@@ -463,8 +463,13 @@ var CRApi = (() => {
 
   // ---------- playheads em lote ----------
   // Pedidos de várias séries são acumulados por alguns milissegundos e enviados
-  // juntos, em lotes de até 50 IDs; cada chamador recebe só os seus.
+  // juntos, em lotes de até BATCH.size IDs (50 por padrão, configurável na página);
+  // cada chamador recebe só os seus.
   const BATCH = { size: 50, windowMs: 10 };
+  function setPlayheadBatchSize(n) {
+    const v = Math.round(Number(n));
+    if (Number.isFinite(v) && v > 0) BATCH.size = v;
+  }
   let phQueue = [];
   let phTimer = null;
 
@@ -532,6 +537,7 @@ var CRApi = (() => {
     movieListing,
     movies,
     playheads,
+    setPlayheadBatchSize,
     release,
   };
 })();

@@ -59,6 +59,10 @@
     conc.min = CRAnalyzer.CONCURRENCY.min;
     conc.max = CRAnalyzer.CONCURRENCY.max;
     conc.value = CRAnalyzer.concurrencyFrom(settings);
+    const phb = $("set-phbatch");
+    phb.min = CRAnalyzer.PLAYHEAD_BATCH.min;
+    phb.max = CRAnalyzer.PLAYHEAD_BATCH.max;
+    phb.value = CRAnalyzer.playheadBatchFrom(settings);
     fillSelect(
       $("set-auto"),
       CRChecker.AUTO_CHECK_OPTIONS.map((m) => [
@@ -602,6 +606,12 @@
     $("set-concurrency").addEventListener("change", async (e) => {
       settings.concurrency = CRAnalyzer.concurrencyFrom({ concurrency: e.target.value });
       e.target.value = settings.concurrency;
+      await saveSettings();
+    });
+    // Também só muda a velocidade, não o resultado: vale na próxima verificação.
+    $("set-phbatch").addEventListener("change", async (e) => {
+      settings.playheadBatch = CRAnalyzer.playheadBatchFrom({ playheadBatch: e.target.value });
+      e.target.value = settings.playheadBatch;
       await saveSettings();
     });
 

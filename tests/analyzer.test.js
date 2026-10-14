@@ -444,12 +444,43 @@ describe("paralelismo", () => {
     assert.deepEqual(plain(results.map((r) => r.seriesId)), ["LENTA", "RAPIDA"]);
   });
 
+  test("tamanho do lote de playheads: valores ajustados à faixa", () => {
+    const { analyzer } = setup({ watchlist: [], seasons: {}, episodes: {}, playheads: {} });
+    const b = (v) => analyzer.playheadBatchFrom({ playheadBatch: v });
+    assert.equal(b(undefined), 50);
+    assert.equal(b(""), 50);
+    assert.equal(b("abc"), 50);
+    assert.equal(b(1), 10);
+    assert.equal(b(1000), 200);
+    assert.equal(b("150"), 150);
+    assert.equal(b(99.6), 100);
+    assert.equal(analyzer.playheadBatchFrom(undefined), 50);
+  });
+
+  test("a verificação repassa o tamanho do lote configurado para a API", async () => {
+    const sizes = [];
+    const CRApi = {
+      getAccountId: async () => "conta-1",
+      watchlist: async () => [],
+      seasons: async () => [],
+      episodes: async () => [],
+      playheads: async () => new Map(),
+      setPlayheadBatchSize: (n) => sizes.push(n),
+    };
+    const ctx = load(["src/analyzer.js"], { browser: fakeBrowser(), CRApi });
+    await ctx.CRAnalyzer.run({ settings: settings({ playheadBatch: 150 }) });
+    await ctx.CRAnalyzer.run({ settings: settings() });
+    assert.deepEqual(sizes, [150, 50]);
+  });
+
   test("valores inválidos da configuração são ajustados", () => {
     const { analyzer } = setup({ watchlist: [], seasons: {}, episodes: {}, playheads: {} });
     const c = (v) => analyzer.concurrencyFrom({ concurrency: v });
     assert.equal(c(0), 1);
     assert.equal(c(-5), 1);
-    assert.equal(c(100), 16);
+    assert.equal(c(100), 32);
+    assert.equal(c(32), 32);
+    assert.equal(c(20), 20);
     assert.equal(c("6"), 6);
     assert.equal(c(2.6), 3);
     assert.equal(c("abc"), 4);

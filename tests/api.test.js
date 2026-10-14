@@ -482,6 +482,32 @@ describe("playheads em lote", () => {
     assert.equal(requests.length, 2); // 50 + 10
   });
 
+  test("tamanho do lote configurável: 120 IDs em lotes de 200 saem numa consulta só", async () => {
+    const { api, requests } = setup(phRoutes(), { sessionToken: validSession() });
+    api.setPlayheadBatchSize(200);
+    const big = Array.from({ length: 120 }, (_, i) => `h${i}`);
+    const r = await api.playheads(big, "pt-BR");
+    assert.equal(r.size, 120);
+    assert.equal(requests.length, 1);
+    assert.equal(new URL(requests[0].url).searchParams.get("content_ids").split(",").length, 120);
+  });
+
+  test("tamanho do lote menor divide em mais consultas", async () => {
+    const { api, requests } = setup(phRoutes(), { sessionToken: validSession() });
+    api.setPlayheadBatchSize(20);
+    const r = await api.playheads(Array.from({ length: 50 }, (_, i) => `k${i}`), "pt-BR");
+    assert.equal(r.size, 50);
+    assert.equal(requests.length, 3); // 20 + 20 + 10
+  });
+
+  test("tamanho de lote inválido é ignorado", async () => {
+    const { api, requests } = setup(phRoutes(), { sessionToken: validSession() });
+    api.setPlayheadBatchSize(0);
+    api.setPlayheadBatchSize("abc");
+    await api.playheads(Array.from({ length: 60 }, (_, i) => `m${i}`), "pt-BR");
+    assert.equal(requests.length, 2); // continua 50 + 10
+  });
+
   test("lista vazia não consulta nada", async () => {
     const { api, requests } = setup(phRoutes(), { sessionToken: validSession() });
     assert.equal((await api.playheads([], "pt-BR")).size, 0);

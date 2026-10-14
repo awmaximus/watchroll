@@ -16,7 +16,10 @@ var CRAnalyzer = (() => {
   const CACHE_TTL = 20 * 60 * 1000; // dentro disso: reaproveita sem nenhuma consulta
   const REVALIDATE_TTL = 6 * 60 * 60 * 1000; // até isso: reaproveita se nada mudou
   // Quantas séries são consultadas ao mesmo tempo (configurável na página).
-  const CONCURRENCY = { default: 4, min: 1, max: 16 };
+  const CONCURRENCY = { default: 4, min: 1, max: 32 };
+  // Quantos IDs de episódio vão em cada consulta de playheads (configurável na página).
+  // O limite real da API não é documentado; se a Crunchyroll recusar, diminua.
+  const PLAYHEAD_BATCH = { default: 50, min: 10, max: 200 };
   const MAX_SEASONS_BACK = 6;
   const WATCHED_RATIO = 0.9;
   // A Crunchyroll cria registros de reprodução com poucos segundos (ou zero) só por
@@ -124,6 +127,14 @@ var CRAnalyzer = (() => {
     const n = Math.round(Number(raw));
     if (!Number.isFinite(n)) return CONCURRENCY.default;
     return Math.min(CONCURRENCY.max, Math.max(CONCURRENCY.min, n));
+  }
+
+  function playheadBatchFrom(settings) {
+    const raw = settings ? settings.playheadBatch : undefined;
+    if (raw === undefined || raw === null || String(raw).trim() === "") return PLAYHEAD_BATCH.default;
+    const n = Math.round(Number(raw));
+    if (!Number.isFinite(n)) return PLAYHEAD_BATCH.default;
+    return Math.min(PLAYHEAD_BATCH.max, Math.max(PLAYHEAD_BATCH.min, n));
   }
 
   function minStartedFrom(settings) {
@@ -591,6 +602,7 @@ var CRAnalyzer = (() => {
     !!(history && history.complete && entry.neverWatchedFlag && !activity.has(entry.seriesId));
 
   async function run({ settings, force = false, onProgress = () => {} }) {
+    if (CRApi.setPlayheadBatchSize) CRApi.setPlayheadBatchSize(playheadBatchFrom(settings));
     // Fila e histórico não dependem um do outro: são lidos ao mesmo tempo, e as
     // páginas de cada um também (até o limite de consultas simultâneas).
     const [accountId, list, history] = await Promise.all([
@@ -760,5 +772,5 @@ var CRAnalyzer = (() => {
     return result;
   }
 
-  return { run, runOne, cacheScope, historyActivity, diagnose, sanitize, extraKind, CONCURRENCY, concurrencyFrom, MIN_STARTED, MIN_STARTED_SECONDS, minStartedFrom };
+  return { run, runOne, cacheScope, historyActivity, diagnose, sanitize, extraKind, CONCURRENCY, concurrencyFrom, PLAYHEAD_BATCH, playheadBatchFrom, MIN_STARTED, MIN_STARTED_SECONDS, minStartedFrom };
 })();

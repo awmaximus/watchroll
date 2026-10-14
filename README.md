@@ -19,9 +19,11 @@ funcionando. Só depende da API.
    - o idioma dos títulos e links;
    - a verificação automática (desligada, ou a cada 30 min, 1 h, 3 h ou 6 h; padrão 1 h) e
      se quer notificação de episódio novo;
-   - quantas séries consultar ao mesmo tempo (padrão 4, de 1 a 16). Números maiores
+   - quantas séries consultar ao mesmo tempo (padrão 4, de 1 a 32). Números maiores
      deixam a verificação mais rápida; se aparecerem erros HTTP 429 ("muitas
-     requisições"), diminua.
+     requisições"), diminua;
+   - quantos episódios vão em cada consulta de playheads (padrão 50, de 10 a 200). Lotes
+     maiores fazem menos consultas; se as verificações começarem a falhar, diminua.
 3. Em cada série, use o seletor para trocar o modo só daquela série. O menu **⋯** oculta a
    série (até sair episódio novo, por 1 semana ou sempre) ou exporta o diagnóstico.
 
@@ -54,7 +56,7 @@ ela pedir (cabeçalho `Retry-After`; sem ele, 1 s, 2 s, 4 s, 8 s, até 60 s) e t
 no máximo 4 vezes. A pausa vale para todas as consultas em andamento.
 
 Os pedidos de histórico de reprodução (playheads) de várias séries são juntados em lotes de
-até 50 episódios. Com 6 séries em paralelo, por exemplo, sai 1 consulta em vez de 6.
+até 50 episódios (configurável, de 10 a 200). Com 6 séries em paralelo, por exemplo, sai 1 consulta em vez de 6.
 
 As séries são consultadas em paralelo, até o limite configurado. Dentro de cada série, as
 temporadas são lidas da mais nova para a mais antiga e a busca para assim que encontra

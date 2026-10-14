@@ -77,7 +77,13 @@
     "message": "Séries consultadas ao mesmo tempo"
   },
   "setConcurrencyHelp": {
-    "message": "Mais rápido com números maiores. Se aparecerem erros de “muitas requisições” (HTTP 429), diminua. Entre 1 e 16."
+    "message": "Mais rápido com números maiores. Se aparecerem erros de “muitas requisições” (HTTP 429), diminua. Entre 1 e 32."
+  },
+  "setPlayheadBatchLabel": {
+    "message": "Episódios por consulta de progresso"
+  },
+  "setPlayheadBatchHelp": {
+    "message": "Quantos episódios vão em cada consulta do que você já assistiu (playheads). Lotes maiores fazem menos consultas. Se as verificações começarem a falhar, diminua. Entre 10 e 200."
   },
   "searchPlaceholder": {
     "message": "Buscar série…"
