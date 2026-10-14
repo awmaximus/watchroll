@@ -93,13 +93,42 @@ var CRAnalyzer = (() => {
   const originalVersion = (obj) => (obj.versions || []).find((v) => v.original);
   const seasonKey = (s) => (originalVersion(s) && originalVersion(s).guid) || s.id;
 
-  // ID da temporada que tem o áudio pedido (ou null se esse áudio não existe nela).
-  function seasonIdForAudio(season, audio) {
-    if (season.audio_locale === audio) return season.id;
-    const v = (season.versions || []).find((x) => x.audio_locale === audio);
-    if (v) return v.guid;
-    if ((season.audio_locales || []).includes(audio) && !(season.versions || []).length) return season.id;
-    return null;
+  // IDs candidatos (em ordem) para a lista de episódios da temporada num áudio.
+  // Em alguns títulos (filmes publicados como série, ex.: OVERLORD: O Reino Sagrado)
+  // a Crunchyroll mistura em season.versions os IDs dos EPISÓDIOS com os das
+  // temporadas, para o mesmo áudio; pedir episódios de um ID de episódio dá 400.
+  // Por isso há vários candidatos, e quem chama tenta o próximo se um for recusado.
+  function seasonCandidates(season, pick) {
+    const out = [];
+    const add = (id) => id && !out.includes(id) && out.push(id);
+    if (pick === "original") {
+      for (const v of season.versions || []) if (v.original) add(v.guid);
+      if (!out.length) add(season.id);
+    } else {
+      if (season.audio_locale === pick) add(season.id);
+      for (const v of season.versions || []) if (v.audio_locale === pick) add(v.guid);
+      if ((season.audio_locales || []).includes(pick) && !(season.versions || []).length) add(season.id);
+    }
+    return out;
+  }
+
+  // Episódios do primeiro candidato que a Crunchyroll aceitar. Recusas 400/404
+  // ("not a valid season") passam para o próximo; outros erros sobem normalmente.
+  async function episodesOfFirst(api, candidates, locale) {
+    let lastErr = null;
+    for (const id of candidates) {
+      try {
+        return { id, eps: await api.episodes(id, locale) };
+      } catch (err) {
+        if (err && (err.status === 400 || err.status === 404)) {
+          lastErr = err;
+          continue;
+        }
+        throw err;
+      }
+    }
+    if (lastErr) console.warn("[Novos Episódios]", lastErr);
+    return { id: candidates[0] || null, eps: [] };
   }
 
   function sortSeasons(list) {
@@ -238,18 +267,21 @@ var CRAnalyzer = (() => {
       // Qual lista de episódios usar para esta temporada, conforme o modo.
       let listId = season.id;
       let eligible = true;
+      let candidates = [listId];
       if (mode === "sub") {
-        listId = (originalVersion(season) && originalVersion(season).guid) || season.id;
+        candidates = seasonCandidates(season, "original");
       } else if (mode === "dub") {
-        const dubId = seasonIdForAudio(season, dubLang);
-        if (dubId) listId = dubId;
+        const dubIds = seasonCandidates(season, dubLang);
+        if (dubIds.length) candidates = dubIds;
         else {
           eligible = false; // sem dublagem: serve só para saber o que você já viu
           dubMissingSomewhere = true;
         }
       }
 
-      let eps = await api.episodes(listId, locale);
+      let got = await episodesOfFirst(api, candidates, locale);
+      listId = got.id || listId;
+      let eps = got.eps;
       if (!eps.length && listId !== season.id) {
         eps = await api.episodes(season.id, locale);
         if (mode === "dub") {
@@ -272,8 +304,9 @@ var CRAnalyzer = (() => {
       // original mas ainda não têm dublagem lançada ("aguardando dublagem").
       let origOnly = [];
       if (mode === "dub" && eligible && back === 0) {
-        const origId = (originalVersion(season) && originalVersion(season).guid) || season.id;
-        if (origId !== listId) {
+        const origCands = seasonCandidates(season, "original");
+        if (!origCands.includes(listId)) {
+          const origIds = origCands;
           const dubbedSeqs = eps
             .filter((e) => isInAudio(e, dubLang) && isAvailable(e, now))
             .map((e) => e.sequence_number ?? 0);
@@ -284,7 +317,7 @@ var CRAnalyzer = (() => {
           const inList = new Set(
             eps.filter((e) => !isInAudio(e, dubLang)).map((e) => e.sequence_number ?? 0)
           );
-          origOnly = (await api.episodes(origId, locale)).filter(
+          origOnly = (await episodesOfFirst(api, origIds, locale)).eps.filter(
             (e) =>
               !e.is_clip &&
               (e.sequence_number ?? 0) > lastDubSeq &&

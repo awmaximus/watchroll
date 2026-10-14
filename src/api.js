@@ -299,7 +299,11 @@ var CRApi = (() => {
       }
       r = await send({ path: full, headers: { Authorization: "Bearer " + retryToken } });
     }
-    if (r.status < 200 || r.status >= 300) throw new Error(t("errHttp", r.status, path));
+    if (r.status < 200 || r.status >= 300) {
+      const err = new Error(t("errHttp", r.status, path));
+      err.status = r.status;
+      throw err;
+    }
     return r.text ? JSON.parse(r.text) : {};
   }
 

@@ -1421,3 +1421,71 @@ describe("revalidar só o que mudou", () => {
     assert.ok(w.take().includes("episodes"));
   });
 });
+
+describe("dados reais: OVERLORD: O Reino Sagrado (versões da temporada misturam IDs de episódio)", () => {
+  const fx = require("./fixtures/overlord-sacred-kingdom.json");
+  const SERIES = "GMTE00334078";
+  const EP_IDS = new Set(fx.episodesPTBR[0].versions.map((v) => v.guid));
+  const jaEps = fx.episodesPTBR.map((e) => ({ ...e, id: "G8WU7P32E", audio_locale: "ja-JP", season_id: "GMSE00334078JAJP" }));
+
+  function run(mode, playheads = {}) {
+    const asked = [];
+    const CRApi = {
+      getAccountId: async () => "conta-1",
+      watchlist: async () => [series(SERIES)],
+      seasons: async () => fx.seasons,
+      episodes: async (id) => {
+        asked.push(id);
+        if (EP_IDS.has(id)) {
+          const err = new Error(`HTTP 400 em /content/v2/cms/seasons/${id}/episodes`);
+          err.status = 400;
+          throw err;
+        }
+        if (id === "GMSE00334078PTBR") return fx.episodesPTBR;
+        if (id === "GMSE00334078JAJP") return jaEps;
+        return [];
+      },
+      playheads: async (ids) => new Map(ids.filter((i) => playheads[i]).map((i) => [i, playheads[i]])),
+    };
+    const quiet = { ...console, warn: () => {} };
+    const ctx = load(["src/analyzer.js"], { browser: fakeBrowser(), CRApi, console: quiet });
+    return ctx.CRAnalyzer.run({ settings: settings({ defaultMode: mode }) }).then(([r]) => ({ r, asked }));
+  }
+
+  test("a resposta real traz IDs de episódio entre as versões da temporada", () => {
+    const vs = fx.seasons[0].versions.map((v) => v.guid);
+    assert.ok(vs.includes("G8WU7P32E") && vs.includes("GMSE00334078JAJP"));
+  });
+
+  for (const mode of ["sub", "dub", "auto"]) {
+    test(`modo ${mode}: não dá erro; pula o ID recusado e usa a temporada certa`, async () => {
+      const { r, asked } = await run(mode);
+      assert.notEqual(r.status, "error", r.error);
+      assert.equal(r.status, "never");
+      if (mode !== "auto") assert.ok(!asked.slice(-1).some((id) => EP_IDS.has(id)), "terminou numa temporada válida");
+    });
+  }
+
+  test("modo legendado: filme assistido (qualquer versão) fica em dia", async () => {
+    const { r } = await run("sub", { G8WU7P32E: playhead("G8WU7P32E", FULL, true) });
+    assert.equal(r.status, "uptodate");
+  });
+
+  test("outros erros da API continuam aparecendo como erro", async () => {
+    const CRApi = {
+      getAccountId: async () => "conta-1",
+      watchlist: async () => [series(SERIES)],
+      seasons: async () => fx.seasons,
+      episodes: async () => {
+        const err = new Error("HTTP 500");
+        err.status = 500;
+        throw err;
+      },
+      playheads: async () => new Map(),
+    };
+    const quiet = { ...console, warn: () => {} };
+    const ctx = load(["src/analyzer.js"], { browser: fakeBrowser(), CRApi, console: quiet });
+    const [r] = await ctx.CRAnalyzer.run({ settings: settings({ defaultMode: "sub" }) });
+    assert.equal(r.status, "error");
+  });
+});
