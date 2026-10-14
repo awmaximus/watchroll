@@ -578,7 +578,7 @@ var CRAnalyzer = (() => {
   async function loadHistory(settings) {
     if (!CRApi.watchHistory) return null;
     try {
-      return await CRApi.watchHistory(settings.locale);
+      return await CRApi.watchHistory(settings.locale, { parallel: concurrencyFrom(settings) });
     } catch (err) {
       console.warn("[Novos Episódios] histórico indisponível, seguindo sem ele:", err);
       return null;
@@ -591,10 +591,15 @@ var CRAnalyzer = (() => {
     !!(history && history.complete && entry.neverWatchedFlag && !activity.has(entry.seriesId));
 
   async function run({ settings, force = false, onProgress = () => {} }) {
-    const accountId = await cacheScope();
-    const items = (await CRApi.watchlist(settings.locale)).map(normalizeItem).filter(Boolean);
+    // Fila e histórico não dependem um do outro: são lidos ao mesmo tempo, e as
+    // páginas de cada um também (até o limite de consultas simultâneas).
+    const [accountId, list, history] = await Promise.all([
+      cacheScope(),
+      CRApi.watchlist(settings.locale, { parallel: concurrencyFrom(settings) }),
+      loadHistory(settings),
+    ]);
+    const items = list.map(normalizeItem).filter(Boolean);
     const unique = [...new Map(items.map((i) => [i.seriesId, i])).values()];
-    const history = await loadHistory(settings);
     const activity = historyActivity(history, settings);
 
     const cache = force ? {} : await loadCache(accountId);

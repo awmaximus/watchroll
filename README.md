@@ -61,6 +61,10 @@ temporadas são lidas da mais nova para a mais antiga e a busca para assim que e
 atividade sua, para não fazer requisições à toa. Se o token vencer no meio da verificação,
 as consultas em andamento esperam um único pedido de token novo.
 
+A Fila e o histórico de reprodução são lidos ao mesmo tempo. Depois da primeira página de
+cada um, que informa o total, as páginas restantes são pedidas juntas. Tudo isso respeita o
+limite de **Séries consultadas ao mesmo tempo**.
+
 ### Verificação automática e contador no ícone
 
 Em segundo plano, a extensão verifica no intervalo escolhido e mostra no ícone quantos
