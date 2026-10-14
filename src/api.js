@@ -323,6 +323,75 @@ var CRApi = (() => {
     return accountIdPromise;
   }
 
+  // ---------- leitura paginada em paralelo ----------
+  // A Crunchyroll nem sempre diz quantas páginas existem (o watch-history não traz o
+  // total). Então as páginas são pedidas em levas, várias de uma vez, e a leitura
+  // para na primeira página que indicar o fim; o que veio depois dela é descartado.
+  // A primeira leva tem o número de páginas da leitura anterior (guardado), para
+  // acertar tudo numa ida só sem pedir páginas a mais; sem essa informação, usa o
+  // limite de consultas simultâneas.
+  const HINTS_KEY = "crnovos:pageHints";
+
+  async function pageHint(name) {
+    try {
+      const all = (await browser.storage.local.get(HINTS_KEY))[HINTS_KEY] || {};
+      const n = Number(all[name]);
+      return Number.isInteger(n) && n > 0 ? n : 0;
+    } catch (_) {
+      return 0;
+    }
+  }
+  async function savePageHint(name, pages) {
+    try {
+      const all = (await browser.storage.local.get(HINTS_KEY))[HINTS_KEY] || {};
+      all[name] = pages;
+      await browser.storage.local.set({ [HINTS_KEY]: all });
+    } catch (_) {}
+  }
+
+  /**
+   * fetchPage(i) pede a página i (0, 1, 2…); isLast(resposta, registrosAtéAqui) diz se
+   * ela é a última. Devolve { responses, complete }: complete=false se parou em
+   * maxPages. Uma página que falha antes do fim lança o erro; com partialOk, a
+   * leitura termina ali com complete=false e o que já veio é aproveitado.
+   * Falhas em páginas depois da última são ignoradas.
+   */
+  async function readPages(name, fetchPage, isLast, { parallel = 4, maxPages, partialOk = false }) {
+    const limit = Math.max(1, Number(parallel) || 1);
+    const hint = await pageHint(name);
+    const responses = [];
+    let count = 0;
+    let next = 0;
+    let wave = Math.min(maxPages, hint || limit);
+    while (next < maxPages) {
+      const size = Math.min(wave, maxPages - next);
+      const indexes = Array.from({ length: size }, (_, k) => next + k);
+      const settled = await mapLimit(indexes, limit, (i) =>
+        fetchPage(i).then(
+          (value) => ({ ok: true, value }),
+          (error) => ({ ok: false, error })
+        )
+      );
+      for (const r of settled) {
+        if (!r.ok) {
+          if (!partialOk || !responses.length) throw r.error;
+          return { responses, complete: false };
+        }
+        responses.push(r.value);
+        count += ((r.value && r.value.data) || []).length;
+        if (isLast(r.value, count)) {
+          savePageHint(name, responses.length);
+          return { responses, complete: true };
+        }
+      }
+      next += size;
+      wave = limit;
+    }
+    // Parou no limite (histórico longo): da próxima vez, todas as páginas de uma vez.
+    savePageHint(name, responses.length);
+    return { responses, complete: false };
+  }
+
   // Executa fn(item) com no máximo `limit` chamadas ao mesmo tempo; resultados na ordem.
   async function mapLimit(list, limit, fn) {
     const out = new Array(list.length);
@@ -338,32 +407,18 @@ var CRApi = (() => {
     return out;
   }
 
-  // Fila: a primeira página informa o total; as demais são pedidas juntas.
-  // Sem total na resposta, segue página por página como antes.
   const WATCHLIST_PAGE = 100;
   const WATCHLIST_MAX = 3000;
   async function watchlist(locale, { parallel = 4 } = {}) {
     const acc = await getAccountId();
     const n = WATCHLIST_PAGE;
-    const page = (start) => get(`/content/v2/discover/${acc}/watchlist`, { order: "desc", n, start, locale });
-    const first = await page(0);
-    const items = [...(first.data || [])];
-    if (items.length < n) return items;
-
-    if (typeof first.total === "number") {
-      const total = Math.min(first.total, WATCHLIST_MAX);
-      const starts = [];
-      for (let start = n; start < total; start += n) starts.push(start);
-      const pages = await mapLimit(starts, parallel, page);
-      for (const p of pages) items.push(...(p.data || []));
-      return items;
-    }
-    for (let start = n; start < WATCHLIST_MAX; start += n) {
-      const data = (await page(start)).data || [];
-      items.push(...data);
-      if (data.length < n) break;
-    }
-    return items;
+    const { responses } = await readPages(
+      "watchlist",
+      (i) => get(`/content/v2/discover/${acc}/watchlist`, { order: "desc", n, start: i * n, locale }),
+      (r, count) => (r.data || []).length < n || (typeof r.total === "number" && count >= r.total),
+      { parallel, maxPages: WATCHLIST_MAX / n }
+    );
+    return responses.flatMap((r) => r.data || []);
   }
 
   const seasons = (seriesId, locale) =>
@@ -374,46 +429,28 @@ var CRApi = (() => {
 
   // Histórico de reprodução (do perfil do token). complete=false se parou no limite
   // de páginas antes do fim: nesse caso, ausência no histórico não prova nada.
-  // Com o total na primeira página, as demais são pedidas juntas. Se alguém assistir
-  // algo durante a leitura, um registro pode vir repetido entre páginas, mas nenhum
-  // se perde (a lista é do mais recente para o mais antigo); repetidos não atrapalham.
+  // Na resposta real, "total" é o tamanho da PÁGINA (100), não do histórico, e o
+  // next_page traz um cursor; mesmo assim, page=2, 3… devolvem as páginas seguintes,
+  // sem repetir registros (conferido num HAR real em out/2026).
+  // Se alguém assistir algo durante a leitura, um registro pode vir repetido entre
+  // páginas, mas nenhum se perde (a lista vai do mais recente ao mais antigo).
   async function watchHistory(locale, { pageSize = 100, maxPages = 10, parallel = 4 } = {}) {
     const acc = await getAccountId();
-    const fetchPage = (page) => get(`/content/v2/${acc}/watch-history`, { page, page_size: pageSize, locale });
-    const entries = [];
-    const isLast = (r) => {
-      const data = r.data || [];
-      const next = r.meta && r.meta.next_page;
-      return (
-        data.length < pageSize ||
-        next === "" ||
-        next === null ||
-        (next === undefined && typeof r.total === "number" && entries.length >= r.total)
-      );
-    };
-
-    const first = await fetchPage(1);
-    entries.push(...(first.data || []));
-    if (isLast(first)) return { entries, complete: true };
-    let page = 1;
-
-    if (typeof first.total === "number") {
-      const last = Math.min(Math.ceil(first.total / pageSize), maxPages);
-      const numbers = [];
-      for (let p = 2; p <= last; p++) numbers.push(p);
-      const pages = await mapLimit(numbers, parallel, fetchPage);
-      for (const r of pages) entries.push(...(r.data || []));
-      page = last;
-      const tail = pages.length ? pages[pages.length - 1] : first;
-      if (isLast(tail)) return { entries, complete: true };
-    }
-    // Sem total (ou o total estava desatualizado): continua uma página por vez.
-    for (page += 1; page <= maxPages; page++) {
-      const r = await fetchPage(page);
-      entries.push(...(r.data || []));
-      if (isLast(r)) return { entries, complete: true };
-    }
-    return { entries, complete: false };
+    const { responses, complete } = await readPages(
+      "watchHistory",
+      (i) => get(`/content/v2/${acc}/watch-history`, { page: i + 1, page_size: pageSize, locale }),
+      (r, count) => {
+        const next = r.meta && r.meta.next_page;
+        return (
+          (r.data || []).length < pageSize ||
+          next === "" ||
+          next === null ||
+          (next === undefined && typeof r.total === "number" && count >= r.total)
+        );
+      },
+      { parallel, maxPages, partialOk: true }
+    );
+    return { entries: responses.flatMap((r) => r.data || []), complete };
   }
 
   async function movieListing(id, locale) {

@@ -31,7 +31,7 @@ describe("autenticação", () => {
     const session = validSession();
     const { api, requests } = setup(() => json({ data: [], total: 0 }), { sessionToken: session });
     assert.equal(await api.getAccountId(), ACC);
-    await api.watchlist("pt-BR");
+    await api.seasons("S", "pt-BR");
     assert.equal(requests.length, 1);
     assert.equal(requests[0].headers.Authorization, "Bearer " + session.token);
     assert.equal(requests[0].credentials, "include");
@@ -78,12 +78,12 @@ describe("autenticação", () => {
       },
       { sessionToken: session }
     );
-    const items = await api.watchlist("pt-BR");
+    const items = await api.seasons("S", "pt-BR");
     assert.equal(items.length, 1);
     assert.equal(browser.storage.session.data.crToken, undefined);
     assert.deepEqual(
       requests.map((r) => r.url.replace(/\?.*/, "").replace("https://www.crunchyroll.com", "")),
-      [`/content/v2/discover/${ACC}/watchlist`, "/auth/v1/token", `/content/v2/discover/${ACC}/watchlist`]
+      ["/content/v2/cms/series/S/seasons", "/auth/v1/token", "/content/v2/cms/series/S/seasons"]
     );
   });
 
@@ -120,10 +120,10 @@ describe("transporte", () => {
       { browser, sessionToken: validSession() }
     );
     api.setNoticeHandler((m) => notices.push(m));
-    await api.watchlist("pt-BR");
+    await api.seasons("S", "pt-BR");
 
     assert.equal(requests.length, 1, "só a primeira tentativa direta");
-    assert.ok(sent.some(([id, type, p]) => id === 7 && type === "crnovos-fetch" && /watchlist/.test(p)));
+    assert.ok(sent.some(([id, type, p]) => id === 7 && type === "crnovos-fetch" && /seasons/.test(p)));
     assert.match(notices.join(" "), /aba do crunchyroll/i);
   });
 
@@ -199,8 +199,9 @@ describe("endpoints", () => {
     );
     const items = await api.watchlist("pt-BR");
     assert.equal(items.length, 150);
+    // Pedidas juntas (leva de 4); as que passam do fim são descartadas.
     assert.deepEqual(
-      requests.map((r) => new URL(r.url).searchParams.get("start")),
+      plain(requests.slice(0, 2).map((r) => new URL(r.url).searchParams.get("start"))),
       ["0", "100"]
     );
     const q = new URL(requests[0].url).searchParams;
@@ -433,7 +434,7 @@ describe("histórico de reprodução (watch-history)", () => {
     const h = await api.watchHistory("pt-BR");
     assert.equal(h.entries.length, 240);
     assert.equal(h.complete, true);
-    assert.deepEqual(plain(requests.map((r) => new URL(r.url).searchParams.get("page"))), ["1", "2", "3"]);
+    assert.deepEqual(plain(requests.slice(0, 3).map((r) => new URL(r.url).searchParams.get("page"))), ["1", "2", "3"]);
     assert.match(requests[0].url, new RegExp(`/content/v2/${ACC}/watch-history`));
   });
 
