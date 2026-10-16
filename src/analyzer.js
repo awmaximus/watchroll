@@ -12,8 +12,8 @@
 
 /* global browser, CRApi */
 var CRAnalyzer = (() => {
-  const CACHE_KEY = "crnovos:v5:cache"; // v5: guarda os áudios disponíveis de cada série (ícone de dublagem)
-  const CACHE_TTL = 20 * 60 * 1000; // dentro disso: reaproveita sem nenhuma consulta
+  const CACHE_KEY = "crnovos:v6:cache"; // v6: revalidação confere também os episódios da temporada mais recente
+  const CACHE_TTL = 5 * 60 * 1000; // dentro disso: reaproveita sem nenhuma consulta
   const REVALIDATE_TTL = 6 * 60 * 60 * 1000; // até isso: reaproveita se nada mudou
   // Quantas séries são consultadas ao mesmo tempo (configurável na página).
   const CONCURRENCY = { default: 4, min: 1, max: 32 };
@@ -269,6 +269,18 @@ var CRAnalyzer = (() => {
 
   // ---------- análise de uma série ----------
   // Impressão digital das temporadas: muda quando entra temporada, episódio ou versão.
+  // Impressão digital de uma lista de episódios: muda quando um episódio é
+  // liberado (inclusive um que já estava listado com data futura), quando ganha
+  // uma versão de áudio nova (dublagem) ou uma legenda nova.
+  const episodesKey = (list, now) =>
+    (list || [])
+      .filter((e) => !e.is_clip)
+      .map(
+        (e) =>
+          `${e.id}:${isAvailable(e, now) ? 1 : 0}:${(e.versions || []).length}:${(e.subtitle_locales || []).length}`
+      )
+      .join(",");
+
   const seasonsKey = (list) =>
     sortSeasons(list || [])
       .map((x) => `${x.id}:${x.number_of_episodes ?? ""}:${(x.versions || []).length}`)
@@ -279,7 +291,7 @@ var CRAnalyzer = (() => {
     const { locale, dubLang } = settings;
     const subLang = settings.subLang || "pt-BR";
     const minStarted = minStartedFrom(settings);
-    const rawSeasons = prefetchedSeasons || (await api.seasons(entry.seriesId, locale));
+    const rawSeasons = prefetchedSeasons || (await api.seasons(entry.seriesId, locale, settings.dubLang));
     const seasons = sortSeasons(rawSeasons);
 
     const ordered = [];
@@ -290,6 +302,9 @@ var CRAnalyzer = (() => {
     // null = ainda não examinada. false = não tem nenhum ("sem dublagem", não
     // "aguardando": a dublagem pode nunca sair).
     let latestHasDub = null;
+    // Listas de episódios usadas na temporada mais recente e a impressão digital
+    // de cada uma, para a revalidação perceber episódio/dublagem/legenda nova.
+    let latestFp = null;
 
     for (let i = seasons.length - 1, back = 0; i >= 0 && back < MAX_SEASONS_BACK; i--, back++) {
       const season = seasons[i];
@@ -312,13 +327,16 @@ var CRAnalyzer = (() => {
       let got = await episodesOfFirst(api, candidates, locale);
       listId = got.id || listId;
       let eps = got.eps;
+      let usedList = listId;
       if (!eps.length && listId !== season.id) {
         eps = await api.episodes(season.id, locale);
+        usedList = season.id;
         if (mode === "dub") {
           eligible = false;
           dubMissingSomewhere = true;
         }
       }
+      if (back === 0) latestFp = { lists: [usedList], parts: [episodesKey(eps, now)] };
       eps = eps
         .filter((e) => !e.is_clip)
         .sort((a, b) => (a.sequence_number ?? 0) - (b.sequence_number ?? 0));
@@ -347,7 +365,12 @@ var CRAnalyzer = (() => {
           const inList = new Set(
             eps.filter((e) => !isInAudio(e, dubLang)).map((e) => e.sequence_number ?? 0)
           );
-          origOnly = (await episodesOfFirst(api, origIds, locale)).eps.filter(
+          const orig = await episodesOfFirst(api, origIds, locale);
+          if (latestFp && orig.id) {
+            latestFp.lists.push(orig.id);
+            latestFp.parts.push(episodesKey(orig.eps, now));
+          }
+          origOnly = orig.eps.filter(
             (e) =>
               !e.is_clip &&
               (e.sequence_number ?? 0) > lastDubSeq &&
@@ -414,7 +437,7 @@ var CRAnalyzer = (() => {
       mode,
       checkedAt: now,
       signature: cacheSignature(mode, settings),
-      fp: { seasons: seasonsKey(rawSeasons) },
+      fp: { seasons: seasonsKey(rawSeasons), latest: latestFp },
       audios: seriesAudios(seasons),
     };
     if (!anyActivity) return { ...base, status: "never", pending: [] };
@@ -673,6 +696,17 @@ var CRAnalyzer = (() => {
   const surelyNever = (entry, history, activity) =>
     !!(history && history.complete && entry.neverWatchedFlag && !activity.has(entry.seriesId));
 
+  // Confere as listas de episódios da temporada mais recente (1 consulta, ou 2 no
+  // modo dublado). Sem impressão digital guardada (série sem episódios), não há o
+  // que conferir: as temporadas iguais bastam.
+  async function sameLatestEpisodes(latest, settings, now) {
+    if (!latest || !latest.lists || !latest.lists.length) return true;
+    const parts = await Promise.all(
+      latest.lists.map((id) => CRApi.episodes(id, settings.locale).then((eps) => episodesKey(eps, now)))
+    );
+    return parts.every((p, i) => p === latest.parts[i]);
+  }
+
   async function run({ settings, force = false, onProgress = () => {} }) {
     if (CRApi.setPlayheadBatchSize) CRApi.setPlayheadBatchSize(playheadBatchFrom(settings));
     // Fila e histórico não dependem um do outro: são lidos ao mesmo tempo, e as
@@ -723,8 +757,8 @@ var CRAnalyzer = (() => {
           !(hit.next && hit.next.at <= now);
         if (canRevalidate) {
           try {
-            prefetched = await CRApi.seasons(entry.seriesId, settings.locale);
-            if (seasonsKey(prefetched) === hit.fp.seasons) {
+            prefetched = await CRApi.seasons(entry.seriesId, settings.locale, settings.dubLang);
+            if (seasonsKey(prefetched) === hit.fp.seasons && (await sameLatestEpisodes(hit.fp.latest, settings, now))) {
               cache[entry.seriesId] = { ...hit, revalidatedAt: now };
               result = reuse(cache[entry.seriesId]);
             }
@@ -771,8 +805,8 @@ var CRAnalyzer = (() => {
   // Envolve a API gravando as respostas exatamente como chegaram.
   function recordingApi(base, log) {
     return {
-      async seasons(id, locale) {
-        const r = await base.seasons(id, locale);
+      async seasons(id, locale, preferredAudio) {
+        const r = await base.seasons(id, locale, preferredAudio);
         log.temporadas[id] = r;
         return r;
       },

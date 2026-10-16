@@ -44,6 +44,7 @@
       return pageFetch(location.origin + req.path, {
         method: req.method || "GET",
         credentials: "include",
+        cache: "no-store", // nunca do cache do navegador (ver api.js)
         headers: req.headers || {},
         body: req.body || undefined,
       })

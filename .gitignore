@@ -11,3 +11,6 @@ env.sh
 *.env
 *credentials*
 *secret*
+tmp/
+# Capturas de rede (HAR) guardam token e cookies da sessão
+*.har

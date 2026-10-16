@@ -88,12 +88,23 @@ clicar nela abre a página. Detalhes:
   uma aba do crunchyroll.com aberta, aquela verificação é pulada.
 - Ao abrir a página, o último resultado aparece na hora e é atualizado em seguida.
 
-Os resultados ficam em cache por 20 minutos, sem nenhuma consulta. Entre 20 minutos e 6 horas,
-a extensão faz uma revalidação barata: busca só a lista de temporadas da série (1 consulta) e
-olha o histórico, que é baixado uma vez para todas as séries. Se nada mudou (nenhuma
-temporada, episódio ou versão nova, nada assistido desde então, nenhum lançamento agendado que
-já passou), ela reaproveita a análise. Senão, analisa de novo. Depois de 6 horas, ou ao clicar
-em **Atualizar**, a análise é sempre completa.
+Os resultados ficam em cache por 5 minutos, sem nenhuma consulta. Entre 5 minutos e 6 horas,
+a extensão faz uma revalidação barata: busca a lista de temporadas da série e a lista de
+episódios da temporada mais recente (2 consultas; 3 no modo dublado) e olha o histórico, que
+é baixado uma vez para todas as séries. Se nada mudou (nenhuma temporada nova, nenhum episódio
+novo ou liberado desde então, nenhuma dublagem ou legenda nova, nada assistido, nenhum
+lançamento agendado que já passou), ela reaproveita a análise. Senão, analisa de novo. Depois
+de 6 horas, ou ao clicar em **Atualizar**, a análise é sempre completa.
+
+Todas as consultas vão direto ao servidor da Crunchyroll, sem passar pelo cache do Firefox
+(`cache: "no-store"`): o cache chegou a devolver a lista de temporadas de antes do lançamento
+de um episódio.
+
+A lista de temporadas é pedida com os mesmos parâmetros, na mesma ordem, que o site usa
+(`?locale=…&preferred_audio_language=…`, com o idioma de dublagem das Configurações). A CDN da
+Crunchyroll guarda uma cópia por endereço exato e pode servir uma cópia de até ~20 minutos
+(`stale-while-revalidate`). Com o endereço do site, a extensão pega a cópia que os outros
+usuários renovam o tempo todo.
 
 ## Por que não usar o "A Seguir" da Crunchyroll
 

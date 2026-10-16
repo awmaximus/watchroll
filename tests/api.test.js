@@ -225,6 +225,23 @@ describe("endpoints", () => {
     assert.match(requests[0].url, new RegExp(`/content/v2/${ACC}/playheads`));
   });
 
+  test("nenhuma consulta usa o cache do navegador (cache: no-store)", async () => {
+    const { api, requests } = setup(() => json({ data: [] }), { sessionToken: validSession() });
+    await api.seasons("SERIE", "pt-BR");
+    await api.episodes("TEMP", "pt-BR");
+    await api.playheads(["a", "b"], "pt-BR");
+    assert.ok(requests.length >= 3);
+    for (const r of requests) assert.equal(r.cache, "no-store", r.url);
+  });
+
+  test("temporadas usam os mesmos parâmetros e ordem do site (cópia quente da CDN)", async () => {
+    const { api, requests } = setup(() => json({ data: [] }), { sessionToken: validSession() });
+    await api.seasons("G3KHEVDJ7", "pt-BR", "pt-BR");
+    assert.match(requests[0].url, /\/content\/v2\/cms\/series\/G3KHEVDJ7\/seasons\?locale=pt-BR&preferred_audio_language=pt-BR$/);
+    await api.episodes("GS00384044JAJP", "pt-BR");
+    assert.match(requests[1].url, /\/content\/v2\/cms\/seasons\/GS00384044JAJP\/episodes\?locale=pt-BR$/);
+  });
+
   test("seasons e episodes usam os caminhos do CMS v2", async () => {
     const { api, requests } = setup(() => json({ data: [{ id: "x" }] }), { sessionToken: validSession() });
     assert.deepEqual(plain(await api.seasons("SERIE", "pt-BR")), [{ id: "x" }]);

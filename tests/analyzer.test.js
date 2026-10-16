@@ -1334,7 +1334,7 @@ describe("revalidar só o que mudou", () => {
     const ctx = load(["src/analyzer.js"], { browser, CRApi });
     // Envelhece a análise guardada no cache.
     const age = (ms) => {
-      const all = browser.storage.local.data["crnovos:v5:cache"];
+      const all = browser.storage.local.data["crnovos:v6:cache"];
       for (const scope of Object.values(all)) {
         for (const r of Object.values(scope)) {
           r.checkedAt -= ms;
@@ -1347,17 +1347,17 @@ describe("revalidar só o que mudou", () => {
     return { state, run, age, take };
   }
 
-  test("depois de 20 min, sem mudanças: só a consulta de temporadas", async () => {
+  test("depois de 5 min, sem mudanças: só temporadas e a lista de episódios mais recente", async () => {
     const w = world();
     await w.run();
     w.take();
-    w.age(30 * MIN);
+    w.age(6 * MIN);
     const r = await w.run();
-    assert.deepEqual(w.take(), ["seasons"]);
+    assert.deepEqual(w.take(), ["seasons", "episodes"]);
     assert.deepEqual(ids(r), ["e2", "e3"]);
   });
 
-  test("revalidada, vale mais 20 min sem nenhuma consulta", async () => {
+  test("revalidada, vale mais 5 min sem nenhuma consulta", async () => {
     const w = world();
     await w.run();
     w.age(30 * MIN);
@@ -1377,6 +1377,67 @@ describe("revalidar só o que mudou", () => {
     const r = await w.run();
     assert.deepEqual(w.take(), ["seasons", "episodes", "playheads"]);
     assert.deepEqual(ids(r), ["e2", "e3", "e4"]);
+  });
+
+  test("episódio novo sem mudar as temporadas (contagem já incluía ele): análise completa", async () => {
+    const w = world();
+    w.state.seasons = [{ id: "T", season_sequence_number: 1, number_of_episodes: 4 }];
+    await w.run();
+    w.take();
+    w.age(6 * MIN);
+    w.state.eps = [...w.state.eps, episode("e4", 4)];
+    const r = await w.run();
+    assert.deepEqual(w.take(), ["seasons", "episodes", "episodes", "playheads"]);
+    assert.deepEqual(ids(r), ["e2", "e3", "e4"]);
+  });
+
+  test("episódio já listado com data futura é liberado: análise completa", async () => {
+    const w = world();
+    const later = Date.now() + 300;
+    w.state.eps = [episode("e1", 1), episode("e2", 2, { availableAt: later })];
+    w.state.ph = { e1: playhead("e1", FULL, true) };
+    const before = await w.run();
+    assert.deepEqual(ids(before), []);
+    w.take();
+    w.age(6 * MIN);
+    await new Promise((r) => setTimeout(r, 350));
+    const r = await w.run();
+    assert.ok(w.take().includes("playheads"), "refez a análise");
+    assert.deepEqual(ids(r), ["e2"]);
+  });
+
+  test("episódio ganha versão de áudio nova (dublagem lançada): análise completa", async () => {
+    const w = world();
+    w.state.eps = w.state.eps.map((e) => ({ ...e, versions: [{ guid: e.id, audio_locale: "ja-JP", original: true }] }));
+    await w.run();
+    w.take();
+    w.age(6 * MIN);
+    w.state.eps = w.state.eps.map((e, i) =>
+      i === 1 ? { ...e, versions: [...e.versions, { guid: e.id + "-pt", audio_locale: "pt-BR" }] } : e
+    );
+    await w.run();
+    assert.ok(w.take().includes("playheads"), "refez a análise");
+  });
+
+  test("erro na revalidação dos episódios: segue para a análise completa", async () => {
+    const w = world();
+    await w.run();
+    w.take();
+    w.age(6 * MIN);
+    let first = true;
+    const orig = w.state.eps;
+    Object.defineProperty(w.state, "eps", {
+      get() {
+        if (first) {
+          first = false;
+          throw new Error("HTTP 500");
+        }
+        return orig;
+      },
+    });
+    const r = await w.run();
+    assert.notEqual(r.status, "error");
+    assert.deepEqual(ids(r), ["e2", "e3"]);
   });
 
   test("você assistiu algo (histórico mudou): análise completa", async () => {
@@ -1572,4 +1633,18 @@ describe("ícone de dublagem: áudios guardados por série", () => {
     assert.equal(analyzer.dubStatus(r, "pt-BR"), "yes");
     assert.equal(analyzer.dubStatus(r, "en-US"), "no", "versão sem filme não conta");
   });
+});
+
+test("as temporadas são pedidas com o idioma de dublagem como preferred_audio_language", async () => {
+  const asked = [];
+  const CRApi = {
+    getAccountId: async () => "c",
+    watchlist: async () => [series("A")],
+    seasons: async (id, locale, audio) => (asked.push([id, locale, audio]), []),
+    episodes: async () => [],
+    playheads: async () => new Map(),
+  };
+  const ctx = load(["src/analyzer.js"], { browser: fakeBrowser(), CRApi });
+  await ctx.CRAnalyzer.run({ settings: settings({ dubLang: "es-419" }) });
+  assert.deepEqual(plain(asked), [["A", "pt-BR", "es-419"]]);
 });

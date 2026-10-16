@@ -45,6 +45,9 @@ var CRApi = (() => {
     const res = await fetch(BASE + req.path, {
       method: req.method || "GET",
       credentials: "include",
+      // Sempre do servidor: o cache do Firefox chegou a devolver a lista de
+      // temporadas antiga (sem o episódio que acabara de sair).
+      cache: "no-store",
       headers: req.headers || {},
       body: req.body,
     });
@@ -446,8 +449,15 @@ var CRApi = (() => {
     return r.items;
   }
 
-  const seasons = (seriesId, locale) =>
-    get(`/content/v2/cms/series/${seriesId}/seasons`, { locale }).then((r) => r.data || []);
+  // Mesmos parâmetros, na mesma ordem, que o site usa (conferido num HAR do site em
+  // out/2026). A CDN da Crunchyroll guarda uma cópia por endereço exato: com o
+  // endereço do site, a extensão pega a cópia que milhares de pessoas renovam o
+  // tempo todo, e não uma cópia parada há 20 minutos (stale-while-revalidate).
+  const seasons = (seriesId, locale, preferredAudio) =>
+    get(
+      `/content/v2/cms/series/${seriesId}/seasons`,
+      preferredAudio ? { locale, preferred_audio_language: preferredAudio } : { locale }
+    ).then((r) => r.data || []);
 
   const episodes = (seasonId, locale) =>
     get(`/content/v2/cms/seasons/${seasonId}/episodes`, { locale }).then((r) => r.data || []);
