@@ -686,5 +686,37 @@
         "content": "$1"
       }
     }
+  },
+  "tabsAria": {
+    "message": "Sections"
+  },
+  "seasonWinter": {
+    "message": "Winter"
+  },
+  "seasonSpring": {
+    "message": "Spring"
+  },
+  "seasonSummer": {
+    "message": "Summer"
+  },
+  "seasonFall": {
+    "message": "Fall"
+  },
+  "seasonUnknown": {
+    "message": "No season listed"
+  },
+  "emptyNever": {
+    "message": "Every series in your Watchlist has been started."
+  },
+  "seasonLabel": {
+    "message": "$S$ $Y$",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      },
+      "y": {
+        "content": "$2"
+      }
+    }
   }
 }

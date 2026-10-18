@@ -686,5 +686,37 @@
         "content": "$1"
       }
     }
+  },
+  "tabsAria": {
+    "message": "Seções"
+  },
+  "seasonWinter": {
+    "message": "Inverno"
+  },
+  "seasonSpring": {
+    "message": "Primavera"
+  },
+  "seasonSummer": {
+    "message": "Verão"
+  },
+  "seasonFall": {
+    "message": "Outono"
+  },
+  "seasonUnknown": {
+    "message": "Sem temporada informada"
+  },
+  "emptyNever": {
+    "message": "Nenhuma série da Fila está sem começar."
+  },
+  "seasonLabel": {
+    "message": "$S$ de $Y$",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      },
+      "y": {
+        "content": "$2"
+      }
+    }
   }
 }

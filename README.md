@@ -38,9 +38,11 @@ Acima da lista há uma busca por título, que ignora acentos e maiúsculas e abr
 com resultado. Ao lado fica a ordenação dos cards de "Para assistir": lançamento mais
 recente, visto mais recentemente, mais episódios ou título. A escolha fica salva.
 
-A página tem estas seções:
+A página é dividida em abas. Abas vazias não aparecem, exceto "Para assistir", "Em dia" e
+"Ainda não começadas". A aba escolhida fica salva. Durante uma busca, se a aba atual não tiver
+resultado, a página mostra a primeira que tiver. As setas ← e → trocam de aba pelo teclado.
 
-| Seção | O que mostra |
+| Aba | O que mostra |
 |---|---|
 | Para assistir | Episódios liberados depois do último que você viu, com progresso dos que estão pela metade |
 | Aguardando dublagem | Séries em modo dublado com episódios que já saíram, mas ainda só legendados (a temporada já tem dublagem no seu idioma) |
@@ -49,7 +51,7 @@ A página tem estas seções:
 | Não consegui verificar | Séries que deram erro na consulta |
 | Ocultas | Séries que você ocultou pelo menu ⋯ (até sair episódio novo, por 1 semana ou sempre); não contam no ícone nem notificam |
 | Em dia | Séries sem nada pendente |
-| Ainda não começadas | Séries da Fila que você nunca assistiu |
+| Ainda não começadas | Séries da Fila que você nunca assistiu, agrupadas pela temporada de lançamento (Outono de 2026, Verão de 2026…), da mais recente para a mais antiga. A temporada vem do `season_tags` da temporada mais recente da série; sem essa informação, a série vai para "Sem temporada informada" |
 
 Antes de analisar as séries, a extensão lê o seu histórico de reprodução
 (`/content/v2/{conta}/watch-history`, até 10 páginas de 100). Uma série vai direto para "Ainda

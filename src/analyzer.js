@@ -12,7 +12,7 @@
 
 /* global browser, CRApi */
 var CRAnalyzer = (() => {
-  const CACHE_KEY = "crnovos:v6:cache"; // v6: revalidação confere também os episódios da temporada mais recente
+  const CACHE_KEY = "crnovos:v7:cache"; // v7: guarda a temporada de lançamento (primavera, verão…) de cada série
   const CACHE_TTL = 5 * 60 * 1000; // dentro disso: reaproveita sem nenhuma consulta
   const REVALIDATE_TTL = 6 * 60 * 60 * 1000; // até isso: reaproveita se nada mudou
   // Quantas séries são consultadas ao mesmo tempo (configurável na página).
@@ -110,6 +110,34 @@ var CRAnalyzer = (() => {
       if ((season.audio_locales || []).includes(pick) && !(season.versions || []).length) add(season.id);
     }
     return out;
+  }
+
+  // Temporada de lançamento ("season" de anime) a partir de season_tags, que a
+  // Crunchyroll manda traduzida ou em inglês, às vezes as duas: "Outono-2019",
+  // "fall-2019", "Verão-2026"… Devolve { season: winter|spring|summer|fall, year }.
+  const SEASON_NAMES = {
+    winter: "winter", inverno: "winter", invierno: "winter", hiver: "winter",
+    spring: "spring", primavera: "spring", printemps: "spring", fruhling: "spring", fruehling: "spring",
+    summer: "summer", verao: "summer", verano: "summer", ete: "summer", sommer: "summer", estate: "summer",
+    fall: "fall", autumn: "fall", outono: "fall", otono: "fall", automne: "fall", herbst: "fall", autunno: "fall",
+  };
+  function parseSeasonTag(tag) {
+    const m = /^\s*([^\d-]+?)[\s_-]+(\d{4})\s*$/.exec(String(tag || ""));
+    if (!m) return null;
+    const name = m[1].normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    const season = SEASON_NAMES[name];
+    return season ? { season, year: Number(m[2]) } : null;
+  }
+
+  // Temporada de lançamento da série: a da temporada mais recente que tiver etiqueta.
+  function seriesLaunch(seasons) {
+    for (let i = seasons.length - 1; i >= 0; i--) {
+      for (const tag of seasons[i].season_tags || []) {
+        const l = parseSeasonTag(tag);
+        if (l) return l;
+      }
+    }
+    return null;
   }
 
   // Áudios que a temporada oferece (o dela, os das versões e audio_locales).
@@ -439,6 +467,7 @@ var CRAnalyzer = (() => {
       signature: cacheSignature(mode, settings),
       fp: { seasons: seasonsKey(rawSeasons), latest: latestFp },
       audios: seriesAudios(seasons),
+      launch: seriesLaunch(seasons),
     };
     if (!anyActivity) return { ...base, status: "never", pending: [] };
 
@@ -744,6 +773,15 @@ var CRAnalyzer = (() => {
       } else if (surelyNever(entry, history, activity)) {
         const mode = modeFor(entry.seriesId, settings);
         result = { ...entry, kind: entry.kind, mode, checkedAt: now, signature: sig, status: "never", pending: [], viaHistory: true };
+        // Uma consulta só (temporadas), para o ícone de dublagem e a temporada de
+        // lançamento da aba "Ainda não começadas". Se falhar, segue sem elas.
+        if (entry.kind !== "movie") {
+          try {
+            const ss = sortSeasons(await CRApi.seasons(entry.seriesId, settings.locale, settings.dubLang));
+            result.audios = seriesAudios(ss);
+            result.launch = seriesLaunch(ss);
+          } catch (_) {}
+        }
       } else {
         // Revalidação barata: só as temporadas (1 consulta) + histórico (já baixado).
         const canRevalidate =
@@ -878,5 +916,5 @@ var CRAnalyzer = (() => {
     return result;
   }
 
-  return { run, runOne, cacheScope, historyActivity, dubStatus, seriesAudios, diagnose, sanitize, extraKind, CONCURRENCY, concurrencyFrom, PLAYHEAD_BATCH, playheadBatchFrom, MIN_STARTED, MIN_STARTED_SECONDS, minStartedFrom };
+  return { run, runOne, cacheScope, historyActivity, dubStatus, seriesAudios, parseSeasonTag, seriesLaunch, diagnose, sanitize, extraKind, CONCURRENCY, concurrencyFrom, PLAYHEAD_BATCH, playheadBatchFrom, MIN_STARTED, MIN_STARTED_SECONDS, minStartedFrom };
 })();

@@ -1250,23 +1250,27 @@ describe("atalho pelo histórico de reprodução", () => {
         if (fail) throw new Error("HTTP 500 em watch-history");
         return history;
       },
-      seasons: async (id) => (calls.push(id), [{ id: `T-${id}`, season_sequence_number: 1 }]),
-      episodes: async (id) => [episode(`${id}-e1`, 1)],
+      seasons: async (id) => (calls.push(id), [{ id: `T-${id}`, season_sequence_number: 1, season_tags: ["Outono-2026", "fall-2026"], audio_locale: "ja-JP" }]),
+      episodes: async (id) => (epCalls.push(id), [episode(`${id}-e1`, 1)]),
       playheads: async () => new Map(),
     };
+    const epCalls = [];
     const quiet = { ...console, warn: () => {} };
     const ctx = load(["src/analyzer.js"], { browser: fakeBrowser(), CRApi, console: quiet });
-    return { analyzer: ctx.CRAnalyzer, calls };
+    return { analyzer: ctx.CRAnalyzer, calls, epCalls };
   }
   const H = (entries, complete = true) => ({ entries, complete });
   const play = (parent, secs, fully = false) => ({ parent_id: parent, playhead: secs, fully_watched: fully, date_played: "2026-10-01T00:00:00Z" });
 
-  test("histórico completo + never_watched + ausente: nenhuma consulta, 'never'", async () => {
-    const { analyzer, calls } = withHistory(H([play("OUTRA", 1400, true)]), [series("A", { never_watched: true })]);
+  test("histórico completo + never_watched + ausente: só as temporadas, 'never'", async () => {
+    const { analyzer, calls, epCalls } = withHistory(H([play("OUTRA", 1400, true)]), [series("A", { never_watched: true })]);
     const [r] = await analyzer.run({ settings: settings() });
     assert.equal(r.status, "never");
     assert.equal(r.viaHistory, true);
-    assert.deepEqual(calls, []);
+    assert.deepEqual(calls, ["A"], "uma consulta: temporadas");
+    assert.deepEqual(epCalls, [], "nenhuma lista de episódios");
+    assert.deepEqual(plain(r.launch), { season: "fall", year: 2026 }, "com a temporada de lançamento");
+    assert.equal(analyzer.dubStatus(r, "ja-JP"), "yes", "e os áudios");
   });
 
   test("aparece no histórico: análise completa (mesmo com never_watched)", async () => {
@@ -1295,10 +1299,11 @@ describe("atalho pelo histórico de reprodução", () => {
   });
 
   test("registros curtos no histórico não contam como atividade", async () => {
-    const { analyzer, calls } = withHistory(H([play("A", 5)]), [series("A", { never_watched: true })]);
+    const { analyzer, epCalls } = withHistory(H([play("A", 5)]), [series("A", { never_watched: true })]);
     const [r] = await analyzer.run({ settings: settings() });
     assert.equal(r.status, "never");
-    assert.deepEqual(calls, []);
+    assert.equal(r.viaHistory, true);
+    assert.deepEqual(epCalls, []);
   });
 
   test("filmes usam o mesmo atalho (parent_id = título do filme)", async () => {
@@ -1334,7 +1339,7 @@ describe("revalidar só o que mudou", () => {
     const ctx = load(["src/analyzer.js"], { browser, CRApi });
     // Envelhece a análise guardada no cache.
     const age = (ms) => {
-      const all = browser.storage.local.data["crnovos:v6:cache"];
+      const all = browser.storage.local.data["crnovos:v7:cache"];
       for (const scope of Object.values(all)) {
         for (const r of Object.values(scope)) {
           r.checkedAt -= ms;
@@ -1647,4 +1652,49 @@ test("as temporadas são pedidas com o idioma de dublagem como preferred_audio_l
   const ctx = load(["src/analyzer.js"], { browser: fakeBrowser(), CRApi });
   await ctx.CRAnalyzer.run({ settings: settings({ dubLang: "es-419" }) });
   assert.deepEqual(plain(asked), [["A", "pt-BR", "es-419"]]);
+});
+
+describe("temporada de lançamento (aba Ainda não começadas)", () => {
+  const { analyzer } = setup({ watchlist: [], seasons: {}, episodes: {}, playheads: {} });
+  const P = (t) => plain(analyzer.parseSeasonTag(t));
+
+  test("etiquetas traduzidas e em inglês", () => {
+    assert.deepEqual(P("Outono-2019"), { season: "fall", year: 2019 });
+    assert.deepEqual(P("fall-2019"), { season: "fall", year: 2019 });
+    assert.deepEqual(P("Verão-2026"), { season: "summer", year: 2026 });
+    assert.deepEqual(P("Primavera-2025"), { season: "spring", year: 2025 });
+    assert.deepEqual(P("Inverno-2024"), { season: "winter", year: 2024 });
+    assert.deepEqual(P("winter-2024"), { season: "winter", year: 2024 });
+    assert.deepEqual(P("Otoño-2023"), { season: "fall", year: 2023 });
+    assert.deepEqual(P("Frühling-2023"), { season: "spring", year: 2023 });
+  });
+
+  test("etiquetas desconhecidas ou malformadas são ignoradas", () => {
+    assert.equal(analyzer.parseSeasonTag("simulcast"), null);
+    assert.equal(analyzer.parseSeasonTag("fall"), null);
+    assert.equal(analyzer.parseSeasonTag(""), null);
+    assert.equal(analyzer.parseSeasonTag(undefined), null);
+  });
+
+  test("usa a temporada mais recente que tiver etiqueta", () => {
+    const l = analyzer.seriesLaunch([
+      { id: "1", season_tags: ["Outono-2019"] },
+      { id: "2", season_tags: ["Verão-2026", "summer-2026"] },
+      { id: "3", season_tags: [] },
+    ]);
+    assert.deepEqual(plain(l), { season: "summer", year: 2026 });
+    assert.equal(analyzer.seriesLaunch([{ id: "x" }]), null);
+  });
+
+  test("série nunca assistida guarda a temporada de lançamento", async () => {
+    const { analyzer: a } = setup({
+      watchlist: [series("N")],
+      seasons: { N: [{ id: "N1", season_sequence_number: 1, season_tags: ["Primavera-2026"] }] },
+      episodes: { N1: [episode("n1", 1)] },
+      playheads: {},
+    });
+    const [r] = await a.run({ settings: settings() });
+    assert.equal(r.status, "never");
+    assert.deepEqual(plain(r.launch), { season: "spring", year: 2026 });
+  });
 });

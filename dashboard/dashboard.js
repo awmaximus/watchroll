@@ -308,15 +308,95 @@
     );
   }
 
-  function section(title, count, content, { open = true, id } = {}) {
-    if (query.trim()) open = count > 0; // buscando: abre só onde há resultado
-    return el(
-      "details",
-      { class: "section", open: open || null, id },
-      el("summary", {}, el("h2", { text: title }), el("span", { class: "count", text: String(count) })),
-      content
+  // ---------- abas ----------
+  // Cada seção é uma aba. A escolhida fica salva (settings.tab). Durante uma busca,
+  // se a aba atual não tiver resultado, mostra a primeira que tiver (sem salvar).
+  function renderTabs(tabs) {
+    const shown = tabs.filter((tb) => tb.always || tb.count > 0);
+    const searching = query.trim() !== "";
+    let active = shown.find((tb) => tb.id === settings.tab) || shown[0];
+    if (searching && active.count === 0) active = shown.find((tb) => tb.count > 0) || active;
+    $("sort-wrap").hidden = active.id !== "toWatch";
+
+    const select = async (id) => {
+      settings.tab = id;
+      await saveSettings();
+      render();
+      const btn = document.querySelector(`.tabs [data-tab="${id}"]`);
+      if (btn) btn.focus();
+    };
+    const nav = el(
+      "nav",
+      { class: "tabs", role: "tablist", "aria-label": t("tabsAria") },
+      shown.map((tb) =>
+        el(
+          "button",
+          {
+            type: "button",
+            class: "tab",
+            role: "tab",
+            id: `tab-${tb.id}`,
+            "data-tab": tb.id,
+            "aria-selected": String(tb.id === active.id),
+            "aria-controls": "tabpanel",
+            tabindex: tb.id === active.id ? "0" : "-1",
+            onclick: () => select(tb.id),
+            onkeydown: (e) => {
+              const i = shown.indexOf(tb);
+              const go = (j) => {
+                e.preventDefault();
+                select(shown[(j + shown.length) % shown.length].id);
+              };
+              if (e.key === "ArrowRight") go(i + 1);
+              else if (e.key === "ArrowLeft") go(i - 1);
+              else if (e.key === "Home") go(0);
+              else if (e.key === "End") go(shown.length - 1);
+            },
+          },
+          el("span", { text: tb.label }),
+          el("span", { class: "count", text: String(tb.count) })
+        )
+      )
     );
+    const panel = el(
+      "section",
+      { class: "tabpanel", id: "tabpanel", role: "tabpanel", "aria-labelledby": `tab-${active.id}` },
+      active.content()
+    );
+    $("content").replaceChildren(nav, panel);
   }
+
+  // "Ainda não começadas" em grupos pela temporada de lançamento (outono 2026,
+  // verão 2026…), da mais recente para a mais antiga; sem etiqueta vai por último.
+  const SEASON_ORDER = { winter: 0, spring: 1, summer: 2, fall: 3 };
+  const SEASON_KEYS = { winter: "seasonWinter", spring: "seasonSpring", summer: "seasonSummer", fall: "seasonFall" };
+  function neverGroups(list) {
+    const groups = new Map();
+    for (const s of list) {
+      const l = s.launch;
+      const key = l ? `${l.year}-${SEASON_ORDER[l.season]}` : "none";
+      if (!groups.has(key)) {
+        groups.set(key, {
+          key,
+          rank: l ? l.year * 10 + SEASON_ORDER[l.season] : -1,
+          title: l ? t("seasonLabel", t(SEASON_KEYS[l.season]), l.year) : t("seasonUnknown"),
+          items: [],
+        });
+      }
+      groups.get(key).items.push(s);
+    }
+    return [...groups.values()]
+      .sort((a, b) => b.rank - a.rank)
+      .map((g) =>
+        el(
+          "section",
+          { class: "group" },
+          el("h3", {}, el("span", { text: g.title }), el("span", { class: "count", text: String(g.items.length) })),
+          el("ul", { class: "rows" }, g.items.map((s) => row(s, null)))
+        )
+      );
+  }
+
 
   // ---------- render ----------
   const byTitle = (a, b) => (a.title || "").localeCompare(b.title || "", UI);
@@ -355,50 +435,30 @@
         : t("statusAllCaught")
       : "";
 
-    const parts = [];
-    parts.push(
-      section(
-        t("secToWatch"),
-        pending.length,
-        pending.length
-          ? el("div", { class: "grid" }, pending.map(card))
-          : el("p", {
-              class: "empty",
-              text: searching ? t("emptySearch") : t("emptyToWatch"),
-            })
-      )
-    );
-    if (waiting.length) {
-      parts.push(
-        section(
-          t("secWaitDub"),
-          waiting.length,
-          el(
-            "ul",
-            { class: "rows" },
-            waiting.map((s) => row(s, tn("noteWaitDub", s.waitingDub)))
-          )
-        )
-      );
-    }
-    if (waitingSub.length) {
-      parts.push(
-        section(
-          t("secWaitSub", langName(settings.subLang)),
-          waitingSub.length,
-          el(
-            "ul",
-            { class: "rows" },
-            waitingSub.map((s) => row(s, tn("noteWaitSub", s.waitingSub)))
-          )
-        )
-      );
-    }
-    if (noDub.length) {
-      parts.push(
-        section(
-          t("secNoDub", langName(settings.dubLang)),
-          noDub.length,
+    const rows = (list, note) => el("ul", { class: "rows" }, list.map((s) => row(s, note(s))));
+    renderTabs([
+      {
+        id: "toWatch",
+        label: t("secToWatch"),
+        count: pending.length,
+        always: true,
+        content: () =>
+          pending.length
+            ? el("div", { class: "grid" }, pending.map(card))
+            : el("p", { class: "empty", text: searching ? t("emptySearch") : t("emptyToWatch") }),
+      },
+      { id: "waitDub", label: t("secWaitDub"), count: waiting.length, content: () => rows(waiting, (s) => tn("noteWaitDub", s.waitingDub)) },
+      {
+        id: "waitSub",
+        label: t("secWaitSub", langName(settings.subLang)),
+        count: waitingSub.length,
+        content: () => rows(waitingSub, (s) => tn("noteWaitSub", s.waitingSub)),
+      },
+      {
+        id: "noDub",
+        label: t("secNoDub", langName(settings.dubLang)),
+        count: noDub.length,
+        content: () =>
           el(
             "ul",
             { class: "rows" },
@@ -415,46 +475,28 @@
                 })
               )
             )
-          )
-        )
-      );
-    }
-    if (errors.length) {
-      parts.push(
-        section(
-          t("secErrors"),
-          errors.length,
-          el("ul", { class: "rows" }, errors.map((s) => row(s, s.error)))
-        )
-      );
-    }
-    parts.push(
-      section(
-        t("secUpToDate"),
-        upToDate.length,
-        el(
-          "ul",
-          { class: "rows" },
-          upToDate.map((s) =>
-            row(s, s.noDub ? t("noteNoDubSeason", settings.dubLang) : null)
-          )
-        ),
-        { open: false }
-      )
-    );
-    parts.push(
-      section(
-        t("secNever"),
-        never.length,
-        el("ul", { class: "rows" }, never.map((s) => row(s, null))),
-        { open: false }
-      )
-    );
-    if (hidden.length) {
-      parts.push(
-        section(
-          t("secHidden"),
-          hidden.length,
+          ),
+      },
+      {
+        id: "upToDate",
+        label: t("secUpToDate"),
+        count: upToDate.length,
+        always: true,
+        content: () => rows(upToDate, (s) => (s.noDub ? t("noteNoDubSeason", settings.dubLang) : null)),
+      },
+      {
+        id: "never",
+        label: t("secNever"),
+        count: never.length,
+        always: true,
+        content: () => (never.length ? neverGroups(never) : el("p", { class: "empty", text: t("emptyNever") })),
+      },
+      { id: "errors", label: t("secErrors"), count: errors.length, content: () => rows(errors, (s) => s.error) },
+      {
+        id: "hidden",
+        label: t("secHidden"),
+        count: hidden.length,
+        content: () =>
           el(
             "ul",
             { class: "rows" },
@@ -471,11 +513,8 @@
               )
             )
           ),
-          { open: false }
-        )
-      );
-    }
-    $("content").replaceChildren(...parts);
+      },
+    ]);
   }
 
   // ---------- ações ----------

@@ -558,3 +558,67 @@ body.busy select.actions {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/* ---------- abas ---------- */
+.tabs {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 16px;
+  scrollbar-width: thin;
+}
+.tab {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 10px 14px 9px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.tab:hover {
+  color: var(--text);
+}
+.tab[aria-selected="true"] {
+  color: var(--text);
+  border-bottom-color: var(--orange);
+}
+.tab:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: -2px;
+}
+.tab .count {
+  font-weight: 400;
+}
+.sort[hidden] {
+  display: none;
+}
+
+/* grupos por temporada de lançamento */
+.group + .group {
+  margin-top: 22px;
+}
+.group h3 {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 10px;
+  font-size: 1rem;
+}
+@media (max-width: 600px) {
+  .tabs {
+    flex-wrap: wrap;
+    overflow-x: visible;
+    gap: 0 2px;
+  }
+  .tab {
+    padding: 8px 10px 7px;
+  }
+}

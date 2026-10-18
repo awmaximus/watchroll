@@ -28,6 +28,7 @@ var CRChecker = (() => {
     seriesModes: {},
     hidden: {}, // seriesId -> { kind: "untilNew" | "week" | "forever", at, until?, seen? }
     sortBy: "released",
+    tab: "toWatch",
   };
 
   async function loadSettings(b = browser) {
