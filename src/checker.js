@@ -28,8 +28,10 @@ var CRChecker = (() => {
     seriesModes: {},
     hidden: {}, // seriesId -> { kind: "untilNew" | "week" | "forever", at, until?, seen? }
     sortBy: "released",
+    sortByTab: {},
     tab: "toWatch",
     anilist: false,
+    uiLang: "auto",
   };
 
   async function loadSettings(b = browser) {
@@ -107,9 +109,47 @@ var CRChecker = (() => {
     watched: "sortWatched",
     count: "sortCount",
     title: "sortTitle",
+    waiting: "sortWaiting",
+    next: "sortNext",
+    season: "sortSeason",
   };
-  const mainCount = (r) => r.pending.filter((p) => !p.extra && !p.skipped).length;
-  const newestRelease = (r) => Math.max(0, ...r.pending.map((p) => p.availableAt || 0));
+  // Ordenações que fazem sentido em cada aba (a primeira é a padrão).
+  const TAB_SORTS = {
+    toWatch: ["released", "watched", "count", "title"],
+    waitDub: ["waiting", "watched", "title"],
+    waitSub: ["waiting", "watched", "title"],
+    noDub: ["waiting", "watched", "title"],
+    upToDate: ["watched", "next", "title"],
+    never: ["season", "title"],
+    errors: ["title"],
+    hidden: ["title", "watched"],
+  };
+  const SEASON_RANK = { winter: 0, spring: 1, summer: 2, fall: 3 };
+  const launchRank = (r) => (r.launch ? r.launch.year * 10 + (SEASON_RANK[r.launch.season] ?? 0) : -1);
+  const waitingCount = (r) => (r.waitingDub || 0) + (r.waitingSub || 0);
+  const nextAt = (r) => (r.next && r.next.at) || Infinity;
+
+  // Ordenação escolhida para a aba (salva por aba; "Para assistir" herda a antiga sortBy).
+  function sortFor(settings, tab) {
+    const allowed = TAB_SORTS[tab] || ["title"];
+    const saved = (settings.sortByTab || {})[tab] || (tab === "toWatch" ? settings.sortBy : null);
+    return allowed.includes(saved) ? saved : allowed[0];
+  }
+
+  function sortResults(list, by) {
+    const cmp = {
+      released: (a, b) => newestRelease(b) - newestRelease(a) || byTitle(a, b),
+      watched: (a, b) => (b.lastWatchedAt || 0) - (a.lastWatchedAt || 0) || byTitle(a, b),
+      count: (a, b) => mainCount(b) - mainCount(a) || byTitle(a, b),
+      waiting: (a, b) => waitingCount(b) - waitingCount(a) || byTitle(a, b),
+      next: (a, b) => nextAt(a) - nextAt(b) || byTitle(a, b),
+      season: (a, b) => launchRank(b) - launchRank(a) || byTitle(a, b),
+      title: byTitle,
+    }[by] || byTitle;
+    return [...list].sort(cmp);
+  }
+  const mainCount = (r) => (r.pending || []).filter((p) => !p.extra && !p.skipped).length;
+  const newestRelease = (r) => Math.max(0, ...(r.pending || []).map((p) => p.availableAt || 0));
   const byTitle = (a, b) => (a.title || "").localeCompare(b.title || "", CRI18n.lang());
 
   function sortPending(list, by) {
@@ -202,6 +242,8 @@ var CRChecker = (() => {
     if (running) return running;
     running = (async () => {
       const settings = await loadSettings(b);
+      // Notificação e dica do ícone no idioma escolhido pelo usuário.
+      if (CRI18n.init) await CRI18n.init(settings.uiLang || "auto");
       try {
         const results = await analyzer.run({ settings });
         const scope = analyzer.cacheScope ? await analyzer.cacheScope() : "";
@@ -234,6 +276,9 @@ var CRChecker = (() => {
     summarize,
     matchesSearch,
     SORTS,
+    TAB_SORTS,
+    sortFor,
+    sortResults,
     sortPending,
     makeHide,
     isHidden,

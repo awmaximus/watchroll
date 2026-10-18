@@ -1,23 +1,123 @@
-// Traduções. Os textos ficam em _locales/<língua>/messages.json (padrão: pt_BR).
+// Traduções. Os textos ficam em _locales/<código>/messages.json, um arquivo por
+// idioma, no formato exigido pelo Firefox (pt_BR, pt_PT, en_US, es_ES…).
+//
+// O browser.i18n do Firefox só usa o idioma do navegador e não deixa trocar. Para
+// o usuário poder escolher, a página e o segundo plano chamam init(escolha), que
+// carrega o arquivo do idioma escolhido (ou o do navegador, em "auto"), com o
+// inglês como reserva para alguma chave que falte. Antes do init (e nos testes),
+// t() usa o browser.i18n.
+//
 //  - t("chave", a, b): texto traduzido com os marcadores $1, $2… preenchidos;
 //  - tn("chave", n, ...): plural, escolhendo "chave_one" ou "chave_other" (n vira $1);
-//  - lang(): língua da interface do Firefox (ex.: "pt-BR", "en-US");
-//  - langName("ja-JP"): nome do idioma na língua da interface;
+//  - lang(): idioma em uso, como código BCP 47 (ex.: "pt-BR", "en-US");
+//  - langName("ja-JP"): nome do idioma, no idioma em uso;
 //  - applyToDocument(): traduz os elementos com data-i18n* da página.
 
 /* global browser */
 var CRI18n = (() => {
   const api = () => (typeof browser !== "undefined" && browser.i18n) || null;
 
-  function t(key, ...subs) {
+  // Idiomas da interface, com o nome de cada um no próprio idioma.
+  const LANGUAGES = {
+    pt_BR: "Português",
+    pt_PT: "Português (Portugal)",
+    en_US: "English",
+    es_ES: "Español (España)",
+    es_419: "Español (Latinoamérica)",
+    fr_FR: "Français",
+    de_DE: "Deutsch",
+    it_IT: "Italiano",
+    ja_JP: "日本語",
+  };
+  const FALLBACK = "en_US";
+
+  let current = null; // pasta em uso (ex.: "pt_BR"), depois do init
+  let messages = null;
+  let reserve = null;
+
+  const toFolder = (code) => {
+    const [l, r] = String(code || "").replace("_", "-").split("-");
+    return r ? `${l.toLowerCase()}_${/^\d+$/.test(r) ? r : r.toUpperCase()}` : l.toLowerCase();
+  };
+  const toBcp47 = (folder) => folder.replace("_", "-");
+
+  function browserLang() {
     const i = api();
-    const msg = i ? i.getMessage(key, subs.map((s) => String(s))) : "";
+    return (
+      (i && i.getUILanguage && i.getUILanguage()) ||
+      (typeof navigator !== "undefined" && navigator.language) ||
+      "en-US"
+    );
+  }
+
+  // Idioma do navegador (ou um código qualquer) → a pasta de tradução mais próxima.
+  function resolve(code) {
+    const f = toFolder(code);
+    if (LANGUAGES[f]) return f;
+    const lang = f.split("_")[0];
+    if (lang === "pt") return "pt_BR"; // pt-PT já caiu acima; pt-AO, pt-MZ… → pt_BR
+    if (lang === "es") return "es_419"; // es-ES já caiu acima; es-MX, es-AR… → América Latina
+    const same = Object.keys(LANGUAGES).find((k) => k.split("_")[0] === lang);
+    return same || FALLBACK;
+  }
+
+  async function fetchMessages(folder) {
+    const url = browser.runtime.getURL(`_locales/${folder}/messages.json`);
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status} ${url}`);
+    return res.json();
+  }
+
+  /** choice: "auto" (idioma do navegador) ou uma pasta de LANGUAGES. */
+  async function init(choice = "auto") {
+    const folder = choice && choice !== "auto" && LANGUAGES[choice] ? choice : resolve(browserLang());
+    try {
+      const [main, back] = await Promise.all([
+        fetchMessages(folder),
+        folder === FALLBACK ? null : fetchMessages(FALLBACK).catch(() => null),
+      ]);
+      messages = main;
+      reserve = back;
+      current = folder;
+    } catch (err) {
+      console.warn("[CRI18n]", err);
+      messages = null; // segue com o browser.i18n
+      reserve = null;
+      current = null;
+    }
+    return current;
+  }
+
+  // Para testes: usa um conjunto de mensagens já carregado.
+  function use(folder, main, back = null) {
+    current = folder;
+    messages = main;
+    reserve = back;
+  }
+
+  // Igual ao browser.i18n.getMessage: marcadores nomeados ($NOME$) → conteúdo
+  // ("$1") → substituições; "$$" vira "$".
+  function format(entry, subs) {
+    const fill = (text) => text.replace(/\$(\d)/g, (_, n) => (subs[n - 1] != null ? String(subs[n - 1]) : ""));
+    const ph = entry.placeholders || {};
+    const named = entry.message.replace(/\$([A-Za-z0-9_@]+)\$/g, (m, name) => {
+      const p = ph[name.toLowerCase()];
+      return p ? fill(p.content) : m;
+    });
+    return fill(named).replace(/\$\$/g, "$");
+  }
+
+  function t(key, ...subs) {
+    const strs = subs.map((s) => String(s));
+    const entry = (messages && messages[key]) || (reserve && reserve[key]);
+    if (entry) return format(entry, strs);
+    const i = api();
+    const msg = i ? i.getMessage(key, strs) : "";
     return msg || key;
   }
 
   function lang() {
-    const i = api();
-    return (i && i.getUILanguage && i.getUILanguage()) || "pt-BR";
+    return current ? toBcp47(current) : browserLang();
   }
 
   function pluralRule(n) {
@@ -31,13 +131,19 @@ var CRI18n = (() => {
 
   const tn = (key, n, ...subs) => t(`${key}_${pluralRule(n)}`, n, ...subs);
 
+  // pt-BR aparece só como "Português" (e não "Português (Brasil)"); pt-PT continua
+  // "Português (Portugal)".
   function langName(code) {
+    const shown = code === "pt-BR" ? "pt" : code;
     try {
-      const name = new Intl.DisplayNames([lang()], { type: "language" }).of(code);
-      if (name && name !== code) return name.charAt(0).toLocaleUpperCase(lang()) + name.slice(1);
+      const name = new Intl.DisplayNames([lang()], { type: "language" }).of(shown);
+      if (name && name !== shown) return name.charAt(0).toLocaleUpperCase(lang()) + name.slice(1);
     } catch (_) {}
     return code;
   }
+
+  // Opções do seletor de idioma: [valor, rótulo].
+  const languageOptions = () => [["auto", t("uiLangAuto")], ...Object.entries(LANGUAGES)];
 
   function applyToDocument(doc = document) {
     if (doc.documentElement) doc.documentElement.lang = lang();
@@ -51,5 +157,5 @@ var CRI18n = (() => {
     }
   }
 
-  return { t, tn, lang, langName, applyToDocument };
+  return { t, tn, lang, langName, applyToDocument, init, use, resolve, languageOptions, LANGUAGES, FALLBACK };
 })();

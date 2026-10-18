@@ -4,7 +4,7 @@
 //  - verificação automática periódica: atualiza o número no ícone e notifica
 //    episódios novos. Nunca abre abas sozinho.
 
-/* global browser, CRApi, CRAnalyzer, CRChecker */
+/* global browser, CRApi, CRAnalyzer, CRChecker, CRI18n */
 const PAGE = browser.runtime.getURL("dashboard/dashboard.html");
 const ALARM = "crnovos-verificacao";
 
@@ -78,6 +78,7 @@ browser.alarms.onAlarm.addListener((alarm) => {
 browser.runtime.onInstalled.addListener(schedule);
 browser.runtime.onStartup.addListener(async () => {
   await schedule();
+  await CRI18n.init((await CRChecker.loadSettings()).uiLang || "auto");
   // Restaura o número no ícone com o último resultado conhecido.
   const last = await CRChecker.lastResults();
   if (last) await CRChecker.updateBadge(CRChecker.visibleResults(last.results, await CRChecker.loadSettings()));

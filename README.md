@@ -39,7 +39,7 @@ com resultado. Ao lado fica a ordenação dos cards de "Para assistir": lançame
 recente, visto mais recentemente, mais episódios ou título. A escolha fica salva.
 
 A página é dividida em abas. Abas vazias não aparecem, exceto "Para assistir", "Em dia" e
-"Ainda não começadas". A aba escolhida fica salva. Durante uma busca, se a aba atual não tiver
+"A Iniciar". A aba escolhida fica salva. Durante uma busca, se a aba atual não tiver
 resultado, a página mostra a primeira que tiver. As setas ← e → trocam de aba pelo teclado.
 
 | Aba | O que mostra |
@@ -51,8 +51,8 @@ resultado, a página mostra a primeira que tiver. As setas ← e → trocam de a
 | Não consegui verificar | Séries que deram erro na consulta |
 | Ocultas | Séries que você ocultou pelo menu ⋯ (até sair episódio novo, por 1 semana ou sempre); não contam no ícone nem notificam |
 | Em dia | Séries sem nada pendente |
-| Ainda não começadas | Séries da Fila que você nunca assistiu, agrupadas pela temporada de lançamento (Outono de 2026, Verão de 2026…), da mais recente para a mais antiga. A temporada vem do `season_tags` da temporada mais recente da série; sem essa informação, a série vai para "Sem temporada informada" |
-| Pesquisar | Busca no catálogo inteiro da Crunchyroll ou só na sua Fila, com filtros de dublagem no seu idioma, classificação indicativa, ano de estreia e temporada de lançamento (veja abaixo) |
+| A Iniciar | Séries da Fila que você nunca assistiu, agrupadas pela temporada de lançamento (Outono de 2026, Verão de 2026…), da mais recente para a mais antiga. A temporada vem do `season_tags` da temporada mais recente da série; sem essa informação, a série vai para "Sem temporada informada" |
+| Pesquisa Avançada | Busca no catálogo inteiro da Crunchyroll ou só na sua Fila, com filtros de dublagem no seu idioma, classificação indicativa, ano de estreia e temporada de lançamento (veja abaixo) |
 | Configurações | Idiomas, modo padrão, verificação automática, limites e as demais opções; as mudanças são salvas na hora |
 
 Antes de analisar as séries, a extensão lê o seu histórico de reprodução
@@ -110,7 +110,7 @@ Crunchyroll guarda uma cópia por endereço exato e pode servir uma cópia de at
 (`stale-while-revalidate`). Com o endereço do site, a extensão pega a cópia que os outros
 usuários renovam o tempo todo.
 
-## Aba Pesquisar
+## Aba Pesquisa Avançada
 
 - **Texto:** usa a busca da Crunchyroll (`/content/v2/discover/search`), que entende títulos
   em português e inglês. Em romaji ela só acerta quando o nome coincide com o título; em
@@ -136,6 +136,27 @@ usuários renovam o tempo todo.
   (L, 10, 12, 14, 16, 18); "Até 14 anos" mostra L, 10, 12 e 14. Séries sem classificação
   ficam de fora quando o filtro está ligado.
 - A temporada de lançamento vem da lista oficial (`/content/v1/season_list`).
+
+## Idiomas
+
+A interface está em Português, Português (Portugal), English, Español (España), Español
+(Latinoamérica), Français, Deutsch, Italiano e 日本語. Em **Configurações → Idioma da
+extensão**, escolha um deles ou deixe em "Automático", que segue o idioma do Firefox (um
+idioma sem tradução cai no inglês). A notificação e a dica do ícone usam o mesmo idioma.
+
+Cada idioma é um arquivo `_locales/<código>/messages.json`, com o código no formato que o
+Firefox exige (`pt_BR`, `pt_PT`, `en_US`, `es_ES`, `es_419`, `fr_FR`, `de_DE`, `it_IT`,
+`ja_JP`). Os testes conferem que todos têm as mesmas chaves e os mesmos marcadores. Como o
+`browser.i18n` do Firefox só usa o idioma do navegador, a extensão carrega o arquivo
+escolhido por conta própria (`src/i18n.js`), com o inglês como reserva.
+
+## Ordenação
+
+Todas as abas de lista têm o seletor "Ordenar", com as opções que fazem sentido nelas, e a
+escolha fica salva por aba: "Para assistir" (lançamento, visto mais recentemente, mais
+episódios, título), "Aguardando…" e "Sem dublagem" (mais episódios esperando, visto
+recentemente, título), "Em dia" (visto recentemente, próximo lançamento, título), "A Iniciar"
+(temporada de lançamento, em grupos, ou título) e "Ocultas" (título, visto recentemente).
 
 ## Por que não usar o "A Seguir" da Crunchyroll
 

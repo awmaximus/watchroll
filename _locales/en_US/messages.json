@@ -1,0 +1,889 @@
+{
+  "extName": {
+    "message": "Crunchyroll – New Episodes"
+  },
+  "extDescription": {
+    "message": "Its own page listing the episodes you haven't watched from the series in your Crunchyroll Watchlist, respecting whether you watch subbed or dubbed."
+  },
+  "actionTitle": {
+    "message": "New Crunchyroll episodes"
+  },
+  "pageTitle": {
+    "message": "New episodes – Crunchyroll"
+  },
+  "heading": {
+    "message": "New episodes"
+  },
+  "btnSettings": {
+    "message": "Settings"
+  },
+  "btnRefresh": {
+    "message": "Refresh"
+  },
+  "versionLabel": {
+    "message": "Version $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "Settings"
+  },
+  "setDubLabel": {
+    "message": "Language you watch dubbed in"
+  },
+  "setDubHelp": {
+    "message": "Series set to “Dubbed” only show up once the dub in this language is released."
+  },
+  "setSubLabel": {
+    "message": "Subtitle language"
+  },
+  "setSubHelp": {
+    "message": "Series set to “Subbed” only show up once subtitles in this language are available."
+  },
+  "setModeLabel": {
+    "message": "Default mode for series"
+  },
+  "setModeHelp": {
+    "message": "Applies to series you haven't set individually."
+  },
+  "setLocaleLabel": {
+    "message": "Language for titles and links"
+  },
+  "setAutoLabel": {
+    "message": "Check automatically"
+  },
+  "setAutoHelp": {
+    "message": "Updates the number on the extension icon in the background. Needs an open crunchyroll.com tab if direct access is blocked."
+  },
+  "setNotifyLabel": {
+    "message": "Notify me when a new episode is out"
+  },
+  "setExtrasLabel": {
+    "message": "Show specials and recaps (not included in counts)"
+  },
+  "setSkippedLabel": {
+    "message": "Show skipped episodes (before the last one you watched)"
+  },
+  "setMinStartedLabel": {
+    "message": "Count as started after (seconds)"
+  },
+  "setMinStartedHelp": {
+    "message": "Crunchyroll records a few seconds just from opening an episode page. Below this time, the record is ignored. Between 0 and 600."
+  },
+  "setConcurrencyLabel": {
+    "message": "Series checked at the same time"
+  },
+  "setConcurrencyHelp": {
+    "message": "Faster with higher numbers. If you get “too many requests” errors (HTTP 429), lower it. Between 1 and 32."
+  },
+  "setPlayheadBatchLabel": {
+    "message": "Batch size"
+  },
+  "setPlayheadBatchHelp": {
+    "message": "How many episodes go in each query of what you have watched (playheads), and how many items come in each page of your Watchlist and watch history. Larger batches mean fewer requests. If checks start failing, lower it. Between 10 and 300."
+  },
+  "searchPlaceholder": {
+    "message": "Search series…"
+  },
+  "searchAria": {
+    "message": "Search series by title"
+  },
+  "sortLabel": {
+    "message": "Sort"
+  },
+  "modeSub": {
+    "message": "Subbed"
+  },
+  "modeDub": {
+    "message": "Dubbed"
+  },
+  "modeAuto": {
+    "message": "Any audio"
+  },
+  "modeAutoLong": {
+    "message": "Any audio (notify on the first release)"
+  },
+  "modeDubLang": {
+    "message": "Dubbed $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeDefault": {
+    "message": "Default ($P1$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortSub": {
+    "message": "subbed"
+  },
+  "shortDub": {
+    "message": "dubbed $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortAuto": {
+    "message": "any audio"
+  },
+  "modeAria": {
+    "message": "Audio for $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeTitle": {
+    "message": "How you watch this series"
+  },
+  "autoOff": {
+    "message": "Off"
+  },
+  "autoMinutes": {
+    "message": "Every $P1$ minutes",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "autoHour": {
+    "message": "Every hour"
+  },
+  "autoHours": {
+    "message": "Every $P1$ hours",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "epMovie": {
+    "message": "Movie"
+  },
+  "epLabel": {
+    "message": "S$P1$ E$P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "relNow": {
+    "message": "just now"
+  },
+  "relHours": {
+    "message": "$P1$ h ago",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "relYesterday": {
+    "message": "yesterday"
+  },
+  "relDays": {
+    "message": "$P1$ days ago",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futToday": {
+    "message": "today at $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futTomorrow": {
+    "message": "tomorrow at $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futDays": {
+    "message": "in $P1$ days ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "nextText": {
+    "message": "Next: $P1$ $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "watchedPct": {
+    "message": "$P1$% watched",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "watchNext": {
+    "message": "Watch the next one"
+  },
+  "tagRecap": {
+    "message": "recap"
+  },
+  "tagSpecial": {
+    "message": "special"
+  },
+  "tagSkipped": {
+    "message": "skipped"
+  },
+  "badgeContinue": {
+    "message": "continue"
+  },
+  "badgeMovie": {
+    "message": "movie"
+  },
+  "badgeNew_one": {
+    "message": "1 new"
+  },
+  "badgeNew_other": {
+    "message": "$P1$ new",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSkipped_one": {
+    "message": "1 skipped"
+  },
+  "badgeSkipped_other": {
+    "message": "$P1$ skipped",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSpecial_one": {
+    "message": "1 special"
+  },
+  "badgeSpecial_other": {
+    "message": "$P1$ specials",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "moreEps_one": {
+    "message": "+ 1 episode"
+  },
+  "moreEps_other": {
+    "message": "+ $P1$ episodes",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitDub": {
+    "message": "+$P1$ awaiting dub",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitSub": {
+    "message": "+$P1$ awaiting subtitles",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsAria": {
+    "message": "Actions for $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsTitle": {
+    "message": "Actions"
+  },
+  "actDiag": {
+    "message": "Export diagnostics"
+  },
+  "actShow": {
+    "message": "Show again"
+  },
+  "actHideNew": {
+    "message": "Hide until a new episode is out"
+  },
+  "actHideWeek": {
+    "message": "Hide for 1 week"
+  },
+  "actHideForever": {
+    "message": "Always hide"
+  },
+  "hiddenUntil": {
+    "message": "Hidden until $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hiddenUntilNew": {
+    "message": "Hidden until a new episode is out"
+  },
+  "hiddenForever": {
+    "message": "Always hidden"
+  },
+  "epsCount_one": {
+    "message": "1 episode"
+  },
+  "epsCount_other": {
+    "message": "$P1$ episodes",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "seriesCount_one": {
+    "message": "1 series"
+  },
+  "seriesCount_other": {
+    "message": "$P1$ series",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusEps": {
+    "message": "$P1$ in $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "statusElapsed": {
+    "message": " · updated in $S$ s",
+    "description": "Tempo que a última atualização levou; ex.: 4,7",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusAllCaught": {
+    "message": "All caught up"
+  },
+  "secToWatch": {
+    "message": "To watch"
+  },
+  "emptySearch": {
+    "message": "No series found here."
+  },
+  "emptyToWatch": {
+    "message": "No new episodes in the series you've started."
+  },
+  "secWaitDub": {
+    "message": "Awaiting dub"
+  },
+  "noteWaitDub_one": {
+    "message": "1 already out subbed"
+  },
+  "noteWaitDub_other": {
+    "message": "$P1$ already out subbed",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secWaitSub": {
+    "message": "Awaiting $P1$ subtitles",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteWaitSub_one": {
+    "message": "1 episode already out without these subtitles"
+  },
+  "noteWaitSub_other": {
+    "message": "$P1$ episodes already out without these subtitles",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secNoDub": {
+    "message": "No $P1$ dub",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoDub_one": {
+    "message": "Current season has no $P2$ dub · 1 subbed episode to watch",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoDub_other": {
+    "message": "Current season has no $P2$ dub · $P1$ subbed episodes to watch",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeSubbed": {
+    "message": "Watch subbed"
+  },
+  "btnSeeSubbedTitle": {
+    "message": "Switches this series to subbed mode"
+  },
+  "secErrors": {
+    "message": "Couldn't check"
+  },
+  "secUpToDate": {
+    "message": "Caught up"
+  },
+  "noteNoDubSeason": {
+    "message": "No $P1$ dub in the current season",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secNever": {
+    "message": "To Start"
+  },
+  "secHidden": {
+    "message": "Hidden"
+  },
+  "btnShow": {
+    "message": "Show"
+  },
+  "progressChecking": {
+    "message": "Checking $P1$ of $P2$ series…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "progressReading": {
+    "message": "Reading your Watchlist…"
+  },
+  "errorQuery": {
+    "message": "Couldn't reach Crunchyroll: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errorHint": {
+    "message": "Make sure you're logged in at crunchyroll.com and click Refresh."
+  },
+  "diagSaved": {
+    "message": "Diagnostics for “$P1$” saved. It contains no token, cookie or account data.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagError": {
+    "message": "Couldn't create the diagnostics: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagFile": {
+    "message": "diagnostics"
+  },
+  "profileLabel": {
+    "message": " · profile $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "sortReleased": {
+    "message": "Most recent release"
+  },
+  "sortWatched": {
+    "message": "Most recently watched"
+  },
+  "sortCount": {
+    "message": "Most episodes"
+  },
+  "sortTitle": {
+    "message": "Title (A–Z)"
+  },
+  "badgeTitleSome": {
+    "message": "New episodes: $P1$ in $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "badgeTitleNone": {
+    "message": "New Crunchyroll episodes: all caught up"
+  },
+  "notifTitle_one": {
+    "message": "1 new episode"
+  },
+  "notifTitle_other": {
+    "message": "$P1$ new episodes",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMore": {
+    "message": "+ $P1$ more series",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMovie": {
+    "message": "movie"
+  },
+  "noticeOpeningTab": {
+    "message": "Opening crunchyroll.com in the background to use your session…"
+  },
+  "noticeProxy": {
+    "message": "Direct access blocked; using a crunchyroll.com tab."
+  },
+  "noticeOtherProfile": {
+    "message": "The session in use belongs to another profile on the account. Open crunchyroll.com in the profile you use and click Refresh."
+  },
+  "noticeSlowDown": {
+    "message": "Crunchyroll asked to slow down; retrying in $P1$ s…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errTabTimeout": {
+    "message": "The Crunchyroll tab took too long to load."
+  },
+  "errTabNoAnswer": {
+    "message": "The Crunchyroll tab didn't respond."
+  },
+  "errNoTab": {
+    "message": "No crunchyroll.com tab open to use your session."
+  },
+  "errAuth": {
+    "message": "Couldn't authenticate (HTTP $P1$). Make sure you're logged in at crunchyroll.com.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errHttp": {
+    "message": "HTTP $P1$ at $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "errAccount": {
+    "message": "Couldn't find your account ID."
+  },
+  "dubYes": {
+    "message": "Dubbed in $L$",
+    "description": "Dica do ícone de dublagem; $L$ = nome do idioma",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubOld": {
+    "message": "$L$ dub only in earlier seasons",
+    "description": "Dica do ícone de dublagem; $L$ = nome do idioma",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubNo": {
+    "message": "No $L$ dub",
+    "description": "Dica do ícone de dublagem; $L$ = nome do idioma",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "tabsAria": {
+    "message": "Sections"
+  },
+  "seasonWinter": {
+    "message": "Winter"
+  },
+  "seasonSpring": {
+    "message": "Spring"
+  },
+  "seasonSummer": {
+    "message": "Summer"
+  },
+  "seasonFall": {
+    "message": "Fall"
+  },
+  "seasonUnknown": {
+    "message": "No season listed"
+  },
+  "emptyNever": {
+    "message": "Every series in your Watchlist has been started."
+  },
+  "seasonLabel": {
+    "message": "$S$ $Y$",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      },
+      "y": {
+        "content": "$2"
+      }
+    }
+  },
+  "secSearch": {
+    "message": "Advanced Search"
+  },
+  "searchQueryPlaceholder": {
+    "message": "Anime name (English, Portuguese, romaji or Japanese)"
+  },
+  "searchButton": {
+    "message": "Search"
+  },
+  "searchScope": {
+    "message": "Where"
+  },
+  "searchScopeAll": {
+    "message": "Whole catalog"
+  },
+  "searchScopeMine": {
+    "message": "My Watchlist only"
+  },
+  "searchDub": {
+    "message": "Dub"
+  },
+  "searchDubAny": {
+    "message": "Any audio"
+  },
+  "searchDubYes": {
+    "message": "Dubbed in $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchDubNo": {
+    "message": "Not dubbed in $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAge": {
+    "message": "Rating"
+  },
+  "searchAgeAny": {
+    "message": "All"
+  },
+  "searchAgeUpTo": {
+    "message": "Up to $P1$+",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "ageFree": {
+    "message": "Suitable for all ages"
+  },
+  "ageMin": {
+    "message": "Not recommended for under $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchYear": {
+    "message": "Release year"
+  },
+  "searchAny": {
+    "message": "Any"
+  },
+  "searchSeason": {
+    "message": "Season"
+  },
+  "searchLoading": {
+    "message": "Loading…"
+  },
+  "searchNeedAniList": {
+    "message": "Crunchyroll's search doesn't understand Japanese names. With AniList on, the search text is sent to it to find the title."
+  },
+  "searchEnableAniList": {
+    "message": "Turn on AniList"
+  },
+  "searchAniListError": {
+    "message": "Couldn't reach AniList right now; results come only from Crunchyroll's search."
+  },
+  "searchMineEmpty": {
+    "message": "Your Watchlist hasn't been read yet. Click Refresh and try again."
+  },
+  "searchError": {
+    "message": "Couldn't search: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchHint": {
+    "message": "Type a name or pick filters. Without a name, the search goes through the whole Crunchyroll catalog (or the chosen season)."
+  },
+  "searchMore": {
+    "message": "Load more"
+  },
+  "searchMovie": {
+    "message": "Movie"
+  },
+  "searchInList": {
+    "message": "In your Watchlist"
+  },
+  "setAniListLabel": {
+    "message": "Also search Japanese and romaji names (sends the search text to AniList)"
+  },
+  "searchCount_one": {
+    "message": "1 result"
+  },
+  "searchCount_other": {
+    "message": "$P1$ results",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSeasons_one": {
+    "message": "1 season"
+  },
+  "searchSeasons_other": {
+    "message": "$P1$ seasons",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSort": {
+    "message": "Sort"
+  },
+  "searchSortDefault": {
+    "message": "Crunchyroll default"
+  },
+  "searchSortYear": {
+    "message": "Newest release"
+  },
+  "searchSortTitle": {
+    "message": "Title (A–Z)"
+  },
+  "searchLoadingCatalog": {
+    "message": "Downloading the Crunchyroll catalog (first time only, takes a few seconds)…"
+  },
+  "sortWaiting": {
+    "message": "Most episodes waiting"
+  },
+  "sortNext": {
+    "message": "Next release"
+  },
+  "sortSeason": {
+    "message": "Release season"
+  },
+  "uiLangAuto": {
+    "message": "Automatic (browser language)"
+  },
+  "setUiLangLabel": {
+    "message": "Extension language"
+  },
+  "setUiLangHelp": {
+    "message": "“Automatic” follows Firefox’s language."
+  }
+}

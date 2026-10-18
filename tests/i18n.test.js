@@ -12,9 +12,8 @@ const placeholders = (entry) => (entry.message.match(/\$[A-Za-z0-9_@]+\$/g) || [
 const CODE = ["src/i18n.js", "src/api.js", "src/analyzer.js", "src/checker.js", "src/background.js", "dashboard/dashboard.js"];
 
 describe("arquivos de tradução", () => {
-  test("existem pt_BR (padrão do manifesto) e en", () => {
-    assert.ok(LOCALES.includes("pt_BR"));
-    assert.ok(LOCALES.includes("en"));
+  test("existem os idiomas obrigatórios (pt_BR é o padrão do manifesto)", () => {
+    for (const l of ["pt_BR", "pt_PT", "en_US", "es_ES"]) assert.ok(LOCALES.includes(l), l);
     assert.equal(JSON.parse(read("manifest.json")).default_locale, "pt_BR");
   });
 
@@ -121,11 +120,11 @@ describe("CRI18n", () => {
   });
 
   test("em inglês", () => {
-    const { CRI18n } = load([], { browser: { i18n: fakeI18n("en", "en-US") } });
+    const { CRI18n } = load([], { browser: { i18n: fakeI18n("en_US", "en-US") } });
     assert.equal(CRI18n.t("progressChecking", 3, 10), "Checking 3 of 10 series…");
     assert.equal(CRI18n.tn("badgeNew", 2), "2 new");
     assert.equal(CRI18n.tn("epsCount", 1), "1 episode");
-    assert.equal(CRI18n.langName("pt-BR"), "Brazilian Portuguese");
+    assert.equal(CRI18n.langName("pt-BR"), "Portuguese");
   });
 
   test("nome do idioma na língua da interface", () => {
@@ -142,7 +141,7 @@ describe("CRI18n", () => {
   test("ícone e notificação em inglês", async () => {
     const calls = {};
     const browser = {
-      i18n: fakeI18n("en", "en-US"),
+      i18n: fakeI18n("en_US", "en-US"),
       action: {
         setBadgeText: async (o) => (calls.text = o.text),
         setBadgeBackgroundColor: async () => {},
@@ -165,5 +164,75 @@ describe("CRI18n", () => {
     assert.equal(calls.title, "New episodes: 2 in 1 series");
     const n = plain(CRChecker.notificationText(CRChecker.pendingItems(results)));
     assert.deepEqual(n, { title: "2 new episodes", message: "Show: S2 E3, S2 E4" });
+  });
+});
+
+describe("escolha do idioma", () => {
+  const fakeFetch = (folders) => async (url) => {
+    const m = /_locales\/([^/]+)\/messages\.json$/.exec(url);
+    const f = m && m[1];
+    if (!folders.includes(f)) return { ok: false, status: 404 };
+    return { ok: true, json: async () => readMessages(f) };
+  };
+  const ctx = (uiLanguage, folders = LOCALES) =>
+    load([], {
+      browser: { i18n: fakeI18n("pt_BR", uiLanguage), runtime: { getURL: (p) => `moz-extension://x/${p}` } },
+      fetch: fakeFetch(folders),
+    }).CRI18n;
+
+  test("idioma do navegador → arquivo mais próximo", () => {
+    const I = ctx("pt-BR");
+    assert.equal(I.resolve("pt-BR"), "pt_BR");
+    assert.equal(I.resolve("pt-PT"), "pt_PT");
+    assert.equal(I.resolve("pt"), "pt_BR");
+    assert.equal(I.resolve("es-ES"), "es_ES");
+    assert.equal(I.resolve("es-MX"), "es_419");
+    assert.equal(I.resolve("es-419"), "es_419");
+    assert.equal(I.resolve("en-GB"), "en_US");
+    assert.equal(I.resolve("zh-CN"), "en_US", "idioma sem tradução cai no inglês");
+  });
+
+  test("automático segue o navegador; a escolha do usuário tem prioridade", async () => {
+    const I = ctx("en-US");
+    assert.equal(await I.init("auto"), "en_US");
+    assert.equal(I.t("btnRefresh"), readMessages("en_US").btnRefresh.message);
+    assert.equal(I.lang(), "en-US");
+    assert.equal(await I.init("pt_PT"), "pt_PT");
+    assert.equal(I.t("btnRefresh"), readMessages("pt_PT").btnRefresh.message);
+    assert.equal(I.lang(), "pt-PT");
+  });
+
+  test("chave que falte no idioma escolhido vem do inglês", () => {
+    const I = ctx("pt-BR");
+    I.use("pt_PT", { soPt: { message: "só aqui" } }, { outra: { message: "from English" } });
+    assert.equal(I.t("soPt"), "só aqui");
+    assert.equal(I.t("outra"), "from English");
+  });
+
+  test("arquivo que não carrega: segue com o browser.i18n", async () => {
+    const I = ctx("pt-BR", []);
+    assert.equal(await I.init("fr_FR"), null);
+    assert.equal(I.t("btnRefresh"), readMessages("pt_BR").btnRefresh.message);
+  });
+
+  test("marcadores nomeados e plurais funcionam com o arquivo carregado", async () => {
+    const I = ctx("en-US");
+    await I.init("en_US");
+    assert.equal(I.tn("epsCount", 3), "3 episodes");
+    assert.equal(I.t("progressChecking", 3, 10), readMessages("en_US").progressChecking.message.replace("$P1$", "3").replace("$P2$", "10"));
+  });
+
+  test("pt-BR se chama só 'Português'; pt-PT continua com o país", async () => {
+    const I = ctx("pt-BR");
+    await I.init("pt_BR");
+    assert.equal(I.langName("pt-BR"), "Português");
+    assert.equal(I.langName("pt-PT"), "Português (Portugal)");
+    assert.equal(I.LANGUAGES.pt_BR, "Português");
+    assert.deepEqual(plain(I.languageOptions()[0]), ["auto", readMessages("pt_BR").uiLangAuto.message]);
+  });
+
+  test("todo idioma do seletor tem arquivo de tradução", () => {
+    const I = ctx("pt-BR");
+    for (const f of Object.keys(I.LANGUAGES)) assert.ok(LOCALES.includes(f), f);
   });
 });

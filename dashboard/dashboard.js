@@ -55,6 +55,7 @@
   }
 
   function renderSettingsForm() {
+    fillSelect($("set-uilang"), CRI18n.languageOptions(), settings.uiLang || "auto");
     fillSelect($("set-dub"), LANGS(), settings.dubLang);
     fillSelect($("set-sub"), LANGS(), settings.subLang);
     fillSelect(
@@ -329,7 +330,10 @@
     const searching = query.trim() !== "";
     let active = shown.find((tb) => tb.id === settings.tab) || shown[0];
     if (searching && active.count === 0) active = shown.find((tb) => tb.count > 0) || active;
-    $("sort-wrap").hidden = active.id !== "toWatch";
+    const sorts = CRChecker.TAB_SORTS[active.id];
+    $("sort-wrap").hidden = !sorts || sorts.length < 2;
+    if (sorts) fillSelect($("sort"), sorts.map((k) => [k, t(CRChecker.SORTS[k])]), CRChecker.sortFor(settings, active.id));
+    $("sort").dataset.tab = active.id;
     $("toolbar").hidden = active.id === "search" || active.id === "settings";
     // As Configurações são um painel fixo da página (os campos guardam estado e
     // ouvintes): a aba só o mostra ou esconde.
@@ -701,18 +705,18 @@
     const searching = query.trim() !== "";
     const results = visible.filter(match);
     const hidden = hiddenAll.filter(match);
-    const pending = CRChecker.sortPending(
-      results.filter((r) => r.status === "pending"),
-      settings.sortBy
-    );
+    const by = (tab) => CRChecker.sortFor(settings, tab);
+    const sorted = (tab, list) => CRChecker.sortResults(list, by(tab));
+    const pending = sorted("toWatch", results.filter((r) => r.status === "pending"));
     // Sem dublagem: a temporada atual não tem nenhum episódio no idioma escolhido
     // (a dublagem pode nunca sair). Aguardando: a dublagem existe e está atrasada.
-    const noDub = results.filter((r) => r.status === "uptodate" && r.noDub && r.waitingDub).sort(byTitle);
-    const waiting = results.filter((r) => r.status === "uptodate" && !r.noDub && r.waitingDub).sort(byTitle);
-    const waitingSub = results.filter((r) => r.status === "uptodate" && !r.waitingDub && r.waitingSub).sort(byTitle);
-    const upToDate = results.filter((r) => r.status === "uptodate" && !r.waitingDub && !r.waitingSub).sort(byTitle);
-    const never = results.filter((r) => r.status === "never").sort(byTitle);
-    const errors = results.filter((r) => r.status === "error").sort(byTitle);
+    const noDub = sorted("noDub", results.filter((r) => r.status === "uptodate" && r.noDub && r.waitingDub));
+    const waiting = sorted("waitDub", results.filter((r) => r.status === "uptodate" && !r.noDub && r.waitingDub));
+    const waitingSub = sorted("waitSub", results.filter((r) => r.status === "uptodate" && !r.waitingDub && r.waitingSub));
+    const upToDate = sorted("upToDate", results.filter((r) => r.status === "uptodate" && !r.waitingDub && !r.waitingSub));
+    const never = sorted("never", results.filter((r) => r.status === "never"));
+    const errors = sorted("errors", results.filter((r) => r.status === "error"));
+    const hiddenSorted = sorted("hidden", hidden);
 
     // Mesma contagem do ícone: sem especiais/recaps (e sem filtro da busca).
     const { episodes: totalEps, series: totalSeries } = CRChecker.summarize(visible);
@@ -776,7 +780,12 @@
         label: t("secNever"),
         count: never.length,
         always: true,
-        content: () => (never.length ? neverGroups(never) : el("p", { class: "empty", text: t("emptyNever") })),
+        content: () =>
+          !never.length
+            ? el("p", { class: "empty", text: t("emptyNever") })
+            : by("never") === "season"
+            ? neverGroups(never)
+            : rows(never, () => null),
       },
       { id: "errors", label: t("secErrors"), count: errors.length, content: () => rows(errors, (s) => s.error) },
       { id: "search", label: t("secSearch"), count: null, always: true, content: searchPanel },
@@ -788,7 +797,7 @@
           el(
             "ul",
             { class: "rows" },
-            hidden.map((s) =>
+            hiddenSorted.map((s) =>
               row(
                 s,
                 hiddenNote(settings.hidden[s.seriesId]),
@@ -919,9 +928,11 @@
 
   // ---------- início ----------
   async function init() {
+    await loadSettings();
+    // Idioma da interface: o escolhido nas Configurações, ou o do navegador.
+    await CRI18n.init(settings.uiLang || "auto");
     CRI18n.applyToDocument();
     $("version").textContent = t("versionLabel", browser.runtime.getManifest().version);
-    await loadSettings();
     // Remove adiamentos de 1 semana já vencidos.
     const now = Date.now();
     let changed = false;
@@ -958,6 +969,12 @@
       await saveSettings();
       refresh(false);
     });
+    // Trocar o idioma recarrega a página, que já abre traduzida.
+    $("set-uilang").addEventListener("change", async (e) => {
+      settings.uiLang = e.target.value;
+      await saveSettings();
+      location.reload();
+    });
     $("set-anilist").addEventListener("change", async (e) => {
       if (e.target.checked) await enableAniList();
       else {
@@ -989,13 +1006,10 @@
       await saveSettings();
     });
 
-    fillSelect(
-      $("sort"),
-      Object.entries(CRChecker.SORTS).map(([k, key]) => [k, t(key)]),
-      settings.sortBy
-    );
     $("sort").addEventListener("change", async (e) => {
-      settings.sortBy = e.target.value;
+      const id = e.target.dataset.tab || "toWatch";
+      settings.sortByTab = { ...(settings.sortByTab || {}), [id]: e.target.value };
+      if (id === "toWatch") settings.sortBy = e.target.value;
       await saveSettings();
       render();
     });

@@ -332,3 +332,33 @@ describe("busca e ordenação", () => {
     assert.equal(list[0].title, "Bravo");
   });
 });
+
+describe("ordenação por aba", () => {
+  const { CRChecker } = load(["src/i18n.js", "src/checker.js"], { browser: fakeBrowser() });
+  const R = (title, extra = {}) => ({ title, pending: [], ...extra });
+  const order = (list, by) => plain(CRChecker.sortResults(list, by).map((r) => r.title));
+
+  test("cada aba tem as suas opções; a primeira é a padrão", () => {
+    assert.equal(CRChecker.sortFor({}, "never"), "season");
+    assert.equal(CRChecker.sortFor({}, "upToDate"), "watched");
+    assert.equal(CRChecker.sortFor({ sortByTab: { upToDate: "title" } }, "upToDate"), "title");
+    assert.equal(CRChecker.sortFor({ sortByTab: { upToDate: "count" } }, "upToDate"), "watched", "opção de outra aba é ignorada");
+    assert.equal(CRChecker.sortFor({ sortBy: "title" }, "toWatch"), "title", "herda a escolha antiga do Para assistir");
+    for (const [tab, list] of Object.entries(CRChecker.TAB_SORTS)) {
+      for (const k of list) assert.ok(CRChecker.SORTS[k], `${tab}: ${k} tem rótulo`);
+    }
+  });
+
+  test("visto mais recentemente, esperando, próximo lançamento e temporada de lançamento", () => {
+    const list = [
+      R("B", { lastWatchedAt: 10, waitingDub: 1, next: { at: 300 }, launch: { season: "spring", year: 2026 } }),
+      R("A", { lastWatchedAt: 30, waitingSub: 5, launch: { season: "fall", year: 2026 } }),
+      R("C", { lastWatchedAt: 20, waitingDub: 3, next: { at: 100 } }),
+    ];
+    assert.deepEqual(order(list, "watched"), ["A", "C", "B"]);
+    assert.deepEqual(order(list, "waiting"), ["A", "C", "B"]);
+    assert.deepEqual(order(list, "next"), ["C", "B", "A"], "sem próximo lançamento vai por último");
+    assert.deepEqual(order(list, "season"), ["A", "B", "C"], "sem temporada vai por último");
+    assert.deepEqual(order(list, "title"), ["A", "B", "C"]);
+  });
+});

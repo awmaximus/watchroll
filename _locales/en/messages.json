@@ -504,7 +504,7 @@
     }
   },
   "secNever": {
-    "message": "Not started yet"
+    "message": "To Start"
   },
   "secHidden": {
     "message": "Hidden"
@@ -574,7 +574,7 @@
     "message": "Most episodes"
   },
   "sortTitle": {
-    "message": "Title"
+    "message": "Title (A–Z)"
   },
   "badgeTitleSome": {
     "message": "New episodes: $P1$ in $P2$",
@@ -720,7 +720,7 @@
     }
   },
   "secSearch": {
-    "message": "Search"
+    "message": "Advanced Search"
   },
   "searchQueryPlaceholder": {
     "message": "Anime name (English, Portuguese, romaji or Japanese)"
@@ -867,5 +867,23 @@
   },
   "searchLoadingCatalog": {
     "message": "Downloading the Crunchyroll catalog (first time only, takes a few seconds)…"
+  },
+  "sortWaiting": {
+    "message": "Most episodes waiting"
+  },
+  "sortNext": {
+    "message": "Next release"
+  },
+  "sortSeason": {
+    "message": "Release season"
+  },
+  "uiLangAuto": {
+    "message": "Automatic (browser language)"
+  },
+  "setUiLangLabel": {
+    "message": "Extension language"
+  },
+  "setUiLangHelp": {
+    "message": "“Automatic” follows Firefox’s language."
   }
 }

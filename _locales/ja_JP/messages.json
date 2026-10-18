@@ -1,0 +1,885 @@
+{
+  "extName": {
+    "message": "Crunchyroll – 新着エピソード"
+  },
+  "extDescription": {
+    "message": "Crunchyroll のウォッチリストにあるシリーズの未視聴エピソードを、字幕・吹き替えの好みに合わせて一覧表示する専用ページ。"
+  },
+  "actionTitle": {
+    "message": "Crunchyroll の新着エピソード"
+  },
+  "pageTitle": {
+    "message": "新着エピソード – Crunchyroll"
+  },
+  "heading": {
+    "message": "新着エピソード"
+  },
+  "btnSettings": {
+    "message": "設定"
+  },
+  "btnRefresh": {
+    "message": "更新"
+  },
+  "versionLabel": {
+    "message": "バージョン $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "設定"
+  },
+  "setDubLabel": {
+    "message": "吹き替えで見る言語"
+  },
+  "setDubHelp": {
+    "message": "「吹き替え」に設定したシリーズは、この言語の吹き替えが公開されたときだけ表示されます。"
+  },
+  "setSubLabel": {
+    "message": "字幕の言語"
+  },
+  "setSubHelp": {
+    "message": "「字幕」に設定したシリーズは、この言語の字幕が公開されたときだけ表示されます。"
+  },
+  "setModeLabel": {
+    "message": "シリーズの既定のモード"
+  },
+  "setModeHelp": {
+    "message": "個別に設定していないシリーズに適用されます。"
+  },
+  "setLocaleLabel": {
+    "message": "タイトルとリンクの言語"
+  },
+  "setAutoLabel": {
+    "message": "自動でチェック"
+  },
+  "setAutoHelp": {
+    "message": "バックグラウンドで拡張機能アイコンの数字を更新します。直接アクセスがブロックされる場合は crunchyroll.com のタブを開いておく必要があります。"
+  },
+  "setNotifyLabel": {
+    "message": "新しいエピソードが出たら通知する"
+  },
+  "setExtrasLabel": {
+    "message": "特別編・総集編を表示(件数には含めない)"
+  },
+  "setSkippedLabel": {
+    "message": "飛ばしたエピソードを表示(最後に見たものより前)"
+  },
+  "setMinStartedLabel": {
+    "message": "視聴開始とみなす時間(秒)"
+  },
+  "setMinStartedHelp": {
+    "message": "Crunchyroll はエピソードページを開くだけで数秒の記録を残します。この時間未満の記録は無視します。0〜600。"
+  },
+  "setConcurrencyLabel": {
+    "message": "同時にチェックするシリーズ数"
+  },
+  "setConcurrencyHelp": {
+    "message": "大きいほど速くなります。「リクエストが多すぎます」(HTTP 429)が出たら下げてください。1〜32。"
+  },
+  "setPlayheadBatchLabel": {
+    "message": "バッチサイズ"
+  },
+  "setPlayheadBatchHelp": {
+    "message": "視聴状況(playheads)の1回の問い合わせに含めるエピソード数と、ウォッチリスト・視聴履歴の1ページあたりの件数。大きいほど問い合わせが減ります。チェックが失敗し始めたら下げてください。10〜300。"
+  },
+  "searchPlaceholder": {
+    "message": "シリーズを検索…"
+  },
+  "searchAria": {
+    "message": "タイトルでシリーズを検索"
+  },
+  "sortLabel": {
+    "message": "並べ替え"
+  },
+  "modeSub": {
+    "message": "字幕"
+  },
+  "modeDub": {
+    "message": "吹き替え"
+  },
+  "modeAuto": {
+    "message": "音声を問わない"
+  },
+  "modeAutoLong": {
+    "message": "音声を問わない(最初の公開で通知)"
+  },
+  "modeDubLang": {
+    "message": "吹き替え $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeDefault": {
+    "message": "既定($P1$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortSub": {
+    "message": "字幕"
+  },
+  "shortDub": {
+    "message": "吹き替え $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortAuto": {
+    "message": "音声を問わない"
+  },
+  "modeAria": {
+    "message": "$P1$ の音声",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeTitle": {
+    "message": "このシリーズの見方"
+  },
+  "autoOff": {
+    "message": "オフ"
+  },
+  "autoMinutes": {
+    "message": "$P1$ 分ごと",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "autoHour": {
+    "message": "1 時間ごと"
+  },
+  "autoHours": {
+    "message": "$P1$ 時間ごと",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "epMovie": {
+    "message": "映画"
+  },
+  "epLabel": {
+    "message": "S$P1$ 第$P2$話",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "relNow": {
+    "message": "たった今"
+  },
+  "relHours": {
+    "message": "$P1$ 時間前",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "relYesterday": {
+    "message": "昨日"
+  },
+  "relDays": {
+    "message": "$P1$ 日前",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futToday": {
+    "message": "今日 $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futTomorrow": {
+    "message": "明日 $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futDays": {
+    "message": "$P1$ 日後($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "nextText": {
+    "message": "次回:$P1$ $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "watchedPct": {
+    "message": "$P1$% 視聴済み",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "watchNext": {
+    "message": "次を見る"
+  },
+  "tagRecap": {
+    "message": "総集編"
+  },
+  "tagSpecial": {
+    "message": "特別編"
+  },
+  "tagSkipped": {
+    "message": "未視聴"
+  },
+  "badgeContinue": {
+    "message": "続きから"
+  },
+  "badgeMovie": {
+    "message": "映画"
+  },
+  "badgeNew_one": {
+    "message": "新着 1"
+  },
+  "badgeNew_other": {
+    "message": "新着 $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSkipped_one": {
+    "message": "飛ばし 1"
+  },
+  "badgeSkipped_other": {
+    "message": "飛ばし $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSpecial_one": {
+    "message": "特別編 1"
+  },
+  "badgeSpecial_other": {
+    "message": "特別編 $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "moreEps_one": {
+    "message": "+ 1 話"
+  },
+  "moreEps_other": {
+    "message": "+ $P1$ 話",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitDub": {
+    "message": "+$P1$ 話が吹き替え待ち",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitSub": {
+    "message": "+$P1$ 話が字幕待ち",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsAria": {
+    "message": "$P1$ の操作",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsTitle": {
+    "message": "操作"
+  },
+  "actDiag": {
+    "message": "診断情報を書き出す"
+  },
+  "actShow": {
+    "message": "再表示"
+  },
+  "actHideNew": {
+    "message": "新しいエピソードまで非表示"
+  },
+  "actHideWeek": {
+    "message": "1 週間非表示"
+  },
+  "actHideForever": {
+    "message": "常に非表示"
+  },
+  "hiddenUntil": {
+    "message": "$P1$ まで非表示",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hiddenUntilNew": {
+    "message": "新しいエピソードまで非表示"
+  },
+  "hiddenForever": {
+    "message": "常に非表示"
+  },
+  "epsCount_one": {
+    "message": "1 話"
+  },
+  "epsCount_other": {
+    "message": "$P1$ 話",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "seriesCount_one": {
+    "message": "1 シリーズ"
+  },
+  "seriesCount_other": {
+    "message": "$P1$ シリーズ",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusEps": {
+    "message": "$P2$・$P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "statusElapsed": {
+    "message": " · 更新 $S$ 秒",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusAllCaught": {
+    "message": "すべて視聴済み"
+  },
+  "secToWatch": {
+    "message": "視聴待ち"
+  },
+  "emptySearch": {
+    "message": "ここに該当するシリーズはありません。"
+  },
+  "emptyToWatch": {
+    "message": "見始めたシリーズに新しいエピソードはありません。"
+  },
+  "secWaitDub": {
+    "message": "吹き替え待ち"
+  },
+  "noteWaitDub_one": {
+    "message": "字幕版が 1 話公開済み"
+  },
+  "noteWaitDub_other": {
+    "message": "字幕版が $P1$ 話公開済み",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secWaitSub": {
+    "message": "$P1$ 字幕待ち",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteWaitSub_one": {
+    "message": "この字幕なしで 1 話公開済み"
+  },
+  "noteWaitSub_other": {
+    "message": "この字幕なしで $P1$ 話公開済み",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secNoDub": {
+    "message": "$P1$ 吹き替えなし",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoDub_one": {
+    "message": "今シーズンは $P2$ 吹き替えなし · 字幕で見られるエピソード 1 話",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoDub_other": {
+    "message": "今シーズンは $P2$ 吹き替えなし · 字幕で見られるエピソード $P1$ 話",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeSubbed": {
+    "message": "字幕で見る"
+  },
+  "btnSeeSubbedTitle": {
+    "message": "このシリーズを字幕モードに切り替えます"
+  },
+  "secErrors": {
+    "message": "確認できませんでした"
+  },
+  "secUpToDate": {
+    "message": "視聴済み"
+  },
+  "noteNoDubSeason": {
+    "message": "今シーズンは $P1$ 吹き替えなし",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secNever": {
+    "message": "これから見る"
+  },
+  "secHidden": {
+    "message": "非表示"
+  },
+  "btnShow": {
+    "message": "表示"
+  },
+  "progressChecking": {
+    "message": "$P2$ シリーズ中 $P1$ をチェック中…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "progressReading": {
+    "message": "ウォッチリストを読み込み中…"
+  },
+  "errorQuery": {
+    "message": "Crunchyroll に接続できませんでした:$P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errorHint": {
+    "message": "crunchyroll.com にログインしていることを確認してから「更新」を押してください。"
+  },
+  "diagSaved": {
+    "message": "「$P1$」の診断情報を保存しました。トークン・Cookie・アカウント情報は含まれていません。",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagError": {
+    "message": "診断情報を作成できませんでした:$P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagFile": {
+    "message": "diagnostics"
+  },
+  "profileLabel": {
+    "message": " · プロフィール $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "sortReleased": {
+    "message": "公開が新しい順"
+  },
+  "sortWatched": {
+    "message": "最近見た順"
+  },
+  "sortCount": {
+    "message": "エピソードが多い順"
+  },
+  "sortTitle": {
+    "message": "タイトル順(A–Z)"
+  },
+  "badgeTitleSome": {
+    "message": "新着エピソード:$P2$・$P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "badgeTitleNone": {
+    "message": "Crunchyroll の新着エピソード:すべて視聴済み"
+  },
+  "notifTitle_one": {
+    "message": "新しいエピソード 1 話"
+  },
+  "notifTitle_other": {
+    "message": "新しいエピソード $P1$ 話",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMore": {
+    "message": "ほか $P1$ シリーズ",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMovie": {
+    "message": "映画"
+  },
+  "noticeOpeningTab": {
+    "message": "セッションを使うため、crunchyroll.com をバックグラウンドで開いています…"
+  },
+  "noticeProxy": {
+    "message": "直接アクセスがブロックされたため、crunchyroll.com のタブを使用しています。"
+  },
+  "noticeOtherProfile": {
+    "message": "使用中のセッションはアカウントの別プロフィールのものです。使っているプロフィールで crunchyroll.com を開いて「更新」を押してください。"
+  },
+  "noticeSlowDown": {
+    "message": "Crunchyroll から速度を落とすよう求められました。$P1$ 秒後に再試行します…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errTabTimeout": {
+    "message": "Crunchyroll のタブの読み込みに時間がかかりすぎました。"
+  },
+  "errTabNoAnswer": {
+    "message": "Crunchyroll のタブが応答しませんでした。"
+  },
+  "errNoTab": {
+    "message": "セッションに使える crunchyroll.com のタブが開いていません。"
+  },
+  "errAuth": {
+    "message": "認証できませんでした(HTTP $P1$)。crunchyroll.com にログインしているか確認してください。",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errHttp": {
+    "message": "HTTP $P1$($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "errAccount": {
+    "message": "アカウント ID が見つかりませんでした。"
+  },
+  "dubYes": {
+    "message": "$L$ 吹き替えあり",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubOld": {
+    "message": "$L$ 吹き替えは以前のシーズンのみ",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubNo": {
+    "message": "$L$ 吹き替えなし",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "tabsAria": {
+    "message": "セクション"
+  },
+  "seasonWinter": {
+    "message": "冬"
+  },
+  "seasonSpring": {
+    "message": "春"
+  },
+  "seasonSummer": {
+    "message": "夏"
+  },
+  "seasonFall": {
+    "message": "秋"
+  },
+  "seasonUnknown": {
+    "message": "シーズン情報なし"
+  },
+  "emptyNever": {
+    "message": "ウォッチリストのシリーズはすべて見始めています。"
+  },
+  "seasonLabel": {
+    "message": "$Y$年$S$",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      },
+      "y": {
+        "content": "$2"
+      }
+    }
+  },
+  "secSearch": {
+    "message": "詳細検索"
+  },
+  "searchQueryPlaceholder": {
+    "message": "アニメ名(日本語・ローマ字・英語など)"
+  },
+  "searchButton": {
+    "message": "検索"
+  },
+  "searchScope": {
+    "message": "検索範囲"
+  },
+  "searchScopeAll": {
+    "message": "カタログ全体"
+  },
+  "searchScopeMine": {
+    "message": "自分のウォッチリストのみ"
+  },
+  "searchDub": {
+    "message": "吹き替え"
+  },
+  "searchDubAny": {
+    "message": "音声を問わない"
+  },
+  "searchDubYes": {
+    "message": "$P1$ 吹き替えあり",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchDubNo": {
+    "message": "$P1$ 吹き替えなし",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAge": {
+    "message": "年齢区分"
+  },
+  "searchAgeAny": {
+    "message": "すべて"
+  },
+  "searchAgeUpTo": {
+    "message": "$P1$ 歳以上向けまで",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "ageFree": {
+    "message": "全年齢向け"
+  },
+  "ageMin": {
+    "message": "$P1$ 歳未満には推奨されません",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchYear": {
+    "message": "放送開始年"
+  },
+  "searchAny": {
+    "message": "指定なし"
+  },
+  "searchSeason": {
+    "message": "シーズン"
+  },
+  "searchLoading": {
+    "message": "読み込み中…"
+  },
+  "searchNeedAniList": {
+    "message": "Crunchyroll の検索は日本語の名前を理解しません。AniList をオンにすると、検索テキストを AniList に送ってタイトルを探します。"
+  },
+  "searchEnableAniList": {
+    "message": "AniList をオンにする"
+  },
+  "searchAniListError": {
+    "message": "現在 AniList に接続できません。結果は Crunchyroll の検索のみです。"
+  },
+  "searchMineEmpty": {
+    "message": "ウォッチリストをまだ読み込んでいません。「更新」を押してからもう一度試してください。"
+  },
+  "searchError": {
+    "message": "検索できませんでした:$P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchHint": {
+    "message": "名前を入力するか、フィルターを選んでください。名前がない場合は Crunchyroll のカタログ全体(または選んだシーズン)から探します。"
+  },
+  "searchMore": {
+    "message": "さらに表示"
+  },
+  "searchMovie": {
+    "message": "映画"
+  },
+  "searchInList": {
+    "message": "ウォッチリストにあり"
+  },
+  "setAniListLabel": {
+    "message": "日本語・ローマ字の名前でも検索する(検索テキストを AniList に送信します)"
+  },
+  "searchCount_one": {
+    "message": "1 件"
+  },
+  "searchCount_other": {
+    "message": "$P1$ 件",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSeasons_one": {
+    "message": "1 シーズン"
+  },
+  "searchSeasons_other": {
+    "message": "$P1$ シーズン",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSort": {
+    "message": "並べ替え"
+  },
+  "searchSortDefault": {
+    "message": "Crunchyroll の順番"
+  },
+  "searchSortYear": {
+    "message": "放送開始が新しい順"
+  },
+  "searchSortTitle": {
+    "message": "タイトル順(A–Z)"
+  },
+  "searchLoadingCatalog": {
+    "message": "Crunchyroll のカタログをダウンロード中(初回のみ、数秒かかります)…"
+  },
+  "sortWaiting": {
+    "message": "待ちエピソードが多い順"
+  },
+  "sortNext": {
+    "message": "次の公開が近い順"
+  },
+  "sortSeason": {
+    "message": "放送シーズン順"
+  },
+  "uiLangAuto": {
+    "message": "自動(ブラウザの言語)"
+  },
+  "setUiLangLabel": {
+    "message": "拡張機能の言語"
+  },
+  "setUiLangHelp": {
+    "message": "「自動」では Firefox の言語に合わせます。"
+  }
+}
