@@ -12,7 +12,7 @@ funcionando. Só depende da API.
 ## Uso
 
 1. Clique no ícone da extensão na barra do Firefox. A página "Novos episódios" abre.
-2. Em **Configurações**, escolha:
+2. Na aba **Configurações**, escolha:
    - o idioma em que você assiste dublado (por exemplo, Português (Brasil));
    - o idioma da legenda;
    - o modo padrão das séries (legendado, dublado ou qualquer áudio);
@@ -52,6 +52,8 @@ resultado, a página mostra a primeira que tiver. As setas ← e → trocam de a
 | Ocultas | Séries que você ocultou pelo menu ⋯ (até sair episódio novo, por 1 semana ou sempre); não contam no ícone nem notificam |
 | Em dia | Séries sem nada pendente |
 | Ainda não começadas | Séries da Fila que você nunca assistiu, agrupadas pela temporada de lançamento (Outono de 2026, Verão de 2026…), da mais recente para a mais antiga. A temporada vem do `season_tags` da temporada mais recente da série; sem essa informação, a série vai para "Sem temporada informada" |
+| Pesquisar | Busca no catálogo inteiro da Crunchyroll ou só na sua Fila, com filtros de dublagem no seu idioma, classificação indicativa, ano de estreia e temporada de lançamento (veja abaixo) |
+| Configurações | Idiomas, modo padrão, verificação automática, limites e as demais opções; as mudanças são salvas na hora |
 
 Antes de analisar as séries, a extensão lê o seu histórico de reprodução
 (`/content/v2/{conta}/watch-history`, até 10 páginas de 100). Uma série vai direto para "Ainda
@@ -107,6 +109,26 @@ A lista de temporadas é pedida com os mesmos parâmetros, na mesma ordem, que o
 Crunchyroll guarda uma cópia por endereço exato e pode servir uma cópia de até ~20 minutos
 (`stale-while-revalidate`). Com o endereço do site, a extensão pega a cópia que os outros
 usuários renovam o tempo todo.
+
+## Aba Pesquisar
+
+- **Texto:** usa a busca da Crunchyroll (`/content/v2/discover/search`), que entende títulos
+  em português e inglês. Em romaji ela só acerta quando o nome coincide com o título; em
+  japonês (kanji/kana) não acha nada.
+- **Nomes em japonês e romaji (opcional):** com a opção "Buscar também nomes em japonês e
+  romaji" ligada nas Configurações, o texto da busca também vai para o
+  [AniList](https://anilist.co), que devolve o link da série na Crunchyroll. Ex.:
+  "薬屋のひとりごと" ou "Kusuriya no Hitorigoto" → Diários de uma Apotecária. A opção vem
+  desligada e pede a permissão de envio dos termos de busca do Firefox.
+- **Sem texto:** com temporada, lista o que a própria Crunchyroll marca naquela temporada
+  (`seasonal_tag`); com ano, as quatro temporadas do ano, filtradas pelo ano de estreia; só a
+  Fila, as séries da Fila; sem filtro nenhum, as mais populares, de 60 em 60.
+- **Dublagem** confere o idioma de dublagem das Configurações (`audio_locales` de cada
+  série), não só "tem alguma dublagem".
+- **Classificação** usa a classificação indicativa brasileira que a Crunchyroll informa
+  (L, 10, 12, 14, 16, 18); "Até 14 anos" mostra L, 10, 12 e 14. Séries sem classificação
+  ficam de fora quando o filtro está ligado.
+- A temporada de lançamento vem da lista oficial (`/content/v1/season_list`).
 
 ## Por que não usar o "A Seguir" da Crunchyroll
 

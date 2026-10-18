@@ -522,6 +522,41 @@ var CRApi = (() => {
   const movies = (listingId, locale) =>
     get(`/content/v2/cms/movie_listings/${listingId}/movies`, { locale }).then((r) => r.data || []);
 
+  // ---------- catálogo (aba Pesquisar) ----------
+  // Busca por texto: entende títulos em português e inglês (não kanji; romaji só
+  // quando coincide com o título). Devolve blocos por tipo: series, movie_listing.
+  const search = (q, locale, { n = 50, preferredAudio } = {}) =>
+    get("/content/v2/discover/search", {
+      q,
+      n,
+      type: "series,movie_listing",
+      ratings: "true",
+      locale,
+      ...(preferredAudio ? { preferred_audio_language: preferredAudio } : {}),
+    }).then((r) => (r.data || []).flatMap((b) => b.items || []));
+
+  // Navegação por filtros do próprio catálogo (seasonal_tag, is_dubbed, sort_by…).
+  const browse = (params, locale) =>
+    get("/content/v2/discover/browse", { ratings: "true", ...params, locale }).then((r) => ({
+      items: r.data || [],
+      total: typeof r.total === "number" ? r.total : null,
+    }));
+
+  // Temporadas de lançamento oficiais ("fall-2026" → "Outono 2026"), da mais nova.
+  const seasonList = (locale) =>
+    get("/content/v1/season_list", { locale }).then((r) => r.items || r.data || []);
+
+  // Várias séries/filmes pelo ID, numa consulta (até 50 por vez).
+  async function objects(ids, locale) {
+    const out = [];
+    for (let i = 0; i < ids.length; i += 50) {
+      const part = ids.slice(i, i + 50);
+      const r = await get(`/content/v2/cms/objects/${part.join(",")}`, { ratings: "true", locale });
+      out.push(...(r.data || []));
+    }
+    return out;
+  }
+
   // ---------- playheads em lote ----------
   // Pedidos de várias séries são acumulados por alguns milissegundos e enviados
   // juntos, em lotes de até BATCH.size IDs (50 por padrão, configurável na página);
@@ -597,6 +632,10 @@ var CRApi = (() => {
     episodes,
     movieListing,
     movies,
+    search,
+    browse,
+    seasonList,
+    objects,
     playheads,
     setPlayheadBatchSize,
     release,

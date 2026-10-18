@@ -242,6 +242,34 @@ describe("endpoints", () => {
     assert.match(requests[1].url, /\/content\/v2\/cms\/seasons\/GS00384044JAJP\/episodes\?locale=pt-BR$/);
   });
 
+  test("catálogo: busca, navegação, temporadas e objetos nos caminhos certos", async () => {
+    const { api, requests } = setup(
+      (raw) => {
+        const url = new URL(raw);
+        if (url.pathname.endsWith("/discover/search")) return json({ data: [{ type: "series", items: [{ id: "A" }] }, { type: "movie_listing", items: [{ id: "M" }] }] });
+        if (url.pathname.endsWith("/discover/browse")) return json({ data: [{ id: "B" }], total: 1 });
+        if (url.pathname.endsWith("/season_list")) return json({ items: [{ id: "fall-2026" }] });
+        return json({ data: [{ id: "X" }] });
+      },
+      { sessionToken: validSession() }
+    );
+    assert.deepEqual(plain((await api.search("frieren", "pt-BR", { preferredAudio: "pt-BR" })).map((x) => x.id)), ["A", "M"]);
+    const q = new URL(requests[0].url).searchParams;
+    assert.equal(q.get("q"), "frieren");
+    assert.equal(q.get("type"), "series,movie_listing");
+    assert.equal(q.get("ratings"), "true");
+    assert.equal(q.get("preferred_audio_language"), "pt-BR");
+    const b = await api.browse({ seasonal_tag: "fall-2026", n: 100, start: 0 }, "pt-BR");
+    assert.equal(b.total, 1);
+    assert.match(requests[1].url, /\/content\/v2\/discover\/browse\?ratings=true&seasonal_tag=fall-2026&n=100&start=0&locale=pt-BR$/);
+    assert.deepEqual(plain(await api.seasonList("pt-BR")), [{ id: "fall-2026" }]);
+    assert.match(requests[2].url, /\/content\/v1\/season_list\?locale=pt-BR$/);
+    const ids = Array.from({ length: 60 }, (_, i) => `I${i}`);
+    await api.objects(ids, "pt-BR");
+    assert.equal(requests.length, 5, "60 IDs = 2 consultas de até 50");
+    assert.match(requests[3].url, /\/content\/v2\/cms\/objects\/I0,I1,/);
+  });
+
   test("seasons e episodes usam os caminhos do CMS v2", async () => {
     const { api, requests } = setup(() => json({ data: [{ id: "x" }] }), { sessionToken: validSession() });
     assert.deepEqual(plain(await api.seasons("SERIE", "pt-BR")), [{ id: "x" }]);

@@ -718,5 +718,139 @@
         "content": "$2"
       }
     }
+  },
+  "secSearch": {
+    "message": "Pesquisar"
+  },
+  "searchQueryPlaceholder": {
+    "message": "Nome do anime (português, inglês, romaji ou japonês)"
+  },
+  "searchButton": {
+    "message": "Pesquisar"
+  },
+  "searchScope": {
+    "message": "Onde"
+  },
+  "searchScopeAll": {
+    "message": "Todo o catálogo"
+  },
+  "searchScopeMine": {
+    "message": "Só a minha Fila"
+  },
+  "searchDub": {
+    "message": "Dublagem"
+  },
+  "searchDubAny": {
+    "message": "Qualquer áudio"
+  },
+  "searchDubYes": {
+    "message": "Dublado em $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchDubNo": {
+    "message": "Sem dublagem em $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAge": {
+    "message": "Classificação"
+  },
+  "searchAgeAny": {
+    "message": "Todas"
+  },
+  "searchAgeUpTo": {
+    "message": "Até $P1$ anos",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "ageFree": {
+    "message": "Livre para todos os públicos"
+  },
+  "ageMin": {
+    "message": "Não recomendado para menores de $P1$ anos",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchYear": {
+    "message": "Ano de estreia"
+  },
+  "searchAny": {
+    "message": "Qualquer"
+  },
+  "searchSeason": {
+    "message": "Temporada"
+  },
+  "searchLoading": {
+    "message": "Carregando…"
+  },
+  "searchNeedAniList": {
+    "message": "A busca da Crunchyroll não entende nomes em japonês. Com o AniList ligado, o texto da busca é enviado a ele para achar o título."
+  },
+  "searchEnableAniList": {
+    "message": "Ativar AniList"
+  },
+  "searchAniListError": {
+    "message": "Não consegui consultar o AniList agora; os resultados vêm só da busca da Crunchyroll."
+  },
+  "searchMineEmpty": {
+    "message": "A sua Fila ainda não foi lida. Clique em Atualizar e tente de novo."
+  },
+  "searchError": {
+    "message": "Não consegui pesquisar: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchHint": {
+    "message": "Digite um nome ou escolha filtros. Sem nome, a lista vem do catálogo, filtrada pela temporada ou pelo ano, ou pelos mais populares."
+  },
+  "searchMore": {
+    "message": "Carregar mais"
+  },
+  "searchMovie": {
+    "message": "Filme"
+  },
+  "searchInList": {
+    "message": "Na sua Fila"
+  },
+  "setAniListLabel": {
+    "message": "Buscar também nomes em japonês e romaji (envia o texto da busca ao AniList)"
+  },
+  "searchCount_one": {
+    "message": "1 resultado"
+  },
+  "searchCount_other": {
+    "message": "$P1$ resultados",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSeasons_one": {
+    "message": "1 temporada"
+  },
+  "searchSeasons_other": {
+    "message": "$P1$ temporadas",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }

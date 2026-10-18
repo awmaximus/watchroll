@@ -13,6 +13,19 @@
   let results = [];
   let busy = false;
   let query = "";
+  // Estado da aba Pesquisar (sobrevive às re-renderizações da página).
+  const searchState = {
+    q: "",
+    filters: { scope: "all", dub: "any", maxAge: "", year: "", season: "" },
+    items: null,
+    more: false,
+    start: 0,
+    loading: false,
+    error: null,
+    anilist: null,
+    seasons: null,
+    seasonsLoading: false,
+  };
 
   const $ = (id) => document.getElementById(id);
 
@@ -74,6 +87,7 @@
     $("set-notify").checked = settings.notify !== false;
     $("set-extras").checked = settings.showExtras !== false;
     $("set-skipped").checked = !!settings.showSkipped;
+    $("set-anilist").checked = !!settings.anilist;
     const ms = $("set-minstarted");
     ms.min = CRAnalyzer.MIN_STARTED.min;
     ms.max = CRAnalyzer.MIN_STARTED.max;
@@ -317,6 +331,10 @@
     let active = shown.find((tb) => tb.id === settings.tab) || shown[0];
     if (searching && active.count === 0) active = shown.find((tb) => tb.count > 0) || active;
     $("sort-wrap").hidden = active.id !== "toWatch";
+    $("toolbar").hidden = active.id === "search" || active.id === "settings";
+    // As Configurações são um painel fixo da página (os campos guardam estado e
+    // ouvintes): a aba só o mostra ou esconde.
+    $("settings").hidden = active.id !== "settings";
 
     const select = async (id) => {
       settings.tab = id;
@@ -338,7 +356,7 @@
             id: `tab-${tb.id}`,
             "data-tab": tb.id,
             "aria-selected": String(tb.id === active.id),
-            "aria-controls": "tabpanel",
+            "aria-controls": tb.id === "settings" ? "settings" : "tabpanel",
             tabindex: tb.id === active.id ? "0" : "-1",
             onclick: () => select(tb.id),
             onkeydown: (e) => {
@@ -354,16 +372,275 @@
             },
           },
           el("span", { text: tb.label }),
-          el("span", { class: "count", text: String(tb.count) })
+          tb.count == null ? null : el("span", { class: "count", text: String(tb.count) })
         )
       )
     );
-    const panel = el(
-      "section",
-      { class: "tabpanel", id: "tabpanel", role: "tabpanel", "aria-labelledby": `tab-${active.id}` },
-      active.content()
+    const panel =
+      active.id === "settings"
+        ? null
+        : el(
+            "section",
+            { class: "tabpanel", id: "tabpanel", role: "tabpanel", "aria-labelledby": `tab-${active.id}` },
+            active.content()
+          );
+    // Re-renderizar não pode tirar o cursor de um campo em edição (ex.: a busca).
+    const focused = document.activeElement && document.activeElement.id;
+    const sel = focused && "selectionStart" in document.activeElement ? [document.activeElement.selectionStart, document.activeElement.selectionEnd] : null;
+    $("tabbar").replaceChildren(nav);
+    $("content").replaceChildren(...(panel ? [panel] : []));
+    if (focused && focused !== "content") {
+      const again = document.getElementById(focused);
+      if (again && again !== document.body) {
+        again.focus();
+        if (sel && again.setSelectionRange) {
+          try {
+            again.setSelectionRange(sel[0], sel[1]);
+          } catch (_) {}
+        }
+      }
+    }
+  }
+
+  // ---------- aba Pesquisar ----------
+  const RATING_OPTIONS = ["", "0", "10", "12", "14", "16", "18"];
+  const watchIds = () => new Set(results.map((r) => r.seriesId));
+  const resultUrl = (r) =>
+    r.type === "movie"
+      ? `https://www.crunchyroll.com${prefix()}/search?q=${encodeURIComponent(r.title)}`
+      : `https://www.crunchyroll.com${prefix()}/series/${r.id}/${r.slug || ""}`;
+
+  async function anilistAllowed() {
+    if (!settings.anilist) return false;
+    try {
+      return await browser.permissions.contains({ data_collection: ["searchTerms"] });
+    } catch (_) {
+      return true; // Firefox sem permissões de coleta de dados: vale a opção
+    }
+  }
+
+  // Pede a permissão de enviar o texto da busca ao AniList (precisa de um clique).
+  async function enableAniList() {
+    let ok = true;
+    try {
+      ok = await browser.permissions.request({ data_collection: ["searchTerms"] });
+    } catch (_) {
+      ok = true;
+    }
+    settings.anilist = !!ok;
+    await saveSettings();
+    $("set-anilist").checked = settings.anilist;
+    return settings.anilist;
+  }
+
+  function loadSeasons() {
+    if (searchState.seasons || searchState.seasonsLoading) return;
+    searchState.seasonsLoading = true;
+    CRSearch.seasons(settings.locale)
+      .then((list) => (searchState.seasons = list))
+      .catch((err) => {
+        console.warn("[Novos Episódios]", err);
+        searchState.seasons = [];
+      })
+      .finally(() => {
+        searchState.seasonsLoading = false;
+        if (settings.tab === "search") render();
+      });
+  }
+
+  async function runSearch({ append = false } = {}) {
+    if (searchState.loading) return;
+    searchState.loading = true;
+    searchState.error = null;
+    if (!append) {
+      searchState.start = 0;
+      searchState.items = null;
+    }
+    render();
+    try {
+      const r = await CRSearch.run({
+        q: searchState.q,
+        filters: searchState.filters,
+        settings,
+        watchIds: watchIds(),
+        start: searchState.start,
+        useAniList: await anilistAllowed(),
+      });
+      searchState.items = append ? [...(searchState.items || []), ...r.items] : r.items;
+      searchState.more = r.more;
+      searchState.anilist = r.anilist;
+    } catch (err) {
+      console.error("[Novos Episódios]", err);
+      searchState.error = t("searchError", err.message || err);
+    } finally {
+      searchState.loading = false;
+      await CRApi.release();
+      render();
+    }
+  }
+
+  function resultCard(r) {
+    const s = { audios: { latest: r.audios, any: r.audios } };
+    const meta = [
+      r.type === "movie" ? t("searchMovie") : r.seasons ? tn("searchSeasons", r.seasons) : null,
+      r.year ? String(r.year) : null,
+    ].filter(Boolean);
+    return el(
+      "article",
+      { class: "result" },
+      el(
+        "a",
+        { class: "result-thumb", href: resultUrl(r), target: "_blank", rel: "noopener", tabindex: "-1", "aria-hidden": "true" },
+        r.image ? el("img", { src: r.image, alt: "", loading: "lazy" }) : null
+      ),
+      el(
+        "div",
+        { class: "result-info" },
+        el("a", { class: "series", href: resultUrl(r), target: "_blank", rel: "noopener", text: r.title, title: r.title }),
+        el(
+          "div",
+          { class: "result-tags" },
+          r.age == null ? null : el("span", { class: `age age-${r.age}`, text: r.age === 0 ? "L" : String(r.age), title: r.age === 0 ? t("ageFree") : t("ageMin", r.age) }),
+          dubBadge(s),
+          r.inWatchlist ? el("span", { class: "in-list", text: t("searchInList") }) : null
+        ),
+        meta.length ? el("small", { class: "result-meta", text: meta.join(" · ") }) : null
+      )
     );
-    $("content").replaceChildren(nav, panel);
+  }
+
+  function searchPanel() {
+    loadSeasons();
+    const st = searchState;
+    const f = st.filters;
+    const name = langName(settings.dubLang);
+    const opt = (v, label, cur) => el("option", { value: v, text: label, selected: String(cur) === String(v) || null });
+    const now = new Date().getFullYear();
+    const years = Array.from({ length: now + 1 - 1970 + 1 }, (_, i) => String(now + 1 - i));
+    const onFilter = (key) => (e) => {
+      f[key] = e.target.value;
+      runSearch();
+    };
+
+    const form = el(
+      "form",
+      {
+        class: "search-form",
+        role: "search",
+        onsubmit: (e) => {
+          e.preventDefault();
+          runSearch();
+        },
+      },
+      el(
+        "div",
+        { class: "search-line" },
+        el("input", {
+          id: "sq",
+          type: "search",
+          value: st.q,
+          placeholder: t("searchQueryPlaceholder"),
+          "aria-label": t("searchQueryPlaceholder"),
+          autocomplete: "off",
+          oninput: (e) => (st.q = e.target.value),
+        }),
+        el("button", { class: "btn", type: "submit", text: t("searchButton"), disabled: st.loading || null })
+      ),
+      el(
+        "div",
+        { class: "search-filters" },
+        el(
+          "label",
+          {},
+          el("span", { text: t("searchScope") }),
+          el("select", { id: "sf-scope", onchange: onFilter("scope") }, opt("all", t("searchScopeAll"), f.scope), opt("mine", t("searchScopeMine"), f.scope))
+        ),
+        el(
+          "label",
+          {},
+          el("span", { text: t("searchDub") }),
+          el(
+            "select",
+            { id: "sf-dub", onchange: onFilter("dub") },
+            opt("any", t("searchDubAny"), f.dub),
+            opt("dub", t("searchDubYes", name), f.dub),
+            opt("nodub", t("searchDubNo", name), f.dub)
+          )
+        ),
+        el(
+          "label",
+          {},
+          el("span", { text: t("searchAge") }),
+          el(
+            "select",
+            { id: "sf-age", onchange: onFilter("maxAge") },
+            RATING_OPTIONS.map((v) => opt(v, v === "" ? t("searchAgeAny") : v === "0" ? t("ageFree") : t("searchAgeUpTo", v), f.maxAge))
+          )
+        ),
+        el(
+          "label",
+          {},
+          el("span", { text: t("searchYear") }),
+          el("select", { id: "sf-year", onchange: onFilter("year") }, opt("", t("searchAny"), f.year), years.map((y) => opt(y, y, f.year)))
+        ),
+        el(
+          "label",
+          {},
+          el("span", { text: t("searchSeason") }),
+          el(
+            "select",
+            { id: "sf-season", onchange: onFilter("season"), disabled: !st.seasons || null },
+            opt("", st.seasons ? t("searchAny") : t("searchLoading"), f.season),
+            (st.seasons || []).map((s) => opt(s.id, s.title, f.season))
+          )
+        )
+      )
+    );
+
+    const parts = [form];
+    if (CRSearch.hasCJK(st.q) && st.anilist === "off") {
+      parts.push(
+        el(
+          "p",
+          { class: "notice-inline" },
+          el("span", { text: t("searchNeedAniList") }),
+          el("button", {
+            class: "btn ghost small",
+            type: "button",
+            text: t("searchEnableAniList"),
+            onclick: async () => {
+              if (await enableAniList()) runSearch();
+            },
+          })
+        )
+      );
+    } else if (st.anilist === "error") {
+      parts.push(el("p", { class: "notice-inline", text: t("searchAniListError") }));
+    }
+    if (f.scope === "mine" && !results.length) parts.push(el("p", { class: "empty", text: t("searchMineEmpty") }));
+
+    if (st.error) parts.push(el("div", { class: "error-box" }, el("p", { text: st.error })));
+    else if (st.items === null) {
+      parts.push(el("p", { class: "empty", text: st.loading ? t("searchLoading") : t("searchHint") }));
+    } else {
+      parts.push(el("p", { class: "result-count", text: tn("searchCount", st.items.length) }));
+      if (st.items.length) parts.push(el("div", { class: "results" }, st.items.map(resultCard)));
+      if (st.more) {
+        parts.push(
+          el("button", {
+            class: "btn ghost more-btn",
+            type: "button",
+            text: st.loading ? t("searchLoading") : t("searchMore"),
+            disabled: st.loading || null,
+            onclick: () => {
+              st.start += CRSearch.PAGE;
+              runSearch({ append: true });
+            },
+          })
+        );
+      } else if (st.loading) parts.push(el("p", { class: "empty", text: t("searchLoading") }));
+    }
+    return el("div", { class: "search" }, parts);
   }
 
   // "Ainda não começadas" em grupos pela temporada de lançamento (outono 2026,
@@ -492,6 +769,7 @@
         content: () => (never.length ? neverGroups(never) : el("p", { class: "empty", text: t("emptyNever") })),
       },
       { id: "errors", label: t("secErrors"), count: errors.length, content: () => rows(errors, (s) => s.error) },
+      { id: "search", label: t("secSearch"), count: null, always: true, content: searchPanel },
       {
         id: "hidden",
         label: t("secHidden"),
@@ -514,6 +792,7 @@
             )
           ),
       },
+      { id: "settings", label: t("btnSettings"), count: null, always: true, content: () => null },
     ]);
   }
 
@@ -647,11 +926,6 @@
     CRApi.setNoticeHandler(notice);
 
     $("btn-refresh").addEventListener("click", () => refresh(true));
-    $("btn-settings").addEventListener("click", () => {
-      const panel = $("settings");
-      panel.hidden = !panel.hidden;
-      $("btn-settings").setAttribute("aria-expanded", String(!panel.hidden));
-    });
     const onSetting = (key) => async (e) => {
       settings[key] = e.target.value;
       await saveSettings();
@@ -673,6 +947,13 @@
       settings.showExtras = e.target.checked;
       await saveSettings();
       refresh(false);
+    });
+    $("set-anilist").addEventListener("change", async (e) => {
+      if (e.target.checked) await enableAniList();
+      else {
+        settings.anilist = false;
+        await saveSettings();
+      }
     });
     $("set-skipped").addEventListener("change", async (e) => {
       settings.showSkipped = e.target.checked;
@@ -719,10 +1000,10 @@
 
     // Mostra na hora o último resultado conhecido enquanto atualiza.
     const last = await CRChecker.lastResults();
-    if (last && Array.isArray(last.results)) {
-      results = last.results;
-      render();
-    }
+    if (last && Array.isArray(last.results)) results = last.results;
+    // Sempre desenha as abas: mesmo sem resultado (ou se a verificação falhar), as
+    // Configurações e a Pesquisar ficam acessíveis.
+    render();
 
     refresh(false);
   }
