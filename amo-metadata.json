@@ -20,5 +20,11 @@
   },
   "tags": [
     "streaming"
-  ]
+  ],
+  "homepage": {
+    "en-US": "https://github.com/awmaximus/watchroll"
+  },
+  "support_url": {
+    "en-US": "https://github.com/awmaximus/watchroll/issues"
+  }
 }

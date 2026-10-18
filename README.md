@@ -1,9 +1,10 @@
 # Watchroll – New Episodes for Crunchyroll (Firefox)
 
-Watchroll is a Firefox extension, an anime episode tracker, with its own page that lists the
-episodes you haven't watched yet from the
-series in your Crunchyroll **Watchlist** and, optionally, your **Crunchylists**. It tells you
-when new ones come out.
+Watchroll is an anime episode tracker for Firefox. Its own page lists the episodes you haven't
+watched yet from the series in your Crunchyroll **Watchlist** and, optionally, your
+**Crunchylists**, and it tells you when new ones come out.
+
+Source code and issues: <https://github.com/awmaximus/watchroll>
 
 Unofficial. Not affiliated with or endorsed by Crunchyroll. It uses Crunchyroll's undocumented
 API with the session you already have open in Firefox, does not change the Crunchyroll site and
@@ -33,7 +34,7 @@ Requires Firefox 142 or later and a Crunchyroll account signed in in Firefox.
 
 ## Using the extension
 
-Click the extension icon in the toolbar to open the **New episodes** page. The last known result
+Click the Watchroll icon in the toolbar to open its page. The last known result
 appears immediately and is refreshed in the background. **Refresh** forces a full check.
 
 ### Tabs
@@ -222,9 +223,17 @@ Rules:
 **Temporary (for testing):** open `about:debugging#/runtime/this-firefox`, click **Load
 Temporary Add-on…** and pick `manifest.json`. It is removed when Firefox closes.
 
-**Permanent:** install a signed `.xpi` (see [Build](#build)), or, in Firefox Developer Edition
-or Nightly, set `xpinstall.signatures.required` to `false` in `about:config` and install the
-`.zip`.
+**From source:**
+
+```sh
+git clone https://github.com/awmaximus/watchroll.git
+cd watchroll
+./build.sh            # dist/watchroll-<version>.zip
+```
+
+**Permanent:** install the version published on addons.mozilla.org, or a signed `.xpi` (see
+[Build](#build)). In Firefox Developer Edition or Nightly you can also set
+`xpinstall.signatures.required` to `false` in `about:config` and install the `.zip`.
 
 ## Development
 
@@ -271,9 +280,11 @@ CRED
 chmod 600 .amo-credentials
 ```
 
-`--listed` sends the English store metadata in `amo-metadata.json` (summary, description,
-categories, license and notes for Mozilla's reviewers, without credentials); the `.xpi` becomes available after Mozilla's review. The store name and
-summary come from `_locales/en_US/messages.json` (the manifest's `default_locale`).
+`--listed` sends the store metadata in `amo-metadata.json`: summary and description in English
+and Portuguese, category, the `streaming` tag, license, homepage and support links, and notes for
+Mozilla's reviewers (without credentials). The `.xpi` becomes available after Mozilla's review.
+The store name and summary also come from `_locales/<code>/messages.json`, with English as the
+manifest's `default_locale`.
 
 Store search: addons.mozilla.org has no keyword field. Its search looks at the name, summary
 and description, plus a fixed list of tags (only `streaming` applies here). So the search terms
@@ -285,9 +296,10 @@ For the store listing, `store/screenshots/` has 1280×800 screenshots (English i
 fictional titles and generated artwork) and `PRIVACY.md` is the privacy policy to paste in the
 add-on's Developer Hub page. The listing icon is `icons/icon-128.png`.
 
-Bump `version` in both `manifest.json` and `package.json` for every release; AMO does not
-accept the same version twice. Never change the add-on ID
-(`crunchyroll-novos-eps@awmaximus.github.io`), or Firefox treats it as a different extension.
+Bump `version` in both `manifest.json` and `package.json` for every release (current: 1.0.0);
+AMO does not accept the same version twice. The add-on ID
+(`crunchyroll-novos-eps@awmaximus.github.io`) comes from before the rename and must stay as it
+is: changing it makes Firefox and AMO treat Watchroll as a different extension.
 
 ### Continuous integration
 
@@ -339,6 +351,13 @@ When something breaks, open the page's console (F12); messages start with `[Watc
 | HTTP 401 or 403 | authentication in `src/api.js` |
 | HTTP 404 or empty data | endpoint URLs in `src/api.js` |
 | Wrong episodes | `analyzeSeries()` in `src/analyzer.js` |
+
+## Contributing
+
+Bug reports and pull requests are welcome at <https://github.com/awmaximus/watchroll/issues>.
+Run `./build.sh` before sending a change; for a series that shows the wrong episodes, attach its
+diagnostics file (never a HAR or request copied from the developer tools, which contain your
+session).
 
 ## License
 

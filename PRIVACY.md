@@ -57,4 +57,5 @@ if you choose to send it to someone.
 ## Changes
 
 Changes to this policy will be published with new versions of the extension and on its page on
-addons.mozilla.org. Questions can be sent through that page.
+addons.mozilla.org. Questions can be sent through that page or at
+<https://github.com/awmaximus/watchroll/issues>.
