@@ -297,8 +297,9 @@ For the store listing, `store/screenshots/` has 1280×800 screenshots (English i
 fictional titles and generated artwork) and `PRIVACY.md` is the privacy policy to paste in the
 add-on's Developer Hub page. The listing icon is `icons/icon-128.png`.
 
-Bump `version` in both `manifest.json` and `package.json` for every release (current: 1.0.0);
-AMO does not accept the same version twice. The add-on ID
+Bump `version` in both `manifest.json` and `package.json` for every release (current: 1.0.1);
+AMO does not accept the same version twice, not even in different channels: `--sign` (unlisted)
+and `--sign --listed` each use up a version number, so run only the one you need. The add-on ID
 (`crunchyroll-novos-eps@awmaximus.github.io`) comes from before the rename and must stay as it
 is: changing it makes Firefox and AMO treat Watchroll as a different extension.
 

@@ -12,7 +12,7 @@ const placeholders = (entry) => (entry.message.match(/\$[A-Za-z0-9_@]+\$/g) || [
 const CODE = ["src/i18n.js", "src/api.js", "src/analyzer.js", "src/checker.js", "src/background.js", "dashboard/dashboard.js"];
 
 describe("arquivos de tradução", () => {
-  test("existem os idiomas obrigatórios (pt_BR é o padrão do manifesto)", () => {
+  test("existem os idiomas obrigatórios (en_US é o padrão do manifesto)", () => {
     for (const l of ["pt_BR", "pt_PT", "en_US", "es_ES"]) assert.ok(LOCALES.includes(l), l);
     assert.equal(JSON.parse(read("manifest.json")).default_locale, "en_US"); // metadados da loja em inglês
   });

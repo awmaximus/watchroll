@@ -198,7 +198,7 @@ if (( SIGN )); then
   WEB_EXT_API_KEY="$SIGN_KEY" WEB_EXT_API_SECRET="$SIGN_SECRET" \
     npx --yes "$WEB_EXT" sign --no-config-discovery --source-dir "$STAGE" \
     --artifacts-dir "$ARTIFACTS" --channel "$CHANNEL" ${META_ARGS[@]+"${META_ARGS[@]}"} ||
-    die "Falha ao assinar. Confira as credenciais e se a versão $VERSION já não foi enviada antes."
+    die "Falha ao assinar. Confira as credenciais. Se a Mozilla disse que a versão $VERSION já existe: ela não aceita repetir versão nem em outro canal (--sign e --sign --listed gastam um número cada); suba a versão no manifest.json e no package.json."
   signed="$(find "$ARTIFACTS" -maxdepth 1 -name '*.xpi' | head -n1)"
   if [[ -z "$signed" && "$CHANNEL" == listed ]]; then
     # Na loja pública a versão passa pela revisão da Mozilla antes de ser assinada.
