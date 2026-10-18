@@ -1,15 +1,15 @@
 {
   "extName": {
-    "message": "Episod Baharu untuk Crunchyroll"
+    "message": "Watchroll – Episod baharu untuk Crunchyroll"
   },
   "extDescription": {
-    "message": "Tidak rasmi. Halaman khas yang menyenaraikan episod yang belum anda tonton daripada siri dalam Senarai Tontonan Crunchyroll, mengikut pilihan sari kata atau alih suara."
+    "message": "Tidak rasmi. Penjejak anime untuk Crunchyroll: episod baharu daripada Senarai Tontonan dan Crunchylist, sari kata atau alih suara, kalendar tayangan, kira detik simulcast dan pemberitahuan episod baharu."
   },
   "actionTitle": {
-    "message": "Episod baharu untuk Crunchyroll"
+    "message": "Watchroll – Episod baharu untuk Crunchyroll"
   },
   "pageTitle": {
-    "message": "Episod baharu – Crunchyroll"
+    "message": "Watchroll – Episod baharu"
   },
   "heading": {
     "message": "Episod baharu"
@@ -577,7 +577,7 @@
     }
   },
   "badgeTitleNone": {
-    "message": "Episod baharu Crunchyroll: semua sudah ditonton"
+    "message": "Watchroll: semua sudah ditonton"
   },
   "notifTitle_one": {
     "message": "1 episod baharu"

@@ -1,15 +1,15 @@
 {
   "extName": {
-    "message": "Nuevos Episodios para Crunchyroll"
+    "message": "Watchroll – Nuevos episodios para Crunchyroll"
   },
   "extDescription": {
-    "message": "No oficial. Página propia con los episodios que aún no viste de las series de tu Lista en Crunchyroll, respetando si las ves subtituladas o dobladas."
+    "message": "No oficial. Rastreador de anime para Crunchyroll: nuevos episodios de tu Lista y Crunchylists, subtitulado o doblado, calendario de estrenos, simulcast y notificaciones de episodios nuevos."
   },
   "actionTitle": {
-    "message": "Nuevos episodios para Crunchyroll"
+    "message": "Watchroll – Nuevos episodios para Crunchyroll"
   },
   "pageTitle": {
-    "message": "Nuevos episodios – Crunchyroll"
+    "message": "Watchroll – Nuevos episodios"
   },
   "heading": {
     "message": "Nuevos episodios"
@@ -577,7 +577,7 @@
     }
   },
   "badgeTitleNone": {
-    "message": "Nuevos episodios de Crunchyroll: todo al día"
+    "message": "Watchroll: todo al día"
   },
   "notifTitle_one": {
     "message": "1 episodio nuevo"

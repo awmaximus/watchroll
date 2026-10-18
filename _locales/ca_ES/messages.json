@@ -1,15 +1,15 @@
 {
   "extName": {
-    "message": "Episodis nous per a Crunchyroll"
+    "message": "Watchroll – Episodis nous per a Crunchyroll"
   },
   "extDescription": {
-    "message": "No oficial. Pàgina pròpia amb els episodis que encara no has vist de les sèries de la teva llista de seguiment de Crunchyroll, tenint en compte si les mires subtitulades o doblades."
+    "message": "No oficial. Seguiment d'anime per a Crunchyroll: episodis nous de la teva llista i Crunchylists, subtitulats o doblats, calendari d'estrenes, simulcast i avisos d'episodis nous."
   },
   "actionTitle": {
-    "message": "Episodis nous per a Crunchyroll"
+    "message": "Watchroll – Episodis nous per a Crunchyroll"
   },
   "pageTitle": {
-    "message": "Episodis nous – Crunchyroll"
+    "message": "Watchroll – Episodis nous"
   },
   "heading": {
     "message": "Episodis nous"
@@ -577,7 +577,7 @@
     }
   },
   "badgeTitleNone": {
-    "message": "Episodis nous de Crunchyroll: tot al dia"
+    "message": "Watchroll: tot al dia"
   },
   "notifTitle_one": {
     "message": "1 episodi nou"

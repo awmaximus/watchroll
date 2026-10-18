@@ -1,15 +1,15 @@
 {
   "extName": {
-    "message": "Crunchyroll కోసం కొత్త ఎపిసోడ్‌లు"
+    "message": "Watchroll – Crunchyroll కోసం కొత్త ఎపిసోడ్‌లు"
   },
   "extDescription": {
-    "message": "అనధికారికం. Crunchyroll వాచ్‌లిస్ట్‌లోని సిరీస్‌లలో మీరు ఇంకా చూడని ఎపిసోడ్‌లను, సబ్‌టైటిల్ లేదా డబ్ మీ ఎంపిక ప్రకారం, ప్రత్యేక పేజీలో చూపిస్తుంది."
+    "message": "అనధికారికం. Crunchyroll కోసం అనిమే ట్రాకర్: వాచ్‌లిస్ట్, Crunchylists లోని కొత్త ఎపిసోడ్‌లు, సబ్ లేదా డబ్, విడుదల క్యాలెండర్, సిమల్‌కాస్ట్ కౌంట్‌డౌన్, కొత్త ఎపిసోడ్ నోటిఫికేషన్‌లు."
   },
   "actionTitle": {
-    "message": "Crunchyroll కోసం కొత్త ఎపిసోడ్‌లు"
+    "message": "Watchroll – Crunchyroll కోసం కొత్త ఎపిసోడ్‌లు"
   },
   "pageTitle": {
-    "message": "కొత్త ఎపిసోడ్‌లు – Crunchyroll"
+    "message": "Watchroll – కొత్త ఎపిసోడ్‌లు"
   },
   "heading": {
     "message": "కొత్త ఎపిసోడ్‌లు"
@@ -577,7 +577,7 @@
     }
   },
   "badgeTitleNone": {
-    "message": "Crunchyroll కొత్త ఎపిసోడ్‌లు: అన్నీ చూశారు"
+    "message": "Watchroll: అన్నీ చూశారు"
   },
   "notifTitle_one": {
     "message": "1 కొత్త ఎపిసోడ్"

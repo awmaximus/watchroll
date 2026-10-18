@@ -1,15 +1,15 @@
 {
   "extName": {
-    "message": "Crunchyroll-க்கான புதிய எபிசோடுகள்"
+    "message": "Watchroll – Crunchyroll-க்கான புதிய எபிசோடுகள்"
   },
   "extDescription": {
-    "message": "அதிகாரப்பூர்வமற்றது. Crunchyroll வாட்ச்லிஸ்டில் உள்ள தொடர்களில் நீங்கள் இன்னும் பார்க்காத எபிசோடுகளை, சப்டைட்டில் அல்லது டப் என்ற உங்கள் விருப்பப்படி, தனிப் பக்கத்தில் காட்டுகிறது."
+    "message": "அதிகாரப்பூர்வமற்றது. Crunchyroll-க்கான அனிமே டிராக்கர்: வாட்ச்லிஸ்ட், Crunchylists புதிய எபிசோடுகள், சப் அல்லது டப், வெளியீட்டு நாட்காட்டி, சிமுல்காஸ்ட் கவுண்ட்டவுன், புதிய எபிசோடு அறிவிப்புகள்."
   },
   "actionTitle": {
-    "message": "Crunchyroll-க்கான புதிய எபிசோடுகள்"
+    "message": "Watchroll – Crunchyroll-க்கான புதிய எபிசோடுகள்"
   },
   "pageTitle": {
-    "message": "புதிய எபிசோடுகள் – Crunchyroll"
+    "message": "Watchroll – புதிய எபிசோடுகள்"
   },
   "heading": {
     "message": "புதிய எபிசோடுகள்"
@@ -577,7 +577,7 @@
     }
   },
   "badgeTitleNone": {
-    "message": "Crunchyroll புதிய எபிசோடுகள்: அனைத்தும் பார்த்தாயிற்று"
+    "message": "Watchroll: அனைத்தும் பார்த்தாயிற்று"
   },
   "notifTitle_one": {
     "message": "1 புதிய எபிசோடு"

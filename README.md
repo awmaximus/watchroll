@@ -1,6 +1,7 @@
-# New Episodes for Crunchyroll (Firefox)
+# Watchroll – New Episodes for Crunchyroll (Firefox)
 
-A Firefox extension with its own page that lists the episodes you haven't watched yet from the
+Watchroll is a Firefox extension, an anime episode tracker, with its own page that lists the
+episodes you haven't watched yet from the
 series in your Crunchyroll **Watchlist** and, optionally, your **Crunchylists**. It tells you
 when new ones come out.
 
@@ -254,7 +255,7 @@ The script stops at the first failure. It:
 4. scans that folder for credentials (`user:123:45` keys, loaded key values, assignments like
    `API_SECRET="..."`) and aborts if it finds any;
 5. runs `web-ext lint` with warnings as errors;
-6. creates `dist/crunchyroll-novos-eps-<version>.zip` and, with `--sign`, uploads that same
+6. creates `dist/watchroll-<version>.zip` and, with `--sign`, uploads that same
    folder.
 
 Signing needs the **JWT issuer** and **JWT secret** from
@@ -273,6 +274,12 @@ chmod 600 .amo-credentials
 `--listed` sends the English store metadata in `amo-metadata.json` (summary, description,
 categories, license and notes for Mozilla's reviewers, without credentials); the `.xpi` becomes available after Mozilla's review. The store name and
 summary come from `_locales/en_US/messages.json` (the manifest's `default_locale`).
+
+Store search: addons.mozilla.org has no keyword field. Its search looks at the name, summary
+and description, plus a fixed list of tags (only `streaming` applies here). So the search terms
+(anime, episode tracker, new episodes, Watchlist, Crunchylists, sub/dub, release calendar,
+simulcast, notifications) are written into the localized names and summaries in `_locales/` and
+into the English and Portuguese descriptions in `amo-metadata.json`.
 
 For the store listing, `store/screenshots/` has 1280×800 screenshots (English interface,
 fictional titles and generated artwork) and `PRIVACY.md` is the privacy policy to paste in the
@@ -325,7 +332,7 @@ without tokens, cookies, or account or profile IDs. Prefer it over copying reque
 developer tools, which include your session. A diagnostics file can become a test with
 `apiFromDiagnostic()` from `tests/helpers.js`.
 
-When something breaks, open the page's console (F12); messages start with `[Novos Episódios]`.
+When something breaks, open the page's console (F12); messages start with `[Watchroll]`.
 
 | Symptom | Where to look |
 |---|---|

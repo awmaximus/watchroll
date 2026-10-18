@@ -1,15 +1,15 @@
 {
   "extName": {
-    "message": "حلقات جديدة لـ Crunchyroll"
+    "message": "Watchroll – حلقات جديدة لـ Crunchyroll"
   },
   "extDescription": {
-    "message": "غير رسمي. صفحة خاصة بالحلقات التي لم تشاهدها من المسلسلات في قائمة المشاهدة على Crunchyroll، حسب مشاهدتك مترجمًا أو مدبلجًا."
+    "message": "غير رسمي. متتبّع أنمي لـ Crunchyroll: الحلقات الجديدة من قائمة المشاهدة وقوائم Crunchylists، مترجمة أو مدبلجة، تقويم الإصدارات، عدّ تنازلي للبث المتزامن وإشعارات الحلقات الجديدة."
   },
   "actionTitle": {
-    "message": "حلقات جديدة لـ Crunchyroll"
+    "message": "Watchroll – حلقات جديدة لـ Crunchyroll"
   },
   "pageTitle": {
-    "message": "حلقات جديدة – Crunchyroll"
+    "message": "Watchroll – حلقات جديدة"
   },
   "heading": {
     "message": "حلقات جديدة"
@@ -577,7 +577,7 @@
     }
   },
   "badgeTitleNone": {
-    "message": "حلقات Crunchyroll الجديدة: شاهدت كل شيء"
+    "message": "Watchroll: شاهدت كل شيء"
   },
   "notifTitle_one": {
     "message": "حلقات جديدة: 1"

@@ -1,15 +1,15 @@
 {
   "extName": {
-    "message": "新着エピソード for Crunchyroll"
+    "message": "Watchroll – 新着エピソード for Crunchyroll"
   },
   "extDescription": {
-    "message": "非公式。Crunchyroll のウォッチリストにあるシリーズの未視聴エピソードを、字幕・吹き替えの好みに合わせて一覧表示する専用ページ。"
+    "message": "非公式。Crunchyroll 用アニメトラッカー:ウォッチリストとクランチリストの新着エピソード、字幕・吹き替え、配信カレンダー、同時配信のカウントダウン、新着通知。"
   },
   "actionTitle": {
-    "message": "新着エピソード for Crunchyroll"
+    "message": "Watchroll – 新着エピソード for Crunchyroll"
   },
   "pageTitle": {
-    "message": "新着エピソード – Crunchyroll"
+    "message": "Watchroll – 新着エピソード"
   },
   "heading": {
     "message": "新着エピソード"
@@ -577,7 +577,7 @@
     }
   },
   "badgeTitleNone": {
-    "message": "Crunchyroll の新着エピソード:すべて視聴済み"
+    "message": "Watchroll: すべて視聴済み"
   },
   "notifTitle_one": {
     "message": "新しいエピソード 1 話"

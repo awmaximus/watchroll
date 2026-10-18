@@ -1,15 +1,15 @@
 {
   "extName": {
-    "message": "ตอนใหม่สำหรับ Crunchyroll"
+    "message": "Watchroll – ตอนใหม่สำหรับ Crunchyroll"
   },
   "extDescription": {
-    "message": "ไม่เป็นทางการ หน้าเฉพาะที่แสดงตอนที่คุณยังไม่ได้ดูจากซีรีส์ในรายการที่จะดูของ Crunchyroll ตามที่คุณเลือกดูแบบซับหรือพากย์"
+    "message": "ไม่เป็นทางการ ตัวติดตามอนิเมะสำหรับ Crunchyroll: ตอนใหม่จากรายการที่จะดูและ Crunchylist ซับหรือพากย์ ปฏิทินออกอากาศ นับถอยหลังซิมัลคาสต์ และแจ้งเตือนตอนใหม่"
   },
   "actionTitle": {
-    "message": "ตอนใหม่สำหรับ Crunchyroll"
+    "message": "Watchroll – ตอนใหม่สำหรับ Crunchyroll"
   },
   "pageTitle": {
-    "message": "ตอนใหม่ – Crunchyroll"
+    "message": "Watchroll – ตอนใหม่"
   },
   "heading": {
     "message": "ตอนใหม่"
@@ -577,7 +577,7 @@
     }
   },
   "badgeTitleNone": {
-    "message": "ตอนใหม่ของ Crunchyroll: ดูครบแล้ว"
+    "message": "Watchroll: ดูครบแล้ว"
   },
   "notifTitle_one": {
     "message": "ตอนใหม่ 1 ตอน"

@@ -1,15 +1,15 @@
 {
   "extName": {
-    "message": "Episode Baru untuk Crunchyroll"
+    "message": "Watchroll – Episode baru untuk Crunchyroll"
   },
   "extDescription": {
-    "message": "Tidak resmi. Halaman khusus berisi episode yang belum kamu tonton dari seri di Daftar Tontonan Crunchyroll, sesuai pilihan subtitel atau dub."
+    "message": "Tidak resmi. Pelacak anime untuk Crunchyroll: episode baru dari Watchlist dan Crunchylist, sub atau dub, kalender rilis, hitung mundur simulcast, dan notifikasi episode baru."
   },
   "actionTitle": {
-    "message": "Episode baru untuk Crunchyroll"
+    "message": "Watchroll – Episode baru untuk Crunchyroll"
   },
   "pageTitle": {
-    "message": "Episode baru – Crunchyroll"
+    "message": "Watchroll – Episode baru"
   },
   "heading": {
     "message": "Episode baru"
@@ -577,7 +577,7 @@
     }
   },
   "badgeTitleNone": {
-    "message": "Episode baru Crunchyroll: semua sudah ditonton"
+    "message": "Watchroll: semua sudah ditonton"
   },
   "notifTitle_one": {
     "message": "1 episode baru"

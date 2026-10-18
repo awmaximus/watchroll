@@ -1,15 +1,15 @@
 {
   "extName": {
-    "message": "Crunchyroll کے لیے نئی اقساط"
+    "message": "Watchroll – Crunchyroll کے لیے نئی اقساط"
   },
   "extDescription": {
-    "message": "غیر سرکاری۔ Crunchyroll کی واچ لسٹ کی سیریز کی وہ اقساط جو آپ نے ابھی تک نہیں دیکھیں، سب ٹائٹل یا ڈب کی آپ کی پسند کے مطابق، ایک الگ صفحے پر۔"
+    "message": "غیر سرکاری۔ Crunchyroll کے لیے اینیمے ٹریکر: واچ لسٹ اور Crunchylists کی نئی اقساط، سب یا ڈب، ریلیز کیلنڈر، سیمل کاسٹ کاؤنٹ ڈاؤن اور نئی قسط کی اطلاعات۔"
   },
   "actionTitle": {
-    "message": "Crunchyroll کے لیے نئی اقساط"
+    "message": "Watchroll – Crunchyroll کے لیے نئی اقساط"
   },
   "pageTitle": {
-    "message": "نئی اقساط – Crunchyroll"
+    "message": "Watchroll – نئی اقساط"
   },
   "heading": {
     "message": "نئی اقساط"
@@ -577,7 +577,7 @@
     }
   },
   "badgeTitleNone": {
-    "message": "Crunchyroll کی نئی اقساط: سب دیکھ لیا"
+    "message": "Watchroll: سب دیکھ لیا"
   },
   "notifTitle_one": {
     "message": "1 نئی قسط"

@@ -1,15 +1,15 @@
 {
   "extName": {
-    "message": "Crunchyroll용 새 에피소드"
+    "message": "Watchroll – Crunchyroll용 새 에피소드"
   },
   "extDescription": {
-    "message": "비공식. Crunchyroll 관심 목록에 있는 시리즈 중 아직 보지 않은 에피소드를 자막·더빙 선택에 맞춰 보여 주는 전용 페이지."
+    "message": "비공식. Crunchyroll 애니메이션 트래커: 관심 목록과 크런치리스트의 새 에피소드, 자막 또는 더빙, 공개 일정, 동시 방영 카운트다운, 새 에피소드 알림."
   },
   "actionTitle": {
-    "message": "Crunchyroll용 새 에피소드"
+    "message": "Watchroll – Crunchyroll용 새 에피소드"
   },
   "pageTitle": {
-    "message": "새 에피소드 – Crunchyroll"
+    "message": "Watchroll – 새 에피소드"
   },
   "heading": {
     "message": "새 에피소드"
@@ -577,7 +577,7 @@
     }
   },
   "badgeTitleNone": {
-    "message": "Crunchyroll 새 에피소드: 모두 시청함"
+    "message": "Watchroll: 모두 시청함"
   },
   "notifTitle_one": {
     "message": "새 에피소드 1개"

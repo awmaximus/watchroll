@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build da extensão "Crunchyroll – Novos Episódios".
+# Build da extensão Watchroll.
 #
 # Uso:
 #   ./build.sh                 testes + lint + pacote .zip em dist/
@@ -77,7 +77,7 @@ ok "Node $(node --version)"
 # shellcheck disable=SC2016  # ${...} abaixo é template literal do JavaScript
 read -r NAME VERSION < <(node -e '
   const m = require("./manifest.json");
-  process.stdout.write(`${m.browser_specific_settings.gecko.id.split("@")[0]} ${m.version}\n`);
+  process.stdout.write(`${require("./package.json").name} ${m.version}\n`);
 ')
 PKG_VERSION="$(node -p 'require("./package.json").version')"
 [[ "$VERSION" == "$PKG_VERSION" ]] ||

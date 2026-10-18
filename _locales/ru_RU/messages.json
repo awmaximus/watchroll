@@ -1,15 +1,15 @@
 {
   "extName": {
-    "message": "Новые серии для Crunchyroll"
+    "message": "Watchroll – Новые серии для Crunchyroll"
   },
   "extDescription": {
-    "message": "Неофициальное. Отдельная страница с непросмотренными сериями из вашего списка Crunchyroll — с учётом того, смотрите вы с субтитрами или в озвучке."
+    "message": "Неофициальное. Трекер аниме для Crunchyroll: новые серии из списка «Смотреть позже» и Crunchylists, субтитры или озвучка, календарь выхода, симулкаст и уведомления о новых сериях."
   },
   "actionTitle": {
-    "message": "Новые серии для Crunchyroll"
+    "message": "Watchroll – Новые серии для Crunchyroll"
   },
   "pageTitle": {
-    "message": "Новые серии – Crunchyroll"
+    "message": "Watchroll – Новые серии"
   },
   "heading": {
     "message": "Новые серии"
@@ -577,7 +577,7 @@
     }
   },
   "badgeTitleNone": {
-    "message": "Новые серии Crunchyroll: всё просмотрено"
+    "message": "Watchroll: всё просмотрено"
   },
   "notifTitle_one": {
     "message": "Новых серий: 1"

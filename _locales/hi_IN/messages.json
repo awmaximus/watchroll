@@ -1,15 +1,15 @@
 {
   "extName": {
-    "message": "Crunchyroll के लिए नए एपिसोड"
+    "message": "Watchroll – Crunchyroll के लिए नए एपिसोड"
   },
   "extDescription": {
-    "message": "अनौपचारिक। Crunchyroll वॉचलिस्ट की सीरीज़ के वे एपिसोड जो आपने अभी तक नहीं देखे, सबटाइटल या डब की आपकी पसंद के अनुसार, एक अलग पेज पर।"
+    "message": "अनौपचारिक। Crunchyroll के लिए एनीमे ट्रैकर: वॉचलिस्ट और Crunchylists के नए एपिसोड, सब या डब, रिलीज़ कैलेंडर, सिमुलकास्ट काउंटडाउन और नए एपिसोड की सूचनाएँ।"
   },
   "actionTitle": {
-    "message": "Crunchyroll के लिए नए एपिसोड"
+    "message": "Watchroll – Crunchyroll के लिए नए एपिसोड"
   },
   "pageTitle": {
-    "message": "नए एपिसोड – Crunchyroll"
+    "message": "Watchroll – नए एपिसोड"
   },
   "heading": {
     "message": "नए एपिसोड"
@@ -577,7 +577,7 @@
     }
   },
   "badgeTitleNone": {
-    "message": "Crunchyroll के नए एपिसोड: सब देख लिया"
+    "message": "Watchroll: सब देख लिया"
   },
   "notifTitle_one": {
     "message": "1 नया एपिसोड"

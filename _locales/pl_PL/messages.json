@@ -1,15 +1,15 @@
 {
   "extName": {
-    "message": "Nowe odcinki dla Crunchyroll"
+    "message": "Watchroll – Nowe odcinki dla Crunchyroll"
   },
   "extDescription": {
-    "message": "Nieoficjalne. Osobna strona z odcinkami, których jeszcze nie obejrzałeś, z serii na Twojej liście obserwowanych w Crunchyroll, z uwzględnieniem, czy oglądasz z napisami, czy z dubbingiem."
+    "message": "Nieoficjalne. Tracker anime dla Crunchyroll: nowe odcinki z listy obserwowanych i Crunchylist, z napisami lub dubbingiem, kalendarz premier, simulcast i powiadomienia o nowych odcinkach."
   },
   "actionTitle": {
-    "message": "Nowe odcinki dla Crunchyroll"
+    "message": "Watchroll – Nowe odcinki dla Crunchyroll"
   },
   "pageTitle": {
-    "message": "Nowe odcinki – Crunchyroll"
+    "message": "Watchroll – Nowe odcinki"
   },
   "heading": {
     "message": "Nowe odcinki"
@@ -577,7 +577,7 @@
     }
   },
   "badgeTitleNone": {
-    "message": "Nowe odcinki w Crunchyroll: wszystko na bieżąco"
+    "message": "Watchroll: wszystko na bieżąco"
   },
   "notifTitle_one": {
     "message": "1 nowy odcinek"

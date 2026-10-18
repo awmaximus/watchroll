@@ -1,8 +1,8 @@
-# Privacy Policy – New Episodes for Crunchyroll
+# Privacy Policy – Watchroll
 
 Last updated: October 18, 2026
 
-New Episodes for Crunchyroll ("the extension") is an unofficial Firefox extension. It is not
+Watchroll – New Episodes for Crunchyroll ("the extension") is an unofficial Firefox extension. It is not
 affiliated with or endorsed by Crunchyroll.
 
 ## Summary

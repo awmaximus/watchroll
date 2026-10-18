@@ -71,7 +71,7 @@ describe("arquivos de tradução", () => {
   test("a página não tem texto fixo em português fora das traduções", () => {
     const html = read("dashboard/dashboard.html").replace(/<script[\s\S]*?<\/script>/g, "");
     const visible = html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
-    assert.equal(visible, "");
+    assert.equal(visible, "Watchroll"); // só o nome da extensão, que não se traduz
     assert.doesNotMatch(html, /(?<![-\w])(placeholder|aria-label|title)="[^"]*[A-Za-zÀ-ú]{3}/);
     // No JS da página, só comentários e o nome da extensão nos logs podem ter acento.
     const code = read("dashboard/dashboard.js")

@@ -185,7 +185,7 @@ var CRAnalyzer = (() => {
         throw err;
       }
     }
-    if (lastErr) console.warn("[Novos Episódios]", lastErr);
+    if (lastErr) console.warn("[Watchroll]", lastErr);
     return { id: candidates[0] || null, eps: [] };
   }
 
@@ -679,7 +679,7 @@ var CRAnalyzer = (() => {
     try {
       return await analyzeEntry(entry, mode, settings, CRApi, prefetchedSeasons);
     } catch (err) {
-      console.warn("[Novos Episódios]", entry.title, err);
+      console.warn("[Watchroll]", entry.title, err);
       return { ...entry, mode, status: "error", error: String(err.message || err), pending: [] };
     }
   }
@@ -715,7 +715,7 @@ var CRAnalyzer = (() => {
         pageSize: playheadBatchFrom(settings),
       });
     } catch (err) {
-      console.warn("[Novos Episódios] histórico indisponível, seguindo sem ele:", err);
+      console.warn("[Watchroll] histórico indisponível, seguindo sem ele:", err);
       return null;
     }
   }

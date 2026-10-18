@@ -1,15 +1,15 @@
 {
   "extName": {
-    "message": "Crunchyroll için Yeni Bölümler"
+    "message": "Watchroll – Crunchyroll için yeni bölümler"
   },
   "extDescription": {
-    "message": "Resmî değildir. Crunchyroll izleme listendeki dizilerin henüz izlemediğin bölümlerini, altyazılı mı dublajlı mı izlediğine göre gösteren ayrı bir sayfa."
+    "message": "Resmî değildir. Crunchyroll için anime takipçisi: izleme listesi ve Crunchylist'lerdeki yeni bölümler, altyazılı veya dublajlı, yayın takvimi, simulcast geri sayımı ve yeni bölüm bildirimleri."
   },
   "actionTitle": {
-    "message": "Crunchyroll için yeni bölümler"
+    "message": "Watchroll – Crunchyroll için yeni bölümler"
   },
   "pageTitle": {
-    "message": "Yeni bölümler – Crunchyroll"
+    "message": "Watchroll – Yeni bölümler"
   },
   "heading": {
     "message": "Yeni bölümler"
@@ -577,7 +577,7 @@
     }
   },
   "badgeTitleNone": {
-    "message": "Yeni Crunchyroll bölümleri: hepsi izlendi"
+    "message": "Watchroll: hepsi izlendi"
   },
   "notifTitle_one": {
     "message": "1 yeni bölüm"

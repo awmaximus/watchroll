@@ -1,15 +1,15 @@
 {
   "extName": {
-    "message": "新剧集 for Crunchyroll"
+    "message": "Watchroll – 新剧集 for Crunchyroll"
   },
   "extDescription": {
-    "message": "非官方。专属页面,列出 Crunchyroll 追番列表中尚未观看的剧集,并区分你看字幕版还是配音版。"
+    "message": "非官方。Crunchyroll 动画追番工具:追番列表和 Crunchylists 的新剧集,字幕或配音,上线日历,同步播出倒计时和新剧集通知。"
   },
   "actionTitle": {
-    "message": "新剧集 for Crunchyroll"
+    "message": "Watchroll – 新剧集 for Crunchyroll"
   },
   "pageTitle": {
-    "message": "新剧集 – Crunchyroll"
+    "message": "Watchroll – 新剧集"
   },
   "heading": {
     "message": "新剧集"
@@ -577,7 +577,7 @@
     }
   },
   "badgeTitleNone": {
-    "message": "Crunchyroll 新剧集:已全部追完"
+    "message": "Watchroll: 已全部追完"
   },
   "notifTitle_one": {
     "message": "1 集新剧集"

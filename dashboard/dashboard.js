@@ -135,7 +135,7 @@
         await saveSettings();
       }
     } catch (err) {
-      console.warn("[Novos Episódios]", err);
+      console.warn("[Watchroll]", err);
       listsState.error = err.message || String(err);
     } finally {
       listsState.loading = false;
@@ -286,7 +286,7 @@
       await saveSettings();
       location.reload(); // abre já com o idioma e as listas importadas
     } catch (err) {
-      console.warn("[Novos Episódios] import failed:", err);
+      console.warn("[Watchroll] import failed:", err);
       notice(t("importError", file.name)); // arquivo inválido ou de outro programa
     }
   }
@@ -736,7 +736,7 @@
     CRSearch.seasons(contentLocale())
       .then((list) => (searchState.seasons = list))
       .catch((err) => {
-        console.warn("[Novos Episódios]", err);
+        console.warn("[Watchroll]", err);
         searchState.seasons = [];
       })
       .finally(() => {
@@ -764,7 +764,7 @@
       searchState.items = r.items;
       searchState.anilist = r.anilist;
     } catch (err) {
-      console.error("[Novos Episódios]", err);
+      console.error("[Watchroll]", err);
       searchState.error = t("searchError", err.message || err);
     } finally {
       searchState.loading = false;
@@ -1147,7 +1147,7 @@
       showProfile();
       await loadLists();
     } catch (err) {
-      console.error("[Novos Episódios]", err);
+      console.error("[Watchroll]", err);
       $("status").textContent = "";
       $("content").replaceChildren(
         el(

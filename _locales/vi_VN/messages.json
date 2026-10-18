@@ -1,15 +1,15 @@
 {
   "extName": {
-    "message": "Tập mới cho Crunchyroll"
+    "message": "Watchroll – Tập mới cho Crunchyroll"
   },
   "extDescription": {
-    "message": "Không chính thức. Trang riêng liệt kê các tập bạn chưa xem của những bộ trong Danh sách theo dõi Crunchyroll, theo việc bạn xem phụ đề hay lồng tiếng."
+    "message": "Không chính thức. Trình theo dõi anime cho Crunchyroll: tập mới từ Danh sách theo dõi và Crunchylist, phụ đề hoặc lồng tiếng, lịch phát hành, đếm ngược simulcast và thông báo tập mới."
   },
   "actionTitle": {
-    "message": "Tập mới cho Crunchyroll"
+    "message": "Watchroll – Tập mới cho Crunchyroll"
   },
   "pageTitle": {
-    "message": "Tập mới – Crunchyroll"
+    "message": "Watchroll – Tập mới"
   },
   "heading": {
     "message": "Tập mới"
@@ -577,7 +577,7 @@
     }
   },
   "badgeTitleNone": {
-    "message": "Tập mới trên Crunchyroll: đã xem hết"
+    "message": "Watchroll: đã xem hết"
   },
   "notifTitle_one": {
     "message": "1 tập mới"

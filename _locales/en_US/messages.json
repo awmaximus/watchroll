@@ -1,15 +1,15 @@
 {
   "extName": {
-    "message": "New Episodes for Crunchyroll"
+    "message": "Watchroll – New episodes for Crunchyroll"
   },
   "extDescription": {
-    "message": "Unofficial. Lists unwatched episodes from your Crunchyroll Watchlist and Crunchylists, sub or dub, and alerts you to new ones."
+    "message": "Unofficial anime episode tracker for Crunchyroll: new episodes from your Watchlist and Crunchylists, sub or dub, release calendar, simulcast countdown and new episode notifications."
   },
   "actionTitle": {
-    "message": "New episodes for Crunchyroll"
+    "message": "Watchroll – New episodes for Crunchyroll"
   },
   "pageTitle": {
-    "message": "New episodes – Crunchyroll"
+    "message": "Watchroll – New episodes"
   },
   "heading": {
     "message": "New episodes"
@@ -578,7 +578,7 @@
     }
   },
   "badgeTitleNone": {
-    "message": "New Crunchyroll episodes: all caught up"
+    "message": "Watchroll: all caught up"
   },
   "notifTitle_one": {
     "message": "1 new episode"

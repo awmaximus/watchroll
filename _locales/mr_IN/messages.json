@@ -1,15 +1,15 @@
 {
   "extName": {
-    "message": "Crunchyroll साठी नवीन भाग"
+    "message": "Watchroll – Crunchyroll साठी नवीन भाग"
   },
   "extDescription": {
-    "message": "अनधिकृत. Crunchyroll वॉचलिस्टमधील मालिकांचे तुम्ही अजून न पाहिलेले भाग, सबटायटल की डब या तुमच्या निवडीनुसार, एका स्वतंत्र पानावर."
+    "message": "अनधिकृत. Crunchyroll साठी ॲनिमे ट्रॅकर: वॉचलिस्ट आणि Crunchylists मधील नवीन भाग, सब किंवा डब, प्रकाशन दिनदर्शिका, सिमुलकास्ट काउंटडाउन आणि नवीन भागांच्या सूचना."
   },
   "actionTitle": {
-    "message": "Crunchyroll साठी नवीन भाग"
+    "message": "Watchroll – Crunchyroll साठी नवीन भाग"
   },
   "pageTitle": {
-    "message": "नवीन भाग – Crunchyroll"
+    "message": "Watchroll – नवीन भाग"
   },
   "heading": {
     "message": "नवीन भाग"
@@ -577,7 +577,7 @@
     }
   },
   "badgeTitleNone": {
-    "message": "Crunchyroll चे नवीन भाग: सर्व पाहून झाले"
+    "message": "Watchroll: सर्व पाहून झाले"
   },
   "notifTitle_one": {
     "message": "1 नवीन भाग"

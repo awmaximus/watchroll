@@ -317,7 +317,7 @@ var CRChecker = (() => {
         return { ok: true, results, fresh };
       } catch (err) {
         // Sem sessão, sem aba para a ponte, offline...: tenta de novo no próximo alarme.
-        console.warn("[Novos Episódios] verificação automática falhou:", err);
+        console.warn("[Watchroll] verificação automática falhou:", err);
         return { ok: false, error: String(err.message || err) };
       } finally {
         if (api && api.release) await api.release();

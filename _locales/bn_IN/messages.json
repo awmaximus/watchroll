@@ -1,15 +1,15 @@
 {
   "extName": {
-    "message": "Crunchyroll-এর জন্য নতুন এপিসোড"
+    "message": "Watchroll – Crunchyroll-এর জন্য নতুন এপিসোড"
   },
   "extDescription": {
-    "message": "অনানুষ্ঠানিক। Crunchyroll ওয়াচলিস্টের সিরিজগুলোর যেসব পর্ব আপনি এখনও দেখেননি, সাবটাইটেল না ডাব — আপনার পছন্দ অনুযায়ী, একটি আলাদা পাতায়।"
+    "message": "অনানুষ্ঠানিক। Crunchyroll-এর জন্য অ্যানিমে ট্র্যাকার: ওয়াচলিস্ট ও Crunchylists-এর নতুন এপিসোড, সাব বা ডাব, রিলিজ ক্যালেন্ডার, সিমুলকাস্ট কাউন্টডাউন ও নতুন এপিসোডের বিজ্ঞপ্তি।"
   },
   "actionTitle": {
-    "message": "Crunchyroll-এর জন্য নতুন এপিসোড"
+    "message": "Watchroll – Crunchyroll-এর জন্য নতুন এপিসোড"
   },
   "pageTitle": {
-    "message": "নতুন পর্ব – Crunchyroll"
+    "message": "Watchroll – নতুন পর্ব"
   },
   "heading": {
     "message": "নতুন পর্ব"
@@ -577,7 +577,7 @@
     }
   },
   "badgeTitleNone": {
-    "message": "Crunchyroll-এর নতুন পর্ব: সব দেখা হয়েছে"
+    "message": "Watchroll: সব দেখা হয়েছে"
   },
   "notifTitle_one": {
     "message": "1টি নতুন পর্ব"

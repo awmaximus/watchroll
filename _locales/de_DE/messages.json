@@ -1,15 +1,15 @@
 {
   "extName": {
-    "message": "Neue Folgen für Crunchyroll"
+    "message": "Watchroll – Neue Folgen für Crunchyroll"
   },
   "extDescription": {
-    "message": "Inoffiziell. Eine eigene Seite mit den noch nicht gesehenen Folgen der Serien auf deiner Crunchyroll-Watchlist – je nachdem, ob du mit Untertiteln oder synchronisiert schaust."
+    "message": "Inoffiziell. Anime-Tracker für Crunchyroll: neue Folgen deiner Watchlist und Crunchylists, OmU oder Synchro, Veröffentlichungskalender, Simulcast und Benachrichtigungen bei neuen Folgen."
   },
   "actionTitle": {
-    "message": "Neue Folgen für Crunchyroll"
+    "message": "Watchroll – Neue Folgen für Crunchyroll"
   },
   "pageTitle": {
-    "message": "Neue Folgen – Crunchyroll"
+    "message": "Watchroll – Neue Folgen"
   },
   "heading": {
     "message": "Neue Folgen"
@@ -577,7 +577,7 @@
     }
   },
   "badgeTitleNone": {
-    "message": "Neue Crunchyroll-Folgen: alles aktuell"
+    "message": "Watchroll: alles aktuell"
   },
   "notifTitle_one": {
     "message": "1 neue Folge"
