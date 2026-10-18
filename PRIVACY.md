@@ -11,6 +11,7 @@ affiliated with or endorsed by Crunchyroll.
 - It only talks to Crunchyroll, using your own session, to read your lists and watch progress.
 - Everything it stores stays in your Firefox profile.
 - The only optional third party is AniList, and only if you turn that option on.
+- It does not run in private windows, so nothing from private browsing is read or stored.
 
 ## Data the extension reads
 

@@ -1,12 +1,12 @@
 {
   "extName": {
-    "message": "Crunchyroll 새 에피소드"
+    "message": "Crunchyroll용 새 에피소드"
   },
   "extDescription": {
     "message": "비공식. Crunchyroll 관심 목록에 있는 시리즈 중 아직 보지 않은 에피소드를 자막·더빙 선택에 맞춰 보여 주는 전용 페이지."
   },
   "actionTitle": {
-    "message": "Crunchyroll 새 에피소드"
+    "message": "Crunchyroll용 새 에피소드"
   },
   "pageTitle": {
     "message": "새 에피소드 – Crunchyroll"

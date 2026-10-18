@@ -38,6 +38,16 @@ function jwtProfile(token) {
   }
 }
 
+function looksLikeJwt(token) {
+  if (token.length > 8192 || !/^[\w-]+\.[\w-]+\.[\w-]*$/.test(token)) return false;
+  try {
+    const p = JSON.parse(atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")));
+    return !!p && typeof p === "object";
+  } catch (_) {
+    return false;
+  }
+}
+
 function jwtExp(token) {
   try {
     const p = JSON.parse(atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")));
@@ -48,8 +58,11 @@ function jwtExp(token) {
 
 browser.runtime.onMessage.addListener((msg, sender) => {
   if (msg && msg.type === "crnovos-token" && typeof msg.token === "string") {
-    // Só aceita vindo de uma aba da Crunchyroll.
+    // Só aceita vindo de uma aba normal (não privativa) da Crunchyroll, e só um
+    // JWT legível: outro script da página poderia disparar o mesmo evento.
     if (!sender.url || !sender.url.startsWith("https://www.crunchyroll.com/")) return;
+    if (sender.tab && sender.tab.incognito) return;
+    if (!looksLikeJwt(msg.token)) return;
     const profile = jwtProfile(msg.token);
     return Promise.all([
       browser.storage.session.set({ crToken: { token: msg.token, exp: jwtExp(msg.token), at: Date.now() } }),

@@ -207,6 +207,10 @@ Rules:
 - The page calls the API directly. If Cloudflare blocks it, requests go through a
   crunchyroll.com tab via `src/bridge.js`; if none is open, one is opened in the background and
   closed afterwards (never during background checks).
+- The background only accepts a token from a normal (non-private) crunchyroll.com tab, and
+  only if it is a readable JWT.
+- The extension does not run in private windows (`"incognito": "not_allowed"`), so nothing from
+  private browsing is stored.
 - Nothing is sent to third parties, except Advanced Search text to AniList when you enable it.
   See [PRIVACY.md](PRIVACY.md).
 
@@ -265,7 +269,7 @@ chmod 600 .amo-credentials
 ```
 
 `--listed` sends the English store metadata in `amo-metadata.json` (summary, description,
-categories, license); the `.xpi` becomes available after Mozilla's review. The store name and
+categories, license and notes for Mozilla's reviewers, without credentials); the `.xpi` becomes available after Mozilla's review. The store name and
 summary come from `_locales/en_US/messages.json` (the manifest's `default_locale`).
 
 For the store listing, `store/screenshots/` has 1280×800 screenshots (English interface,

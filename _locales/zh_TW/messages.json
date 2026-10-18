@@ -1,12 +1,12 @@
 {
   "extName": {
-    "message": "Crunchyroll 新劇集助手"
+    "message": "新劇集 for Crunchyroll"
   },
   "extDescription": {
     "message": "非官方。專屬頁面,列出 Crunchyroll 追番清單中尚未觀看的劇集,並區分你看字幕版還是配音版。"
   },
   "actionTitle": {
-    "message": "Crunchyroll 新劇集助手"
+    "message": "新劇集 for Crunchyroll"
   },
   "pageTitle": {
     "message": "新劇集 – Crunchyroll"

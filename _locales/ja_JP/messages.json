@@ -1,12 +1,12 @@
 {
   "extName": {
-    "message": "Crunchyroll 新着エピソード"
+    "message": "新着エピソード for Crunchyroll"
   },
   "extDescription": {
     "message": "非公式。Crunchyroll のウォッチリストにあるシリーズの未視聴エピソードを、字幕・吹き替えの好みに合わせて一覧表示する専用ページ。"
   },
   "actionTitle": {
-    "message": "Crunchyroll 新着エピソード"
+    "message": "新着エピソード for Crunchyroll"
   },
   "pageTitle": {
     "message": "新着エピソード – Crunchyroll"
