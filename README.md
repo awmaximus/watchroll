@@ -139,10 +139,11 @@ usuários renovam o tempo todo.
 
 ## Idiomas
 
-A interface está nos 20 idiomas mais falados do mundo, mais o italiano: Português, Português
-(Portugal), English, Español (España), Español (Latinoamérica), Français, Deutsch, Italiano,
-日本語, 简体中文, 繁體中文, 한국어, हिन्दी, বাংলা, मराठी, తెలుగు, தமிழ், اردو, العربية, Русский,
-Türkçe, Bahasa Indonesia e Tiếng Việt. O pidgin nigeriano, que também está entre os 20, não
+A interface está nos 20 idiomas mais falados do mundo, mais os demais idiomas de interface do
+Crunchyroll: Português, Português (Portugal), English, Español (España), Español
+(Latinoamérica), Français, Deutsch, Italiano, Català, Polski, 日本語, 简体中文, 繁體中文, 한국어,
+हिन्दी, বাংলা, मराठी, తెలుగు, தமிழ், اردو, العربية, Русский, Türkçe, Bahasa Indonesia, Bahasa
+Melayu, ไทย e Tiếng Việt. No seletor, cada idioma aparece escrito nele mesmo. O pidgin nigeriano, que também está entre os 20, não
 tem código de idioma no Firefox nem escrita padronizada; no lugar dele entrou o coreano.
 Árabe e urdu são exibidos da direita para a esquerda.
 

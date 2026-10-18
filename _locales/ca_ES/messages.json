@@ -1,0 +1,885 @@
+{
+  "extName": {
+    "message": "Crunchyroll – Episodis nous"
+  },
+  "extDescription": {
+    "message": "Pàgina pròpia amb els episodis que encara no has vist de les sèries de la teva llista de seguiment de Crunchyroll, tenint en compte si les mires subtitulades o doblades."
+  },
+  "actionTitle": {
+    "message": "Episodis nous de Crunchyroll"
+  },
+  "pageTitle": {
+    "message": "Episodis nous – Crunchyroll"
+  },
+  "heading": {
+    "message": "Episodis nous"
+  },
+  "btnSettings": {
+    "message": "Configuració"
+  },
+  "btnRefresh": {
+    "message": "Actualitza"
+  },
+  "versionLabel": {
+    "message": "versió $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "Configuració"
+  },
+  "setDubLabel": {
+    "message": "Idioma del doblatge que mires"
+  },
+  "setDubHelp": {
+    "message": "Les sèries en mode «doblat» només apareixen quan ha sortit el doblatge en aquest idioma."
+  },
+  "setSubLabel": {
+    "message": "Idioma dels subtítols"
+  },
+  "setSubHelp": {
+    "message": "Les sèries en mode «subtitulat» només apareixen quan ja hi ha subtítols en aquest idioma."
+  },
+  "setModeLabel": {
+    "message": "Mode per defecte de les sèries"
+  },
+  "setModeHelp": {
+    "message": "S'aplica a les sèries que no has configurat individualment."
+  },
+  "setLocaleLabel": {
+    "message": "Idioma dels títols i enllaços"
+  },
+  "setAutoLabel": {
+    "message": "Comprovació automàtica"
+  },
+  "setAutoHelp": {
+    "message": "Actualitza el número de la icona de l'extensió en segon pla. Cal una pestanya de crunchyroll.com oberta si l'accés directe està bloquejat."
+  },
+  "setNotifyLabel": {
+    "message": "Avisa'm quan hi hagi episodis nous"
+  },
+  "setExtrasLabel": {
+    "message": "Mostra especials i resums (no compten)"
+  },
+  "setSkippedLabel": {
+    "message": "Mostra episodis saltats (anteriors a l'últim que has vist)"
+  },
+  "setMinStartedLabel": {
+    "message": "Compta com a començat a partir de (segons)"
+  },
+  "setMinStartedHelp": {
+    "message": "Crunchyroll registra uns quants segons només per obrir la pàgina de l'episodi. Els registres inferiors a això s'ignoren. Entre 0 i 600."
+  },
+  "setConcurrencyLabel": {
+    "message": "Sèries comprovades alhora"
+  },
+  "setConcurrencyHelp": {
+    "message": "Com més alt, més ràpid. Si apareixen errors de «massa sol·licituds» (HTTP 429), redueix-lo. Entre 1 i 32."
+  },
+  "setPlayheadBatchLabel": {
+    "message": "Mida del lot"
+  },
+  "setPlayheadBatchHelp": {
+    "message": "Quants episodis entren a cada consulta de progrés (playheads) i quants elements per pàgina a la llista de seguiment i a l'historial. Lots més grans fan menys sol·licituds. Si la comprovació comença a fallar, redueix-lo. Entre 10 i 300."
+  },
+  "searchPlaceholder": {
+    "message": "Cerca una sèrie…"
+  },
+  "searchAria": {
+    "message": "Cerca sèries pel títol"
+  },
+  "sortLabel": {
+    "message": "Ordena per"
+  },
+  "modeSub": {
+    "message": "Subtitulat"
+  },
+  "modeDub": {
+    "message": "Doblat"
+  },
+  "modeAuto": {
+    "message": "Qualsevol àudio"
+  },
+  "modeAutoLong": {
+    "message": "Qualsevol àudio (avisa a la primera estrena)"
+  },
+  "modeDubLang": {
+    "message": "Doblat $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeDefault": {
+    "message": "Per defecte ($P1$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortSub": {
+    "message": "subtitulat"
+  },
+  "shortDub": {
+    "message": "doblat $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortAuto": {
+    "message": "qualsevol àudio"
+  },
+  "modeAria": {
+    "message": "Àudio de $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeTitle": {
+    "message": "Com mires aquesta sèrie"
+  },
+  "autoOff": {
+    "message": "Desactivada"
+  },
+  "autoMinutes": {
+    "message": "Cada $P1$ minuts",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "autoHour": {
+    "message": "Cada hora"
+  },
+  "autoHours": {
+    "message": "Cada $P1$ hores",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "epMovie": {
+    "message": "Pel·lícula"
+  },
+  "epLabel": {
+    "message": "T$P1$ E$P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "relNow": {
+    "message": "fa poc"
+  },
+  "relHours": {
+    "message": "fa $P1$ h",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "relYesterday": {
+    "message": "ahir"
+  },
+  "relDays": {
+    "message": "fa $P1$ dies",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futToday": {
+    "message": "avui a les $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futTomorrow": {
+    "message": "demà a les $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futDays": {
+    "message": "d'aquí a $P1$ dies ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "nextText": {
+    "message": "Següent: $P1$ $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "watchedPct": {
+    "message": "$P1$% vist",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "watchNext": {
+    "message": "Mira el següent"
+  },
+  "tagRecap": {
+    "message": "resum"
+  },
+  "tagSpecial": {
+    "message": "especial"
+  },
+  "tagSkipped": {
+    "message": "saltat"
+  },
+  "badgeContinue": {
+    "message": "Continua"
+  },
+  "badgeMovie": {
+    "message": "Pel·lícula"
+  },
+  "badgeNew_one": {
+    "message": "1 nou"
+  },
+  "badgeNew_other": {
+    "message": "$P1$ nous",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSkipped_one": {
+    "message": "1 saltat"
+  },
+  "badgeSkipped_other": {
+    "message": "$P1$ saltats",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSpecial_one": {
+    "message": "1 especial"
+  },
+  "badgeSpecial_other": {
+    "message": "$P1$ especials",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "moreEps_one": {
+    "message": "+ 1 episodi"
+  },
+  "moreEps_other": {
+    "message": "+ $P1$ episodis",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitDub": {
+    "message": "+$P1$ esperant el doblatge",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitSub": {
+    "message": "+$P1$ esperant subtítols",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsAria": {
+    "message": "Accions per a $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsTitle": {
+    "message": "Accions"
+  },
+  "actDiag": {
+    "message": "Exporta diagnòstic"
+  },
+  "actShow": {
+    "message": "Torna a mostrar"
+  },
+  "actHideNew": {
+    "message": "Amaga fins a un episodi nou"
+  },
+  "actHideWeek": {
+    "message": "Amaga durant 1 setmana"
+  },
+  "actHideForever": {
+    "message": "Amaga sempre"
+  },
+  "hiddenUntil": {
+    "message": "amagada fins al $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hiddenUntilNew": {
+    "message": "amagada fins a un episodi nou"
+  },
+  "hiddenForever": {
+    "message": "amagada sempre"
+  },
+  "epsCount_one": {
+    "message": "1 episodi"
+  },
+  "epsCount_other": {
+    "message": "$P1$ episodis",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "seriesCount_one": {
+    "message": "1 sèrie"
+  },
+  "seriesCount_other": {
+    "message": "$P1$ sèries",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusEps": {
+    "message": "$P1$ en $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "statusElapsed": {
+    "message": " · actualitzat en $S$ s",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusAllCaught": {
+    "message": "Ho tens tot al dia"
+  },
+  "secToWatch": {
+    "message": "Per mirar"
+  },
+  "emptySearch": {
+    "message": "No s'ha trobat cap sèrie aquí."
+  },
+  "emptyToWatch": {
+    "message": "No hi ha episodis nous a les sèries que has començat."
+  },
+  "secWaitDub": {
+    "message": "Esperant el doblatge"
+  },
+  "noteWaitDub_one": {
+    "message": "1 episodi ja disponible subtitulat"
+  },
+  "noteWaitDub_other": {
+    "message": "$P1$ episodis ja disponibles subtitulats",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secWaitSub": {
+    "message": "Esperant subtítols en $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteWaitSub_one": {
+    "message": "1 episodi ja publicat sense aquest subtítol"
+  },
+  "noteWaitSub_other": {
+    "message": "$P1$ episodis ja publicats sense aquest subtítol",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secNoDub": {
+    "message": "Sense doblatge en $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoDub_one": {
+    "message": "aquesta temporada no té doblatge en $P2$ · 1 episodi disponible subtitulat",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoDub_other": {
+    "message": "aquesta temporada no té doblatge en $P2$ · $P1$ episodis disponibles subtitulats",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeSubbed": {
+    "message": "Mira-la subtitulada"
+  },
+  "btnSeeSubbedTitle": {
+    "message": "Canvia aquesta sèrie al mode subtitulat"
+  },
+  "secErrors": {
+    "message": "No s'han pogut comprovar"
+  },
+  "secUpToDate": {
+    "message": "Al dia"
+  },
+  "noteNoDubSeason": {
+    "message": "aquesta temporada no té doblatge en $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secNever": {
+    "message": "Per començar"
+  },
+  "secHidden": {
+    "message": "Amagades"
+  },
+  "btnShow": {
+    "message": "Mostra"
+  },
+  "progressChecking": {
+    "message": "Comprovant $P1$ de $P2$ sèries…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "progressReading": {
+    "message": "Llegint la teva llista de seguiment…"
+  },
+  "errorQuery": {
+    "message": "No s'ha pogut consultar Crunchyroll: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errorHint": {
+    "message": "Comprova que has iniciat sessió a crunchyroll.com i fes clic a Actualitza."
+  },
+  "diagSaved": {
+    "message": "Diagnòstic de «$P1$» desat. No conté tokens, galetes ni dades del compte.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagError": {
+    "message": "No s'ha pogut generar el diagnòstic: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagFile": {
+    "message": "diagnostic"
+  },
+  "profileLabel": {
+    "message": " · perfil $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "sortReleased": {
+    "message": "Estrena més recent"
+  },
+  "sortWatched": {
+    "message": "Vista recentment"
+  },
+  "sortCount": {
+    "message": "Més episodis"
+  },
+  "sortTitle": {
+    "message": "Títol (A–Z)"
+  },
+  "badgeTitleSome": {
+    "message": "Episodis nous: $P1$ en $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "badgeTitleNone": {
+    "message": "Episodis nous de Crunchyroll: tot al dia"
+  },
+  "notifTitle_one": {
+    "message": "1 episodi nou"
+  },
+  "notifTitle_other": {
+    "message": "$P1$ episodis nous",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMore": {
+    "message": "+ $P1$ sèries més",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMovie": {
+    "message": "pel·lícula"
+  },
+  "noticeOpeningTab": {
+    "message": "Obrint crunchyroll.com en segon pla per fer servir la teva sessió…"
+  },
+  "noticeProxy": {
+    "message": "Accés directe bloquejat; s'està fent servir la pestanya de crunchyroll.com."
+  },
+  "noticeOtherProfile": {
+    "message": "La sessió activa és d'un altre perfil del compte. Obre crunchyroll.com amb el perfil que fas servir i fes clic a Actualitza."
+  },
+  "noticeSlowDown": {
+    "message": "Crunchyroll ha demanat anar més a poc a poc; es tornarà a provar d'aquí a $P1$ s…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errTabTimeout": {
+    "message": "La pestanya de Crunchyroll ha trigat massa a carregar."
+  },
+  "errTabNoAnswer": {
+    "message": "La pestanya de Crunchyroll no ha respost."
+  },
+  "errNoTab": {
+    "message": "No hi ha cap pestanya de crunchyroll.com oberta per fer servir la teva sessió."
+  },
+  "errAuth": {
+    "message": "No s'ha pogut autenticar (HTTP $P1$). Comprova que has iniciat sessió a crunchyroll.com.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errHttp": {
+    "message": "HTTP $P1$ a $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "errAccount": {
+    "message": "No s'ha trobat l'identificador del teu compte."
+  },
+  "dubYes": {
+    "message": "Té doblatge en $L$",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubOld": {
+    "message": "Doblatge en $L$ només en temporades anteriors",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubNo": {
+    "message": "Sense doblatge en $L$",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "tabsAria": {
+    "message": "Seccions"
+  },
+  "seasonWinter": {
+    "message": "Hivern"
+  },
+  "seasonSpring": {
+    "message": "Primavera"
+  },
+  "seasonSummer": {
+    "message": "Estiu"
+  },
+  "seasonFall": {
+    "message": "Tardor"
+  },
+  "seasonUnknown": {
+    "message": "Sense temporada indicada"
+  },
+  "emptyNever": {
+    "message": "Ja has començat totes les sèries de la teva llista."
+  },
+  "seasonLabel": {
+    "message": "$S$ $Y$",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      },
+      "y": {
+        "content": "$2"
+      }
+    }
+  },
+  "secSearch": {
+    "message": "Cerca avançada"
+  },
+  "searchQueryPlaceholder": {
+    "message": "Nom de l'anime (català, anglès, romaji o japonès)"
+  },
+  "searchButton": {
+    "message": "Cerca"
+  },
+  "searchScope": {
+    "message": "Cerca a"
+  },
+  "searchScopeAll": {
+    "message": "Tot el catàleg"
+  },
+  "searchScopeMine": {
+    "message": "Només la meva llista"
+  },
+  "searchDub": {
+    "message": "Doblatge"
+  },
+  "searchDubAny": {
+    "message": "Qualsevol àudio"
+  },
+  "searchDubYes": {
+    "message": "Amb doblatge en $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchDubNo": {
+    "message": "Sense doblatge en $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAge": {
+    "message": "Classificació per edats"
+  },
+  "searchAgeAny": {
+    "message": "Totes"
+  },
+  "searchAgeUpTo": {
+    "message": "Fins a $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "ageFree": {
+    "message": "Per a tots els públics"
+  },
+  "ageMin": {
+    "message": "No recomanat per a menors de $P1$ anys",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchYear": {
+    "message": "Any d'estrena"
+  },
+  "searchAny": {
+    "message": "Qualsevol"
+  },
+  "searchSeason": {
+    "message": "Temporada"
+  },
+  "searchLoading": {
+    "message": "Carregant…"
+  },
+  "searchNeedAniList": {
+    "message": "La cerca de Crunchyroll no entén noms en japonès. Si actives l'AniList, el text de la cerca s'envia a l'AniList per trobar el títol."
+  },
+  "searchEnableAniList": {
+    "message": "Activa l'AniList"
+  },
+  "searchAniListError": {
+    "message": "Ara no s'ha pogut consultar l'AniList; els resultats només són de la cerca de Crunchyroll."
+  },
+  "searchMineEmpty": {
+    "message": "Encara no s'ha llegit la teva llista de seguiment. Fes clic a Actualitza i torna-ho a provar."
+  },
+  "searchError": {
+    "message": "No s'ha pogut cercar: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchHint": {
+    "message": "Escriu un nom o tria filtres. Sense nom, la cerca recorre el catàleg de Crunchyroll (o la temporada triada)."
+  },
+  "searchMore": {
+    "message": "Carrega'n més"
+  },
+  "searchMovie": {
+    "message": "Pel·lícula"
+  },
+  "searchInList": {
+    "message": "A la teva llista"
+  },
+  "setAniListLabel": {
+    "message": "Cerca també noms en japonès i romaji (envia el text de la cerca a l'AniList)"
+  },
+  "searchCount_one": {
+    "message": "1 resultat"
+  },
+  "searchCount_other": {
+    "message": "$P1$ resultats",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSeasons_one": {
+    "message": "1 temporada"
+  },
+  "searchSeasons_other": {
+    "message": "$P1$ temporades",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSort": {
+    "message": "Ordena per"
+  },
+  "searchSortDefault": {
+    "message": "Ordre de Crunchyroll"
+  },
+  "searchSortYear": {
+    "message": "Estrena més recent"
+  },
+  "searchSortTitle": {
+    "message": "Títol (A–Z)"
+  },
+  "searchLoadingCatalog": {
+    "message": "Baixant el catàleg de Crunchyroll (només la primera vegada, uns segons)…"
+  },
+  "sortWaiting": {
+    "message": "Més episodis en espera"
+  },
+  "sortNext": {
+    "message": "Propera estrena"
+  },
+  "sortSeason": {
+    "message": "Temporada d'estrena"
+  },
+  "uiLangAuto": {
+    "message": "Automàtic (idioma del navegador)"
+  },
+  "setUiLangLabel": {
+    "message": "Idioma de l'extensió"
+  },
+  "setUiLangHelp": {
+    "message": "«Automàtic» fa servir el mateix idioma que el Firefox."
+  }
+}

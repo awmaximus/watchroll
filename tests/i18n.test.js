@@ -190,6 +190,7 @@ describe("escolha do idioma", () => {
     assert.equal(I.resolve("es-419"), "es_419");
     assert.equal(I.resolve("en-GB"), "en_US");
     assert.equal(I.resolve("sw"), "en_US", "idioma sem tradução cai no inglês");
+    for (const [tag, f] of [["ms-MY", "ms_MY"], ["ms", "ms_MY"], ["th", "th_TH"], ["ca-ES", "ca_ES"], ["ca", "ca_ES"], ["pl-PL", "pl_PL"]]) assert.equal(I.resolve(tag), f, tag);
     assert.equal(I.resolve("zh-CN"), "zh_CN");
     assert.equal(I.resolve("zh"), "zh_CN");
     assert.equal(I.resolve("zh-SG"), "zh_CN");

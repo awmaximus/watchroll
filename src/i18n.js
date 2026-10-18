@@ -42,6 +42,10 @@ var CRI18n = (() => {
     tr_TR: "Türkçe",
     id_ID: "Bahasa Indonesia",
     vi_VN: "Tiếng Việt",
+    ms_MY: "Bahasa Melayu",
+    th_TH: "ไทย",
+    ca_ES: "Català",
+    pl_PL: "Polski",
   };
   // Idiomas escritos da direita para a esquerda.
   const RTL = new Set(["ar_SA", "ur_PK"]);
