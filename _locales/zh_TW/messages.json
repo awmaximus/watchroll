@@ -456,12 +456,7 @@
     }
   },
   "secNoDub": {
-    "message": "無 $P1$ 配音",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "無配音"
   },
   "noteNoDub_one": {
     "message": "本季無 $P2$ 配音 · 有 1 集字幕版可看",

@@ -456,12 +456,7 @@
     }
   },
   "secNoDub": {
-    "message": "$P1$ ডাব নেই",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "ডাব নেই"
   },
   "noteNoDub_one": {
     "message": "চলতি সিজনে $P2$ ডাব নেই · দেখার মতো 1টি সাবটাইটেল পর্ব",

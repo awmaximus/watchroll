@@ -456,12 +456,7 @@
     }
   },
   "secNoDub": {
-    "message": "$P1$ डब नाही",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "डब नाही"
   },
   "noteNoDub_one": {
     "message": "सध्याच्या सीझनमध्ये $P2$ डब नाही · पाहण्यासाठी 1 सबटायटल भाग",

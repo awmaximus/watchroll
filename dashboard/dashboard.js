@@ -747,7 +747,7 @@
       },
       {
         id: "noDub",
-        label: t("secNoDub", langName(settings.dubLang)),
+        label: t("secNoDub"),
         count: noDub.length,
         content: () =>
           el(

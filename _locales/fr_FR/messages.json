@@ -456,12 +456,7 @@
     }
   },
   "secNoDub": {
-    "message": "Sans doublage en $P1$",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "Sans doublage"
   },
   "noteNoDub_one": {
     "message": "Saison actuelle sans doublage $P2$ · 1 épisode sous-titré à voir",

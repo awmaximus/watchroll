@@ -456,12 +456,7 @@
     }
   },
   "secNoDub": {
-    "message": "$P1$ டப் இல்லை",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "டப் இல்லை"
   },
   "noteNoDub_one": {
     "message": "தற்போதைய சீசனில் $P2$ டப் இல்லை · பார்க்க 1 சப்டைட்டில் எபிசோடு",

@@ -456,12 +456,7 @@
     }
   },
   "secNoDub": {
-    "message": "Keine $P1$-Synchro",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "Keine Synchro"
   },
   "noteNoDub_one": {
     "message": "Aktuelle Staffel ohne $P2$-Synchro · 1 untertitelte Folge zum Anschauen",

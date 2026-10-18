@@ -456,12 +456,7 @@
     }
   },
   "secNoDub": {
-    "message": "بلا دبلجة $P1$",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "بلا دبلجة"
   },
   "noteNoDub_one": {
     "message": "الموسم الحالي بلا دبلجة $P2$ · حلقات مترجمة للمشاهدة: 1",

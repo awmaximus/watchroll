@@ -456,12 +456,7 @@
     }
   },
   "secNoDub": {
-    "message": "Không lồng tiếng $P1$",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "Không lồng tiếng"
   },
   "noteNoDub_one": {
     "message": "Mùa hiện tại không có lồng tiếng $P2$ · 1 tập phụ đề để xem",

@@ -456,12 +456,7 @@
     }
   },
   "secNoDub": {
-    "message": "Tanpa dub $P1$",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "Tanpa dub"
   },
   "noteNoDub_one": {
     "message": "Musim ini tanpa dub $P2$ · 1 episode bersubtitel untuk ditonton",

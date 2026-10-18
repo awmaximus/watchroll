@@ -456,12 +456,7 @@
     }
   },
   "secNoDub": {
-    "message": "Sense doblatge en $P1$",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "Sense doblatge"
   },
   "noteNoDub_one": {
     "message": "aquesta temporada no té doblatge en $P2$ · 1 episodi disponible subtitulat",

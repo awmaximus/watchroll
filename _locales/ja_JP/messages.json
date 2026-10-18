@@ -456,12 +456,7 @@
     }
   },
   "secNoDub": {
-    "message": "$P1$ 吹き替えなし",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "吹き替えなし"
   },
   "noteNoDub_one": {
     "message": "今シーズンは $P2$ 吹き替えなし · 字幕で見られるエピソード 1 話",

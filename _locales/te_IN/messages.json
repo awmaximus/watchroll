@@ -456,12 +456,7 @@
     }
   },
   "secNoDub": {
-    "message": "$P1$ డబ్ లేదు",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "డబ్ లేదు"
   },
   "noteNoDub_one": {
     "message": "ప్రస్తుత సీజన్‌లో $P2$ డబ్ లేదు · చూడటానికి 1 సబ్‌టైటిల్ ఎపిసోడ్",

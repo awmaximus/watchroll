@@ -456,12 +456,7 @@
     }
   },
   "secNoDub": {
-    "message": "Bez dubbingu $P1$",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "Bez dubbingu"
   },
   "noteNoDub_one": {
     "message": "ten sezon nie ma dubbingu $P2$ · 1 odcinek dostępny z napisami",

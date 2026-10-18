@@ -456,12 +456,7 @@
     }
   },
   "secNoDub": {
-    "message": "Tiada alih suara $P1$",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "Tiada alih suara"
   },
   "noteNoDub_one": {
     "message": "Musim semasa tanpa alih suara $P2$ · 1 episod bersari kata untuk ditonton",

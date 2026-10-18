@@ -456,12 +456,7 @@
     }
   },
   "secNoDub": {
-    "message": "$P1$ 더빙 없음",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "더빙 없음"
   },
   "noteNoDub_one": {
     "message": "현재 시즌 $P2$ 더빙 없음 · 자막으로 볼 에피소드 1개",

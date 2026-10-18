@@ -456,12 +456,7 @@
     }
   },
   "secNoDub": {
-    "message": "Sem dobragem em $P1$",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "Sem dobragem"
   },
   "noteNoDub_one": {
     "message": "Temporada atual sem dobragem $P2$ · 1 episódio legendado para ver",

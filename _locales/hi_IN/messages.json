@@ -456,12 +456,7 @@
     }
   },
   "secNoDub": {
-    "message": "$P1$ डब नहीं",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "डब नहीं"
   },
   "noteNoDub_one": {
     "message": "मौजूदा सीज़न में $P2$ डब नहीं · देखने को 1 सबटाइटल एपिसोड",

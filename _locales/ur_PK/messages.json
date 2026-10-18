@@ -456,12 +456,7 @@
     }
   },
   "secNoDub": {
-    "message": "$P1$ ڈب نہیں",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "ڈب نہیں"
   },
   "noteNoDub_one": {
     "message": "موجودہ سیزن میں $P2$ ڈب نہیں · دیکھنے کو 1 سب ٹائٹل قسط",

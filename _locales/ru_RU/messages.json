@@ -456,12 +456,7 @@
     }
   },
   "secNoDub": {
-    "message": "Без озвучки ($P1$)",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "Без озвучки"
   },
   "noteNoDub_one": {
     "message": "В текущем сезоне нет озвучки $P2$ · серий с субтитрами: 1",
