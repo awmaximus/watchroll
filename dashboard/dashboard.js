@@ -5,8 +5,13 @@
 (() => {
   const { t, tn, langName } = CRI18n;
   const UI = CRI18n.lang(); // datas e ordenação seguem a língua do Firefox
-  const LANG_CODES = ["pt-BR", "es-419", "es-ES", "en-US", "fr-FR", "de-DE", "it-IT", "ru-RU", "ar-SA", "hi-IN"];
-  const LANGS = () => LANG_CODES.map((c) => [c, langName(c)]);
+  // Áudio e legenda: os idiomas que a Crunchyroll oferece. Títulos e links: só os
+  // idiomas do site (outro faria a API devolver em inglês), mais "Automático".
+  const byName = (codes) => codes.map((c) => [c, langName(c)]).sort((a, b) => a[1].localeCompare(b[1], UI));
+  const MEDIA_LANGS = () => byName(CRI18n.CR_MEDIA_LOCALES);
+  const SITE_LANGS = () => [["auto", t("localeAuto")], ...byName(CRI18n.CR_SITE_LOCALES)];
+  // Idioma efetivo dos títulos ("auto" → idioma da interface, ou inglês).
+  const contentLocale = () => CRI18n.contentLocale(settings.locale, settings.uiLang);
   const MAX_EPS = 5;
 
   let settings = { ...CRChecker.DEFAULT_SETTINGS };
@@ -56,8 +61,8 @@
 
   function renderSettingsForm() {
     fillSelect($("set-uilang"), CRI18n.languageOptions(), settings.uiLang || "auto");
-    fillSelect($("set-dub"), LANGS(), settings.dubLang);
-    fillSelect($("set-sub"), LANGS(), settings.subLang);
+    fillSelect($("set-dub"), MEDIA_LANGS(), settings.dubLang);
+    fillSelect($("set-sub"), MEDIA_LANGS(), settings.subLang);
     fillSelect(
       $("set-mode"),
       [
@@ -67,7 +72,7 @@
       ],
       settings.defaultMode
     );
-    fillSelect($("set-locale"), LANGS(), settings.locale);
+    fillSelect($("set-locale"), SITE_LANGS(), CRI18n.CR_SITE_LOCALES.includes(settings.locale) ? settings.locale : "auto");
     const conc = $("set-concurrency");
     conc.min = CRAnalyzer.CONCURRENCY.min;
     conc.max = CRAnalyzer.CONCURRENCY.max;
@@ -115,7 +120,7 @@
     listsState.error = null;
     renderListsField();
     try {
-      const list = await CRApi.customLists(settings.locale);
+      const list = await CRApi.customLists(contentLocale());
       listsState.available = list;
       const names = { ...settings.listNames };
       let changed = false;
@@ -287,10 +292,8 @@
   }
 
   // ---------- links ----------
-  function prefix() {
-    const l = settings.locale.toLowerCase();
-    return l === "en-us" ? "" : "/" + l;
-  }
+  // Mesmo formato de link do site: /pt-br, /es, /fr…; en-US sem prefixo.
+  const prefix = () => CRI18n.sitePath(contentLocale());
   const watchUrl = (ep) => `https://www.crunchyroll.com${prefix()}/watch/${ep.id}/${ep.slug}`;
   // Filme: o título leva ao player (o primeiro filme pendente, se houver).
   const seriesUrl = (s) =>
@@ -730,7 +733,7 @@
   function loadSeasons() {
     if (searchState.seasons || searchState.seasonsLoading) return;
     searchState.seasonsLoading = true;
-    CRSearch.seasons(settings.locale)
+    CRSearch.seasons(contentLocale())
       .then((list) => (searchState.seasons = list))
       .catch((err) => {
         console.warn("[Novos Episódios]", err);
@@ -1254,7 +1257,12 @@
     $("set-dub").addEventListener("change", onSetting("dubLang"));
     $("set-sub").addEventListener("change", onSetting("subLang"));
     $("set-mode").addEventListener("change", onSetting("defaultMode"));
-    $("set-locale").addEventListener("change", onSetting("locale"));
+    // Outro idioma de títulos: a Pesquisa e as temporadas são lidas de novo nele.
+    $("set-locale").addEventListener("change", async (e) => {
+      searchState.items = null;
+      searchState.seasons = null;
+      await onSetting("locale")(e);
+    });
     $("set-auto").addEventListener("change", async (e) => {
       settings.autoCheckMinutes = Number(e.target.value);
       await saveSettings(); // o segundo plano reagenda ao ver a mudança

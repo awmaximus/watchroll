@@ -265,3 +265,39 @@ describe("escolha do idioma", () => {
     for (const f of Object.keys(I.LANGUAGES)) assert.ok(LOCALES.includes(f), f);
   });
 });
+
+describe("idioma dos títulos e links (Crunchyroll)", () => {
+  const load2 = (ui = "pt-BR") =>
+    load(["src/i18n.js"], { browser: { i18n: fakeI18n("pt_BR", ui), runtime: { getURL: (p) => `moz-extension://x/${p}` } } }).CRI18n;
+
+  test("escolha explícita de um idioma do site é respeitada", () => {
+    const I = load2();
+    assert.equal(I.contentLocale("fr-FR", "auto"), "fr-FR");
+    assert.equal(I.contentLocale("es-419", "de_DE"), "es-419");
+  });
+
+  test("automático segue o idioma da interface; sem equivalente no site, inglês", () => {
+    const I = load2("en-US");
+    assert.equal(I.contentLocale("auto", "pt_BR"), "pt-BR");
+    assert.equal(I.contentLocale("auto", "es_ES"), "es-ES");
+    assert.equal(I.contentLocale("auto", "zh_CN"), "zh-TW"); // o site só tem chinês tradicional
+    assert.equal(I.contentLocale("auto", "ja_JP"), "en-US"); // o site não tem japonês
+    assert.equal(I.contentLocale("auto", "vi_VN"), "en-US");
+    assert.equal(I.contentLocale(undefined, "auto"), "en-US"); // navegador em inglês
+    assert.equal(I.contentLocale("ms-MY", "pl_PL"), "pl-PL"); // valor fora do site → automático
+  });
+
+  test("áudio e legenda iniciais seguem o idioma da interface", () => {
+    const I = load2();
+    assert.equal(I.mediaLocale("ja_JP"), "ja-JP");
+    assert.equal(I.mediaLocale("zh_CN"), "zh-CN");
+    assert.equal(I.mediaLocale("bn_IN"), "en-US");
+    assert.equal(I.mediaLocale("auto"), "pt-BR");
+  });
+
+  test("links no formato do site", () => {
+    const I = load2();
+    const cases = { "en-US": "", "pt-BR": "/pt-br", "pt-PT": "/pt-pt", "es-ES": "/es-es", "es-419": "/es", "fr-FR": "/fr", "de-DE": "/de", "zh-TW": "/zh-tw", "ar-SA": "/ar", "ko-KR": "/ko" };
+    for (const [l, path] of Object.entries(cases)) assert.equal(I.sitePath(l), path, l);
+  });
+});

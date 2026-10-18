@@ -973,5 +973,8 @@
         "content": "$1"
       }
     }
+  },
+  "localeAuto": {
+    "message": "Automàtic (idioma de l'extensió)"
   }
 }

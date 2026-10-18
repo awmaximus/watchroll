@@ -14,9 +14,9 @@ var CRChecker = (() => {
   const AUTO_CHECK_OPTIONS = [0, 30, 60, 180, 360]; // minutos; 0 = desligado
 
   const DEFAULT_SETTINGS = {
-    locale: "pt-BR",
-    dubLang: "pt-BR",
-    subLang: "pt-BR",
+    locale: "auto", // idioma dos títulos e links: "auto" = idioma da interface
+    dubLang: "", // vazio = ainda não escolhido: segue o idioma da interface
+    subLang: "",
     defaultMode: "sub",
     concurrency: 4,
     playheadBatch: 100,
@@ -40,9 +40,13 @@ var CRChecker = (() => {
 
   async function loadSettings(b = browser) {
     const saved = (await b.storage.local.get(SETTINGS_KEY))[SETTINGS_KEY] || {};
+    const ui = saved.uiLang || DEFAULT_SETTINGS.uiLang;
+    const media = CRI18n.mediaLocale ? CRI18n.mediaLocale(ui) : "en-US";
     return {
       ...DEFAULT_SETTINGS,
       ...saved,
+      dubLang: saved.dubLang || media,
+      subLang: saved.subLang || media,
       seriesModes: { ...(saved.seriesModes || {}) },
       hidden: { ...(saved.hidden || {}) },
       sources: Array.isArray(saved.sources) && saved.sources.length ? [...saved.sources] : [...DEFAULT_SETTINGS.sources],

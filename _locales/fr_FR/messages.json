@@ -973,5 +973,8 @@
         "content": "$1"
       }
     }
+  },
+  "localeAuto": {
+    "message": "Automatique (langue de l'extension)"
   }
 }

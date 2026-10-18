@@ -977,5 +977,8 @@
         "content": "$1"
       }
     }
+  },
+  "localeAuto": {
+    "message": "Automático (idioma da extensão)"
   }
 }

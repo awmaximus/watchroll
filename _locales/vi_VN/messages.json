@@ -973,5 +973,8 @@
         "content": "$1"
       }
     }
+  },
+  "localeAuto": {
+    "message": "Tự động (ngôn ngữ của tiện ích)"
   }
 }

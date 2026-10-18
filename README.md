@@ -129,10 +129,10 @@ Changes are saved immediately.
 |---|---|
 | Lists to check | Multi-select of your Watchlist and Crunchylists (names read from Crunchyroll). At least one stays selected. A series in several lists is checked once. A Crunchylist deleted on the site is ignored and shown as "List not found". |
 | Extension language | One of 27 languages, each listed in its own language, or *Automatic* (Firefox's language; untranslated languages fall back to English). |
-| Language you watch dubbed in | Dub language for dubbed-mode series and the dub indicator. |
-| Subtitle language | Subtitles required before a subbed episode is announced. |
+| Language you watch dubbed in | Dub language for dubbed-mode series and the dub indicator. Any of Crunchyroll's 24 audio languages; on a new install, the interface language (English if Crunchyroll has no such audio). |
+| Subtitle language | Subtitles required before a subbed episode is announced. Same list and initial value as the dub language. |
 | Default mode for series | Subbed, dubbed or any audio, for series without their own mode. |
-| Language for titles and links | Language Crunchyroll uses for series and episode names, and for links. |
+| Language for titles and links | Language Crunchyroll uses for series and episode names, and for links. *Automatic* (default) follows the extension language; otherwise one of the 16 languages the Crunchyroll site supports (any other would make the API answer in English). Every API request of a check, the Advanced Search and the Crunchylist names use this same language, and changing it refreshes the results and the search. |
 | Check automatically | Off, or every 30 min, 1 h (default), 3 h or 6 h. |
 | Notify me when a new episode is out | Desktop notifications (on by default). |
 | Show specials and recaps | Shows them, tagged and uncounted (on by default). |
@@ -190,6 +190,8 @@ Rules:
   revalidation (season list plus the latest season's episode list, and the shared history)
   reuses the previous result if nothing changed. After 6 hours, when a scheduled release time
   has passed, or on **Refresh**, the check is full.
+- Links follow the site's own URL rule: no prefix for en-US; `/es-es`, `/pt-br`, `/pt-pt` and
+  `/zh-tw` in full; the others by their first two letters (`/es`, `/fr`, `/de`…).
 - Requests bypass Firefox's cache (`cache: "no-store"`) and use the same query parameters as the
   site, so Crunchyroll's CDN returns the copy the site keeps fresh instead of one up to about
   20 minutes old.

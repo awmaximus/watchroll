@@ -973,5 +973,8 @@
         "content": "$1"
       }
     }
+  },
+  "localeAuto": {
+    "message": "自動(拡張機能の言語)"
   }
 }

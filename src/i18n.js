@@ -88,6 +88,42 @@ var CRI18n = (() => {
     return same || FALLBACK;
   }
 
+  // ---------- idiomas da Crunchyroll ----------
+  // Idiomas em que o site e a API devolvem títulos, sinopses e páginas (lista
+  // "supported" do próprio site, conferida no código dele em out/2026). Pedir outro
+  // faz a API cair no inglês.
+  const CR_SITE_LOCALES = ["en-US", "es-419", "es-ES", "pt-BR", "pt-PT", "fr-FR", "de-DE", "it-IT", "ru-RU", "ar-SA", "hi-IN", "id-ID", "th-TH", "ko-KR", "pl-PL", "zh-TW"];
+  // Idiomas de áudio e legenda que a Crunchyroll oferece.
+  const CR_MEDIA_LOCALES = ["ja-JP", "en-US", "es-419", "es-ES", "pt-BR", "pt-PT", "fr-FR", "de-DE", "it-IT", "ru-RU", "ar-SA", "hi-IN", "ta-IN", "te-IN", "id-ID", "ms-MY", "th-TH", "vi-VN", "zh-CN", "zh-TW", "ko-KR", "ca-ES", "pl-PL", "tr-TR"];
+
+  // Código (pasta ou BCP 47) → o idioma mais próximo de `list`, ou null.
+  function closest(code, list) {
+    const tag = String(code || "").replace("_", "-");
+    const exact = list.find((l) => l.toLowerCase() === tag.toLowerCase());
+    if (exact) return exact;
+    const lang = tag.split("-")[0].toLowerCase();
+    const pref = { pt: "pt-BR", es: "es-419", zh: /Hant|TW|HK|MO/i.test(tag) ? "zh-TW" : "zh-CN" }[lang];
+    if (pref && list.includes(pref)) return pref;
+    return list.find((l) => l.split("-")[0] === lang) || null;
+  }
+  // Pasta do idioma da interface: o escolhido nas Configurações, o já carregado
+  // ou o do navegador.
+  const uiFolder = (uiChoice) => (uiChoice && uiChoice !== "auto" && LANGUAGES[uiChoice] ? uiChoice : current || resolve(browserLang()));
+
+  // Idioma dos títulos e links: o escolhido; em "auto", o da interface da extensão
+  // (se a Crunchyroll o tiver; senão, inglês).
+  function contentLocale(choice, uiChoice) {
+    if (CR_SITE_LOCALES.includes(choice)) return choice;
+    return closest(uiFolder(uiChoice), CR_SITE_LOCALES) || "en-US";
+  }
+  // Áudio/legenda padrão de quem acabou de instalar: o idioma da interface.
+  const mediaLocale = (uiChoice) => closest(uiFolder(uiChoice), CR_MEDIA_LOCALES) || "en-US";
+
+  // Prefixo dos links do site, com a mesma regra dele: en-US sem prefixo; es-ES,
+  // pt-BR, pt-PT e zh-TW por extenso; os demais pelas 2 primeiras letras (/es, /fr…).
+  const SITE_PATH = { "en-US": "", "es-ES": "/es-es", "pt-BR": "/pt-br", "pt-PT": "/pt-pt", "zh-TW": "/zh-tw" };
+  const sitePath = (locale) => (locale in SITE_PATH ? SITE_PATH[locale] : "/" + String(locale).slice(0, 2).toLowerCase());
+
   async function fetchMessages(folder) {
     const url = browser.runtime.getURL(`_locales/${folder}/messages.json`);
     const res = await fetch(url);
@@ -189,5 +225,5 @@ var CRI18n = (() => {
     }
   }
 
-  return { t, tn, lang, dir, langName, applyToDocument, init, use, resolve, languageOptions, LANGUAGES, FALLBACK };
+  return { t, tn, lang, dir, langName, applyToDocument, init, use, resolve, languageOptions, LANGUAGES, FALLBACK, CR_SITE_LOCALES, CR_MEDIA_LOCALES, contentLocale, mediaLocale, sitePath };
 })();

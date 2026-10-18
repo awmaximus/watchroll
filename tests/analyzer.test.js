@@ -10,7 +10,7 @@ function setup(db) {
   const calls = [];
   const CRApi = {
     getAccountId: async () => "conta-1",
-    watchlist: async () => (calls.push(["watchlist"]), db.watchlist),
+    watchlist: async (locale) => (calls.push(["watchlist"]), (calls.locales = calls.locales || []).push(locale), db.watchlist),
     customListItems: async (id) => {
       calls.push(["customList", id]);
       if ((db.missingLists || []).includes(id)) throw Object.assign(new Error("HTTP 404"), { status: 404 });
@@ -1768,5 +1768,44 @@ describe("Fila + Crunchylists", () => {
     await analyzer.run({ settings: settings({ sources: ["watchlist"] }) });
     const r = await analyzer.run({ settings: settings({ sources: ["watchlist", "L1"] }) });
     assert.deepEqual(plain(r.find((x) => x.seriesId === "B").lists), ["watchlist", "L1"]);
+  });
+});
+
+describe("idioma das consultas", () => {
+  // Todas as funções da API falsa anotam o locale que receberam.
+  function spying(db) {
+    const { analyzer, calls } = setup(db);
+    return { analyzer, calls };
+  }
+  test("o idioma escolhido chega a todas as consultas da verificação", async () => {
+    const seen = new Set();
+    const db = {
+      watchlist: [series("A")],
+      seasons: { A: [{ id: "A1", season_sequence_number: 1 }] },
+      episodes: { A1: [episode("a1", 1), episode("a2", 2)] },
+      playheads: { a1: playhead("a1", FULL, true) },
+    };
+    const CRApi = {
+      getAccountId: async () => "c",
+      watchlist: async (l) => (seen.add(["watchlist", l].join(":")), db.watchlist),
+      watchHistory: async (l) => (seen.add(["history", l].join(":")), { entries: [], complete: true }),
+      seasons: async (id, l) => (seen.add(["seasons", l].join(":")), db.seasons[id]),
+      episodes: async (id, l) => (seen.add(["episodes", l].join(":")), db.episodes[id]),
+      playheads: async (ids, l) => (seen.add(["playheads", l].join(":")), new Map(ids.filter((i) => db.playheads[i]).map((i) => [i, db.playheads[i]]))),
+    };
+    const quiet = { ...console, warn: () => {} };
+    const { CRAnalyzer } = load(["src/analyzer.js"], { browser: fakeBrowser(), CRApi, console: quiet });
+    await CRAnalyzer.run({ settings: settings({ locale: "fr-FR" }) });
+    const locales = new Set([...seen].map((x) => x.split(":")[1]));
+    assert.deepEqual([...locales], ["fr-FR"]);
+    assert.ok(["watchlist", "history", "seasons", "episodes", "playheads"].every((k) => [...seen].some((x) => x.startsWith(k + ":"))), [...seen].join(" "));
+  });
+
+  test("'auto' nunca chega à API (vira um idioma real)", async () => {
+    const { analyzer, calls } = spying({ watchlist: [], seasons: {}, episodes: {}, playheads: {} });
+    await analyzer.run({ settings: settings({ locale: "auto" }) });
+    assert.equal(calls.locales.length, 1);
+    assert.notEqual(calls.locales[0], "auto");
+    assert.match(calls.locales[0], /^[a-z]{2}-[A-Z0-9]{2,3}$/); // navegador de teste em pt-BR → "pt-BR"
   });
 });

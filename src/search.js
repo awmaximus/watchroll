@@ -155,8 +155,8 @@ var CRSearch = (() => {
     if (!force && catalogCache && catalogCache.locale === locale && now - catalogCache.at < CATALOG_TTL) {
       return catalogCache.items;
     }
-    if (catalogLoading) return catalogLoading;
-    catalogLoading = (async () => {
+    if (catalogLoading && catalogLoading.locale === locale) return catalogLoading;
+    const loading = (async () => {
       const first = await api.browse({ sort_by: "popularity", n: 100, start: 0 }, locale);
       const total = first.total != null ? first.total : first.items.length;
       const starts = [];
@@ -169,10 +169,12 @@ var CRSearch = (() => {
       catalogCache = { locale, at: Date.now(), items };
       return items;
     })();
+    loading.locale = locale;
+    catalogLoading = loading;
     try {
-      return await catalogLoading;
+      return await loading;
     } finally {
-      catalogLoading = null;
+      if (catalogLoading === loading) catalogLoading = null;
     }
   }
 
@@ -205,7 +207,8 @@ var CRSearch = (() => {
    * null (não se aplica).
    */
   async function run({ q = "", filters = {}, settings, watchIds = new Set(), useAniList = false, api = CRApi, fetchFn, uiLang, force = false }) {
-    const locale = settings.locale;
+    // Mesmo idioma de títulos da verificação ("auto" → idioma da interface).
+    const locale = typeof CRI18n !== "undefined" && CRI18n.contentLocale ? CRI18n.contentLocale(settings.locale, settings.uiLang) : settings.locale;
     const dubLang = settings.dubLang;
     const text = q.trim();
     let raw = [];

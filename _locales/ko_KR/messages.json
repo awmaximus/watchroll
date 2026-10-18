@@ -973,5 +973,8 @@
         "content": "$1"
       }
     }
+  },
+  "localeAuto": {
+    "message": "자동(확장 프로그램 언어)"
   }
 }

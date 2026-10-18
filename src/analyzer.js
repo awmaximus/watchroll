@@ -787,7 +787,15 @@ var CRAnalyzer = (() => {
     return [...map.values()];
   }
 
+  // "auto" no idioma dos títulos vira o idioma da interface (ou inglês) antes de
+  // qualquer consulta: todas as chamadas à API recebem o mesmo locale.
+  const withLocale = (settings) =>
+    typeof CRI18n !== "undefined" && CRI18n.contentLocale
+      ? { ...settings, locale: CRI18n.contentLocale(settings.locale, settings.uiLang) }
+      : { ...settings, locale: settings.locale && settings.locale !== "auto" ? settings.locale : "en-US" };
+
   async function run({ settings, force = false, onProgress = () => {} }) {
+    settings = withLocale(settings);
     if (CRApi.setPlayheadBatchSize) CRApi.setPlayheadBatchSize(playheadBatchFrom(settings));
     // Fila e histórico não dependem um do outro: são lidos ao mesmo tempo, e as
     // páginas de cada um também (até o limite de consultas simultâneas).
@@ -925,6 +933,7 @@ var CRAnalyzer = (() => {
   // Reanalisa uma série gravando tudo o que a análise usou. O arquivo não contém
   // token, cookie nem IDs de conta ou perfil: só catálogo e histórico da série.
   async function diagnose(entry, settings, { version = "", api = CRApi } = {}) {
+    settings = withLocale(settings);
     const mode = modeFor(entry.seriesId, settings);
     const log = { temporadas: {}, episodios: {}, filmes: {}, playheads: {} };
     let resultado;
@@ -957,6 +966,7 @@ var CRAnalyzer = (() => {
 
   // Reanalisa uma série só (ex.: depois de trocar o modo de áudio dela).
   async function runOne(entry, settings) {
+    settings = withLocale(settings);
     const accountId = await cacheScope();
     const result = await analyzeSafe(entry, settings);
     if (result.status !== "error") {
@@ -967,5 +977,5 @@ var CRAnalyzer = (() => {
     return entry.lists ? { ...result, lists: entry.lists } : result;
   }
 
-  return { run, runOne, cacheScope, WATCHLIST, listSources, readSources, mergeSources, historyActivity, dubStatus, seriesAudios, parseSeasonTag, seriesLaunch, diagnose, sanitize, extraKind, CONCURRENCY, concurrencyFrom, PLAYHEAD_BATCH, playheadBatchFrom, MIN_STARTED, MIN_STARTED_SECONDS, minStartedFrom };
+  return { run, runOne, cacheScope, withLocale, WATCHLIST, listSources, readSources, mergeSources, historyActivity, dubStatus, seriesAudios, parseSeasonTag, seriesLaunch, diagnose, sanitize, extraKind, CONCURRENCY, concurrencyFrom, PLAYHEAD_BATCH, playheadBatchFrom, MIN_STARTED, MIN_STARTED_SECONDS, minStartedFrom };
 })();
