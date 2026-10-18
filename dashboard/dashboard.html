@@ -29,6 +29,12 @@
       <div id="tabbar"></div>
       <section id="settings" class="settings" role="tabpanel" aria-labelledby="tab-settings" hidden>
         <div class="settings-grid">
+          <div class="field" id="lists-field">
+            <span id="lists-label" data-i18n="setListsLabel"></span>
+            <div class="multi" id="set-lists"></div>
+            <small data-i18n="setListsHelp"></small>
+            <small id="lists-status" class="lists-status" hidden></small>
+          </div>
           <label>
             <span data-i18n="setUiLangLabel"></span>
             <select id="set-uilang"></select>
@@ -95,6 +101,10 @@
 
       <div class="toolbar" id="toolbar">
         <input id="search" type="search" data-i18n-placeholder="searchPlaceholder" data-i18n-aria-label="searchAria" autocomplete="off" />
+        <label class="sort" id="listfilter-wrap" hidden>
+          <span data-i18n="listFilterLabel"></span>
+          <select id="list-filter"></select>
+        </label>
         <label class="sort" id="sort-wrap">
           <span data-i18n="sortLabel"></span>
           <select id="sort"></select>

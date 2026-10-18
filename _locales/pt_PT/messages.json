@@ -518,7 +518,7 @@
     }
   },
   "progressReading": {
-    "message": "A ler a sua Lista…"
+    "message": "A ler as suas listas…"
   },
   "errorQuery": {
     "message": "Não foi possível consultar a Crunchyroll: $P1$",
@@ -697,7 +697,7 @@
     "message": "Sem temporada indicada"
   },
   "emptyNever": {
-    "message": "Todas as séries da sua Lista já foram começadas."
+    "message": "Já começou todas as séries das suas listas."
   },
   "seasonLabel": {
     "message": "$S$ de $Y$",
@@ -726,7 +726,7 @@
     "message": "Todo o catálogo"
   },
   "searchScopeMine": {
-    "message": "Só a minha Lista"
+    "message": "Só as minhas listas"
   },
   "searchDub": {
     "message": "Dobragem"
@@ -817,7 +817,7 @@
     "message": "Filme"
   },
   "searchInList": {
-    "message": "Na sua Lista"
+    "message": "Nas suas listas"
   },
   "setAniListLabel": {
     "message": "Pesquisar também nomes em japonês e romaji (envia o texto da pesquisa para o AniList)"
@@ -876,5 +876,53 @@
   },
   "setUiLangHelp": {
     "message": "Em “Automático”, segue o idioma do Firefox."
+  },
+  "setListsLabel": {
+    "message": "Listas verificadas"
+  },
+  "setListsHelp": {
+    "message": "Além da Lista de interesses, pode escolher as suas Crunchylists. Com mais de uma lista, cada anime mostra de que lista veio."
+  },
+  "listWatchlist": {
+    "message": "Lista de interesses"
+  },
+  "listsLoading": {
+    "message": "A carregar as suas Crunchylists…"
+  },
+  "listsError": {
+    "message": "Não foi possível ler as suas Crunchylists: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listUnknown": {
+    "message": "Lista não encontrada"
+  },
+  "listFilterLabel": {
+    "message": "Lista"
+  },
+  "listFilterAll": {
+    "message": "Todas as listas"
+  },
+  "listFrom": {
+    "message": "Lista: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listItems_one": {
+    "message": "1 item"
+  },
+  "listItems_other": {
+    "message": "$P1$ itens",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }

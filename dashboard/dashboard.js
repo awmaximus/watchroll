@@ -94,6 +94,148 @@
     ms.value = CRAnalyzer.minStartedFrom(settings);
   }
 
+  // ---------- listas (Fila + Crunchylists) ----------
+  // available: Crunchylists da conta (null = ainda não lidas).
+  const listsState = { available: null, loading: false, error: null };
+  const sources = () => CRAnalyzer.listSources(settings);
+  const multiList = () => sources().length > 1;
+
+  function listName(id) {
+    if (id === CRAnalyzer.WATCHLIST) return t("listWatchlist");
+    const found = (listsState.available || []).find((l) => l.id === id);
+    return (found && found.title) || settings.listNames[id] || t("listUnknown");
+  }
+
+  // Lê os nomes das Crunchylists. Os nomes ficam salvos para os rótulos dos cards
+  // aparecerem na hora da próxima vez (e se a leitura falhar).
+  async function loadLists() {
+    if (listsState.loading) return;
+    listsState.loading = true;
+    listsState.error = null;
+    renderListsField();
+    try {
+      const list = await CRApi.customLists(settings.locale);
+      listsState.available = list;
+      const names = { ...settings.listNames };
+      let changed = false;
+      for (const l of list) {
+        if (l.title && names[l.id] !== l.title) {
+          names[l.id] = l.title;
+          changed = true;
+        }
+      }
+      if (changed) {
+        settings.listNames = names;
+        await saveSettings();
+      }
+    } catch (err) {
+      console.warn("[Novos Episódios]", err);
+      listsState.error = err.message || String(err);
+    } finally {
+      listsState.loading = false;
+      renderListsField();
+      render();
+    }
+  }
+
+  // Combo de múltipla escolha: um botão com o resumo e um painel de caixas de
+  // seleção. A última lista marcada não pode ser desmarcada.
+  function renderListsField() {
+    const box = $("set-lists");
+    if (!box) return;
+    const chosen = sources();
+    const ids = [CRAnalyzer.WATCHLIST, ...(listsState.available || []).map((l) => l.id)];
+    for (const id of chosen) if (!ids.includes(id)) ids.push(id); // escolhida mas não encontrada
+    const totalOf = (id) => {
+      const l = (listsState.available || []).find((x) => x.id === id);
+      return l && typeof l.total === "number" ? l.total : null;
+    };
+    const wasOpen = box.querySelector(".multi-panel") && !box.querySelector(".multi-panel").hidden;
+    const button = el("button", {
+      type: "button",
+      class: "multi-button",
+      id: "set-lists-button",
+      "aria-haspopup": "true",
+      "aria-expanded": String(!!wasOpen),
+      "aria-controls": "set-lists-panel",
+      "aria-describedby": "lists-label",
+    }, el("span", { class: "multi-summary", text: chosen.map(listName).join(", ") }), el("span", { class: "multi-caret", "aria-hidden": "true", text: "▾" }));
+    const panel = el(
+      "div",
+      { class: "multi-panel", id: "set-lists-panel", role: "group", "aria-labelledby": "lists-label", hidden: !wasOpen },
+      ids.map((id) => {
+        const checked = chosen.includes(id);
+        const n = totalOf(id);
+        return el(
+          "label",
+          { class: "multi-option" },
+          el("input", {
+            type: "checkbox",
+            value: id,
+            checked,
+            disabled: checked && chosen.length === 1,
+            onchange: (e) => changeSources(id, e.target.checked, ids),
+          }),
+          el("span", { class: "multi-name", text: listName(id) }),
+          n == null ? null : el("small", { text: tn("listItems", n) })
+        );
+      })
+    );
+    const toggle = (open) => {
+      panel.hidden = !open;
+      button.setAttribute("aria-expanded", String(open));
+    };
+    button.addEventListener("click", () => toggle(panel.hidden));
+    box.onkeydown = (e) => {
+      if (e.key === "Escape" && !panel.hidden) {
+        toggle(false);
+        button.focus();
+      }
+    };
+    box.replaceChildren(button, panel);
+
+    const status = $("lists-status");
+    const msg = listsState.loading ? t("listsLoading") : listsState.error ? t("listsError", listsState.error) : "";
+    status.hidden = !msg;
+    status.textContent = msg;
+  }
+
+  async function changeSources(id, on, order) {
+    const set = new Set(sources());
+    if (on) set.add(id);
+    else if (set.size > 1) set.delete(id);
+    settings.sources = order.filter((x) => set.has(x));
+    if (!settings.sources.includes(settings.listFilter)) settings.listFilter = "";
+    await saveSettings();
+    renderListsField();
+    // Só as séries novas são analisadas: as demais vêm do cache.
+    refresh(false);
+  }
+
+  // Rótulos "de que lista veio", só quando há mais de uma lista escolhida.
+  function listChips(s, { compact = false } = {}) {
+    if (!multiList() || !Array.isArray(s.lists) || !s.lists.length) return null;
+    const names = s.lists.filter((id) => sources().includes(id)).map(listName);
+    if (!names.length) return null;
+    const tip = t("listFrom", names.join(", "));
+    return el(
+      "span",
+      { class: `lists${compact ? " compact" : ""}`, title: tip, "aria-label": tip, role: "note" },
+      names.map((n) => el("span", { class: "list-chip", text: n }))
+    );
+  }
+
+  function renderListFilter() {
+    const wrap = $("listfilter-wrap");
+    wrap.hidden = !multiList();
+    if (wrap.hidden) return;
+    fillSelect(
+      $("list-filter"),
+      [["", t("listFilterAll")], ...sources().map((id) => [id, listName(id)])],
+      CRChecker.activeListFilter(settings)
+    );
+  }
+
   // ---------- links ----------
   function prefix() {
     const l = settings.locale.toLowerCase();
@@ -282,7 +424,7 @@
         "div",
         { class: "info" },
         el("a", { class: "series", href: seriesUrl(s), target: "_blank", rel: "noopener", text: s.title, title: s.title }),
-        dubBadge(s),
+        el("div", { class: "badges" }, dubBadge(s), listChips(s)),
         el(
           "ul",
           { class: "eps" },
@@ -315,7 +457,7 @@
       el(
         "div",
         { class: "row-text" },
-        el("span", { class: "row-title" }, el("a", { href: seriesUrl(s), target: "_blank", rel: "noopener", text: s.title }), dubBadge(s, { compact: true })),
+        el("span", { class: "row-title" }, el("a", { href: seriesUrl(s), target: "_blank", rel: "noopener", text: s.title }), dubBadge(s, { compact: true }), listChips(s, { compact: true })),
         note ? el("small", { text: note, title: note }) : null
       ),
       el("div", { class: "row-actions" }, extraButton, modeSelect(s), actionsSelect(s))
@@ -327,7 +469,7 @@
   // se a aba atual não tiver resultado, mostra a primeira que tiver (sem salvar).
   function renderTabs(tabs) {
     const shown = tabs.filter((tb) => tb.always || tb.count > 0);
-    const searching = query.trim() !== "";
+    const searching = query.trim() !== "" || !!CRChecker.activeListFilter(settings);
     let active = shown.find((tb) => tb.id === settings.tab) || shown[0];
     if (searching && active.count === 0) active = shown.find((tb) => tb.count > 0) || active;
     const sorts = CRChecker.TAB_SORTS[active.id];
@@ -338,6 +480,9 @@
     // As Configurações são um painel fixo da página (os campos guardam estado e
     // ouvintes): a aba só o mostra ou esconde.
     $("settings").hidden = active.id !== "settings";
+    if (active.id === "settings" && !listsState.available && !listsState.loading && !listsState.error && !busy) {
+      loadLists().finally(() => CRApi.release());
+    }
 
     const select = async (id) => {
       settings.tab = id;
@@ -701,8 +846,10 @@
   // "visible" = resultados sem as séries ocultas. A busca filtra só o que é
   // listado; o status do topo continua contando tudo.
   function renderSections(visible, hiddenAll) {
-    const match = (r) => CRChecker.matchesSearch(r.title, query);
-    const searching = query.trim() !== "";
+    const listFilter = CRChecker.activeListFilter(settings);
+    const match = (r) => CRChecker.matchesSearch(r.title, query) && CRChecker.inList(r, listFilter);
+    const searching = query.trim() !== "" || !!listFilter;
+    renderListFilter();
     const results = visible.filter(match);
     const hidden = hiddenAll.filter(match);
     const by = (tab) => CRChecker.sortFor(settings, tab);
@@ -782,7 +929,7 @@
         always: true,
         content: () =>
           !never.length
-            ? el("p", { class: "empty", text: t("emptyNever") })
+            ? el("p", { class: "empty", text: searching ? t("emptySearch") : t("emptyNever") })
             : by("never") === "season"
             ? neverGroups(never)
             : rows(never, () => null),
@@ -845,6 +992,7 @@
       // O que está na tela conta como visto: não vira notificação depois.
       await CRChecker.record(results, { scope: await CRAnalyzer.cacheScope(), settings });
       showProfile();
+      await loadLists();
     } catch (err) {
       console.error("[Novos Episódios]", err);
       $("status").textContent = "";
@@ -944,6 +1092,7 @@
     }
     if (changed) await saveSettings();
     renderSettingsForm();
+    renderListsField();
     CRApi.setNoticeHandler(notice);
 
     $("btn-refresh").addEventListener("click", () => refresh(true));
@@ -1012,6 +1161,20 @@
       if (id === "toWatch") settings.sortBy = e.target.value;
       await saveSettings();
       render();
+    });
+    $("list-filter").addEventListener("change", async (e) => {
+      settings.listFilter = e.target.value;
+      await saveSettings();
+      render();
+    });
+    // Fecha o combo de listas ao clicar fora dele.
+    document.addEventListener("click", (e) => {
+      const box = $("set-lists");
+      const panel = box && box.querySelector(".multi-panel");
+      if (panel && !panel.hidden && !box.contains(e.target)) {
+        panel.hidden = true;
+        box.querySelector(".multi-button").setAttribute("aria-expanded", "false");
+      }
     });
     let searchTimer = null;
     $("search").addEventListener("input", (e) => {

@@ -518,7 +518,7 @@
     }
   },
   "progressReading": {
-    "message": "Đang đọc Danh sách theo dõi…"
+    "message": "Đang đọc danh sách của bạn…"
   },
   "errorQuery": {
     "message": "Không kết nối được Crunchyroll: $P1$",
@@ -697,7 +697,7 @@
     "message": "Không rõ mùa"
   },
   "emptyNever": {
-    "message": "Bạn đã bắt đầu tất cả các bộ trong Danh sách theo dõi."
+    "message": "Bạn đã bắt đầu xem mọi bộ trong danh sách của mình."
   },
   "seasonLabel": {
     "message": "Mùa $S$ $Y$",
@@ -726,7 +726,7 @@
     "message": "Toàn bộ thư viện"
   },
   "searchScopeMine": {
-    "message": "Chỉ Danh sách theo dõi"
+    "message": "Chỉ danh sách của tôi"
   },
   "searchDub": {
     "message": "Lồng tiếng"
@@ -817,7 +817,7 @@
     "message": "Phim"
   },
   "searchInList": {
-    "message": "Trong Danh sách theo dõi"
+    "message": "Trong danh sách của bạn"
   },
   "setAniListLabel": {
     "message": "Tìm cả tên tiếng Nhật và romaji (gửi nội dung tìm kiếm tới AniList)"
@@ -876,5 +876,53 @@
   },
   "setUiLangHelp": {
     "message": "“Tự động” theo ngôn ngữ của Firefox."
+  },
+  "setListsLabel": {
+    "message": "Danh sách được kiểm tra"
+  },
+  "setListsHelp": {
+    "message": "Ngoài Danh sách theo dõi, bạn có thể chọn các Crunchylist của mình. Khi có nhiều danh sách, mỗi anime sẽ hiện danh sách nguồn."
+  },
+  "listWatchlist": {
+    "message": "Danh sách theo dõi"
+  },
+  "listsLoading": {
+    "message": "Đang tải Crunchylist của bạn…"
+  },
+  "listsError": {
+    "message": "Không thể đọc Crunchylist của bạn: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listUnknown": {
+    "message": "Không tìm thấy danh sách"
+  },
+  "listFilterLabel": {
+    "message": "Danh sách"
+  },
+  "listFilterAll": {
+    "message": "Tất cả danh sách"
+  },
+  "listFrom": {
+    "message": "Danh sách: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listItems_one": {
+    "message": "1 mục"
+  },
+  "listItems_other": {
+    "message": "$P1$ mục",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }

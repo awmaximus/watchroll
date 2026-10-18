@@ -518,7 +518,7 @@
     }
   },
   "progressReading": {
-    "message": "Membaca Daftar Tontonanmu…"
+    "message": "Membaca daftarmu…"
   },
   "errorQuery": {
     "message": "Tidak dapat menghubungi Crunchyroll: $P1$",
@@ -697,7 +697,7 @@
     "message": "Musim tidak disebutkan"
   },
   "emptyNever": {
-    "message": "Semua seri di Daftar Tontonanmu sudah kamu mulai."
+    "message": "Kamu sudah memulai semua serial di daftarmu."
   },
   "seasonLabel": {
     "message": "$S$ $Y$",
@@ -726,7 +726,7 @@
     "message": "Seluruh katalog"
   },
   "searchScopeMine": {
-    "message": "Hanya Daftar Tontonanku"
+    "message": "Hanya daftar saya"
   },
   "searchDub": {
     "message": "Dub"
@@ -817,7 +817,7 @@
     "message": "Film"
   },
   "searchInList": {
-    "message": "Ada di Daftar Tontonanmu"
+    "message": "Ada di daftarmu"
   },
   "setAniListLabel": {
     "message": "Cari juga nama Jepang dan romaji (mengirim teks pencarian ke AniList)"
@@ -876,5 +876,53 @@
   },
   "setUiLangHelp": {
     "message": "“Otomatis” mengikuti bahasa Firefox."
+  },
+  "setListsLabel": {
+    "message": "Daftar yang diperiksa"
+  },
+  "setListsHelp": {
+    "message": "Selain Watchlist, kamu bisa memilih Crunchylist milikmu. Jika lebih dari satu daftar, setiap anime menunjukkan asal daftarnya."
+  },
+  "listWatchlist": {
+    "message": "Watchlist"
+  },
+  "listsLoading": {
+    "message": "Memuat Crunchylist kamu…"
+  },
+  "listsError": {
+    "message": "Tidak dapat membaca Crunchylist kamu: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listUnknown": {
+    "message": "Daftar tidak ditemukan"
+  },
+  "listFilterLabel": {
+    "message": "Daftar"
+  },
+  "listFilterAll": {
+    "message": "Semua daftar"
+  },
+  "listFrom": {
+    "message": "Daftar: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listItems_one": {
+    "message": "1 item"
+  },
+  "listItems_other": {
+    "message": "$P1$ item",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }

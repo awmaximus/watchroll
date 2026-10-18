@@ -518,7 +518,7 @@
     }
   },
   "progressReading": {
-    "message": "관심 목록을 읽는 중…"
+    "message": "목록 읽는 중…"
   },
   "errorQuery": {
     "message": "Crunchyroll에 연결할 수 없습니다: $P1$",
@@ -697,7 +697,7 @@
     "message": "시즌 정보 없음"
   },
   "emptyNever": {
-    "message": "관심 목록의 시리즈를 모두 시작했습니다."
+    "message": "목록의 모든 시리즈를 이미 시작했습니다."
   },
   "seasonLabel": {
     "message": "$Y$년 $S$",
@@ -726,7 +726,7 @@
     "message": "전체 카탈로그"
   },
   "searchScopeMine": {
-    "message": "내 관심 목록만"
+    "message": "내 목록만"
   },
   "searchDub": {
     "message": "더빙"
@@ -817,7 +817,7 @@
     "message": "영화"
   },
   "searchInList": {
-    "message": "관심 목록에 있음"
+    "message": "내 목록에 있음"
   },
   "setAniListLabel": {
     "message": "일본어·로마자 이름도 검색(검색어를 AniList로 보냄)"
@@ -876,5 +876,53 @@
   },
   "setUiLangHelp": {
     "message": "‘자동’은 Firefox 언어를 따릅니다."
+  },
+  "setListsLabel": {
+    "message": "확인할 목록"
+  },
+  "setListsHelp": {
+    "message": "관심 목록 외에 내 크런치리스트도 선택할 수 있습니다. 목록을 두 개 이상 고르면 각 애니메이션에 어느 목록에서 왔는지 표시됩니다."
+  },
+  "listWatchlist": {
+    "message": "관심 목록"
+  },
+  "listsLoading": {
+    "message": "크런치리스트 불러오는 중…"
+  },
+  "listsError": {
+    "message": "크런치리스트를 읽을 수 없습니다: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listUnknown": {
+    "message": "목록을 찾을 수 없음"
+  },
+  "listFilterLabel": {
+    "message": "목록"
+  },
+  "listFilterAll": {
+    "message": "모든 목록"
+  },
+  "listFrom": {
+    "message": "목록: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listItems_one": {
+    "message": "1개 항목"
+  },
+  "listItems_other": {
+    "message": "$P1$개 항목",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }

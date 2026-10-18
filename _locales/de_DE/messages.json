@@ -518,7 +518,7 @@
     }
   },
   "progressReading": {
-    "message": "Lese deine Watchlist…"
+    "message": "Lese deine Listen…"
   },
   "errorQuery": {
     "message": "Crunchyroll nicht erreichbar: $P1$",
@@ -697,7 +697,7 @@
     "message": "Keine Season angegeben"
   },
   "emptyNever": {
-    "message": "Du hast alle Serien deiner Watchlist angefangen."
+    "message": "Du hast alle Serien deiner Listen angefangen."
   },
   "seasonLabel": {
     "message": "$S$ $Y$",
@@ -726,7 +726,7 @@
     "message": "Gesamter Katalog"
   },
   "searchScopeMine": {
-    "message": "Nur meine Watchlist"
+    "message": "Nur meine Listen"
   },
   "searchDub": {
     "message": "Synchro"
@@ -817,7 +817,7 @@
     "message": "Film"
   },
   "searchInList": {
-    "message": "Auf deiner Watchlist"
+    "message": "In deinen Listen"
   },
   "setAniListLabel": {
     "message": "Auch japanische und Romaji-Namen suchen (sendet den Suchtext an AniList)"
@@ -876,5 +876,53 @@
   },
   "setUiLangHelp": {
     "message": "„Automatisch“ folgt der Sprache von Firefox."
+  },
+  "setListsLabel": {
+    "message": "Geprüfte Listen"
+  },
+  "setListsHelp": {
+    "message": "Neben deiner Watchlist kannst du deine Crunchylists auswählen. Bei mehr als einer Liste zeigt jeder Anime, aus welcher Liste er stammt."
+  },
+  "listWatchlist": {
+    "message": "Watchlist"
+  },
+  "listsLoading": {
+    "message": "Lade deine Crunchylists…"
+  },
+  "listsError": {
+    "message": "Deine Crunchylists konnten nicht gelesen werden: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listUnknown": {
+    "message": "Liste nicht gefunden"
+  },
+  "listFilterLabel": {
+    "message": "Liste"
+  },
+  "listFilterAll": {
+    "message": "Alle Listen"
+  },
+  "listFrom": {
+    "message": "Liste: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listItems_one": {
+    "message": "1 Eintrag"
+  },
+  "listItems_other": {
+    "message": "$P1$ Einträge",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }

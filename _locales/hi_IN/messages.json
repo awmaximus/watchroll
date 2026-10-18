@@ -518,7 +518,7 @@
     }
   },
   "progressReading": {
-    "message": "आपकी वॉचलिस्ट पढ़ी जा रही है…"
+    "message": "आपकी सूचियाँ पढ़ी जा रही हैं…"
   },
   "errorQuery": {
     "message": "Crunchyroll से संपर्क नहीं हो सका: $P1$",
@@ -697,7 +697,7 @@
     "message": "सीज़न नहीं बताया गया"
   },
   "emptyNever": {
-    "message": "आपने अपनी वॉचलिस्ट की सभी सीरीज़ शुरू कर दी हैं।"
+    "message": "आपकी सूचियों की सभी सीरीज़ शुरू हो चुकी हैं।"
   },
   "seasonLabel": {
     "message": "$S$ $Y$",
@@ -726,7 +726,7 @@
     "message": "पूरा कैटलॉग"
   },
   "searchScopeMine": {
-    "message": "सिर्फ़ मेरी वॉचलिस्ट"
+    "message": "सिर्फ़ मेरी सूचियाँ"
   },
   "searchDub": {
     "message": "डब"
@@ -817,7 +817,7 @@
     "message": "फ़िल्म"
   },
   "searchInList": {
-    "message": "आपकी वॉचलिस्ट में"
+    "message": "आपकी सूचियों में"
   },
   "setAniListLabel": {
     "message": "जापानी और रोमाजी नामों से भी खोजें (खोज का टेक्स्ट AniList को भेजता है)"
@@ -876,5 +876,53 @@
   },
   "setUiLangHelp": {
     "message": "“स्वचालित” Firefox की भाषा अपनाता है।"
+  },
+  "setListsLabel": {
+    "message": "जाँची जाने वाली सूचियाँ"
+  },
+  "setListsHelp": {
+    "message": "वॉचलिस्ट के अलावा, आप अपनी Crunchylists भी चुन सकते हैं। एक से ज़्यादा सूची होने पर हर एनीमे दिखाता है कि वह किस सूची से आया।"
+  },
+  "listWatchlist": {
+    "message": "वॉचलिस्ट"
+  },
+  "listsLoading": {
+    "message": "आपकी Crunchylists लोड हो रही हैं…"
+  },
+  "listsError": {
+    "message": "आपकी Crunchylists पढ़ी नहीं जा सकीं: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listUnknown": {
+    "message": "सूची नहीं मिली"
+  },
+  "listFilterLabel": {
+    "message": "सूची"
+  },
+  "listFilterAll": {
+    "message": "सभी सूचियाँ"
+  },
+  "listFrom": {
+    "message": "सूची: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listItems_one": {
+    "message": "1 आइटम"
+  },
+  "listItems_other": {
+    "message": "आइटम: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }

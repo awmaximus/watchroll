@@ -518,7 +518,7 @@
     }
   },
   "progressReading": {
-    "message": "جارٍ قراءة قائمة المشاهدة…"
+    "message": "جارٍ قراءة قوائمك…"
   },
   "errorQuery": {
     "message": "تعذّر الاتصال بـ Crunchyroll: $P1$",
@@ -697,7 +697,7 @@
     "message": "الموسم غير محدد"
   },
   "emptyNever": {
-    "message": "بدأت كل المسلسلات في قائمة المشاهدة."
+    "message": "بدأت كل المسلسلات في قوائمك."
   },
   "seasonLabel": {
     "message": "$S$ $Y$",
@@ -726,7 +726,7 @@
     "message": "الكتالوج كله"
   },
   "searchScopeMine": {
-    "message": "قائمتي فقط"
+    "message": "قوائمي فقط"
   },
   "searchDub": {
     "message": "الدبلجة"
@@ -817,7 +817,7 @@
     "message": "فيلم"
   },
   "searchInList": {
-    "message": "في قائمتك"
+    "message": "في قوائمك"
   },
   "setAniListLabel": {
     "message": "البحث أيضًا بالأسماء اليابانية والروماجي (يُرسل نص البحث إلى AniList)"
@@ -876,5 +876,53 @@
   },
   "setUiLangHelp": {
     "message": "«تلقائي» يتبع لغة Firefox."
+  },
+  "setListsLabel": {
+    "message": "القوائم التي يتم فحصها"
+  },
+  "setListsHelp": {
+    "message": "إلى جانب قائمة المشاهدة، يمكنك اختيار قوائم Crunchylists الخاصة بك. عند اختيار أكثر من قائمة، يظهر لكل أنمي القائمة التي جاء منها."
+  },
+  "listWatchlist": {
+    "message": "قائمة المشاهدة"
+  },
+  "listsLoading": {
+    "message": "جارٍ تحميل قوائم Crunchylists…"
+  },
+  "listsError": {
+    "message": "تعذّرت قراءة قوائم Crunchylists: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listUnknown": {
+    "message": "القائمة غير موجودة"
+  },
+  "listFilterLabel": {
+    "message": "القائمة"
+  },
+  "listFilterAll": {
+    "message": "كل القوائم"
+  },
+  "listFrom": {
+    "message": "القائمة: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listItems_one": {
+    "message": "عنصر واحد"
+  },
+  "listItems_other": {
+    "message": "العناصر: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }

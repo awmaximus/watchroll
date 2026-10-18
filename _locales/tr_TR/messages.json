@@ -518,7 +518,7 @@
     }
   },
   "progressReading": {
-    "message": "İzleme listen okunuyor…"
+    "message": "Listelerin okunuyor…"
   },
   "errorQuery": {
     "message": "Crunchyroll'a ulaşılamadı: $P1$",
@@ -697,7 +697,7 @@
     "message": "Sezon belirtilmemiş"
   },
   "emptyNever": {
-    "message": "İzleme listendeki tüm dizilere başladın."
+    "message": "Listelerindeki tüm serilere başladın."
   },
   "seasonLabel": {
     "message": "$S$ $Y$",
@@ -726,7 +726,7 @@
     "message": "Tüm katalog"
   },
   "searchScopeMine": {
-    "message": "Yalnızca izleme listem"
+    "message": "Yalnızca listelerim"
   },
   "searchDub": {
     "message": "Dublaj"
@@ -817,7 +817,7 @@
     "message": "Film"
   },
   "searchInList": {
-    "message": "İzleme listende"
+    "message": "Listelerinde"
   },
   "setAniListLabel": {
     "message": "Japonca ve romaji adlarla da ara (arama metnini AniList'e gönderir)"
@@ -876,5 +876,53 @@
   },
   "setUiLangHelp": {
     "message": "“Otomatik”, Firefox'un dilini izler."
+  },
+  "setListsLabel": {
+    "message": "Kontrol edilen listeler"
+  },
+  "setListsHelp": {
+    "message": "İzleme listenin yanında Crunchylist'lerini de seçebilirsin. Birden fazla liste seçildiğinde her anime hangi listeden geldiğini gösterir."
+  },
+  "listWatchlist": {
+    "message": "İzleme listesi"
+  },
+  "listsLoading": {
+    "message": "Crunchylist'lerin yükleniyor…"
+  },
+  "listsError": {
+    "message": "Crunchylist'lerin okunamadı: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listUnknown": {
+    "message": "Liste bulunamadı"
+  },
+  "listFilterLabel": {
+    "message": "Liste"
+  },
+  "listFilterAll": {
+    "message": "Tüm listeler"
+  },
+  "listFrom": {
+    "message": "Liste: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listItems_one": {
+    "message": "1 öğe"
+  },
+  "listItems_other": {
+    "message": "$P1$ öğe",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }

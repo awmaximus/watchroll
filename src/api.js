@@ -449,6 +449,26 @@ var CRApi = (() => {
     return r.items;
   }
 
+  // ---------- Crunchylists (listas personalizadas) ----------
+  // Nomes: GET /content/v2/{conta}/custom-lists (conferido num HAR do site em
+  // out/2026): { data: [{ list_id, title, total, is_public, modified_at }] }.
+  async function customLists(locale) {
+    const acc = await getAccountId();
+    const r = await get(`/content/v2/${acc}/custom-lists`, { locale });
+    return (r.data || [])
+      .filter((l) => l && l.list_id)
+      .map((l) => ({ id: l.list_id, title: l.title || "", total: typeof l.total === "number" ? l.total : null }));
+  }
+
+  // Itens de uma lista: { data: [{ list_id, id, panel, modified_at }] }, com o
+  // mesmo "panel" da Fila. A Crunchyroll limita cada lista a 100 itens, e a
+  // resposta vem inteira (sem páginas).
+  async function customListItems(listId, locale) {
+    const acc = await getAccountId();
+    const r = await get(`/content/v2/${acc}/custom-lists/${encodeURIComponent(listId)}`, { locale });
+    return (r.data || []).filter((it) => it && it.panel);
+  }
+
   // Mesmos parâmetros, na mesma ordem, que o site usa (conferido num HAR do site em
   // out/2026). A CDN da Crunchyroll guarda uma cópia por endereço exato: com o
   // endereço do site, a extensão pega a cópia que milhares de pessoas renovam o
@@ -627,6 +647,8 @@ var CRApi = (() => {
     getProfileId,
     profiles,
     watchlist,
+    customLists,
+    customListItems,
     watchHistory,
     seasons,
     episodes,

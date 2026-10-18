@@ -32,6 +32,9 @@ var CRChecker = (() => {
     tab: "toWatch",
     anilist: false,
     uiLang: "auto",
+    sources: ["watchlist"], // "watchlist" (a Fila) e/ou IDs de Crunchylists
+    listNames: {}, // ID da Crunchylist -> nome (o último lido da API)
+    listFilter: "", // filtro das abas: "" = todas as listas
   };
 
   async function loadSettings(b = browser) {
@@ -41,6 +44,8 @@ var CRChecker = (() => {
       ...saved,
       seriesModes: { ...(saved.seriesModes || {}) },
       hidden: { ...(saved.hidden || {}) },
+      sources: Array.isArray(saved.sources) && saved.sources.length ? [...saved.sources] : [...DEFAULT_SETTINGS.sources],
+      listNames: { ...(saved.listNames || {}) },
     };
   }
   const saveSettings = (settings, b = browser) => b.storage.local.set({ [SETTINGS_KEY]: settings });
@@ -84,6 +89,15 @@ var CRChecker = (() => {
     }
     return false;
   }
+
+  // Filtro por lista das abas. Um filtro que aponta para uma lista que não está
+  // mais entre as escolhidas vale como "todas".
+  function activeListFilter(settings) {
+    const f = settings && settings.listFilter;
+    const sources = (settings && settings.sources) || [];
+    return f && sources.length > 1 && sources.includes(f) ? f : "";
+  }
+  const inList = (r, listId) => !listId || (Array.isArray(r.lists) ? r.lists.includes(listId) : listId === "watchlist");
 
   const visibleResults = (results, settings, now = Date.now()) =>
     (results || []).filter((r) => !isHidden(r, ((settings && settings.hidden) || {})[r.seriesId], now));
@@ -275,6 +289,8 @@ var CRChecker = (() => {
     pendingItems,
     summarize,
     matchesSearch,
+    activeListFilter,
+    inList,
     SORTS,
     TAB_SORTS,
     sortFor,

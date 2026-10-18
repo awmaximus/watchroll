@@ -518,7 +518,7 @@
     }
   },
   "progressReading": {
-    "message": "మీ వాచ్‌లిస్ట్ చదువుతోంది…"
+    "message": "మీ జాబితాలు చదువుతోంది…"
   },
   "errorQuery": {
     "message": "Crunchyrollను సంప్రదించలేకపోయాం: $P1$",
@@ -697,7 +697,7 @@
     "message": "సీజన్ పేర్కొనలేదు"
   },
   "emptyNever": {
-    "message": "మీ వాచ్‌లిస్ట్‌లోని అన్ని సిరీస్‌లను మొదలుపెట్టారు."
+    "message": "మీ జాబితాల్లోని అన్ని సిరీస్‌లు మొదలుపెట్టారు."
   },
   "seasonLabel": {
     "message": "$S$ $Y$",
@@ -726,7 +726,7 @@
     "message": "మొత్తం కేటలాగ్"
   },
   "searchScopeMine": {
-    "message": "నా వాచ్‌లిస్ట్ మాత్రమే"
+    "message": "నా జాబితాలు మాత్రమే"
   },
   "searchDub": {
     "message": "డబ్"
@@ -817,7 +817,7 @@
     "message": "సినిమా"
   },
   "searchInList": {
-    "message": "మీ వాచ్‌లిస్ట్‌లో ఉంది"
+    "message": "మీ జాబితాల్లో"
   },
   "setAniListLabel": {
     "message": "జపనీస్, రోమాజీ పేర్లతో కూడా వెతకండి (శోధన వచనాన్ని AniListకు పంపుతుంది)"
@@ -876,5 +876,53 @@
   },
   "setUiLangHelp": {
     "message": "“స్వయంచాలకం” Firefox భాషను అనుసరిస్తుంది."
+  },
+  "setListsLabel": {
+    "message": "తనిఖీ చేసే జాబితాలు"
+  },
+  "setListsHelp": {
+    "message": "వాచ్‌లిస్ట్‌తో పాటు మీ Crunchylists కూడా ఎంచుకోవచ్చు. ఒకటి కంటే ఎక్కువ జాబితాలు ఉంటే, ప్రతి అనిమే ఏ జాబితా నుండి వచ్చిందో చూపిస్తుంది."
+  },
+  "listWatchlist": {
+    "message": "వాచ్‌లిస్ట్"
+  },
+  "listsLoading": {
+    "message": "మీ Crunchylists లోడ్ అవుతున్నాయి…"
+  },
+  "listsError": {
+    "message": "మీ Crunchylists చదవలేకపోయాం: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listUnknown": {
+    "message": "జాబితా కనబడలేదు"
+  },
+  "listFilterLabel": {
+    "message": "జాబితా"
+  },
+  "listFilterAll": {
+    "message": "అన్ని జాబితాలు"
+  },
+  "listFrom": {
+    "message": "జాబితా: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listItems_one": {
+    "message": "1 అంశం"
+  },
+  "listItems_other": {
+    "message": "అంశాలు: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }

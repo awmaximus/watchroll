@@ -518,7 +518,7 @@
     }
   },
   "progressReading": {
-    "message": "กำลังอ่านรายการที่จะดู…"
+    "message": "กำลังอ่านรายการของคุณ…"
   },
   "errorQuery": {
     "message": "ติดต่อ Crunchyroll ไม่ได้: $P1$",
@@ -697,7 +697,7 @@
     "message": "ไม่ระบุซีซัน"
   },
   "emptyNever": {
-    "message": "คุณเริ่มดูทุกซีรีส์ในรายการที่จะดูแล้ว"
+    "message": "คุณเริ่มดูทุกซีรีส์ในรายการของคุณแล้ว"
   },
   "seasonLabel": {
     "message": "$S$ $Y$",
@@ -726,7 +726,7 @@
     "message": "แคตตาล็อกทั้งหมด"
   },
   "searchScopeMine": {
-    "message": "เฉพาะรายการที่จะดูของฉัน"
+    "message": "เฉพาะรายการของฉัน"
   },
   "searchDub": {
     "message": "พากย์"
@@ -817,7 +817,7 @@
     "message": "ภาพยนตร์"
   },
   "searchInList": {
-    "message": "อยู่ในรายการที่จะดู"
+    "message": "อยู่ในรายการของคุณ"
   },
   "setAniListLabel": {
     "message": "ค้นหาชื่อภาษาญี่ปุ่นและโรมาจิด้วย (ส่งข้อความค้นหาไปที่ AniList)"
@@ -876,5 +876,53 @@
   },
   "setUiLangHelp": {
     "message": "“อัตโนมัติ” จะใช้ภาษาเดียวกับ Firefox"
+  },
+  "setListsLabel": {
+    "message": "รายการที่ตรวจสอบ"
+  },
+  "setListsHelp": {
+    "message": "นอกจากรายการที่จะดู คุณเลือก Crunchylist ของคุณได้ด้วย เมื่อเลือกมากกว่าหนึ่งรายการ อนิเมะแต่ละเรื่องจะแสดงว่ามาจากรายการใด"
+  },
+  "listWatchlist": {
+    "message": "รายการที่จะดู"
+  },
+  "listsLoading": {
+    "message": "กำลังโหลด Crunchylist ของคุณ…"
+  },
+  "listsError": {
+    "message": "อ่าน Crunchylist ของคุณไม่ได้: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listUnknown": {
+    "message": "ไม่พบรายการ"
+  },
+  "listFilterLabel": {
+    "message": "รายการ"
+  },
+  "listFilterAll": {
+    "message": "ทุกรายการ"
+  },
+  "listFrom": {
+    "message": "รายการ: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listItems_one": {
+    "message": "1 รายการ"
+  },
+  "listItems_other": {
+    "message": "$P1$ รายการ",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }

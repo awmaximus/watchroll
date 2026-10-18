@@ -518,7 +518,7 @@
     }
   },
   "progressReading": {
-    "message": "Leyendo tu Lista…"
+    "message": "Leyendo tus listas…"
   },
   "errorQuery": {
     "message": "No se pudo consultar Crunchyroll: $P1$",
@@ -697,7 +697,7 @@
     "message": "Sin temporada indicada"
   },
   "emptyNever": {
-    "message": "Ya empezaste todas las series de tu Lista."
+    "message": "Ya empezaste todas las series de tus listas."
   },
   "seasonLabel": {
     "message": "$S$ de $Y$",
@@ -726,7 +726,7 @@
     "message": "Todo el catálogo"
   },
   "searchScopeMine": {
-    "message": "Solo mi Lista"
+    "message": "Solo mis listas"
   },
   "searchDub": {
     "message": "Doblaje"
@@ -817,7 +817,7 @@
     "message": "Película"
   },
   "searchInList": {
-    "message": "En tu Lista"
+    "message": "En tus listas"
   },
   "setAniListLabel": {
     "message": "Buscar también nombres en japonés y romaji (envía el texto de la búsqueda a AniList)"
@@ -876,5 +876,53 @@
   },
   "setUiLangHelp": {
     "message": "En “Automático”, sigue el idioma de Firefox."
+  },
+  "setListsLabel": {
+    "message": "Listas revisadas"
+  },
+  "setListsHelp": {
+    "message": "Además de tu Lista, puedes elegir tus Crunchylists. Con más de una lista, cada anime muestra de qué lista viene."
+  },
+  "listWatchlist": {
+    "message": "Lista"
+  },
+  "listsLoading": {
+    "message": "Cargando tus Crunchylists…"
+  },
+  "listsError": {
+    "message": "No se pudieron leer tus Crunchylists: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listUnknown": {
+    "message": "Lista no encontrada"
+  },
+  "listFilterLabel": {
+    "message": "Lista"
+  },
+  "listFilterAll": {
+    "message": "Todas las listas"
+  },
+  "listFrom": {
+    "message": "Lista: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listItems_one": {
+    "message": "1 elemento"
+  },
+  "listItems_other": {
+    "message": "$P1$ elementos",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }

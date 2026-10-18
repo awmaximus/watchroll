@@ -518,7 +518,7 @@
     }
   },
   "progressReading": {
-    "message": "Llegint la teva llista de seguiment…"
+    "message": "Llegint les teves llistes…"
   },
   "errorQuery": {
     "message": "No s'ha pogut consultar Crunchyroll: $P1$",
@@ -697,7 +697,7 @@
     "message": "Sense temporada indicada"
   },
   "emptyNever": {
-    "message": "Ja has començat totes les sèries de la teva llista."
+    "message": "Ja has començat totes les sèries de les teves llistes."
   },
   "seasonLabel": {
     "message": "$S$ $Y$",
@@ -726,7 +726,7 @@
     "message": "Tot el catàleg"
   },
   "searchScopeMine": {
-    "message": "Només la meva llista"
+    "message": "Només les meves llistes"
   },
   "searchDub": {
     "message": "Doblatge"
@@ -817,7 +817,7 @@
     "message": "Pel·lícula"
   },
   "searchInList": {
-    "message": "A la teva llista"
+    "message": "A les teves llistes"
   },
   "setAniListLabel": {
     "message": "Cerca també noms en japonès i romaji (envia el text de la cerca a l'AniList)"
@@ -876,5 +876,53 @@
   },
   "setUiLangHelp": {
     "message": "«Automàtic» fa servir el mateix idioma que el Firefox."
+  },
+  "setListsLabel": {
+    "message": "Llistes comprovades"
+  },
+  "setListsHelp": {
+    "message": "A més de la teva llista de seguiment, pots triar les teves Crunchylists. Amb més d'una llista, cada anime mostra de quina llista ve."
+  },
+  "listWatchlist": {
+    "message": "Llista de seguiment"
+  },
+  "listsLoading": {
+    "message": "Carregant les teves Crunchylists…"
+  },
+  "listsError": {
+    "message": "No s'han pogut llegir les teves Crunchylists: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listUnknown": {
+    "message": "Llista no trobada"
+  },
+  "listFilterLabel": {
+    "message": "Llista"
+  },
+  "listFilterAll": {
+    "message": "Totes les llistes"
+  },
+  "listFrom": {
+    "message": "Llista: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listItems_one": {
+    "message": "1 element"
+  },
+  "listItems_other": {
+    "message": "$P1$ elements",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }

@@ -518,7 +518,7 @@
     }
   },
   "progressReading": {
-    "message": "ウォッチリストを読み込み中…"
+    "message": "リストを読み込み中…"
   },
   "errorQuery": {
     "message": "Crunchyroll に接続できませんでした:$P1$",
@@ -697,7 +697,7 @@
     "message": "シーズン情報なし"
   },
   "emptyNever": {
-    "message": "ウォッチリストのシリーズはすべて見始めています。"
+    "message": "リストのシリーズはすべて見始めています。"
   },
   "seasonLabel": {
     "message": "$Y$年$S$",
@@ -726,7 +726,7 @@
     "message": "カタログ全体"
   },
   "searchScopeMine": {
-    "message": "自分のウォッチリストのみ"
+    "message": "自分のリストのみ"
   },
   "searchDub": {
     "message": "吹き替え"
@@ -817,7 +817,7 @@
     "message": "映画"
   },
   "searchInList": {
-    "message": "ウォッチリストにあり"
+    "message": "リストにあり"
   },
   "setAniListLabel": {
     "message": "日本語・ローマ字の名前でも検索する(検索テキストを AniList に送信します)"
@@ -876,5 +876,53 @@
   },
   "setUiLangHelp": {
     "message": "「自動」では Firefox の言語に合わせます。"
+  },
+  "setListsLabel": {
+    "message": "確認するリスト"
+  },
+  "setListsHelp": {
+    "message": "ウォッチリストに加えて、クランチリストも選べます。複数のリストを選ぶと、各アニメにどのリストから来たかが表示されます。"
+  },
+  "listWatchlist": {
+    "message": "ウォッチリスト"
+  },
+  "listsLoading": {
+    "message": "クランチリストを読み込み中…"
+  },
+  "listsError": {
+    "message": "クランチリストを読み込めませんでした: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listUnknown": {
+    "message": "リストが見つかりません"
+  },
+  "listFilterLabel": {
+    "message": "リスト"
+  },
+  "listFilterAll": {
+    "message": "すべてのリスト"
+  },
+  "listFrom": {
+    "message": "リスト: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listItems_one": {
+    "message": "1 件"
+  },
+  "listItems_other": {
+    "message": "$P1$ 件",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }

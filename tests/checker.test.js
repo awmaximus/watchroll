@@ -362,3 +362,29 @@ describe("ordenação por aba", () => {
     assert.deepEqual(order(list, "title"), ["A", "B", "C"]);
   });
 });
+
+describe("filtro por lista", () => {
+  const { CRChecker: C } = load(["src/checker.js"], { browser: fakeBrowser() });
+  test("só vale com mais de uma lista escolhida e se a lista ainda está entre elas", () => {
+    assert.equal(C.activeListFilter({ sources: ["watchlist", "L1"], listFilter: "L1" }), "L1");
+    assert.equal(C.activeListFilter({ sources: ["watchlist"], listFilter: "watchlist" }), "");
+    assert.equal(C.activeListFilter({ sources: ["watchlist", "L2"], listFilter: "L1" }), "");
+    assert.equal(C.activeListFilter({ sources: ["watchlist", "L1"], listFilter: "" }), "");
+  });
+  test("inList: sem filtro passa tudo; resultado antigo (sem lists) conta como Fila", () => {
+    assert.equal(C.inList({ lists: ["L1"] }, ""), true);
+    assert.equal(C.inList({ lists: ["L1"] }, "L1"), true);
+    assert.equal(C.inList({ lists: ["watchlist"] }, "L1"), false);
+    assert.equal(C.inList({}, "watchlist"), true);
+    assert.equal(C.inList({}, "L1"), false);
+  });
+  test("preferências: listas padrão e salvas", async () => {
+    const b = fakeBrowser();
+    const { CRChecker: C2 } = load(["src/checker.js"], { browser: b });
+    assert.deepEqual(plain((await C2.loadSettings(b)).sources), ["watchlist"]);
+    await C2.saveSettings({ sources: ["L1"], listNames: { L1: "Minha" } }, b);
+    const s = await C2.loadSettings(b);
+    assert.deepEqual(plain(s.sources), ["L1"]);
+    assert.equal(s.listNames.L1, "Minha");
+  });
+});

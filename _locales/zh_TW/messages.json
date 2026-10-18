@@ -518,7 +518,7 @@
     }
   },
   "progressReading": {
-    "message": "正在讀取你的追番清單…"
+    "message": "正在讀取你的清單…"
   },
   "errorQuery": {
     "message": "無法連線 Crunchyroll:$P1$",
@@ -697,7 +697,7 @@
     "message": "未標明季度"
   },
   "emptyNever": {
-    "message": "追番清單中的系列你都已開始觀看。"
+    "message": "你的清單中的系列都已開始觀看。"
   },
   "seasonLabel": {
     "message": "$Y$年$S$",
@@ -726,7 +726,7 @@
     "message": "整個片庫"
   },
   "searchScopeMine": {
-    "message": "僅我的追番清單"
+    "message": "僅我的清單"
   },
   "searchDub": {
     "message": "配音"
@@ -817,7 +817,7 @@
     "message": "電影"
   },
   "searchInList": {
-    "message": "在追番清單中"
+    "message": "在你的清單中"
   },
   "setAniListLabel": {
     "message": "也搜尋日文和羅馬字名稱(會將搜尋文字傳送到 AniList)"
@@ -876,5 +876,53 @@
   },
   "setUiLangHelp": {
     "message": "「自動」會跟隨 Firefox 的語言。"
+  },
+  "setListsLabel": {
+    "message": "要檢查的清單"
+  },
+  "setListsHelp": {
+    "message": "除了追番清單,你還可以選擇自己的 Crunchylists。選擇多個清單時,每部動畫會顯示來自哪個清單。"
+  },
+  "listWatchlist": {
+    "message": "追番清單"
+  },
+  "listsLoading": {
+    "message": "正在載入你的 Crunchylists…"
+  },
+  "listsError": {
+    "message": "無法讀取你的 Crunchylists:$P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listUnknown": {
+    "message": "找不到清單"
+  },
+  "listFilterLabel": {
+    "message": "清單"
+  },
+  "listFilterAll": {
+    "message": "全部清單"
+  },
+  "listFrom": {
+    "message": "清單:$P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listItems_one": {
+    "message": "1 項"
+  },
+  "listItems_other": {
+    "message": "$P1$ 項",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }

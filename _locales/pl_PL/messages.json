@@ -518,7 +518,7 @@
     }
   },
   "progressReading": {
-    "message": "Odczytywanie listy obserwowanych…"
+    "message": "Odczytywanie Twoich list…"
   },
   "errorQuery": {
     "message": "Nie udało się połączyć z Crunchyroll: $P1$",
@@ -697,7 +697,7 @@
     "message": "Bez podanego sezonu"
   },
   "emptyNever": {
-    "message": "Rozpocząłeś już wszystkie serie z listy obserwowanych."
+    "message": "Rozpocząłeś już wszystkie serie z Twoich list."
   },
   "seasonLabel": {
     "message": "$S$ $Y$",
@@ -726,7 +726,7 @@
     "message": "Cały katalog"
   },
   "searchScopeMine": {
-    "message": "Tylko moja lista"
+    "message": "Tylko moje listy"
   },
   "searchDub": {
     "message": "Dubbing"
@@ -817,7 +817,7 @@
     "message": "Film"
   },
   "searchInList": {
-    "message": "Na Twojej liście"
+    "message": "Na Twoich listach"
   },
   "setAniListLabel": {
     "message": "Szukaj też nazw japońskich i romaji (wysyła tekst wyszukiwania do AniList)"
@@ -876,5 +876,53 @@
   },
   "setUiLangHelp": {
     "message": "„Automatycznie” używa tego samego języka co Firefox."
+  },
+  "setListsLabel": {
+    "message": "Sprawdzane listy"
+  },
+  "setListsHelp": {
+    "message": "Oprócz listy obserwowanych możesz wybrać swoje Crunchylisty. Przy więcej niż jednej liście każde anime pokazuje, z której listy pochodzi."
+  },
+  "listWatchlist": {
+    "message": "Lista obserwowanych"
+  },
+  "listsLoading": {
+    "message": "Wczytywanie Twoich Crunchylist…"
+  },
+  "listsError": {
+    "message": "Nie udało się odczytać Twoich Crunchylist: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listUnknown": {
+    "message": "Nie znaleziono listy"
+  },
+  "listFilterLabel": {
+    "message": "Lista"
+  },
+  "listFilterAll": {
+    "message": "Wszystkie listy"
+  },
+  "listFrom": {
+    "message": "Lista: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listItems_one": {
+    "message": "1 pozycja"
+  },
+  "listItems_other": {
+    "message": "Pozycje: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }

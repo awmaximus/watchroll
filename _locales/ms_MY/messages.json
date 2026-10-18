@@ -518,7 +518,7 @@
     }
   },
   "progressReading": {
-    "message": "Membaca Senarai Tontonan anda…"
+    "message": "Membaca senarai anda…"
   },
   "errorQuery": {
     "message": "Tidak dapat menghubungi Crunchyroll: $P1$",
@@ -697,7 +697,7 @@
     "message": "Musim tidak dinyatakan"
   },
   "emptyNever": {
-    "message": "Anda telah memulakan semua siri dalam Senarai Tontonan anda."
+    "message": "Anda sudah memulakan semua siri dalam senarai anda."
   },
   "seasonLabel": {
     "message": "$S$ $Y$",
@@ -726,7 +726,7 @@
     "message": "Seluruh katalog"
   },
   "searchScopeMine": {
-    "message": "Senarai Tontonan saya sahaja"
+    "message": "Senarai saya sahaja"
   },
   "searchDub": {
     "message": "Alih suara"
@@ -817,7 +817,7 @@
     "message": "Filem"
   },
   "searchInList": {
-    "message": "Dalam Senarai Tontonan anda"
+    "message": "Dalam senarai anda"
   },
   "setAniListLabel": {
     "message": "Cari juga nama Jepun dan romaji (menghantar teks carian ke AniList)"
@@ -876,5 +876,53 @@
   },
   "setUiLangHelp": {
     "message": "“Automatik” mengikut bahasa Firefox."
+  },
+  "setListsLabel": {
+    "message": "Senarai yang disemak"
+  },
+  "setListsHelp": {
+    "message": "Selain Senarai Tontonan, anda boleh memilih Crunchylist anda. Jika lebih daripada satu senarai, setiap anime menunjukkan senarai asalnya."
+  },
+  "listWatchlist": {
+    "message": "Senarai Tontonan"
+  },
+  "listsLoading": {
+    "message": "Memuatkan Crunchylist anda…"
+  },
+  "listsError": {
+    "message": "Tidak dapat membaca Crunchylist anda: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listUnknown": {
+    "message": "Senarai tidak ditemui"
+  },
+  "listFilterLabel": {
+    "message": "Senarai"
+  },
+  "listFilterAll": {
+    "message": "Semua senarai"
+  },
+  "listFrom": {
+    "message": "Senarai: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listItems_one": {
+    "message": "1 item"
+  },
+  "listItems_other": {
+    "message": "$P1$ item",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }

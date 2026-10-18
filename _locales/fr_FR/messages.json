@@ -518,7 +518,7 @@
     }
   },
   "progressReading": {
-    "message": "Lecture de votre Liste…"
+    "message": "Lecture de vos listes…"
   },
   "errorQuery": {
     "message": "Impossible de contacter Crunchyroll : $P1$",
@@ -697,7 +697,7 @@
     "message": "Saison non indiquée"
   },
   "emptyNever": {
-    "message": "Vous avez commencé toutes les séries de votre Liste."
+    "message": "Vous avez commencé toutes les séries de vos listes."
   },
   "seasonLabel": {
     "message": "$S$ $Y$",
@@ -726,7 +726,7 @@
     "message": "Tout le catalogue"
   },
   "searchScopeMine": {
-    "message": "Ma Liste seulement"
+    "message": "Mes listes seulement"
   },
   "searchDub": {
     "message": "Doublage"
@@ -817,7 +817,7 @@
     "message": "Film"
   },
   "searchInList": {
-    "message": "Dans votre Liste"
+    "message": "Dans vos listes"
   },
   "setAniListLabel": {
     "message": "Rechercher aussi les noms japonais et en romaji (envoie le texte de la recherche à AniList)"
@@ -876,5 +876,53 @@
   },
   "setUiLangHelp": {
     "message": "« Automatique » suit la langue de Firefox."
+  },
+  "setListsLabel": {
+    "message": "Listes vérifiées"
+  },
+  "setListsHelp": {
+    "message": "En plus de votre Liste, vous pouvez choisir vos Crunchylists. Avec plusieurs listes, chaque anime indique de quelle liste il vient."
+  },
+  "listWatchlist": {
+    "message": "Liste"
+  },
+  "listsLoading": {
+    "message": "Chargement de vos Crunchylists…"
+  },
+  "listsError": {
+    "message": "Impossible de lire vos Crunchylists : $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listUnknown": {
+    "message": "Liste introuvable"
+  },
+  "listFilterLabel": {
+    "message": "Liste"
+  },
+  "listFilterAll": {
+    "message": "Toutes les listes"
+  },
+  "listFrom": {
+    "message": "Liste : $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listItems_one": {
+    "message": "1 élément"
+  },
+  "listItems_other": {
+    "message": "$P1$ éléments",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }

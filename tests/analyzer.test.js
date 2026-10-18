@@ -11,6 +11,12 @@ function setup(db) {
   const CRApi = {
     getAccountId: async () => "conta-1",
     watchlist: async () => (calls.push(["watchlist"]), db.watchlist),
+    customListItems: async (id) => {
+      calls.push(["customList", id]);
+      if ((db.missingLists || []).includes(id)) throw Object.assign(new Error("HTTP 404"), { status: 404 });
+      if ((db.brokenLists || []).includes(id)) throw Object.assign(new Error("HTTP 500"), { status: 500 });
+      return (db.lists || {})[id] || [];
+    },
     seasons: async (id) => {
       calls.push(["seasons", id]);
       if (db.fail && db.fail.includes(id)) throw new Error("HTTP 500 em seasons");
@@ -1696,5 +1702,71 @@ describe("temporada de lançamento (aba Ainda não começadas)", () => {
     const [r] = await a.run({ settings: settings() });
     assert.equal(r.status, "never");
     assert.deepEqual(plain(r.launch), { season: "spring", year: 2026 });
+  });
+});
+
+describe("Fila + Crunchylists", () => {
+  const db = (over = {}) => ({
+    watchlist: [series("A", { never_watched: true }), series("B")],
+    lists: { L1: [series("B"), series("C")], L2: [series("D")] },
+    seasons: {},
+    episodes: {},
+    playheads: {},
+    ...over,
+  });
+
+  test("sem escolha, lê só a Fila (como antes)", async () => {
+    const { analyzer, calls } = setup(db());
+    const r = await analyzer.run({ settings: settings() });
+    assert.deepEqual(plain(r.map((x) => x.seriesId)), ["A", "B"]);
+    assert.ok(!calls.some((c) => c[0] === "customList"));
+    assert.deepEqual(plain(r[0].lists), ["watchlist"]);
+  });
+
+  test("junta Fila e Crunchylists sem repetir série e guarda de onde cada uma veio", async () => {
+    const { analyzer } = setup(db());
+    const r = await analyzer.run({ settings: settings({ sources: ["watchlist", "L1"] }) });
+    const by = Object.fromEntries(r.map((x) => [x.seriesId, plain(x.lists)]));
+    assert.deepEqual(by, { A: ["watchlist"], B: ["watchlist", "L1"], C: ["L1"] });
+  });
+
+  test("só Crunchylists, sem a Fila", async () => {
+    const { analyzer, calls } = setup(db());
+    const r = await analyzer.run({ settings: settings({ sources: ["L2"] }) });
+    assert.deepEqual(plain(r.map((x) => x.seriesId)), ["D"]);
+    assert.ok(!calls.some((c) => c[0] === "watchlist"));
+  });
+
+  test("a marca 'nunca assistida' da Fila vale mesmo se a série também está numa Crunchylist", () => {
+    const { analyzer } = setup(db());
+    const merged = analyzer.mergeSources([
+      { id: "L1", items: [series("A")] },
+      { id: "watchlist", items: [series("A", { never_watched: true })] },
+    ]);
+    assert.equal(merged.length, 1);
+    assert.equal(merged[0].neverWatchedFlag, true);
+    assert.deepEqual(plain(merged[0].lists), ["L1", "watchlist"]);
+  });
+
+  test("lista apagada no site (404) é ignorada; outro erro interrompe", async () => {
+    const ok = setup(db({ missingLists: ["L9"] }));
+    const r = await ok.analyzer.run({ settings: settings({ sources: ["watchlist", "L9"] }) });
+    assert.deepEqual(plain(r.map((x) => x.seriesId)), ["A", "B"]);
+    const bad = setup(db({ brokenLists: ["L1"] }));
+    await assert.rejects(bad.analyzer.run({ settings: settings({ sources: ["watchlist", "L1"] }) }), /500/);
+  });
+
+  test("listSources: remove repetidos e inválidos; vazio vira a Fila", () => {
+    const { analyzer } = setup(db());
+    assert.deepEqual(plain(analyzer.listSources({})), ["watchlist"]);
+    assert.deepEqual(plain(analyzer.listSources({ sources: [] })), ["watchlist"]);
+    assert.deepEqual(plain(analyzer.listSources({ sources: ["L1", "L1", "", null, "watchlist"] })), ["L1", "watchlist"]);
+  });
+
+  test("o cache não muda as listas de origem de uma série", async () => {
+    const { analyzer } = setup(db());
+    await analyzer.run({ settings: settings({ sources: ["watchlist"] }) });
+    const r = await analyzer.run({ settings: settings({ sources: ["watchlist", "L1"] }) });
+    assert.deepEqual(plain(r.find((x) => x.seriesId === "B").lists), ["watchlist", "L1"]);
   });
 });

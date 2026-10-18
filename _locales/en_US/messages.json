@@ -519,7 +519,7 @@
     }
   },
   "progressReading": {
-    "message": "Reading your Watchlist…"
+    "message": "Reading your lists…"
   },
   "errorQuery": {
     "message": "Couldn't reach Crunchyroll: $P1$",
@@ -701,7 +701,7 @@
     "message": "No season listed"
   },
   "emptyNever": {
-    "message": "Every series in your Watchlist has been started."
+    "message": "Every series in your lists has been started."
   },
   "seasonLabel": {
     "message": "$S$ $Y$",
@@ -730,7 +730,7 @@
     "message": "Whole catalog"
   },
   "searchScopeMine": {
-    "message": "My Watchlist only"
+    "message": "My lists only"
   },
   "searchDub": {
     "message": "Dub"
@@ -821,7 +821,7 @@
     "message": "Movie"
   },
   "searchInList": {
-    "message": "In your Watchlist"
+    "message": "In your lists"
   },
   "setAniListLabel": {
     "message": "Also search Japanese and romaji names (sends the search text to AniList)"
@@ -880,5 +880,53 @@
   },
   "setUiLangHelp": {
     "message": "“Automatic” follows Firefox’s language."
+  },
+  "setListsLabel": {
+    "message": "Lists to check"
+  },
+  "setListsHelp": {
+    "message": "Besides your Watchlist, you can pick your Crunchylists. With more than one list, each anime shows which list it came from."
+  },
+  "listWatchlist": {
+    "message": "Watchlist"
+  },
+  "listsLoading": {
+    "message": "Loading your Crunchylists…"
+  },
+  "listsError": {
+    "message": "Couldn't read your Crunchylists: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listUnknown": {
+    "message": "List not found"
+  },
+  "listFilterLabel": {
+    "message": "List"
+  },
+  "listFilterAll": {
+    "message": "All lists"
+  },
+  "listFrom": {
+    "message": "List: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listItems_one": {
+    "message": "1 item"
+  },
+  "listItems_other": {
+    "message": "$P1$ items",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }

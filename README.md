@@ -1,7 +1,8 @@
 # Crunchyroll – Novos Episódios (Firefox)
 
 Extensão do Firefox com uma página própria que lista os episódios que você ainda não assistiu
-das séries da sua **Fila** da Crunchyroll, com link direto para cada um.
+das séries da sua **Fila** da Crunchyroll (e, se quiser, das suas **Crunchylists**), com link
+direto para cada um.
 
 Você também escolhe, série por série, se assiste **legendado** ou **dublado**. Uma série
 marcada como dublada só aparece quando a dublagem no seu idioma for liberada.
@@ -51,8 +52,8 @@ resultado, a página mostra a primeira que tiver. As setas ← e → trocam de a
 | Não consegui verificar | Séries que deram erro na consulta |
 | Ocultas | Séries que você ocultou pelo menu ⋯ (até sair episódio novo, por 1 semana ou sempre); não contam no ícone nem notificam |
 | Em dia | Séries sem nada pendente |
-| A Iniciar | Séries da Fila que você nunca assistiu, agrupadas pela temporada de lançamento (Outono de 2026, Verão de 2026…), da mais recente para a mais antiga. A temporada vem do `season_tags` da temporada mais recente da série; sem essa informação, a série vai para "Sem temporada informada" |
-| Pesquisa Avançada | Busca no catálogo inteiro da Crunchyroll ou só na sua Fila, com filtros de dublagem no seu idioma, classificação indicativa, ano de estreia e temporada de lançamento (veja abaixo) |
+| A Iniciar | Séries das suas listas que você nunca assistiu, agrupadas pela temporada de lançamento (Outono de 2026, Verão de 2026…), da mais recente para a mais antiga. A temporada vem do `season_tags` da temporada mais recente da série; sem essa informação, a série vai para "Sem temporada informada" |
+| Pesquisa Avançada | Busca no catálogo inteiro da Crunchyroll ou só nas suas listas, com filtros de dublagem no seu idioma, classificação indicativa, ano de estreia e temporada de lançamento (veja abaixo) |
 | Configurações | Idiomas, modo padrão, verificação automática, limites e as demais opções; as mudanças são salvas na hora |
 
 Antes de analisar as séries, a extensão lê o seu histórico de reprodução
@@ -136,6 +137,25 @@ usuários renovam o tempo todo.
   (L, 10, 12, 14, 16, 18); "Até 14 anos" mostra L, 10, 12 e 14. Séries sem classificação
   ficam de fora quando o filtro está ligado.
 - A temporada de lançamento vem da lista oficial (`/content/v1/season_list`).
+
+## Fila e Crunchylists
+
+Em **Configurações → Listas verificadas**, um combo de múltipla escolha mostra a Fila e as
+suas Crunchylists (as listas personalizadas do site). Os nomes vêm da API
+(`/content/v2/{conta}/custom-lists`) e os itens de cada lista, de
+`/content/v2/{conta}/custom-lists/{lista}`. Marque quantas quiser; pelo menos uma fica marcada.
+A Fila e as listas são lidas ao mesmo tempo, e uma série que está em várias listas é
+verificada uma vez só.
+
+Com mais de uma lista escolhida:
+
+- cada card e cada linha mostra de que lista(s) a série veio;
+- aparece o filtro **Lista** ao lado da busca, em todas as abas menos Pesquisa Avançada e
+  Configurações. As contagens das abas seguem o filtro; o número no topo e o do ícone contam
+  todas as listas.
+
+Uma Crunchylist apagada no site é ignorada (aparece como "Lista não encontrada" no combo,
+para você desmarcar). A Crunchyroll limita cada Crunchylist a 100 itens.
 
 ## Idiomas
 

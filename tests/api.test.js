@@ -565,3 +565,30 @@ describe("playheads em lote", () => {
     assert.deepEqual(plain(results.map((r) => r.status)), ["rejected", "rejected"]);
   });
 });
+
+describe("Crunchylists", () => {
+  test("nomes: lê /content/v2/{conta}/custom-lists (formato do HAR do site)", async () => {
+    const { api, requests } = setup(
+      () =>
+        json({
+          total: 1,
+          data: [{ list_id: "05a4", is_public: false, total: 0, modified_at: "2026-10-18T22:15:36Z", title: "Lista customizada" }],
+          meta: { total_public: 0, total_private: 1, max_private: 10 },
+        }),
+      { sessionToken: validSession() }
+    );
+    assert.deepEqual(plain(await api.customLists("pt-BR")), [{ id: "05a4", title: "Lista customizada", total: 0 }]);
+    assert.match(requests[0].url, new RegExp(`/content/v2/${ACC}/custom-lists\\?locale=pt-BR$`));
+  });
+
+  test("itens: lê /content/v2/{conta}/custom-lists/{id} e devolve os que têm panel", async () => {
+    const { api, requests } = setup(
+      () => json({ data: [{ list_id: "05a4", id: "S1", panel: { id: "S1", type: "series" } }, { list_id: "05a4", id: "X" }], meta: { total: 2 } }),
+      { sessionToken: validSession() }
+    );
+    const items = await api.customListItems("05a4", "pt-BR");
+    assert.equal(items.length, 1);
+    assert.equal(items[0].panel.id, "S1");
+    assert.match(requests[0].url, new RegExp(`/content/v2/${ACC}/custom-lists/05a4\\?locale=pt-BR$`));
+  });
+});

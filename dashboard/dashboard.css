@@ -778,3 +778,126 @@ body.busy select.actions {
     grid-template-columns: 1fr;
   }
 }
+
+/* ---------- listas (Fila + Crunchylists) ---------- */
+.settings .field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.85rem;
+  min-width: 0;
+}
+.multi {
+  position: relative;
+}
+.multi-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--line);
+  padding: 6px 10px;
+  text-align: start;
+  cursor: pointer;
+}
+.multi-button:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 1px;
+}
+.multi-summary {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.multi-caret {
+  color: var(--muted);
+}
+.multi-panel {
+  position: absolute;
+  z-index: 4;
+  inset-inline: 0;
+  top: calc(100% + 2px);
+  max-height: 280px;
+  overflow: auto;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  padding: 4px 0;
+}
+.multi-panel[hidden] {
+  display: none;
+}
+.settings .multi-option {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+.settings .multi-option:hover {
+  background: var(--line);
+}
+.multi-option input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--orange);
+}
+.multi-name {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.lists-status[hidden] {
+  display: none;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 6px;
+  margin: 0 0 6px;
+}
+.badges:empty {
+  display: none;
+}
+.badges .dub {
+  margin: 0;
+}
+.lists {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-width: 0;
+}
+.list-chip {
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+.lists.compact {
+  flex-wrap: nowrap;
+  margin-inline-start: 6px;
+  flex-shrink: 1;
+  overflow: hidden;
+}
+.lists.compact .list-chip {
+  max-width: 110px;
+  padding: 0 6px;
+}
+#list-filter {
+  max-width: 260px;
+}

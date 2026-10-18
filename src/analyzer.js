@@ -736,17 +736,67 @@ var CRAnalyzer = (() => {
     return parts.every((p, i) => p === latest.parts[i]);
   }
 
+  // ---------- listas de origem ----------
+  // "watchlist" = a Fila; os demais valores são IDs de Crunchylists. Sem nenhuma
+  // escolhida, vale a Fila (é o que a extensão sempre leu).
+  const WATCHLIST = "watchlist";
+  function listSources(settings) {
+    const raw = Array.isArray(settings && settings.sources) ? settings.sources : [];
+    const out = [...new Set(raw.filter((x) => typeof x === "string" && x))];
+    return out.length ? out : [WATCHLIST];
+  }
+
+  // Lê a Fila e as Crunchylists escolhidas ao mesmo tempo. Uma lista que não
+  // existe mais (apagada no site: HTTP 404) é ignorada; outros erros param tudo,
+  // como já acontecia com a Fila.
+  async function readSources(settings, api = CRApi) {
+    const parallel = concurrencyFrom(settings);
+    return Promise.all(
+      listSources(settings).map(async (id) => {
+        if (id === WATCHLIST) {
+          return { id, items: await api.watchlist(settings.locale, { parallel, pageSize: playheadBatchFrom(settings) }) };
+        }
+        try {
+          return { id, items: await api.customListItems(id, settings.locale) };
+        } catch (err) {
+          if (err && err.status === 404) return { id, items: [], missing: true };
+          throw err;
+        }
+      })
+    );
+  }
+
+  // Junta as listas numa série por vez, guardando em `lists` de onde cada uma
+  // veio (na ordem das listas escolhidas). A marca "nunca assistida" só existe
+  // na Fila: basta uma lista dizer isso.
+  function mergeSources(sourced) {
+    const map = new Map();
+    for (const { id, items } of sourced) {
+      for (const item of items || []) {
+        const e = normalizeItem(item);
+        if (!e) continue;
+        const prev = map.get(e.seriesId);
+        if (!prev) map.set(e.seriesId, { ...e, lists: [id] });
+        else {
+          if (!prev.lists.includes(id)) prev.lists.push(id);
+          prev.neverWatchedFlag = prev.neverWatchedFlag || e.neverWatchedFlag;
+          if (!prev.image) prev.image = e.image;
+        }
+      }
+    }
+    return [...map.values()];
+  }
+
   async function run({ settings, force = false, onProgress = () => {} }) {
     if (CRApi.setPlayheadBatchSize) CRApi.setPlayheadBatchSize(playheadBatchFrom(settings));
     // Fila e histórico não dependem um do outro: são lidos ao mesmo tempo, e as
     // páginas de cada um também (até o limite de consultas simultâneas).
-    const [accountId, list, history] = await Promise.all([
+    const [accountId, sourced, history] = await Promise.all([
       cacheScope(),
-      CRApi.watchlist(settings.locale, { parallel: concurrencyFrom(settings), pageSize: playheadBatchFrom(settings) }),
+      readSources(settings),
       loadHistory(settings),
     ]);
-    const items = list.map(normalizeItem).filter(Boolean);
-    const unique = [...new Map(items.map((i) => [i.seriesId, i])).values()];
+    const unique = mergeSources(sourced);
     const activity = historyActivity(history, settings);
 
     const cache = force ? {} : await loadCache(accountId);
@@ -813,7 +863,8 @@ var CRAnalyzer = (() => {
         }
       }
       onProgress(++done, unique.length);
-      return result;
+      // De quais listas a série veio (não vai para o cache: muda sem mudar a série).
+      return { ...result, lists: entry.lists };
     });
 
     // Remove do cache séries que saíram da Fila.
@@ -913,8 +964,8 @@ var CRAnalyzer = (() => {
       cache[entry.seriesId] = result;
       await saveCache(accountId, cache);
     }
-    return result;
+    return entry.lists ? { ...result, lists: entry.lists } : result;
   }
 
-  return { run, runOne, cacheScope, historyActivity, dubStatus, seriesAudios, parseSeasonTag, seriesLaunch, diagnose, sanitize, extraKind, CONCURRENCY, concurrencyFrom, PLAYHEAD_BATCH, playheadBatchFrom, MIN_STARTED, MIN_STARTED_SECONDS, minStartedFrom };
+  return { run, runOne, cacheScope, WATCHLIST, listSources, readSources, mergeSources, historyActivity, dubStatus, seriesAudios, parseSeasonTag, seriesLaunch, diagnose, sanitize, extraKind, CONCURRENCY, concurrencyFrom, PLAYHEAD_BATCH, playheadBatchFrom, MIN_STARTED, MIN_STARTED_SECONDS, minStartedFrom };
 })();

@@ -518,7 +518,7 @@
     }
   },
   "progressReading": {
-    "message": "உங்கள் வாட்ச்லிஸ்ட் படிக்கப்படுகிறது…"
+    "message": "உங்கள் பட்டியல்களைப் படிக்கிறது…"
   },
   "errorQuery": {
     "message": "Crunchyroll-ஐத் தொடர்புகொள்ள முடியவில்லை: $P1$",
@@ -697,7 +697,7 @@
     "message": "சீசன் குறிப்பிடப்படவில்லை"
   },
   "emptyNever": {
-    "message": "உங்கள் வாட்ச்லிஸ்டில் உள்ள எல்லாத் தொடர்களையும் தொடங்கிவிட்டீர்கள்."
+    "message": "உங்கள் பட்டியல்களில் உள்ள எல்லாத் தொடர்களையும் தொடங்கிவிட்டீர்கள்."
   },
   "seasonLabel": {
     "message": "$S$ $Y$",
@@ -726,7 +726,7 @@
     "message": "முழு அட்டவணை"
   },
   "searchScopeMine": {
-    "message": "என் வாட்ச்லிஸ்ட் மட்டும்"
+    "message": "என் பட்டியல்கள் மட்டும்"
   },
   "searchDub": {
     "message": "டப்"
@@ -817,7 +817,7 @@
     "message": "திரைப்படம்"
   },
   "searchInList": {
-    "message": "உங்கள் வாட்ச்லிஸ்டில் உள்ளது"
+    "message": "உங்கள் பட்டியல்களில்"
   },
   "setAniListLabel": {
     "message": "ஜப்பானிய மற்றும் ரோமாஜி பெயர்களாலும் தேடு (தேடல் உரையை AniList-க்கு அனுப்பும்)"
@@ -876,5 +876,53 @@
   },
   "setUiLangHelp": {
     "message": "“தானியங்கு” Firefox-இன் மொழியைப் பின்பற்றும்."
+  },
+  "setListsLabel": {
+    "message": "சரிபார்க்கும் பட்டியல்கள்"
+  },
+  "setListsHelp": {
+    "message": "வாட்ச்லிஸ்ட் தவிர, உங்கள் Crunchylists-ஐயும் தேர்வு செய்யலாம். ஒன்றுக்கு மேற்பட்ட பட்டியல்கள் இருந்தால், ஒவ்வொரு அனிமேயும் எந்தப் பட்டியலிலிருந்து வந்தது எனக் காட்டும்."
+  },
+  "listWatchlist": {
+    "message": "வாட்ச்லிஸ்ட்"
+  },
+  "listsLoading": {
+    "message": "உங்கள் Crunchylists ஏற்றப்படுகின்றன…"
+  },
+  "listsError": {
+    "message": "உங்கள் Crunchylists-ஐப் படிக்க முடியவில்லை: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listUnknown": {
+    "message": "பட்டியல் கிடைக்கவில்லை"
+  },
+  "listFilterLabel": {
+    "message": "பட்டியல்"
+  },
+  "listFilterAll": {
+    "message": "அனைத்துப் பட்டியல்களும்"
+  },
+  "listFrom": {
+    "message": "பட்டியல்: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listItems_one": {
+    "message": "1 உருப்படி"
+  },
+  "listItems_other": {
+    "message": "உருப்படிகள்: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }

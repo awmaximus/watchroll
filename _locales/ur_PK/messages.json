@@ -518,7 +518,7 @@
     }
   },
   "progressReading": {
-    "message": "آپ کی واچ لسٹ پڑھی جا رہی ہے…"
+    "message": "آپ کی فہرستیں پڑھی جا رہی ہیں…"
   },
   "errorQuery": {
     "message": "Crunchyroll سے رابطہ نہ ہو سکا: $P1$",
@@ -697,7 +697,7 @@
     "message": "سیزن درج نہیں"
   },
   "emptyNever": {
-    "message": "آپ نے اپنی واچ لسٹ کی تمام سیریز شروع کر دی ہیں۔"
+    "message": "آپ کی فہرستوں کی تمام سیریز شروع ہو چکی ہیں۔"
   },
   "seasonLabel": {
     "message": "$S$ $Y$",
@@ -726,7 +726,7 @@
     "message": "پورا کیٹلاگ"
   },
   "searchScopeMine": {
-    "message": "صرف میری واچ لسٹ"
+    "message": "صرف میری فہرستیں"
   },
   "searchDub": {
     "message": "ڈب"
@@ -817,7 +817,7 @@
     "message": "فلم"
   },
   "searchInList": {
-    "message": "آپ کی واچ لسٹ میں"
+    "message": "آپ کی فہرستوں میں"
   },
   "setAniListLabel": {
     "message": "جاپانی اور روماجی ناموں سے بھی تلاش کریں (تلاش کا متن AniList کو بھیجتا ہے)"
@@ -876,5 +876,53 @@
   },
   "setUiLangHelp": {
     "message": "“خودکار” Firefox کی زبان اپناتا ہے۔"
+  },
+  "setListsLabel": {
+    "message": "جانچی جانے والی فہرستیں"
+  },
+  "setListsHelp": {
+    "message": "واچ لسٹ کے علاوہ آپ اپنی Crunchylists بھی چن سکتے ہیں۔ ایک سے زیادہ فہرست ہو تو ہر اینیمے دکھاتا ہے کہ وہ کس فہرست سے آیا۔"
+  },
+  "listWatchlist": {
+    "message": "واچ لسٹ"
+  },
+  "listsLoading": {
+    "message": "آپ کی Crunchylists لوڈ ہو رہی ہیں…"
+  },
+  "listsError": {
+    "message": "آپ کی Crunchylists پڑھی نہیں جا سکیں: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listUnknown": {
+    "message": "فہرست نہیں ملی"
+  },
+  "listFilterLabel": {
+    "message": "فہرست"
+  },
+  "listFilterAll": {
+    "message": "تمام فہرستیں"
+  },
+  "listFrom": {
+    "message": "فہرست: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listItems_one": {
+    "message": "1 آئٹم"
+  },
+  "listItems_other": {
+    "message": "آئٹمز: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }
