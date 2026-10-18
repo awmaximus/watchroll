@@ -246,6 +246,53 @@ var CRChecker = (() => {
     return fresh;
   }
 
+  // ---------- alerta na hora do lançamento ----------
+  // A análise já sabe quando sai o próximo episódio de cada série (r.next). Em vez de
+  // esperar a verificação periódica (até 1 hora depois), o segundo plano agenda uma
+  // verificação logo após o lançamento. A Crunchyroll às vezes libera com atraso: um
+  // episódio que já devia ter saído e ainda não apareceu é conferido de novo a cada
+  // 10 minutos, por até 3 horas.
+  const RELEASE_KEY = "crnovos:releases";
+  const RELEASE_DELAY = 3 * 60000;
+  const RELEASE_RETRY = 10 * 60000;
+  const RELEASE_GIVE_UP = 3 * 3600000;
+
+  const releaseKey = (e) => `${e.seriesId}:${e.id}`;
+  const isOut = (results, e) => {
+    const r = results.find((x) => x.seriesId === e.seriesId);
+    return !r || (r.pending || []).some((p) => p.id === e.id);
+  };
+
+  // Devolve { when, watch }: o horário da próxima verificação extra (ou null) e a
+  // lista de lançamentos acompanhados (guardar para a próxima chamada).
+  function planReleases(results, previous = [], settings = DEFAULT_SETTINGS, now = Date.now()) {
+    const visible = visibleResults(results, settings, now);
+    const upcoming = visible
+      .filter((r) => r.next && r.next.at > now)
+      .map((r) => ({ seriesId: r.seriesId, id: r.next.id, at: r.next.at }));
+    const late = (previous || []).filter(
+      (e) => e && e.at <= now && now - e.at < RELEASE_GIVE_UP && visible.some((r) => r.seriesId === e.seriesId) && !isOut(visible, e)
+    );
+    const watch = [...new Map([...late, ...upcoming].map((e) => [releaseKey(e), e])).values()];
+    const times = [
+      ...upcoming.map((e) => e.at + RELEASE_DELAY),
+      ...(late.length ? [now + RELEASE_RETRY] : []),
+    ];
+    const when = times.length ? Math.max(now + 60000, Math.min(...times)) : null;
+    return { when, watch };
+  }
+
+  // Os alertas na hora do lançamento seguem as mesmas chaves da verificação
+  // automática: notificação ligada e verificação automática ligada.
+  const releaseAlertsOn = (settings) => settings.notify !== false && autoCheckMinutes(settings) > 0;
+
+  async function nextReleaseCheck(results, settings, { b = browser, now = Date.now() } = {}) {
+    const previous = (await b.storage.local.get(RELEASE_KEY))[RELEASE_KEY] || [];
+    const { when, watch } = planReleases(results, previous, settings, now);
+    await b.storage.local.set({ [RELEASE_KEY]: watch });
+    return releaseAlertsOn(settings) ? when : null;
+  }
+
   async function lastResults(b = browser) {
     return (await b.storage.local.get(LAST_KEY))[LAST_KEY] || null;
   }
@@ -280,6 +327,10 @@ var CRChecker = (() => {
     SETTINGS_KEY,
     LAST_KEY,
     SEEN_KEY,
+    RELEASE_KEY,
+    planReleases,
+    nextReleaseCheck,
+    releaseAlertsOn,
     NOTIFICATION_ID,
     AUTO_CHECK_OPTIONS,
     DEFAULT_SETTINGS,

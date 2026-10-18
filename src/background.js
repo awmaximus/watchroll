@@ -2,11 +2,14 @@
 //  - o botão na barra abre (ou foca) a página da extensão;
 //  - guarda, só em memória de sessão, o último token que o site da Crunchyroll usou;
 //  - verificação automática periódica: atualiza o número no ícone e notifica
-//    episódios novos. Nunca abre abas sozinho.
+//    episódios novos. Nunca abre abas sozinho;
+//  - verificação extra logo depois do horário de lançamento de cada próximo
+//    episódio conhecido, para o alerta chegar na hora.
 
 /* global browser, CRApi, CRAnalyzer, CRChecker, CRI18n */
 const PAGE = browser.runtime.getURL("dashboard/dashboard.html");
 const ALARM = "crnovos-verificacao";
+const RELEASE_ALARM = "crnovos-lancamento"; // verificação extra logo após um lançamento
 
 async function openPage() {
   const [tab] = await browser.tabs.query({ url: PAGE });
@@ -72,12 +75,26 @@ function check() {
 }
 
 browser.alarms.onAlarm.addListener((alarm) => {
-  if (alarm.name === ALARM) check();
+  if (alarm.name === ALARM || alarm.name === RELEASE_ALARM) check();
 });
+
+// Reagenda a verificação extra a partir do último resultado (da página ou do
+// segundo plano): logo depois do próximo lançamento conhecido.
+async function scheduleRelease(results) {
+  const settings = await CRChecker.loadSettings();
+  if (!results) {
+    const last = await CRChecker.lastResults();
+    results = last ? last.results : [];
+  }
+  const when = await CRChecker.nextReleaseCheck(results || [], settings);
+  await browser.alarms.clear(RELEASE_ALARM);
+  if (when) await browser.alarms.create(RELEASE_ALARM, { when });
+}
 
 browser.runtime.onInstalled.addListener(schedule);
 browser.runtime.onStartup.addListener(async () => {
   await schedule();
+  await scheduleRelease();
   await CRI18n.init((await CRChecker.loadSettings()).uiLang || "auto");
   // Restaura o número no ícone com o último resultado conhecido.
   const last = await CRChecker.lastResults();
@@ -85,8 +102,14 @@ browser.runtime.onStartup.addListener(async () => {
 });
 
 browser.storage.onChanged.addListener((changes, area) => {
-  if (area !== "local" || !changes[CRChecker.SETTINGS_KEY]) return;
+  if (area !== "local") return;
+  if (changes[CRChecker.LAST_KEY]) {
+    const v = changes[CRChecker.LAST_KEY].newValue;
+    scheduleRelease(v ? v.results : []);
+  }
+  if (!changes[CRChecker.SETTINGS_KEY]) return;
   const before = changes[CRChecker.SETTINGS_KEY].oldValue || {};
   const after = changes[CRChecker.SETTINGS_KEY].newValue || {};
   if (CRChecker.autoCheckMinutes(before) !== CRChecker.autoCheckMinutes(after)) schedule();
+  if (CRChecker.releaseAlertsOn(before) !== CRChecker.releaseAlertsOn(after)) scheduleRelease();
 });

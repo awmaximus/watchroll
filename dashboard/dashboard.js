@@ -1185,6 +1185,19 @@
       }, 120);
     });
 
+    // A verificação em segundo plano achou algo com a página aberta: mostra na hora
+    // e avisa quantos episódios novos apareceram.
+    browser.storage.onChanged.addListener((changes, area) => {
+      const c = area === "local" && changes[CRChecker.LAST_KEY];
+      if (!c || !c.newValue || !Array.isArray(c.newValue.results) || busy) return;
+      const keys = (list) => new Set(CRChecker.pendingItems(CRChecker.visibleResults(list, settings)).map((i) => i.key));
+      const before = keys(results);
+      const fresh = [...keys(c.newValue.results)].filter((k) => !before.has(k)).length;
+      results = c.newValue.results;
+      render();
+      if (fresh) notice(tn("notifTitle", fresh));
+    });
+
     // Mostra na hora o último resultado conhecido enquanto atualiza.
     const last = await CRChecker.lastResults();
     if (last && Array.isArray(last.results)) results = last.results;

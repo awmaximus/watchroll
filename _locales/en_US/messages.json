@@ -1,12 +1,12 @@
 {
   "extName": {
-    "message": "Crunchyroll – New Episodes"
+    "message": "New Episodes for Crunchyroll"
   },
   "extDescription": {
-    "message": "Its own page listing the episodes you haven't watched from the series in your Crunchyroll Watchlist, respecting whether you watch subbed or dubbed."
+    "message": "Unofficial. Lists unwatched episodes from your Crunchyroll Watchlist and Crunchylists, sub or dub, and alerts you to new ones."
   },
   "actionTitle": {
-    "message": "New Crunchyroll episodes"
+    "message": "New episodes for Crunchyroll"
   },
   "pageTitle": {
     "message": "New episodes – Crunchyroll"

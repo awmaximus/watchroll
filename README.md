@@ -1,405 +1,310 @@
-# Crunchyroll – Novos Episódios (Firefox)
+# New Episodes for Crunchyroll (Firefox)
 
-Extensão do Firefox com uma página própria que lista os episódios que você ainda não assistiu
-das séries da sua **Fila** da Crunchyroll (e, se quiser, das suas **Crunchylists**), com link
-direto para cada um.
+A Firefox extension with its own page that lists the episodes you haven't watched yet from the
+series in your Crunchyroll **Watchlist** and, optionally, your **Crunchylists**. It tells you
+when new ones come out.
 
-Você também escolhe, série por série, se assiste **legendado** ou **dublado**. Uma série
-marcada como dublada só aparece quando a dublagem no seu idioma for liberada.
+Unofficial. Not affiliated with or endorsed by Crunchyroll. It uses Crunchyroll's undocumented
+API with the session you already have open in Firefox, does not change the Crunchyroll site and
+only reads data from your own account.
 
-A extensão **não altera o site da Crunchyroll**. Se o layout do site mudar, ela continua
-funcionando. Só depende da API.
+## Features
 
-## Uso
+- **Unwatched episodes per series**, computed from your real playback progress, not from
+  Crunchyroll's "Up Next" state (which is sometimes wrong).
+- **Subbed or dubbed, per series.** A dubbed series only shows an episode once the dub in your
+  language is out; a subbed one only once subtitles in your language are available.
+- **New-episode alerts:** a desktop notification and a counter on the toolbar icon, with an
+  extra check right after each known release time.
+- **Watchlist + Crunchylists**, with a label showing which list each series came from and a
+  list filter on every tab.
+- **Tabs** for every state (to watch, waiting for dub or subtitles, no dub, caught up, not
+  started, errors, hidden), each with its own sorting.
+- **Advanced Search** over the whole Crunchyroll catalog or your lists, with dub, age rating,
+  year and season filters, and optional Japanese/romaji title lookup through AniList.
+- **Hide or snooze** a series, **next release** dates, **dub indicator** on every series.
+- **27 interface languages**, including right-to-left Arabic and Urdu.
 
-1. Clique no ícone da extensão na barra do Firefox. A página "Novos episódios" abre.
-2. Na aba **Configurações**, escolha:
-   - o idioma em que você assiste dublado (por exemplo, Português (Brasil));
-   - o idioma da legenda;
-   - o modo padrão das séries (legendado, dublado ou qualquer áudio);
-   - o idioma dos títulos e links;
-   - a verificação automática (desligada, ou a cada 30 min, 1 h, 3 h ou 6 h; padrão 1 h) e
-     se quer notificação de episódio novo;
-   - quantas séries consultar ao mesmo tempo (padrão 4, de 1 a 32). Números maiores
-     deixam a verificação mais rápida; se aparecerem erros HTTP 429 ("muitas
-     requisições"), diminua;
-   - o tamanho do lote (padrão 100, de 10 a 300): quantos episódios vão em cada consulta
-     de playheads e quantos itens vêm em cada página da Fila e do histórico. Lotes maiores
-     fazem menos consultas e, no histórico, cobrem mais registros (são lidas até 10
-     páginas). Se as verificações começarem a falhar, diminua. Se a Crunchyroll devolver
-     páginas menores que o pedido, a extensão relê a Fila ou o histórico com páginas de 100.
-3. Cada card mostra um microfone com o idioma de dublagem escolhido: verde quando a
-   temporada mais recente tem dublagem nesse idioma, amarelo tracejado quando só
-   temporadas anteriores têm, e cinza riscado quando não há. Nas listas, aparece só o
-   microfone. A informação vem da própria lista de temporadas, sem consultas a mais.
-4. Em cada série, use o seletor para trocar o modo só daquela série. O menu **⋯** oculta a
-   série (até sair episódio novo, por 1 semana ou sempre) ou exporta o diagnóstico.
+Requires Firefox 142 or later and a Crunchyroll account signed in in Firefox.
 
-Acima da lista há uma busca por título, que ignora acentos e maiúsculas e abre as seções
-com resultado. Ao lado fica a ordenação dos cards de "Para assistir": lançamento mais
-recente, visto mais recentemente, mais episódios ou título. A escolha fica salva.
+## Using the extension
 
-A página é dividida em abas. Abas vazias não aparecem, exceto "Para assistir", "Em dia" e
-"A Iniciar". A aba escolhida fica salva. Durante uma busca, se a aba atual não tiver
-resultado, a página mostra a primeira que tiver. As setas ← e → trocam de aba pelo teclado.
+Click the extension icon in the toolbar to open the **New episodes** page. The last known result
+appears immediately and is refreshed in the background. **Refresh** forces a full check.
 
-| Aba | O que mostra |
+### Tabs
+
+Empty tabs are hidden, except *To watch*, *Caught up* and *To Start*. The selected tab is
+remembered. ← and → switch tabs from the keyboard.
+
+| Tab | Shows |
 |---|---|
-| Para assistir | Episódios liberados depois do último que você viu, com progresso dos que estão pela metade |
-| Aguardando dublagem | Séries em modo dublado com episódios que já saíram, mas ainda só legendados (a temporada já tem dublagem no seu idioma) |
-| Aguardando legenda em … | Séries em modo legendado com episódios lançados sem legenda no seu idioma |
-| Sem dublagem | Séries em modo dublado cuja temporada atual não tem **nenhum** episódio no seu idioma; o botão "Ver legendado" troca o modo |
-| Não consegui verificar | Séries que deram erro na consulta |
-| Ocultas | Séries que você ocultou pelo menu ⋯ (até sair episódio novo, por 1 semana ou sempre); não contam no ícone nem notificam |
-| Em dia | Séries sem nada pendente |
-| A Iniciar | Séries das suas listas que você nunca assistiu, agrupadas pela temporada de lançamento (Outono de 2026, Verão de 2026…), da mais recente para a mais antiga. A temporada vem do `season_tags` da temporada mais recente da série; sem essa informação, a série vai para "Sem temporada informada" |
-| Pesquisa Avançada | Busca no catálogo inteiro da Crunchyroll ou só nas suas listas, com filtros de dublagem no seu idioma, classificação indicativa, ano de estreia e temporada de lançamento (veja abaixo) |
-| Configurações | Idiomas, modo padrão, verificação automática, limites e as demais opções; as mudanças são salvas na hora |
+| To watch | Episodes released after the last one you watched, as cards. Half-watched episodes show a progress bar. |
+| Awaiting dub | Dubbed-mode series with episodes that are out but not yet dubbed in your language (the season already has that dub). |
+| Awaiting *X* subtitles | Subbed-mode series with episodes released without subtitles in your language. |
+| No dub | Dubbed-mode series whose current season has no episode at all in your language. **Watch subbed** switches the series to subbed mode. |
+| Caught up | Series with nothing pending. |
+| To Start | Series you never watched, grouped by release season (Fall 2026, Summer 2026…), newest first. |
+| Couldn't check | Series whose check failed, with the error. |
+| Hidden | Series you hid. **Show** brings one back. |
+| Advanced Search | See [Advanced Search](#advanced-search). |
+| Settings | See [Settings](#settings). |
 
-Antes de analisar as séries, a extensão lê o seu histórico de reprodução
-(`/content/v2/{conta}/watch-history`, até 10 páginas de 100). Uma série vai direto para "Ainda
-não começadas", sem nenhuma outra consulta, só quando três condições valem juntas: o histórico
-foi lido até o fim, a série não aparece nele com atividade real e a própria Crunchyroll
-também a marca como nunca vista. Em qualquer outro caso, inclusive se o histórico falhar, a
-análise completa é feita.
+Above the list tabs:
 
-Se a Crunchyroll responder HTTP 429 ("muitas requisições"), a extensão espera o tempo que
-ela pedir (cabeçalho `Retry-After`; sem ele, 1 s, 2 s, 4 s, 8 s, até 60 s) e tenta de novo,
-no máximo 4 vezes. A pausa vale para todas as consultas em andamento.
+- **Search** filters by title, ignoring accents and case. If the current tab has no match, the
+  first tab with one is shown.
+- **List** (only with more than one list selected) filters by Watchlist or Crunchylist. Tab
+  counts follow the filter; the status line and the icon count all lists.
+- **Sort**, saved per tab:
 
-Os pedidos de histórico de reprodução (playheads) de várias séries são juntados em lotes de
-até 100 episódios (configurável, de 10 a 300). Com 6 séries em paralelo, por exemplo, sai 1 consulta em vez de 6.
+| Tab | Sort options |
+|---|---|
+| To watch | Most recent release, Most recently watched, Most episodes, Title |
+| Awaiting dub / subtitles, No dub | Most episodes waiting, Most recently watched, Title |
+| Caught up | Most recently watched, Next release, Title |
+| To Start | Release season (grouped), Title |
+| Hidden | Title, Most recently watched |
 
-As séries são consultadas em paralelo, até o limite configurado. Dentro de cada série, as
-temporadas são lidas da mais nova para a mais antiga e a busca para assim que encontra
-atividade sua, para não fazer requisições à toa. Se o token vencer no meio da verificação,
-as consultas em andamento esperam um único pedido de token novo.
+### On each series
 
-A Fila e o histórico de reprodução são lidos ao mesmo tempo, e as páginas de cada um também
-são pedidas juntas. Como o histórico não informa quantas páginas tem, a extensão pede várias de
-uma vez e para na que indicar o fim. Ela também lembra quantas páginas havia da última vez,
-para pedir exatamente essas de saída. Tudo isso respeita o limite de **Séries consultadas ao
-mesmo tempo**. O histórico é lido até 10 páginas (1.000 registros).
+- **Dub indicator:** a microphone with your dub language. Green: the latest season has that
+  dub. Yellow, dashed: only earlier seasons have it. Grey, crossed out: no dub.
+- **List labels:** with more than one list selected, the list(s) the series came from.
+- **Next release:** for example "Next: S2 E13 in 3 days (Thu, 10/16)". In dubbed mode, the
+  date of the dub. Placeholder dates (Crunchyroll uses year 9998 for "no date") are ignored.
+- **Mode selector:** default, subbed, dubbed or any audio, for this series only.
+- **⋯ menu:** hide until a new episode is out, hide for 1 week, always hide, or export
+  diagnostics (see [Diagnostics](#diagnostics)).
+- Specials and recaps (episode numbers like 13.5, SP or OVA, no number, recap titles, special
+  seasons) are tagged and **not counted** on the card, the icon or in notifications.
 
-### Verificação automática e contador no ícone
+### New-episode alerts
 
-Em segundo plano, a extensão verifica no intervalo escolhido e mostra no ícone quantos
-episódios novos há. Se sair algum que você ainda não viu na página, aparece uma notificação;
-clicar nela abre a página. Detalhes:
+- The extension checks in the background at the interval chosen in Settings (default: every
+  hour) and shows the number of new episodes on the toolbar icon.
+- It also schedules an **extra check 3 minutes after the next known release time** of each
+  series. If an episode that should be out has not appeared yet (Crunchyroll sometimes
+  releases late), it checks again every 10 minutes for up to 3 hours.
+- When an episode you haven't seen on the page appears, a **desktop notification** lists the
+  series and episodes; clicking it opens the page.
+- If the page is open, it updates by itself and shows how many new episodes arrived.
+- The first check only records what already exists. Episodes already shown on the page,
+  specials, recaps and hidden series never trigger a notification.
+- Alerts need both **Notify me when a new episode is out** and **Check automatically** to be on.
+- In the background the extension never opens tabs. If direct API access is blocked and no
+  crunchyroll.com tab is open, that check is skipped.
 
-- Na primeira verificação a extensão só registra o que já existe, sem notificar.
-- O que você já viu na página não gera notificação depois.
-- Em segundo plano ela nunca abre abas. Se o acesso direto à API for bloqueado e não houver
-  uma aba do crunchyroll.com aberta, aquela verificação é pulada.
-- Ao abrir a página, o último resultado aparece na hora e é atualizado em seguida.
+### Advanced Search
 
-Os resultados ficam em cache por 5 minutos, sem nenhuma consulta. Entre 5 minutos e 6 horas,
-a extensão faz uma revalidação barata: busca a lista de temporadas da série e a lista de
-episódios da temporada mais recente (2 consultas; 3 no modo dublado) e olha o histórico, que
-é baixado uma vez para todas as séries. Se nada mudou (nenhuma temporada nova, nenhum episódio
-novo ou liberado desde então, nenhuma dublagem ou legenda nova, nada assistido, nenhum
-lançamento agendado que já passou), ela reaproveita a análise. Senão, analisa de novo. Depois
-de 6 horas, ou ao clicar em **Atualizar**, a análise é sempre completa.
+- **Text** uses Crunchyroll's search, which understands titles in the site's languages. It does
+  not understand Japanese script and only finds romaji that matches a title.
+- **Japanese and romaji names (optional):** with *Also search Japanese and romaji names* on,
+  the search text is also sent to [AniList](https://anilist.co), which returns the Crunchyroll
+  link. For example, "薬屋のひとりごと" or "Kusuriya no Hitorigoto" finds *The Apothecary
+  Diaries*. Off by default; turning it on asks Firefox's permission to share search terms.
+- **No text:** with a season, lists what Crunchyroll tags for that season. Otherwise the
+  extension downloads the whole catalog (about 1,900 titles, under a second) and filters it
+  locally. The catalog is kept for 6 hours. (Crunchyroll's popularity ranking and its
+  server-side "dubbed" filter are unreliable, so filtering only the first pages would miss
+  series.)
+- **Search in:** whole catalog or only your lists.
+- **Filters:** dub in your dub language (not just "has some dub"), age rating (the Brazilian
+  ratings Crunchyroll provides: L, 10, 12, 14, 16, 18; "up to 14" includes L to 14; unrated
+  series are excluded when the filter is on), release year and release season.
+- **Sort:** Crunchyroll default, newest release or title. Results load 60 at a time.
 
-Todas as consultas vão direto ao servidor da Crunchyroll, sem passar pelo cache do Firefox
-(`cache: "no-store"`): o cache chegou a devolver a lista de temporadas de antes do lançamento
-de um episódio.
+### Settings
 
-A lista de temporadas é pedida com os mesmos parâmetros, na mesma ordem, que o site usa
-(`?locale=…&preferred_audio_language=…`, com o idioma de dublagem das Configurações). A CDN da
-Crunchyroll guarda uma cópia por endereço exato e pode servir uma cópia de até ~20 minutos
-(`stale-while-revalidate`). Com o endereço do site, a extensão pega a cópia que os outros
-usuários renovam o tempo todo.
+Changes are saved immediately.
 
-## Aba Pesquisa Avançada
+| Setting | What it does |
+|---|---|
+| Lists to check | Multi-select of your Watchlist and Crunchylists (names read from Crunchyroll). At least one stays selected. A series in several lists is checked once. A Crunchylist deleted on the site is ignored and shown as "List not found". |
+| Extension language | One of 27 languages, each listed in its own language, or *Automatic* (Firefox's language; untranslated languages fall back to English). |
+| Language you watch dubbed in | Dub language for dubbed-mode series and the dub indicator. |
+| Subtitle language | Subtitles required before a subbed episode is announced. |
+| Default mode for series | Subbed, dubbed or any audio, for series without their own mode. |
+| Language for titles and links | Language Crunchyroll uses for series and episode names, and for links. |
+| Check automatically | Off, or every 30 min, 1 h (default), 3 h or 6 h. |
+| Notify me when a new episode is out | Desktop notifications (on by default). |
+| Show specials and recaps | Shows them, tagged and uncounted (on by default). |
+| Show skipped episodes | Shows unwatched episodes before the last one you watched, tagged "skipped" and uncounted (off by default). Only for the seasons the check examines. |
+| Also search Japanese and romaji names | Sends Advanced Search text to AniList (off by default). |
+| Count as started after (seconds) | Ignores playback records shorter than this (default 60, 0–600). Crunchyroll records a few seconds just from opening an episode page. |
+| Series checked at the same time | Parallel requests (default 4, 1–32). Lower it if you get HTTP 429 errors. |
+| Batch size | Episodes per progress request and items per Watchlist/history page (default 100, 10–300). Lower it if checks start failing. |
 
-- **Texto:** usa a busca da Crunchyroll (`/content/v2/discover/search`), que entende títulos
-  em português e inglês. Em romaji ela só acerta quando o nome coincide com o título; em
-  japonês (kanji/kana) não acha nada.
-- **Nomes em japonês e romaji (opcional):** com a opção "Buscar também nomes em japonês e
-  romaji" ligada nas Configurações, o texto da busca também vai para o
-  [AniList](https://anilist.co), que devolve o link da série na Crunchyroll. Ex.:
-  "薬屋のひとりごと" ou "Kusuriya no Hitorigoto" → Diários de uma Apotecária. A opção vem
-  desligada e pede a permissão de envio dos termos de busca do Firefox.
-- **Sem texto:** com temporada, lista o que a própria Crunchyroll marca naquela temporada
-  (`seasonal_tag`); só a Fila, as séries da Fila; nos demais casos, a extensão baixa o
-  **catálogo inteiro** (≈1.900 títulos, ~20 consultas em paralelo, menos de 1 s) e filtra tudo
-  localmente. O catálogo fica guardado por 6 horas. Não dá para pegar só as primeiras páginas
-  dos "populares" e filtrar: o ranking de popularidade da Crunchyroll está distorcido (Witch
-  Hat Atelier, da primavera de 2026, vinha em 1.714º de 1.929) e o filtro `is_dubbed` do
-  servidor está desatualizado (a mesma série, dublada em pt-BR, não aparece entre os
-  "dublados").
-- **Ordenar:** padrão da Crunchyroll, estreia mais recente ou título (A–Z). Os resultados
-  aparecem de 60 em 60 ("Carregar mais").
-- **Dublagem** confere o idioma de dublagem das Configurações (`audio_locales` de cada
-  série), não só "tem alguma dublagem".
-- **Classificação** usa a classificação indicativa brasileira que a Crunchyroll informa
-  (L, 10, 12, 14, 16, 18); "Até 14 anos" mostra L, 10, 12 e 14. Séries sem classificação
-  ficam de fora quando o filtro está ligado.
-- A temporada de lançamento vem da lista oficial (`/content/v1/season_list`).
+## How episodes are determined
 
-## Fila e Crunchylists
+For each series the extension:
 
-Em **Configurações → Listas verificadas**, um combo de múltipla escolha mostra a Fila e as
-suas Crunchylists (as listas personalizadas do site). Os nomes vêm da API
-(`/content/v2/{conta}/custom-lists`) e os itens de cada lista, de
-`/content/v2/{conta}/custom-lists/{lista}`. Marque quantas quiser; pelo menos uma fica marcada.
-A Fila e as listas são lidas ao mesmo tempo, e uma série que está em várias listas é
-verificada uma vez só.
+1. reads the seasons and episodes (`/content/v2/cms/…`), newest season first;
+2. reads your playback progress (`/content/v2/{account}/playheads`) for **every audio version**
+   of each episode;
+3. finds the last episode you touched and lists the **available** episodes after it that you
+   haven't finished.
 
-Com mais de uma lista escolhida:
+Rules:
 
-- cada card e cada linha mostra de que lista(s) a série veio;
-- aparece o filtro **Lista** ao lado da busca, em todas as abas menos Pesquisa Avançada e
-  Configurações. As contagens das abas seguem o filtro; o número no topo e o do ícone contam
-  todas as listas.
+- **Started:** at least the configured number of seconds played, or marked watched by
+  Crunchyroll.
+- **Watched:** Crunchyroll's `fully_watched`, or more than 90% of the duration, in any audio.
+- **Subbed:** uses the original-audio episode list and requires subtitles in your subtitle
+  language. If the API returns no subtitle list, the episode is announced.
+- **Dubbed:** uses the episode list of your dub language and checks the audio of **each
+  episode**, because Crunchyroll fills the dubbed list with the original version until the dub
+  is out.
+- **Any audio:** announces an episode as soon as any version is out.
+- **Movies** in your lists are checked too: not started goes to *To Start*, started to *To
+  watch* with progress, finished to *Caught up*. Multi-part movies are listed part by part.
+- **Not started shortcut:** before the per-series checks, the extension reads your watch
+  history (`/content/v2/{account}/watch-history`, up to 10 pages). A series goes straight to
+  *To Start* only if the history was read to the end, the series has no real activity in it and
+  Crunchyroll also flags it as never watched (that flag exists only for the Watchlist).
+  Otherwise, the full check runs.
 
-Uma Crunchylist apagada no site é ignorada (aparece como "Lista não encontrada" no combo,
-para você desmarcar). A Crunchyroll limita cada Crunchylist a 100 itens.
+### Lists
 
-## Idiomas
+- Watchlist: `/content/v2/discover/{account}/watchlist`.
+- Crunchylist names: `/content/v2/{account}/custom-lists`; items:
+  `/content/v2/{account}/custom-lists/{list}` (Crunchyroll caps each Crunchylist at 100 items).
 
-A interface está nos 20 idiomas mais falados do mundo, mais os demais idiomas de interface do
-Crunchyroll: Português, Português (Portugal), English, Español (España), Español
-(Latinoamérica), Français, Deutsch, Italiano, Català, Polski, 日本語, 简体中文, 繁體中文, 한국어,
-हिन्दी, বাংলা, मराठी, తెలుగు, தமிழ், اردو, العربية, Русский, Türkçe, Bahasa Indonesia, Bahasa
-Melayu, ไทย e Tiếng Việt. No seletor, cada idioma aparece escrito nele mesmo. O pidgin nigeriano, que também está entre os 20, não
-tem código de idioma no Firefox nem escrita padronizada; no lugar dele entrou o coreano.
-Árabe e urdu são exibidos da direita para a esquerda.
+### Speed and freshness
 
-Em **Configurações → Idioma da extensão**, escolha um deles ou deixe em "Automático", que segue
-o idioma do Firefox (chinês de Taiwan, Hong Kong e Macau usa o tradicional; um idioma sem
-tradução cai no inglês). A notificação e a dica do ícone usam o mesmo idioma.
+- The Watchlist, the Crunchylists and the history are read at the same time, with their pages
+  in parallel, up to the *Series checked at the same time* limit.
+- Progress requests from several series are batched (up to *Batch size* episodes each).
+- On HTTP 429 the extension waits as asked (`Retry-After`, otherwise 1, 2, 4, 8… up to 60 s)
+  and retries up to 4 times; the pause applies to all requests in flight.
+- Results are reused for 5 minutes without any request. From 5 minutes to 6 hours, a cheap
+  revalidation (season list plus the latest season's episode list, and the shared history)
+  reuses the previous result if nothing changed. After 6 hours, when a scheduled release time
+  has passed, or on **Refresh**, the check is full.
+- Requests bypass Firefox's cache (`cache: "no-store"`) and use the same query parameters as the
+  site, so Crunchyroll's CDN returns the copy the site keeps fresh instead of one up to about
+  20 minutes old.
 
-Cada idioma é um arquivo `_locales/<código>/messages.json`, com o código no formato que o
-Firefox exige (`pt_BR`, `pt_PT`, `en_US`, `es_ES`, `es_419`, `zh_CN`, `zh_TW`, `ar_SA`…). Os testes conferem que todos têm as mesmas chaves e os mesmos marcadores. Como o
-`browser.i18n` do Firefox só usa o idioma do navegador, a extensão carrega o arquivo
-escolhido por conta própria (`src/i18n.js`), com o inglês como reserva.
+## Authentication and privacy
 
-## Ordenação
+- No password is asked for or stored. The extension uses your Crunchyroll session in Firefox.
+- `src/page-hook.js` runs on Crunchyroll pages and only reads the `Bearer` token the site
+  itself uses. The token is kept in the browser's session memory.
+- Without a recent site token, the extension requests one from `/auth/v1/token` with
+  `grant_type=etp_rt_cookie`, as the site does on load.
+- History is per profile, and the profile comes from the token. Cache, "already seen" episodes
+  and the last result are stored per profile. With several profiles, the profile name is shown
+  at the top. If the extension ends up using another profile's session, it warns you.
+- The page calls the API directly. If Cloudflare blocks it, requests go through a
+  crunchyroll.com tab via `src/bridge.js`; if none is open, one is opened in the background and
+  closed afterwards (never during background checks).
+- Nothing is sent to third parties, except Advanced Search text to AniList when you enable it.
 
-Todas as abas de lista têm o seletor "Ordenar", com as opções que fazem sentido nelas, e a
-escolha fica salva por aba: "Para assistir" (lançamento, visto mais recentemente, mais
-episódios, título), "Aguardando…" e "Sem dublagem" (mais episódios esperando, visto
-recentemente, título), "Em dia" (visto recentemente, próximo lançamento, título), "A Iniciar"
-(temporada de lançamento, em grupos, ou título) e "Ocultas" (título, visto recentemente).
+## Installation
 
-## Por que não usar o "A Seguir" da Crunchyroll
+**Temporary (for testing):** open `about:debugging#/runtime/this-firefox`, click **Load
+Temporary Add-on…** and pick `manifest.json`. It is removed when Firefox closes.
 
-O estado que a Crunchyroll devolve para a Fila (`never_watched`, "A Seguir", "Começar a
-assistir") às vezes está errado. A extensão não depende dele. Para cada série ela:
+**Permanent:** install a signed `.xpi` (see [Build](#build)), or, in Firefox Developer Edition
+or Nightly, set `xpinstall.signatures.required` to `false` in `about:config` and install the
+`.zip`.
 
-1. busca as temporadas e os episódios (`/content/v2/cms/...`);
-2. busca o seu progresso real (`/content/v2/{conta}/playheads`) de **todas as versões de
-   áudio** de cada episódio;
-3. acha o último episódio em que você mexeu e lista os episódios **disponíveis** depois
-   dele que você ainda não terminou.
+## Development
 
-Regras adotadas:
+Requires Node 22 or later. No dependencies to install.
 
-- **Começado:** só conta a partir de **1 minuto** de reprodução (configurável de 0 a 600
-  segundos), ou se a Crunchyroll marcou como assistido. Ela cria registros com 0 ou poucos segundos só por você abrir a página do
-  episódio ou pelo início automático do player; esses são ignorados.
-- **Visto:** a Crunchyroll marcou `fully_watched`, ou você passou de 90% da duração.
-  Vale para qualquer áudio: ver legendado conta para o modo dublado e vice-versa.
-- **Legendado:** usa a lista de episódios do áudio original e só anuncia um episódio quando
-  a legenda no idioma escolhido (Configurações → Idioma da legenda) já está disponível. Os
-  que saíram sem ela aparecem em "Aguardando legenda". Se a resposta da API não trouxer a
-  lista de legendas, o episódio é anunciado.
-- **Dublado:** usa a lista de episódios do áudio escolhido. Um episódio só aparece depois
-  que a dublagem dele é liberada. A extensão confere o áudio de **cada episódio**, porque a
-  Crunchyroll completa a lista dublada com a versão original quando a dublagem ainda não
-  saiu.
-- **Qualquer áudio:** avisa assim que o episódio sair em qualquer versão.
-- **Episódios pulados (opcional):** com "Mostrar episódios pulados" ligado, os episódios
-  anteriores ao último que você viu e que ficaram sem ver aparecem com a etiqueta "pulado",
-  fora das contagens. Vale para as temporadas que a extensão examina (a mais recente com
-  atividade e as seguintes); pulados em temporadas antigas não aparecem.
-- **Filmes:** filmes da Fila também são verificados. Não começado vai para "Ainda não
-  começadas"; começado e não terminado, para "Para assistir" com o progresso; terminado,
-  para "Em dia". Ver em qualquer áudio conta. O modo de áudio da série decide o link, e um
-  filme em partes aparece parte por parte.
-- **Próximo lançamento:** quando há episódio agendado, o card e as linhas mostram "Próximo:
-  T2 E13 em 3 dias (qui, 16/10)". No modo dublado vale a data da dublagem. Datas fictícias
-  (a Crunchyroll usa o ano 9998 para "sem data") são ignoradas.
-- **Especiais e recapitulações:** episódios com numeração fora do normal (13.5, SP, OVA),
-  sem número, com título de recapitulação, ou de temporadas especiais aparecem com uma
-  etiqueta e **não entram** nas contagens (card, ícone, notificação). Temporadas especiais
-  são ordenadas antes das normais, para não atrapalhar a busca pela temporada atual. Dá
-  para escondê-los em Configurações.
-
-## Instalação
-
-Precisa do Firefox 142 ou mais recente.
-
-**Para testar (temporário).** A extensão some ao fechar o Firefox.
-
-1. Abra `about:debugging#/runtime/this-firefox`.
-2. Clique em **Carregar extensão temporária…**.
-3. Escolha o `manifest.json` deste repositório.
-
-**Permanente.** O Firefox normal só instala extensões assinadas. Há duas formas:
-
-- **Assinar sem publicar.** Crie uma conta em addons.mozilla.org e rode
-  `./build.sh --sign` (veja [Build](#build)). O `.xpi` gerado só fica disponível para você
-  e se instala normalmente.
-- **Firefox Developer Edition ou Nightly.** Em `about:config`, mude
-  `xpinstall.signatures.required` para `false` e instale o `.zip` gerado por `./build.sh`.
-
-## Como funciona a autenticação
-
-Nenhuma senha é pedida nem guardada. A extensão usa a sessão que você já tem aberta no
-navegador.
-
-- **Token do site.** `src/page-hook.js` roda dentro das páginas da Crunchyroll e só observa
-  o token `Bearer` que o próprio site usa. Esse token fica guardado apenas na memória de
-  sessão do navegador e não sai dele.
-- **Token próprio.** Se não houver token recente, a extensão pede um em `/auth/v1/token`
-  com `grant_type=etp_rt_cookie`. É o mesmo pedido que o site faz ao carregar, usando o
-  cookie da sua sessão.
-- **Perfis.** O histórico é por perfil, e o perfil vem do token. Por isso a extensão prefere
-  o token do site, que é o do perfil aberto no navegador. Cache, "já visto" e último resultado
-  são guardados por perfil. Se a conta tiver mais de um perfil, o nome dele aparece no topo
-  da página. Se a extensão precisar usar uma sessão própria de outro perfil, ela avisa.
-- **Acesso direto ou pela ponte.** A página da extensão tenta falar direto com a API. Se o
-  Cloudflare bloquear, ela passa as requisições por uma aba do crunchyroll.com, usando
-  `src/bridge.js`. Se não houver aba aberta, abre uma em segundo plano e a fecha no fim.
-
-Os endpoints foram conferidos no código do crunchyroll-rs 0.19.1 (setembro de 2026). A API
-não é oficial e pode mudar sem aviso.
-
-## Desenvolvimento
-
-Requer Node 22 ou mais recente. Não há dependências para instalar.
+```sh
+npm test        # unit tests (node:test)
+npm run lint    # web-ext lint only
+npm start       # opens a test Firefox with the extension loaded
+```
 
 ### Build
 
 ```sh
-./build.sh                 # testes + lint + pacote em dist/
-./build.sh --skip-tests    # pula os testes
-./build.sh --skip-lint     # pula o web-ext lint
-./build.sh --sign          # também gera o .xpi assinado (instalação permanente)
+./build.sh                  # tests + lint + package in dist/
+./build.sh --skip-tests     # skip tests
+./build.sh --skip-lint      # skip web-ext lint
+./build.sh --sign           # also sign on AMO (unlisted channel) and save the .xpi
+./build.sh --sign --listed  # submit to the public listing on addons.mozilla.org
 ```
 
-O script faz estas etapas, nesta ordem, e para na primeira falha:
+The script stops at the first failure. It:
 
-1. confere o Node e se a versão do `manifest.json` bate com a do `package.json`;
-2. verifica a sintaxe dos scripts;
-3. roda os testes;
-4. monta o pacote numa pasta temporária, **só** com `manifest.json`, `src/`, `dashboard/` e
-   `icons/`, sem arquivos ocultos. Qualquer outro arquivo do projeto (por exemplo, um
-   `env.sh` com as suas chaves) nunca entra no pacote;
-5. procura credenciais no pacote: o formato `user:123:45`, os valores das chaves
-   carregadas e atribuições como `API_SECRET="..."`. Se achar algo, aborta sem enviar nada;
-6. roda o `web-ext lint` nessa pasta, tratando avisos como erros;
-7. gera `dist/crunchyroll-novos-eps-<versão>.zip` e, com `--sign`, envia à Mozilla
-   exatamente essa mesma pasta.
+1. checks Node and that `manifest.json` and `package.json` have the same version;
+2. checks script syntax and runs the tests;
+3. copies **only** `manifest.json`, `_locales/`, `src/`, `dashboard/` and `icons/` to a temporary
+   folder, without hidden files (add other paths to `PACKAGE_FILES`);
+4. scans that folder for credentials (`user:123:45` keys, loaded key values, assignments like
+   `API_SECRET="..."`) and aborts if it finds any;
+5. runs `web-ext lint` with warnings as errors;
+6. creates `dist/crunchyroll-novos-eps-<version>.zip` and, with `--sign`, uploads that same
+   folder.
 
-Para colocar outro arquivo na extensão, acrescente-o a `PACKAGE_FILES` no `build.sh`.
-
-Para usar `--sign`, pegue a **JWT issuer** (API key) e o **JWT secret** (API secret) em
-<https://addons.mozilla.org/developers/addon/api/key/>. Há duas formas de passá-las:
+Signing needs the **JWT issuer** and **JWT secret** from
+<https://addons.mozilla.org/developers/addon/api/key/>, in a `.amo-credentials` file (kept out
+of git, `chmod 600`) or in environment variables (`API_KEY`/`API_SECRET`,
+`AMO_JWT_ISSUER`/`AMO_JWT_SECRET` or `WEB_EXT_API_KEY`/`WEB_EXT_API_SECRET`):
 
 ```sh
-# 1) arquivo local, fora do git (recomendado)
 cat > .amo-credentials <<'CRED'
 API_KEY="user:12345:67"
 API_SECRET="..."
 CRED
 chmod 600 .amo-credentials
-./build.sh --sign
-
-# 2) variáveis de ambiente (API_KEY/API_SECRET, AMO_JWT_ISSUER/AMO_JWT_SECRET
-#    ou WEB_EXT_API_KEY/WEB_EXT_API_SECRET)
-API_KEY="user:12345:67" API_SECRET="..." ./build.sh --sign
 ```
 
-Se a Mozilla avisar que encontrou a sua chave e vai revogá-la, gere uma nova na mesma
-página; a antiga deixa de funcionar.
+`--listed` sends the English store metadata in `amo-metadata.json` (summary, description,
+categories, license); the `.xpi` becomes available after Mozilla's review. The store name and
+summary come from `_locales/en_US/messages.json` (the manifest's `default_locale`).
 
-A extensão é assinada no canal *unlisted*: fica instalável, mas não aparece na loja. Na
-primeira assinatura, a Mozilla registra o ID `crunchyroll-novos-eps@awmaximus.github.io`.
-Não mude esse ID depois, senão o Firefox passa a tratar a extensão como outra.
+Bump `version` in both `manifest.json` and `package.json` for every release; AMO does not
+accept the same version twice. Never change the add-on ID
+(`crunchyroll-novos-eps@awmaximus.github.io`), or Firefox treats it as a different extension.
 
-Para lançar uma versão nova, aumente `version` no `manifest.json` e no `package.json`.
-A Mozilla não aceita assinar a mesma versão duas vezes.
+### Translations
 
-### Outros comandos
+Each language is `_locales/<code>/messages.json` (`en_US`, `pt_BR`, `es_419`, `zh_TW`…). Keys
+ending in `_one`/`_other` are singular/plural. Tests check that every file has the same keys and
+placeholders. Because `browser.i18n` only follows the browser language, `src/i18n.js` loads the
+chosen file itself, with English as the fallback. To add a language, copy `en_US`, translate it,
+add it to `LANGUAGES` in `src/i18n.js` (with its name in its own language) and run `npm test`.
 
-```sh
-npm test        # só os testes unitários (node:test)
-npm run lint    # só a validação da Mozilla
-npm start       # abre um Firefox de teste com a extensão carregada
-```
-
-Os testes ficam em `tests/` e rodam os scripts da extensão num contexto isolado, com a API
-da Crunchyroll e a API `browser` simuladas:
-
-- `analyzer.test.js` cobre a regra "o que falta assistir": temporadas, versões de áudio,
-  modos legendado, dublado e qualquer áudio, cache, erros e o limite de séries em paralelo.
-- `integration.test.js` roda o analisador e a API reais juntos, com só o `fetch` simulado.
-- `api.test.js` cobre a autenticação, o token expirado, a renovação em erro 401, a troca
-  para a ponte quando o Cloudflare bloqueia, a paginação, os lotes de playheads e as
-  requisições simultâneas (um só pedido de token e uma só aba).
-
-O GitHub Actions roda o `./build.sh` a cada push e guarda o `.zip` como artefato
-(`.github/workflows/ci.yml`).
-
-### Idioma da interface
-
-A interface segue a língua do Firefox: português (padrão) ou inglês. Isso vale para a
-página, o ícone, as notificações e as mensagens de erro. Os textos ficam em
-`_locales/<língua>/messages.json`. Para adicionar uma língua, copie a pasta `pt_BR`, traduza
-as mensagens (chaves `_one`/`_other` são singular e plural) e rode `npm test`. Os testes
-conferem se as chaves e os marcadores batem com os do português.
-
-A configuração **Idioma dos títulos e links** é outra coisa: ela escolhe em que língua a
-Crunchyroll devolve os nomes das séries e dos episódios.
-
-### Estrutura
+### Project layout
 
 ```
-manifest.json           MV3, Firefox
-_locales/               textos da interface (pt_BR padrão, en)
-build.sh                build: testes, lint, pacote e assinatura
-dashboard/              página da extensão (HTML, CSS, JS)
-src/background.js       botão, token da sessão e verificação automática (alarme)
-src/i18n.js             traduções (t, plural, nome dos idiomas)
-src/checker.js          preferências, contador do ícone, novidades e notificação
-src/page-hook.js        observa o token usado pelo site (world: MAIN)
-src/bridge.js           ponte invisível para requisições pelo crunchyroll.com
-src/api.js              chamadas à API, autenticação e transporte
-src/analyzer.js         lógica "o que falta assistir" e cache
-tests/                  testes unitários
+manifest.json       MV3 manifest (Firefox)
+amo-metadata.json   English store metadata for --listed
+_locales/           interface texts, 27 languages
+build.sh            tests, lint, package and signing
+dashboard/          extension page (HTML, CSS, JS)
+src/background.js   toolbar button, session token, periodic and release-time checks
+src/checker.js      settings, icon counter, new-episode detection, notifications, release alerts
+src/analyzer.js     "what's left to watch" logic, lists and cache
+src/api.js          Crunchyroll API calls, authentication and transport
+src/search.js       Advanced Search
+src/i18n.js         translations and language selection
+src/page-hook.js    reads the token used by the site (world: MAIN)
+src/bridge.js       relays requests through a crunchyroll.com tab
+tests/              unit and integration tests with mocked browser and API
 ```
 
-### Diagnóstico de uma série
+### Diagnostics
 
-Se uma série aparecer errada, use **⋯ → Exportar diagnóstico** no card dela. A página salva um
-JSON com tudo o que a análise usou: temporadas, episódios, histórico de reprodução daquela
-série e o resultado. O arquivo **não contém** token, cookie, ID da conta ou do perfil.
-Prefira mandá-lo em vez de copiar requisições do F12, que levam a sua sessão junto.
+If a series looks wrong, use **⋯ → Export diagnostics** on it. The page saves a JSON with
+everything the check used (seasons, episodes, that series' playback history and the result),
+without tokens, cookies, or account or profile IDs. Prefer it over copying requests from the
+developer tools, which include your session. A diagnostics file can become a test with
+`apiFromDiagnostic()` from `tests/helpers.js`.
 
-O diagnóstico vira teste automático com `apiFromDiagnostic()` de `tests/helpers.js`:
+When something breaks, open the page's console (F12); messages start with `[Novos Episódios]`.
 
-```js
-const diag = require("./fixtures/meu-diagnostico.json");
-const ctx = load(["src/analyzer.js"], { browser: fakeBrowser(), CRApi: apiFromDiagnostic(diag) });
-const [r] = await ctx.CRAnalyzer.run({ settings: { ...diag.configuracao, defaultMode: diag.configuracao.modo, seriesModes: {} } });
-```
-
-### Se algo parar de funcionar
-
-Abra o console da página da extensão (F12). Os erros aparecem com o prefixo
-`[Novos Episódios]`.
-
-| Sintoma | Onde mexer |
+| Symptom | Where to look |
 |---|---|
-| Erro 401 ou 403 | autenticação em `src/api.js` |
-| Erro 404 ou dados vazios | URLs dos endpoints em `src/api.js` |
-| Episódios errados | `analyzeSeries()` em `src/analyzer.js` |
+| HTTP 401 or 403 | authentication in `src/api.js` |
+| HTTP 404 or empty data | endpoint URLs in `src/api.js` |
+| Wrong episodes | `analyzeSeries()` in `src/analyzer.js` |
 
-## Aviso
+## License
 
-Projeto pessoal, sem relação com a Crunchyroll. Usa uma API não documentada e só lê dados
-da sua própria conta.
+MIT. See [LICENSE](LICENSE).

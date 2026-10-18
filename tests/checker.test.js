@@ -388,3 +388,55 @@ describe("filtro por lista", () => {
     assert.equal(s.listNames.L1, "Minha");
   });
 });
+
+describe("alerta na hora do lançamento", () => {
+  const { CRChecker: C } = load(["src/checker.js"], { browser: fakeBrowser() });
+  const NOW = Date.UTC(2026, 9, 18, 12, 0);
+  const MIN = 60000;
+  const r = (seriesId, extra = {}) => ({ seriesId, title: seriesId, status: "uptodate", pending: [], ...extra });
+
+  test("agenda 3 minutos depois do próximo lançamento conhecido", () => {
+    const { when, watch } = C.planReleases(
+      [r("A", { next: { id: "a2", at: NOW + 60 * MIN } }), r("B", { next: { id: "b9", at: NOW + 20 * MIN } }), r("C")],
+      [],
+      { hidden: {} },
+      NOW
+    );
+    assert.equal(when, NOW + 23 * MIN);
+    assert.deepEqual(plain(watch.map((e) => e.id).sort()), ["a2", "b9"]);
+  });
+
+  test("lançamento atrasado (já passou e não apareceu): confere de novo em 10 minutos", () => {
+    const prev = [{ seriesId: "A", id: "a2", at: NOW - 5 * MIN }];
+    const { when, watch } = C.planReleases([r("A")], prev, { hidden: {} }, NOW);
+    assert.equal(when, NOW + 10 * MIN);
+    assert.equal(watch.length, 1);
+  });
+
+  test("para de acompanhar quando o episódio aparece, após 3 horas ou se a série saiu", () => {
+    const out = C.planReleases([r("A", { status: "pending", pending: [{ id: "a2" }] })], [{ seriesId: "A", id: "a2", at: NOW - MIN }], { hidden: {} }, NOW);
+    assert.equal(out.when, null);
+    assert.equal(out.watch.length, 0);
+    assert.equal(C.planReleases([r("A")], [{ seriesId: "A", id: "a2", at: NOW - 4 * 3600000 }], { hidden: {} }, NOW).when, null);
+    assert.equal(C.planReleases([], [{ seriesId: "A", id: "a2", at: NOW - MIN }], { hidden: {} }, NOW).when, null);
+  });
+
+  test("séries ocultas não geram alerta", () => {
+    const { when } = C.planReleases([r("A", { next: { id: "a2", at: NOW + MIN * 30 } })], [], { hidden: { A: { kind: "forever" } } }, NOW);
+    assert.equal(when, null);
+  });
+
+  test("nunca agenda para menos de 1 minuto no futuro", () => {
+    const { when } = C.planReleases([r("A", { next: { id: "a2", at: NOW + 1000 } })], [], { hidden: {} }, NOW - 3 * MIN);
+    assert.ok(when >= NOW - 2 * MIN);
+  });
+
+  test("respeita a notificação e a verificação automática desligadas", async () => {
+    const b = fakeBrowser();
+    const { CRChecker: C2 } = load(["src/checker.js"], { browser: b });
+    const res = [r("A", { next: { id: "a2", at: NOW + 30 * MIN } })];
+    assert.equal(await C2.nextReleaseCheck(res, { hidden: {}, notify: true, autoCheckMinutes: 60 }, { b, now: NOW }), NOW + 33 * MIN);
+    assert.equal(await C2.nextReleaseCheck(res, { hidden: {}, notify: false, autoCheckMinutes: 60 }, { b, now: NOW }), null);
+    assert.equal(await C2.nextReleaseCheck(res, { hidden: {}, notify: true, autoCheckMinutes: 0 }, { b, now: NOW }), null);
+  });
+});

@@ -6,6 +6,8 @@
 #   ./build.sh --skip-tests    pula os testes unitários
 #   ./build.sh --skip-lint     pula o web-ext lint
 #   ./build.sh --sign          também assina na Mozilla e gera o .xpi instalável
+#   ./build.sh --sign --listed envia para a loja pública (addons.mozilla.org), com os
+#                              metadados em inglês de amo-metadata.json
 #   ./build.sh --help
 #
 # Assinatura (--sign): use a "JWT issuer" (API key) e o "JWT secret" (API secret) de
@@ -18,7 +20,7 @@
 #   b) arquivo .amo-credentials na raiz do projeto (fica fora do git):
 #        API_KEY="user:12345:67"
 #        API_SECRET="..."
-# O canal usado é "unlisted": a extensão é assinada mas não fica pública na loja.
+# Sem --listed, o canal é "unlisted": a extensão é assinada mas não fica pública na loja.
 
 set -euo pipefail
 
@@ -30,6 +32,7 @@ MIN_NODE=22
 RUN_TESTS=1
 RUN_LINT=1
 SIGN=0
+CHANNEL=unlisted
 
 # ---------- saída ----------
 if [[ -t 1 ]]; then
@@ -50,6 +53,7 @@ while [[ $# -gt 0 ]]; do
     --skip-tests) RUN_TESTS=0 ;;
     --skip-lint)  RUN_LINT=0 ;;
     --sign)       SIGN=1 ;;
+    --listed)     CHANNEL=listed ;;
     -h|--help)    usage; exit 0 ;;
     *) usage >&2; die "Opção desconhecida: $1" ;;
   esac
@@ -79,6 +83,12 @@ PKG_VERSION="$(node -p 'require("./package.json").version')"
 [[ "$VERSION" == "$PKG_VERSION" ]] ||
   die "Versões diferentes: manifest.json=$VERSION, package.json=$PKG_VERSION. Ajuste antes do build."
 ok "Versão $VERSION"
+
+if [[ "$CHANNEL" == listed ]]; then
+  (( SIGN )) || die "--listed só vale junto com --sign."
+  [[ -f amo-metadata.json ]] || die "amo-metadata.json não encontrado (metadados da loja)."
+  node -e 'JSON.parse(require("fs").readFileSync("amo-metadata.json","utf8"))' || die "amo-metadata.json inválido."
+fi
 
 if (( SIGN )); then
   CRED_FILE="$ROOT/.amo-credentials"
@@ -180,24 +190,32 @@ ok "$(unzip -Z1 "$ZIP" | grep -vc '/$') arquivos em ${ZIP#"$ROOT"/} ($(du -h "$Z
 
 # ---------- assinatura ----------
 if (( SIGN )); then
-  step "Assinando na Mozilla (canal unlisted)"
+  step "Assinando na Mozilla (canal $CHANNEL)"
+  META_ARGS=()
+  [[ "$CHANNEL" == listed ]] && META_ARGS=(--amo-metadata "$ROOT/amo-metadata.json")
   # Envia exatamente a pasta conferida acima. Credenciais vão por variável de
   # ambiente (não aparecem na lista de processos).
   WEB_EXT_API_KEY="$SIGN_KEY" WEB_EXT_API_SECRET="$SIGN_SECRET" \
     npx --yes "$WEB_EXT" sign --no-config-discovery --source-dir "$STAGE" \
-    --artifacts-dir "$ARTIFACTS" --channel unlisted ||
+    --artifacts-dir "$ARTIFACTS" --channel "$CHANNEL" ${META_ARGS[@]+"${META_ARGS[@]}"} ||
     die "Falha ao assinar. Confira as credenciais e se a versão $VERSION já não foi enviada antes."
   signed="$(find "$ARTIFACTS" -maxdepth 1 -name '*.xpi' | head -n1)"
-  [[ -n "$signed" ]] || die "A assinatura não gerou o .xpi."
-  XPI="$DIST/$NAME-$VERSION.xpi"
-  mv -f "$signed" "$XPI"
-  ok "Assinado: ${XPI#"$ROOT"/}"
+  if [[ -z "$signed" && "$CHANNEL" == listed ]]; then
+    # Na loja pública a versão passa pela revisão da Mozilla antes de ser assinada.
+    warn "Enviado para a loja; o .xpi fica disponível depois da revisão da Mozilla."
+    XPI=""
+  else
+    [[ -n "$signed" ]] || die "A assinatura não gerou o .xpi."
+    XPI="$DIST/$NAME-$VERSION.xpi"
+    mv -f "$signed" "$XPI"
+    ok "Assinado: ${XPI#"$ROOT"/}"
+  fi
 fi
 
 # ---------- resumo ----------
 step "Pronto"
 echo "  Pacote: $ZIP"
-(( SIGN )) && echo "  Instalável: $XPI"
+[[ -n "${XPI:-}" ]] && echo "  Instalável: $XPI"
 cat <<'EOF'
 
   Para testar: Firefox → about:debugging#/runtime/this-firefox
