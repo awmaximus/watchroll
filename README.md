@@ -121,8 +121,15 @@ usuários renovam o tempo todo.
   "薬屋のひとりごと" ou "Kusuriya no Hitorigoto" → Diários de uma Apotecária. A opção vem
   desligada e pede a permissão de envio dos termos de busca do Firefox.
 - **Sem texto:** com temporada, lista o que a própria Crunchyroll marca naquela temporada
-  (`seasonal_tag`); com ano, as quatro temporadas do ano, filtradas pelo ano de estreia; só a
-  Fila, as séries da Fila; sem filtro nenhum, as mais populares, de 60 em 60.
+  (`seasonal_tag`); só a Fila, as séries da Fila; nos demais casos, a extensão baixa o
+  **catálogo inteiro** (≈1.900 títulos, ~20 consultas em paralelo, menos de 1 s) e filtra tudo
+  localmente. O catálogo fica guardado por 6 horas. Não dá para pegar só as primeiras páginas
+  dos "populares" e filtrar: o ranking de popularidade da Crunchyroll está distorcido (Witch
+  Hat Atelier, da primavera de 2026, vinha em 1.714º de 1.929) e o filtro `is_dubbed` do
+  servidor está desatualizado (a mesma série, dublada em pt-BR, não aparece entre os
+  "dublados").
+- **Ordenar:** padrão da Crunchyroll, estreia mais recente ou título (A–Z). Os resultados
+  aparecem de 60 em 60 ("Carregar mais").
 - **Dublagem** confere o idioma de dublagem das Configurações (`audio_locales` de cada
   série), não só "tem alguma dublagem".
 - **Classificação** usa a classificação indicativa brasileira que a Crunchyroll informa

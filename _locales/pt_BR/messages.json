@@ -817,7 +817,7 @@
     }
   },
   "searchHint": {
-    "message": "Digite um nome ou escolha filtros. Sem nome, a lista vem do catálogo, filtrada pela temporada ou pelo ano, ou pelos mais populares."
+    "message": "Digite um nome ou escolha filtros. Sem nome, a pesquisa percorre o catálogo inteiro da Crunchyroll (ou a temporada escolhida)."
   },
   "searchMore": {
     "message": "Carregar mais"
@@ -852,5 +852,20 @@
         "content": "$1"
       }
     }
+  },
+  "searchSort": {
+    "message": "Ordenar"
+  },
+  "searchSortDefault": {
+    "message": "Padrão da Crunchyroll"
+  },
+  "searchSortYear": {
+    "message": "Estreia mais recente"
+  },
+  "searchSortTitle": {
+    "message": "Título (A–Z)"
+  },
+  "searchLoadingCatalog": {
+    "message": "Baixando o catálogo da Crunchyroll (só na primeira vez, leva alguns segundos)…"
   }
 }

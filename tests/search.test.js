@@ -188,18 +188,11 @@ describe("pesquisa", () => {
     assert.deepEqual(titles(r), ["Apothecary"]);
   });
 
-  test("sem texto, com ano: as quatro temporadas do ano e depois o ano de estreia", async () => {
-    const { S, calls } = setup({
-      browse: (p) =>
-        p.seasonal_tag === "spring-2023"
-          ? [item("NOVA", { year: 2023 }), item("ANTIGA", { year: 2019 })]
-          : p.seasonal_tag === "fall-2023"
-          ? [item("NOVA", { year: 2023 })]
-          : [],
-    });
+  test("sem texto, com ano: catálogo inteiro filtrado pelo ano de estreia", async () => {
+    const cat = [item("NOVA", { year: 2023 }), item("ANTIGA", { year: 2019 }), item("OUTRA", { year: 2023 })];
+    const { S } = setup({ browse: () => cat });
     const r = await S.run({ filters: { year: 2023 }, settings });
-    assert.deepEqual(titles(r), ["NOVA"], "sem repetir e só quem estreou em 2023");
-    assert.deepEqual(plain(calls.map((c) => c[1].seasonal_tag).sort()), ["fall-2023", "spring-2023", "summer-2023", "winter-2023"]);
+    assert.deepEqual(titles(r), ["NOVA", "OUTRA"]);
   });
 
   test("sem texto, só a Fila: busca as séries da Fila pelo ID e aplica os filtros", async () => {
@@ -215,23 +208,39 @@ describe("pesquisa", () => {
     assert.ok(r.items[0].inWatchlist);
   });
 
-  test("sem nada: populares de 60 em 60, com 'carregar mais'", async () => {
-    const list = Array.from({ length: 150 }, (_, i) => item(`P${i}`));
-    const { S, calls } = setup({ browse: () => list });
-    const first = await S.run({ filters: {}, settings });
-    assert.equal(first.items.length, 60);
-    assert.equal(first.more, true);
-    const last = await S.run({ filters: {}, settings, start: 120 });
-    assert.equal(last.items.length, 30);
-    assert.equal(last.more, false);
-    assert.equal(calls[0][1].sort_by, "popularity");
+  test("sem texto: baixa o catálogo inteiro em paralelo e filtra tudo localmente", async () => {
+    const cat = Array.from({ length: 450 }, (_, i) => item(`P${i}`, { audios: i % 2 ? ["pt-BR"] : ["ja-JP"] }));
+    const { S, calls } = setup({ browse: () => cat });
+    const r = await S.run({ filters: { dub: "dub" }, settings: { ...settings, concurrency: 8 } });
+    assert.equal(r.items.length, 225, "todos os dublados do catálogo, não só os da 1ª página");
+    assert.deepEqual(plain(calls.map((c) => c[1].start)).sort((a, b) => a - b), [0, 100, 200, 300, 400]);
+    assert.ok(calls.every((c) => c[1].is_dubbed === undefined), "não usa o is_dubbed do servidor (desatualizado)");
   });
 
-  test("filtro de dublagem sem texto pede is_dubbed ao servidor e confere o idioma", async () => {
-    const { S, calls } = setup({ browse: () => [item("EN", { audios: ["en-US"] }), item("PT", { audios: ["pt-BR"] })] });
-    const r = await S.run({ filters: { dub: "dub" }, settings });
-    assert.equal(calls[0][1].is_dubbed, "true");
-    assert.deepEqual(titles(r), ["PT"]);
+  test("regressão (dados reais): série em 1.714º no ranking e fora do is_dubbed aparece no filtro", async () => {
+    const cat = Array.from({ length: 1929 }, (_, i) => item(`X${i}`, { rating: "A16", audios: ["ja-JP"] }));
+    cat[1713] = item("GT00258001", { title: "Witch Hat Atelier", year: 2026, rating: "A12", audios: ["fr-FR", "ja-JP", "pt-BR", "en-US"] });
+    const { S } = setup({ browse: () => cat });
+    const r = await S.run({ filters: { dub: "dub", maxAge: "12" }, settings });
+    assert.deepEqual(titles(r), ["Witch Hat Atelier"]);
+  });
+
+  test("o catálogo fica guardado: a segunda pesquisa não consulta de novo", async () => {
+    const { S, calls } = setup({ browse: () => [item("A"), item("B")] });
+    await S.run({ filters: {}, settings });
+    const n = calls.length;
+    await S.run({ filters: { maxAge: "14" }, settings });
+    assert.equal(calls.length, n);
+    await S.run({ filters: {}, settings, force: true });
+    assert.ok(calls.length > n, "force: baixa de novo");
+  });
+
+  test("ordenação: padrão, ano de estreia (mais novo) e título", async () => {
+    const cat = [item("B", { title: "Beta", year: 2020 }), item("A", { title: "Alfa", year: 2024 }), item("C", { title: "Gama", year: 2024 })];
+    const { S } = setup({ browse: () => cat });
+    assert.deepEqual(titles(await S.run({ filters: {}, settings })), ["Beta", "Alfa", "Gama"]);
+    assert.deepEqual(titles(await S.run({ filters: { sort: "year" }, settings })), ["Alfa", "Gama", "Beta"]);
+    assert.deepEqual(titles(await S.run({ filters: { sort: "title" }, settings })), ["Alfa", "Beta", "Gama"]);
   });
 
   test("ignora episódios e repetidos", async () => {

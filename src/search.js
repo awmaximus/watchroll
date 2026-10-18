@@ -5,9 +5,13 @@
 //  - com texto: /discover/search (títulos em português e inglês) e, se ligado, o
 //    AniList, que entende romaji e kanji e devolve o link da série na Crunchyroll;
 //  - sem texto, com temporada: /discover/browse?seasonal_tag=… (filtro do servidor);
-//  - sem texto, com ano: as quatro temporadas daquele ano, depois o ano de estreia;
 //  - sem texto, só a Fila: as séries da Fila, buscadas pelo ID;
-//  - sem nada: /discover/browse por popularidade, de 60 em 60 ("carregar mais").
+//  - sem texto, nos demais casos: o catálogo INTEIRO (≈2.000 títulos, ~20 consultas em
+//    paralelo, guardado por 6 h), filtrado aqui. Não dá para pedir só "as primeiras
+//    páginas dos populares" e filtrar: o ranking de popularidade da Crunchyroll está
+//    distorcido (Witch Hat Atelier, da primavera de 2026, vinha em 1.714º de 1.929) e
+//    o filtro is_dubbed do servidor está desatualizado (a mesma série, dublada em
+//    pt-BR, não está entre os 871 "dublados"). Conferido em out/2026.
 // Dublagem, classificação e ano são conferidos aqui, com os dados de cada resultado.
 
 /* global CRApi */
@@ -104,6 +108,87 @@ var CRSearch = (() => {
 
   const seasonTagsOfYear = (year) => SEASONS.map((s) => `${s}-${year}`);
 
+  // ---------- catálogo inteiro (guardado por 6 h) ----------
+  const CATALOG_TTL = 6 * 60 * 60 * 1000;
+  let catalogCache = null; // { locale, at, items }
+  let catalogLoading = null;
+
+  async function mapLimit(list, limit, fn) {
+    const out = new Array(list.length);
+    let next = 0;
+    const worker = async () => {
+      while (next < list.length) {
+        const i = next++;
+        out[i] = await fn(list[i]);
+      }
+    };
+    await Promise.all(Array.from({ length: Math.max(1, Math.min(limit, list.length)) }, worker));
+    return out;
+  }
+
+  function slim(x) {
+    const meta = (m) =>
+      m && {
+        series_launch_year: m.series_launch_year,
+        movie_release_year: m.movie_release_year,
+        maturity_ratings: m.maturity_ratings,
+        extended_maturity_rating: m.extended_maturity_rating && { rating: m.extended_maturity_rating.rating },
+        audio_locales: m.audio_locales,
+        subtitle_locales: m.subtitle_locales,
+        episode_count: m.episode_count,
+        season_count: m.season_count,
+      };
+    const img = (x.images && (x.images.poster_wide || x.images.poster_tall)) || null;
+    return {
+      id: x.id,
+      type: x.type,
+      title: x.title,
+      slug_title: x.slug_title,
+      images: img ? { poster_wide: [img[0] || []] } : undefined,
+      series_metadata: meta(x.series_metadata),
+      movie_listing_metadata: meta(x.movie_listing_metadata),
+    };
+  }
+
+  async function catalog(locale, { api = CRApi, parallel = 4, force = false } = {}) {
+    const now = Date.now();
+    if (!force && catalogCache && catalogCache.locale === locale && now - catalogCache.at < CATALOG_TTL) {
+      return catalogCache.items;
+    }
+    if (catalogLoading) return catalogLoading;
+    catalogLoading = (async () => {
+      const first = await api.browse({ sort_by: "popularity", n: 100, start: 0 }, locale);
+      const total = first.total != null ? first.total : first.items.length;
+      const starts = [];
+      for (let st = 100; st < Math.min(total, 5000); st += 100) starts.push(st);
+      const pages = await mapLimit(starts, parallel, (st) =>
+        api.browse({ sort_by: "popularity", n: 100, start: st }, locale).then((r) => r.items)
+      );
+      // Guarda só o que a pesquisa usa: a resposta completa ocupa ~15 MB.
+      const items = [...first.items, ...pages.flat()].map(slim);
+      catalogCache = { locale, at: Date.now(), items };
+      return items;
+    })();
+    try {
+      return await catalogLoading;
+    } finally {
+      catalogLoading = null;
+    }
+  }
+
+  // Ordem dos resultados: "default" (a da Crunchyroll/AniList), "year" (estreia
+  // mais recente primeiro) ou "title" (A–Z).
+  function sortItems(items, sort, uiLang) {
+    if (sort === "year") {
+      return items
+        .map((r, i) => [r, i])
+        .sort((a, b) => (b[0].year || 0) - (a[0].year || 0) || a[1] - b[1])
+        .map(([r]) => r);
+    }
+    if (sort === "title") return items.slice().sort((a, b) => a.title.localeCompare(b.title, uiLang || undefined));
+    return items;
+  }
+
   async function browseAll(params, locale, api, limit = 1000) {
     const out = [];
     for (let start = 0; start < limit; start += 100) {
@@ -115,16 +200,15 @@ var CRSearch = (() => {
   }
 
   /**
-   * Faz a pesquisa. Devolve { items, more, anilist } — `more` indica que há mais
-   * resultados para "carregar mais" (só na navegação por popularidade).
-   * anilist: "used" | "off" | "error" | null (não se aplica).
+   * Faz a pesquisa. Devolve { items, anilist }: todos os resultados, já filtrados e
+   * ordenados (a página mostra de 60 em 60). anilist: "used" | "off" | "error" |
+   * null (não se aplica).
    */
-  async function run({ q = "", filters = {}, settings, watchIds = new Set(), start = 0, useAniList = false, api = CRApi, fetchFn }) {
+  async function run({ q = "", filters = {}, settings, watchIds = new Set(), useAniList = false, api = CRApi, fetchFn, uiLang, force = false }) {
     const locale = settings.locale;
     const dubLang = settings.dubLang;
     const text = q.trim();
     let raw = [];
-    let more = false;
     let anilist = null;
 
     if (text) {
@@ -153,19 +237,10 @@ var CRSearch = (() => {
       raw = [...first, ...found.filter((x) => !firstIds.has(x.id))];
     } else if (filters.season) {
       raw = await browseAll({ seasonal_tag: filters.season, sort_by: "popularity" }, locale, api);
-    } else if (filters.year) {
-      const lists = await Promise.all(
-        seasonTagsOfYear(filters.year).map((tag) => browseAll({ seasonal_tag: tag, sort_by: "popularity" }, locale, api))
-      );
-      raw = lists.flat();
     } else if (filters.scope === "mine") {
       raw = watchIds.size ? await api.objects([...watchIds], locale) : [];
     } else {
-      const params = { sort_by: "popularity", n: PAGE, start };
-      if (filters.dub === "dub") params.is_dubbed = "true"; // aproximação; o idioma é conferido abaixo
-      const { items, total } = await api.browse(params, locale);
-      raw = items;
-      more = items.length === PAGE && (total == null || start + PAGE < total);
+      raw = await catalog(locale, { api, parallel: Number(settings.concurrency) || 4, force });
     }
 
     // Texto + temporada: a busca por texto não informa a temporada; cruza com a
@@ -186,7 +261,7 @@ var CRSearch = (() => {
       const r = normalize(it, watchIds);
       if (matches(r, filters, dubLang)) items.push(r);
     }
-    return { items, more, anilist };
+    return { items: sortItems(items, filters.sort, uiLang), anilist };
   }
 
   // Temporadas para o filtro, com o nome traduzido pela própria Crunchyroll.
@@ -200,6 +275,8 @@ var CRSearch = (() => {
   return {
     run,
     seasons,
+    catalog,
+    sortItems,
     normalize,
     ratingAge,
     matches,

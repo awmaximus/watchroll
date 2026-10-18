@@ -16,10 +16,9 @@
   // Estado da aba Pesquisar (sobrevive às re-renderizações da página).
   const searchState = {
     q: "",
-    filters: { scope: "all", dub: "any", maxAge: "", year: "", season: "" },
+    filters: { scope: "all", dub: "any", maxAge: "", year: "", season: "", sort: "default" },
     items: null,
-    more: false,
-    start: 0,
+    shown: 60, // resultados visíveis; "Carregar mais" mostra mais 60
     loading: false,
     error: null,
     anilist: null,
@@ -448,14 +447,12 @@
       });
   }
 
-  async function runSearch({ append = false } = {}) {
+  async function runSearch() {
     if (searchState.loading) return;
     searchState.loading = true;
     searchState.error = null;
-    if (!append) {
-      searchState.start = 0;
-      searchState.items = null;
-    }
+    searchState.items = null;
+    searchState.shown = CRSearch.PAGE;
     render();
     try {
       const r = await CRSearch.run({
@@ -463,11 +460,10 @@
         filters: searchState.filters,
         settings,
         watchIds: watchIds(),
-        start: searchState.start,
         useAniList: await anilistAllowed(),
+        uiLang: CRI18n.lang(),
       });
-      searchState.items = append ? [...(searchState.items || []), ...r.items] : r.items;
-      searchState.more = r.more;
+      searchState.items = r.items;
       searchState.anilist = r.anilist;
     } catch (err) {
       console.error("[Novos Episódios]", err);
@@ -586,6 +582,18 @@
         el(
           "label",
           {},
+          el("span", { text: t("searchSort") }),
+          el(
+            "select",
+            { id: "sf-sort", onchange: onFilter("sort") },
+            opt("default", t("searchSortDefault"), f.sort),
+            opt("year", t("searchSortYear"), f.sort),
+            opt("title", t("searchSortTitle"), f.sort)
+          )
+        ),
+        el(
+          "label",
+          {},
           el("span", { text: t("searchSeason") }),
           el(
             "select",
@@ -621,24 +629,26 @@
 
     if (st.error) parts.push(el("div", { class: "error-box" }, el("p", { text: st.error })));
     else if (st.items === null) {
-      parts.push(el("p", { class: "empty", text: st.loading ? t("searchLoading") : t("searchHint") }));
+      const catalogMode = !st.q.trim() && !f.season && f.scope !== "mine";
+      parts.push(
+        el("p", { class: "empty", text: st.loading ? (catalogMode ? t("searchLoadingCatalog") : t("searchLoading")) : t("searchHint") })
+      );
     } else {
       parts.push(el("p", { class: "result-count", text: tn("searchCount", st.items.length) }));
-      if (st.items.length) parts.push(el("div", { class: "results" }, st.items.map(resultCard)));
-      if (st.more) {
+      if (st.items.length) parts.push(el("div", { class: "results" }, st.items.slice(0, st.shown).map(resultCard)));
+      if (st.items.length > st.shown) {
         parts.push(
           el("button", {
             class: "btn ghost more-btn",
             type: "button",
-            text: st.loading ? t("searchLoading") : t("searchMore"),
-            disabled: st.loading || null,
+            text: t("searchMore"),
             onclick: () => {
-              st.start += CRSearch.PAGE;
-              runSearch({ append: true });
+              st.shown += CRSearch.PAGE;
+              render();
             },
           })
         );
-      } else if (st.loading) parts.push(el("p", { class: "empty", text: t("searchLoading") }));
+      }
     }
     return el("div", { class: "search" }, parts);
   }
