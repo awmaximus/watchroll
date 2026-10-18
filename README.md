@@ -232,7 +232,8 @@ cd watchroll
 ```
 
 **Permanent:** install the version published on addons.mozilla.org, or a signed `.xpi` (see
-[Build](#build)). In Firefox Developer Edition or Nightly you can also set
+[Build](#build)). Unsigned `.zip` packages are attached to each
+[GitHub release](https://github.com/awmaximus/watchroll/releases). In Firefox Developer Edition or Nightly you can also set
 `xpinstall.signatures.required` to `false` in `about:config` and install the `.zip`.
 
 ## Development
@@ -305,6 +306,26 @@ is: changing it makes Firefox and AMO treat Watchroll as a different extension.
 
 `.github/workflows/ci.yml` runs `./build.sh` (tests, lint, package) on every push and pull
 request with Node 22 and keeps the `.zip` as a build artifact.
+
+### Releases
+
+Pushing a version tag publishes a GitHub release with the `.zip` attached:
+
+```sh
+# after bumping "version" in manifest.json and package.json (e.g. to 1.0.1)
+git commit -am "Watchroll 1.0.1"
+git tag v1.0.1
+git push && git push origin v1.0.1
+```
+
+The release job checks that the tag matches the `manifest.json` version, then creates the
+release `Watchroll v1.0.1` with notes generated from the commits (or replaces the `.zip` if the
+release already exists). For a tag pushed before this workflow existed, use **Actions → CI → Run
+workflow** with the tag name.
+
+The release `.zip` is the unsigned package: it installs as a temporary add-on, or permanently in
+Firefox Developer Edition/Nightly with signatures off. The regular way to install is the version
+on addons.mozilla.org.
 
 ### Translations
 

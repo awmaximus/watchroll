@@ -1,9 +1,19 @@
-# Roda testes, lint e empacotamento a cada push e pull request, e guarda o .zip.
+# CI do Watchroll.
+#  - Todo push e pull request: testes, lint e pacote (o .zip fica como artefato).
+#  - Tag "v<versão>" (ex.: v1.0.0): além disso, cria a release no GitHub com o .zip.
+#  - "Run workflow" (manual) com uma tag já existente: cria ou atualiza a release dela.
 name: CI
 
 on:
   push:
+    branches: ["**"]
+    tags: ["v*"]
   pull_request:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag já existente para publicar (ex.: v1.0.0)"
+        required: true
 
 permissions:
   contents: read
@@ -13,6 +23,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -23,3 +35,35 @@ jobs:
           name: extension-zip
           path: dist/*.zip
           if-no-files-found: error
+
+  release:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # criar a release e anexar o arquivo
+    env:
+      TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: extension-zip
+          path: dist
+      - name: Tag must match the manifest version
+        run: |
+          version="$(node -p 'require("./manifest.json").version')"
+          if [ "v$version" != "$TAG" ]; then
+            echo "::error::Tag $TAG does not match manifest.json version $version"
+            exit 1
+          fi
+      - name: Publish release
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" dist/*.zip --clobber
+          else
+            gh release create "$TAG" dist/*.zip --verify-tag --title "Watchroll $TAG" --generate-notes
+          fi
