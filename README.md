@@ -18,11 +18,14 @@ only reads data from your own account.
   extra check right after each known release time.
 - **Watchlist + Crunchylists**, with a label showing which list each series came from and a
   list filter on every tab.
-- **Tabs** for every state (to watch, waiting for dub or subtitles, no dub, caught up, not
-  started, errors, hidden), each with its own sorting.
+- **Tabs** for every state (to watch, dub or subtitles pending, no dub, caught up, not
+  started, errors, hidden), each with its own sorting, plus a **Week** calendar of upcoming
+  releases.
 - **Advanced Search** over the whole Crunchyroll catalog or your lists, with dub, age rating,
   year and season filters, and optional Japanese/romaji title lookup through AniList.
-- **Hide or snooze** a series, **next release** dates, **dub indicator** on every series.
+- **Hide or snooze** a series, **next release** dates with a countdown when it's close,
+  **dub indicator** on every series.
+- **Compact mode** (rows instead of cards) and **settings export/import**.
 - **27 interface languages**, including right-to-left Arabic and Urdu.
 
 Requires Firefox 142 or later and a Crunchyroll account signed in in Firefox.
@@ -34,21 +37,23 @@ appears immediately and is refreshed in the background. **Refresh** forces a ful
 
 ### Tabs
 
-Empty tabs are hidden, except *To watch*, *Caught up* and *To Start*. The selected tab is
-remembered. ← and → switch tabs from the keyboard.
+Tab names are short so the tab bar never scrolls sideways; on narrow screens it wraps. Settings
+is the gear icon. Empty tabs are hidden, except *To watch*, *Caught up*, *Week*, *To start*,
+*Search* and Settings. The selected tab is remembered. ← and → switch tabs from the keyboard.
 
 | Tab | Shows |
 |---|---|
-| To watch | Episodes released after the last one you watched, as cards. Half-watched episodes show a progress bar. |
-| Awaiting dub | Dubbed-mode series with episodes that are out but not yet dubbed in your language (the season already has that dub). |
-| Awaiting *X* subtitles | Subbed-mode series with episodes released without subtitles in your language. |
+| To watch | Episodes released after the last one you watched, as cards (or rows in compact mode, with a ▶ button for the next episode). Half-watched episodes show a progress bar. |
+| Dub pending | Dubbed-mode series with episodes that are out but not yet dubbed in your language (the season already has that dub). |
+| Subs pending | Subbed-mode series with episodes released without subtitles in your language. |
 | No dub | Dubbed-mode series whose current season has no episode at all in your language. **Watch subbed** switches the series to subbed mode. |
 | Caught up | Series with nothing pending. |
-| To Start | Series you never watched, grouped by release season (Fall 2026, Summer 2026…), newest first. |
-| Couldn't check | Series whose check failed, with the error. |
+| Week | The next known episode of each series releasing in the next 7 days, grouped by day (Today, Tomorrow, Wednesday, October 21…), with the time. |
+| To start | Series you never watched, grouped by release season (Fall 2026, Summer 2026…), newest first. |
+| Errors | Series whose check failed, with the error. |
+| Search | See [Advanced Search](#advanced-search). |
 | Hidden | Series you hid. **Show** brings one back. |
-| Advanced Search | See [Advanced Search](#advanced-search). |
-| Settings | See [Settings](#settings). |
+| ⚙ | See [Settings](#settings). |
 
 Above the list tabs:
 
@@ -61,9 +66,9 @@ Above the list tabs:
 | Tab | Sort options |
 |---|---|
 | To watch | Most recent release, Most recently watched, Most episodes, Title |
-| Awaiting dub / subtitles, No dub | Most episodes waiting, Most recently watched, Title |
+| Dub pending, Subs pending, No dub | Most episodes waiting, Most recently watched, Title |
 | Caught up | Most recently watched, Next release, Title |
-| To Start | Release season (grouped), Title |
+| To start | Release season (grouped), Title |
 | Hidden | Title, Most recently watched |
 
 ### On each series
@@ -71,8 +76,10 @@ Above the list tabs:
 - **Dub indicator:** a microphone with your dub language. Green: the latest season has that
   dub. Yellow, dashed: only earlier seasons have it. Grey, crossed out: no dub.
 - **List labels:** with more than one list selected, the list(s) the series came from.
-- **Next release:** for example "Next: S2 E13 in 3 days (Thu, 10/16)". In dubbed mode, the
-  date of the dub. Placeholder dates (Crunchyroll uses year 9998 for "no date") are ignored.
+- **Next release:** for example "Next: S2 E13 in 3 days (Thu, 10/16)". In the last 6 hours
+  it becomes a countdown, highlighted on the card and updated every minute ("Next: S2 E13 in
+  45 min", "in 3 h (11:05 PM)"). In dubbed mode, the date of the dub. Placeholder dates
+  (Crunchyroll uses year 9998 for "no date") are ignored.
 - **Mode selector:** default, subbed, dubbed or any audio, for this series only.
 - **⋯ menu:** hide until a new episode is out, hide for 1 week, always hide, or export
   diagnostics (see [Diagnostics](#diagnostics)).
@@ -129,11 +136,13 @@ Changes are saved immediately.
 | Check automatically | Off, or every 30 min, 1 h (default), 3 h or 6 h. |
 | Notify me when a new episode is out | Desktop notifications (on by default). |
 | Show specials and recaps | Shows them, tagged and uncounted (on by default). |
+| Show "To watch" in compact mode | Rows instead of cards in *To watch* (off by default). |
 | Show skipped episodes | Shows unwatched episodes before the last one you watched, tagged "skipped" and uncounted (off by default). Only for the seasons the check examines. |
 | Also search Japanese and romaji names | Sends Advanced Search text to AniList (off by default). |
 | Count as started after (seconds) | Ignores playback records shorter than this (default 60, 0–600). Crunchyroll records a few seconds just from opening an episode page. |
 | Series checked at the same time | Parallel requests (default 4, 1–32). Lower it if you get HTTP 429 errors. |
 | Batch size | Episodes per progress request and items per Watchlist/history page (default 100, 10–300). Lower it if checks start failing. |
+| Settings backup | **Export** saves your settings (per-series modes, hidden series, lists, languages and options) to a JSON file; **Import** restores them and reloads the page. Unknown keys and values of the wrong type are ignored. No login, token or history is included. |
 
 ## How episodes are determined
 
@@ -156,11 +165,11 @@ Rules:
   episode**, because Crunchyroll fills the dubbed list with the original version until the dub
   is out.
 - **Any audio:** announces an episode as soon as any version is out.
-- **Movies** in your lists are checked too: not started goes to *To Start*, started to *To
+- **Movies** in your lists are checked too: not started goes to *To start*, started to *To
   watch* with progress, finished to *Caught up*. Multi-part movies are listed part by part.
 - **Not started shortcut:** before the per-series checks, the extension reads your watch
   history (`/content/v2/{account}/watch-history`, up to 10 pages). A series goes straight to
-  *To Start* only if the history was read to the end, the series has no real activity in it and
+  *To start* only if the history was read to the end, the series has no real activity in it and
   Crunchyroll also flags it as never watched (that flag exists only for the Watchlist).
   Otherwise, the full check runs.
 
@@ -199,6 +208,7 @@ Rules:
   crunchyroll.com tab via `src/bridge.js`; if none is open, one is opened in the background and
   closed afterwards (never during background checks).
 - Nothing is sent to third parties, except Advanced Search text to AniList when you enable it.
+  See [PRIVACY.md](PRIVACY.md).
 
 ## Installation
 
@@ -258,9 +268,18 @@ chmod 600 .amo-credentials
 categories, license); the `.xpi` becomes available after Mozilla's review. The store name and
 summary come from `_locales/en_US/messages.json` (the manifest's `default_locale`).
 
+For the store listing, `store/screenshots/` has 1280×800 screenshots (English interface,
+fictional titles and generated artwork) and `PRIVACY.md` is the privacy policy to paste in the
+add-on's Developer Hub page. The listing icon is `icons/icon-128.png`.
+
 Bump `version` in both `manifest.json` and `package.json` for every release; AMO does not
 accept the same version twice. Never change the add-on ID
 (`crunchyroll-novos-eps@awmaximus.github.io`), or Firefox treats it as a different extension.
+
+### Continuous integration
+
+`.github/workflows/ci.yml` runs `./build.sh` (tests, lint, package) on every push and pull
+request with Node 22 and keeps the `.zip` as a build artifact.
 
 ### Translations
 
@@ -275,6 +294,9 @@ add it to `LANGUAGES` in `src/i18n.js` (with its name in its own language) and r
 ```
 manifest.json       MV3 manifest (Firefox)
 amo-metadata.json   English store metadata for --listed
+PRIVACY.md          privacy policy
+store/screenshots/  store screenshots
+.github/workflows/  CI
 _locales/           interface texts, 27 languages
 build.sh            tests, lint, package and signing
 dashboard/          extension page (HTML, CSS, JS)

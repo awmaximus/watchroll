@@ -1,12 +1,12 @@
 {
   "extName": {
-    "message": "Crunchyroll – Yeni Bölümler"
+    "message": "Crunchyroll için Yeni Bölümler"
   },
   "extDescription": {
-    "message": "Crunchyroll izleme listendeki dizilerin henüz izlemediğin bölümlerini, altyazılı mı dublajlı mı izlediğine göre gösteren ayrı bir sayfa."
+    "message": "Resmî değildir. Crunchyroll izleme listendeki dizilerin henüz izlemediğin bölümlerini, altyazılı mı dublajlı mı izlediğine göre gösteren ayrı bir sayfa."
   },
   "actionTitle": {
-    "message": "Yeni Crunchyroll bölümleri"
+    "message": "Crunchyroll için yeni bölümler"
   },
   "pageTitle": {
     "message": "Yeni bölümler – Crunchyroll"
@@ -414,7 +414,7 @@
     "message": "Hepsi izlendi"
   },
   "secToWatch": {
-    "message": "İzlenecekler"
+    "message": "İzlenecek"
   },
   "emptySearch": {
     "message": "Burada dizi bulunamadı."
@@ -423,7 +423,7 @@
     "message": "Başladığın dizilerde yeni bölüm yok."
   },
   "secWaitDub": {
-    "message": "Dublaj bekleyenler"
+    "message": "Dublaj bekleniyor"
   },
   "noteWaitDub_one": {
     "message": "1 bölüm altyazılı çıktı"
@@ -437,18 +437,13 @@
     }
   },
   "secWaitSub": {
-    "message": "$P1$ altyazı bekleyenler",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "Altyazı bekleniyor"
   },
   "noteWaitSub_one": {
-    "message": "1 bölüm bu altyazı olmadan çıktı"
+    "message": "1 bölüm dilinde altyazı olmadan yayınlandı"
   },
   "noteWaitSub_other": {
-    "message": "$P1$ bölüm bu altyazı olmadan çıktı",
+    "message": "$P1$ bölüm dilinde altyazı olmadan yayınlandı",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -484,7 +479,7 @@
     "message": "Bu diziyi altyazılı moda geçirir"
   },
   "secErrors": {
-    "message": "Kontrol edilemedi"
+    "message": "Hatalar"
   },
   "secUpToDate": {
     "message": "Güncel"
@@ -498,10 +493,10 @@
     }
   },
   "secNever": {
-    "message": "Başlanacaklar"
+    "message": "Başlanmadı"
   },
   "secHidden": {
-    "message": "Gizlenenler"
+    "message": "Gizli"
   },
   "btnShow": {
     "message": "Göster"
@@ -711,7 +706,7 @@
     }
   },
   "secSearch": {
-    "message": "Gelişmiş Arama"
+    "message": "Arama"
   },
   "searchQueryPlaceholder": {
     "message": "Anime adı (Türkçe, İngilizce, romaji veya Japonca)"
@@ -919,6 +914,60 @@
   },
   "listItems_other": {
     "message": "$P1$ öğe",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secCalendar": {
+    "message": "Hafta"
+  },
+  "futInMinutes": {
+    "message": "$P1$ dk sonra",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futInHours": {
+    "message": "$P1$ sa sonra ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "calToday": {
+    "message": "Bugün"
+  },
+  "calTomorrow": {
+    "message": "Yarın"
+  },
+  "emptyCalendar": {
+    "message": "Önümüzdeki 7 günde bilinen yayın yok."
+  },
+  "setCompactLabel": {
+    "message": "\"İzlenecek\" sekmesini sıkı göster (kart yerine satır)"
+  },
+  "setBackupLabel": {
+    "message": "Ayar yedeği"
+  },
+  "setBackupHelp": {
+    "message": "Tercihlerini (dizi başına mod, gizli diziler, listeler ve diller) bir dosyaya kaydeder veya geri yükler. Oturum ve geçmiş dahil değildir."
+  },
+  "btnExport": {
+    "message": "Dışa aktar"
+  },
+  "btnImport": {
+    "message": "İçe aktar"
+  },
+  "importError": {
+    "message": "İçe aktarılamadı: $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"

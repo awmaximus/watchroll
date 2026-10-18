@@ -1,12 +1,12 @@
 {
   "extName": {
-    "message": "Crunchyroll – Nouveaux épisodes"
+    "message": "Nouveaux épisodes pour Crunchyroll"
   },
   "extDescription": {
-    "message": "Une page dédiée aux épisodes pas encore vus des séries de votre Liste Crunchyroll, en respectant si vous les regardez en VOSTFR ou en VF."
+    "message": "Non officiel. Une page dédiée aux épisodes pas encore vus des séries de votre Liste Crunchyroll, en respectant si vous les regardez en VOSTFR ou en VF."
   },
   "actionTitle": {
-    "message": "Nouveaux épisodes Crunchyroll"
+    "message": "Nouveaux épisodes pour Crunchyroll"
   },
   "pageTitle": {
     "message": "Nouveaux épisodes – Crunchyroll"
@@ -414,7 +414,7 @@
     "message": "Tout est à jour"
   },
   "secToWatch": {
-    "message": "À regarder"
+    "message": "À voir"
   },
   "emptySearch": {
     "message": "Aucune série trouvée ici."
@@ -423,7 +423,7 @@
     "message": "Aucun nouvel épisode dans les séries que vous avez commencées."
   },
   "secWaitDub": {
-    "message": "En attente de doublage"
+    "message": "VF en attente"
   },
   "noteWaitDub_one": {
     "message": "1 déjà sorti en sous-titré"
@@ -437,18 +437,13 @@
     }
   },
   "secWaitSub": {
-    "message": "En attente de sous-titres en $P1$",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "Sous-titres en attente"
   },
   "noteWaitSub_one": {
-    "message": "1 épisode déjà sorti sans ces sous-titres"
+    "message": "1 épisode déjà sorti sans sous-titres dans votre langue"
   },
   "noteWaitSub_other": {
-    "message": "$P1$ épisodes déjà sortis sans ces sous-titres",
+    "message": "$P1$ épisodes déjà sortis sans sous-titres dans votre langue",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -484,7 +479,7 @@
     "message": "Passe cette série en mode sous-titré"
   },
   "secErrors": {
-    "message": "Vérification impossible"
+    "message": "Erreurs"
   },
   "secUpToDate": {
     "message": "À jour"
@@ -711,7 +706,7 @@
     }
   },
   "secSearch": {
-    "message": "Recherche avancée"
+    "message": "Recherche"
   },
   "searchQueryPlaceholder": {
     "message": "Nom de l’anime (français, anglais, romaji ou japonais)"
@@ -919,6 +914,60 @@
   },
   "listItems_other": {
     "message": "$P1$ éléments",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secCalendar": {
+    "message": "Semaine"
+  },
+  "futInMinutes": {
+    "message": "dans $P1$ min",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futInHours": {
+    "message": "dans $P1$ h ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "calToday": {
+    "message": "Aujourd'hui"
+  },
+  "calTomorrow": {
+    "message": "Demain"
+  },
+  "emptyCalendar": {
+    "message": "Aucune sortie connue dans les 7 prochains jours."
+  },
+  "setCompactLabel": {
+    "message": "Afficher « À voir » en mode compact (lignes au lieu de cartes)"
+  },
+  "setBackupLabel": {
+    "message": "Sauvegarde des paramètres"
+  },
+  "setBackupHelp": {
+    "message": "Enregistre ou restaure vos préférences (modes par série, séries masquées, listes et langues) dans un fichier. Ni connexion ni historique."
+  },
+  "btnExport": {
+    "message": "Exporter"
+  },
+  "btnImport": {
+    "message": "Importer"
+  },
+  "importError": {
+    "message": "Importation impossible : $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"

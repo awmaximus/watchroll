@@ -1,12 +1,12 @@
 {
   "extName": {
-    "message": "Crunchyroll – కొత్త ఎపిసోడ్‌లు"
+    "message": "Crunchyroll కోసం కొత్త ఎపిసోడ్‌లు"
   },
   "extDescription": {
-    "message": "Crunchyroll వాచ్‌లిస్ట్‌లోని సిరీస్‌లలో మీరు ఇంకా చూడని ఎపిసోడ్‌లను, సబ్‌టైటిల్ లేదా డబ్ మీ ఎంపిక ప్రకారం, ప్రత్యేక పేజీలో చూపిస్తుంది."
+    "message": "అనధికారికం. Crunchyroll వాచ్‌లిస్ట్‌లోని సిరీస్‌లలో మీరు ఇంకా చూడని ఎపిసోడ్‌లను, సబ్‌టైటిల్ లేదా డబ్ మీ ఎంపిక ప్రకారం, ప్రత్యేక పేజీలో చూపిస్తుంది."
   },
   "actionTitle": {
-    "message": "Crunchyroll కొత్త ఎపిసోడ్‌లు"
+    "message": "Crunchyroll కోసం కొత్త ఎపిసోడ్‌లు"
   },
   "pageTitle": {
     "message": "కొత్త ఎపిసోడ్‌లు – Crunchyroll"
@@ -423,7 +423,7 @@
     "message": "మీరు మొదలుపెట్టిన సిరీస్‌లలో కొత్త ఎపిసోడ్‌లు లేవు."
   },
   "secWaitDub": {
-    "message": "డబ్ కోసం వేచి ఉన్నవి"
+    "message": "డబ్ పెండింగ్"
   },
   "noteWaitDub_one": {
     "message": "1 సబ్‌టైటిల్‌తో వచ్చింది"
@@ -437,18 +437,13 @@
     }
   },
   "secWaitSub": {
-    "message": "$P1$ సబ్‌టైటిల్ కోసం వేచి ఉన్నవి",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "సబ్‌టైటిల్ పెండింగ్"
   },
   "noteWaitSub_one": {
-    "message": "1 ఎపిసోడ్ ఈ సబ్‌టైటిల్ లేకుండా వచ్చింది"
+    "message": "1 ఎపిసోడ్ మీ భాష సబ్‌టైటిల్స్ లేకుండా వచ్చింది"
   },
   "noteWaitSub_other": {
-    "message": "$P1$ ఎపిసోడ్‌లు ఈ సబ్‌టైటిల్ లేకుండా వచ్చాయి",
+    "message": "మీ భాష సబ్‌టైటిల్స్ లేకుండా వచ్చిన ఎపిసోడ్‌లు: $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -484,10 +479,10 @@
     "message": "ఈ సిరీస్‌ను సబ్‌టైటిల్ మోడ్‌కు మారుస్తుంది"
   },
   "secErrors": {
-    "message": "తనిఖీ చేయలేకపోయాం"
+    "message": "లోపాలు"
   },
   "secUpToDate": {
-    "message": "అన్నీ చూశారు"
+    "message": "తాజాగా ఉన్నవి"
   },
   "noteNoDubSeason": {
     "message": "ప్రస్తుత సీజన్‌లో $P1$ డబ్ లేదు",
@@ -711,7 +706,7 @@
     }
   },
   "secSearch": {
-    "message": "అధునాతన శోధన"
+    "message": "శోధన"
   },
   "searchQueryPlaceholder": {
     "message": "అనిమే పేరు (తెలుగు, ఇంగ్లీష్, రోమాజీ లేదా జపనీస్)"
@@ -919,6 +914,60 @@
   },
   "listItems_other": {
     "message": "అంశాలు: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secCalendar": {
+    "message": "వారం"
+  },
+  "futInMinutes": {
+    "message": "$P1$ నిమిషాల్లో",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futInHours": {
+    "message": "$P1$ గంటల్లో ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "calToday": {
+    "message": "ఈరోజు"
+  },
+  "calTomorrow": {
+    "message": "రేపు"
+  },
+  "emptyCalendar": {
+    "message": "రాబోయే 7 రోజుల్లో తెలిసిన విడుదలలు లేవు."
+  },
+  "setCompactLabel": {
+    "message": "\"చూడాల్సినవి\"ని కాంపాక్ట్‌గా చూపించు (కార్డులకు బదులు వరుసలు)"
+  },
+  "setBackupLabel": {
+    "message": "సెట్టింగ్‌ల బ్యాకప్"
+  },
+  "setBackupHelp": {
+    "message": "మీ ప్రాధాన్యతలను (ప్రతి సిరీస్ మోడ్, దాచిన సిరీస్‌లు, జాబితాలు, భాషలు) ఫైల్‌లో సేవ్ లేదా పునరుద్ధరిస్తుంది. లాగిన్, చరిత్ర ఉండవు."
+  },
+  "btnExport": {
+    "message": "ఎగుమతి"
+  },
+  "btnImport": {
+    "message": "దిగుమతి"
+  },
+  "importError": {
+    "message": "దిగుమతి చేయలేకపోయాం: $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"

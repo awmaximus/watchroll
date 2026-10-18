@@ -1,12 +1,12 @@
 {
   "extName": {
-    "message": "Crunchyroll – Новые серии"
+    "message": "Новые серии для Crunchyroll"
   },
   "extDescription": {
-    "message": "Отдельная страница с непросмотренными сериями из вашего списка Crunchyroll — с учётом того, смотрите вы с субтитрами или в озвучке."
+    "message": "Неофициальное. Отдельная страница с непросмотренными сериями из вашего списка Crunchyroll — с учётом того, смотрите вы с субтитрами или в озвучке."
   },
   "actionTitle": {
-    "message": "Новые серии Crunchyroll"
+    "message": "Новые серии для Crunchyroll"
   },
   "pageTitle": {
     "message": "Новые серии – Crunchyroll"
@@ -423,7 +423,7 @@
     "message": "В начатых сериалах нет новых серий."
   },
   "secWaitDub": {
-    "message": "Ждут озвучки"
+    "message": "Ждём озвучку"
   },
   "noteWaitDub_one": {
     "message": "уже вышло с субтитрами: 1"
@@ -437,18 +437,13 @@
     }
   },
   "secWaitSub": {
-    "message": "Ждут субтитров ($P1$)",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "Ждём субтитры"
   },
   "noteWaitSub_one": {
-    "message": "вышло без этих субтитров: 1"
+    "message": "1 серия вышла без субтитров на вашем языке"
   },
   "noteWaitSub_other": {
-    "message": "вышло без этих субтитров: $P1$",
+    "message": "Серий без субтитров на вашем языке: $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -484,7 +479,7 @@
     "message": "Переключает этот сериал на субтитры"
   },
   "secErrors": {
-    "message": "Не удалось проверить"
+    "message": "Ошибки"
   },
   "secUpToDate": {
     "message": "Всё просмотрено"
@@ -498,7 +493,7 @@
     }
   },
   "secNever": {
-    "message": "Не начатые"
+    "message": "Не начато"
   },
   "secHidden": {
     "message": "Скрытые"
@@ -711,7 +706,7 @@
     }
   },
   "secSearch": {
-    "message": "Расширенный поиск"
+    "message": "Поиск"
   },
   "searchQueryPlaceholder": {
     "message": "Название аниме (русский, английский, ромадзи или японский)"
@@ -919,6 +914,60 @@
   },
   "listItems_other": {
     "message": "Элементов: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secCalendar": {
+    "message": "Неделя"
+  },
+  "futInMinutes": {
+    "message": "через $P1$ мин",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futInHours": {
+    "message": "через $P1$ ч ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "calToday": {
+    "message": "Сегодня"
+  },
+  "calTomorrow": {
+    "message": "Завтра"
+  },
+  "emptyCalendar": {
+    "message": "Нет известных выходов в ближайшие 7 дней."
+  },
+  "setCompactLabel": {
+    "message": "Показывать «Смотреть» компактно (строки вместо карточек)"
+  },
+  "setBackupLabel": {
+    "message": "Резервная копия настроек"
+  },
+  "setBackupHelp": {
+    "message": "Сохраняет или восстанавливает настройки (режимы сериалов, скрытые сериалы, списки и языки) из файла. Без входа и истории."
+  },
+  "btnExport": {
+    "message": "Экспорт"
+  },
+  "btnImport": {
+    "message": "Импорт"
+  },
+  "importError": {
+    "message": "Не удалось импортировать: $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"

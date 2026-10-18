@@ -424,7 +424,7 @@
     "message": "No new episodes in the series you've started."
   },
   "secWaitDub": {
-    "message": "Awaiting dub"
+    "message": "Dub pending"
   },
   "noteWaitDub_one": {
     "message": "1 already out subbed"
@@ -438,18 +438,13 @@
     }
   },
   "secWaitSub": {
-    "message": "Awaiting $P1$ subtitles",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "Subs pending"
   },
   "noteWaitSub_one": {
-    "message": "1 episode already out without these subtitles"
+    "message": "1 episode already out without subtitles in your language"
   },
   "noteWaitSub_other": {
-    "message": "$P1$ episodes already out without these subtitles",
+    "message": "$P1$ episodes already out without subtitles in your language",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -485,7 +480,7 @@
     "message": "Switches this series to subbed mode"
   },
   "secErrors": {
-    "message": "Couldn't check"
+    "message": "Errors"
   },
   "secUpToDate": {
     "message": "Caught up"
@@ -499,7 +494,7 @@
     }
   },
   "secNever": {
-    "message": "To Start"
+    "message": "To start"
   },
   "secHidden": {
     "message": "Hidden"
@@ -715,7 +710,7 @@
     }
   },
   "secSearch": {
-    "message": "Advanced Search"
+    "message": "Search"
   },
   "searchQueryPlaceholder": {
     "message": "Anime name (English, Portuguese, romaji or Japanese)"
@@ -923,6 +918,60 @@
   },
   "listItems_other": {
     "message": "$P1$ items",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secCalendar": {
+    "message": "Week"
+  },
+  "futInMinutes": {
+    "message": "in $P1$ min",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futInHours": {
+    "message": "in $P1$ h ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "calToday": {
+    "message": "Today"
+  },
+  "calTomorrow": {
+    "message": "Tomorrow"
+  },
+  "emptyCalendar": {
+    "message": "No known releases in the next 7 days."
+  },
+  "setCompactLabel": {
+    "message": "Show \"To watch\" in compact mode (rows instead of cards)"
+  },
+  "setBackupLabel": {
+    "message": "Settings backup"
+  },
+  "setBackupHelp": {
+    "message": "Saves or restores your preferences (per-series modes, hidden series, lists and languages) to a file. No login or history is included."
+  },
+  "btnExport": {
+    "message": "Export"
+  },
+  "btnImport": {
+    "message": "Import"
+  },
+  "importError": {
+    "message": "Couldn't import: $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"

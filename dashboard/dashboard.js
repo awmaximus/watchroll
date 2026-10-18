@@ -88,6 +88,7 @@
     $("set-extras").checked = settings.showExtras !== false;
     $("set-skipped").checked = !!settings.showSkipped;
     $("set-anilist").checked = !!settings.anilist;
+    $("set-compact").checked = !!settings.compact;
     const ms = $("set-minstarted");
     ms.min = CRAnalyzer.MIN_STARTED.min;
     ms.max = CRAnalyzer.MIN_STARTED.max;
@@ -236,6 +237,55 @@
     );
   }
 
+  // ---------- exportar / importar configurações ----------
+  // O arquivo leva só preferências (modos por série, ocultas, listas…): nada de
+  // token, cookie ou resultado de verificação.
+  const BACKUP_TYPE = "crnovos-settings";
+  function exportSettings() {
+    const data = {
+      type: BACKUP_TYPE,
+      format: 1,
+      extensionVersion: browser.runtime.getManifest().version,
+      exportedAt: new Date().toISOString(),
+      settings,
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = el("a", { href: url, download: `crnovos-settings-${new Date().toISOString().slice(0, 10)}.json` });
+    document.body.append(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 10000);
+  }
+
+  // Aceita só as chaves conhecidas, com o mesmo tipo do valor padrão.
+  function settingsFromBackup(text) {
+    const data = JSON.parse(text);
+    if (!data || data.type !== BACKUP_TYPE || !data.settings || typeof data.settings !== "object") {
+      throw new Error("not a settings file");
+    }
+    const out = {};
+    for (const [k, def] of Object.entries(CRChecker.DEFAULT_SETTINGS)) {
+      const v = data.settings[k];
+      if (v === undefined) continue;
+      const kind = (x) => (Array.isArray(x) ? "array" : x === null ? "null" : typeof x);
+      if (kind(v) === kind(def)) out[k] = v;
+    }
+    return out;
+  }
+
+  async function importSettings(file) {
+    try {
+      const imported = settingsFromBackup(await file.text());
+      settings = { ...CRChecker.DEFAULT_SETTINGS, ...imported };
+      await saveSettings();
+      location.reload(); // abre já com o idioma e as listas importadas
+    } catch (err) {
+      console.warn("[Novos Episódios] import failed:", err);
+      notice(t("importError", file.name)); // arquivo inválido ou de outro programa
+    }
+  }
+
   // ---------- links ----------
   function prefix() {
     const l = settings.locale.toLowerCase();
@@ -275,8 +325,28 @@
     return d.toLocaleDateString(UI, { day: "2-digit", month: "2-digit", year: "numeric" });
   }
 
-  const nextText = (s) =>
-    s.next ? t("nextText", epLabel(s.next), relFuture(s.next.at)) : null;
+  // Lançamento nas próximas 6 horas: contagem regressiva ("em 45 min", "em 3 h (14:30)").
+  const SOON = 6 * 3600000;
+  const isSoon = (s, now = Date.now()) => !!(s.next && s.next.at > now && s.next.at - now < SOON);
+  function relSoon(ts, now = Date.now()) {
+    const d = ts - now;
+    if (d <= 0 || d >= SOON) return null;
+    if (d < 3600000) return t("futInMinutes", Math.max(1, Math.ceil(d / 60000)));
+    const time = new Date(ts).toLocaleTimeString(UI, { hour: "2-digit", minute: "2-digit" });
+    return t("futInHours", Math.floor(d / 3600000), time);
+  }
+  const nextText = (s, now = Date.now()) =>
+    s.next ? t("nextText", epLabel(s.next), relSoon(s.next.at, now) || relFuture(s.next.at, now)) : null;
+
+  // A contagem regressiva dos cards é atualizada a cada minuto, sem redesenhar a página.
+  function tickSoon() {
+    for (const n of document.querySelectorAll(".hint.next[data-series]")) {
+      const s = results.find((r) => r.seriesId === n.dataset.series);
+      if (!s || !s.next) continue;
+      n.textContent = nextText(s);
+      n.classList.toggle("soon", isSoon(s));
+    }
+  }
 
   // ---------- componentes ----------
   function modeSelect(s) {
@@ -392,6 +462,20 @@
     return svg;
   }
 
+  function gearIcon() {
+    const svg = document.createElementNS(SVG, "svg");
+    for (const [k, v] of Object.entries({ viewBox: "0 0 24 24", width: "18", height: "18", "aria-hidden": "true", class: "gear" })) svg.setAttribute(k, v);
+    for (const d of [
+      "M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z",
+      "M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z",
+    ]) {
+      const p = document.createElementNS(SVG, "path");
+      p.setAttribute("d", d);
+      svg.append(p);
+    }
+    return svg;
+  }
+
   function dubBadge(s, { compact = false } = {}) {
     const st = CRAnalyzer.dubStatus(s, settings.dubLang);
     if (!st) return null;
@@ -442,14 +526,16 @@
           s.waitingSub
             ? el("span", { class: "hint", text: t("hintWaitSub", s.waitingSub) })
             : null,
-          s.next ? el("span", { class: "hint next", text: nextText(s) }) : null
+          s.next
+            ? el("span", { class: `hint next${isSoon(s) ? " soon" : ""}`, "data-series": s.seriesId, text: nextText(s) })
+            : null
         )
       )
     );
   }
 
-  function row(s, note, extraButton = null) {
-    note = [note, nextText(s)].filter(Boolean).join(" · ");
+  function row(s, note, extraButton = null, { withNext = true } = {}) {
+    note = [note, withNext ? nextText(s) : null].filter(Boolean).join(" · ");
     return el(
       "li",
       { class: "row", "data-series": s.seriesId },
@@ -461,6 +547,64 @@
         note ? el("small", { text: note, title: note }) : null
       ),
       el("div", { class: "row-actions" }, extraButton, modeSelect(s), actionsSelect(s))
+    );
+  }
+
+  // "Para assistir" em modo compacto: uma linha por série, com o botão ▶ para o
+  // próximo episódio.
+  function compactRow(s) {
+    const first = s.pending.find((p) => !p.extra && !p.skipped) || s.pending[0];
+    const note = [badgeLabel(s), first ? [epLabel(first), first.title].filter(Boolean).join(" ") : null]
+      .filter(Boolean)
+      .join(" · ");
+    const play = first
+      ? el("a", { class: "btn small play-btn", href: watchUrl(first), target: "_blank", rel: "noopener", title: t("watchNext"), "aria-label": t("watchNext"), text: "▶" })
+      : null;
+    return row(s, note, play);
+  }
+
+  // ---------- aba Semana ----------
+  // Próximos lançamentos dos 7 dias seguintes, por dia (o próximo episódio de cada série).
+  const WEEK_MS = 7 * 86400000;
+  const startOfDay = (ts) => {
+    const d = new Date(ts);
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+  };
+  const upcomingWeek = (list, now = Date.now()) =>
+    list.filter((r) => r.next && r.next.at > now && r.next.at - now <= WEEK_MS).sort((a, b) => a.next.at - b.next.at);
+
+  function dayTitle(ts, now = Date.now()) {
+    const days = Math.round((startOfDay(ts) - startOfDay(now)) / 86400000);
+    if (days <= 0) return t("calToday");
+    if (days === 1) return t("calTomorrow");
+    const txt = new Date(ts).toLocaleDateString(UI, { weekday: "long", day: "numeric", month: "long" });
+    return txt.charAt(0).toLocaleUpperCase(UI) + txt.slice(1);
+  }
+
+  function weekPanel(list) {
+    if (!list.length) return el("p", { class: "empty", text: t("emptyCalendar") });
+    const days = new Map();
+    for (const s of list) {
+      const k = startOfDay(s.next.at);
+      if (!days.has(k)) days.set(k, []);
+      days.get(k).push(s);
+    }
+    return [...days.entries()].map(([k, items]) =>
+      el(
+        "section",
+        { class: "group" },
+        el("h3", {}, el("span", { text: dayTitle(k) }), el("span", { class: "count", text: String(items.length) })),
+        el(
+          "ul",
+          { class: "rows" },
+          items.map((s) => {
+            const time = new Date(s.next.at).toLocaleTimeString(UI, { hour: "2-digit", minute: "2-digit" });
+            const soon = relSoon(s.next.at);
+            const note = [time, epLabel(s.next), s.next.title, soon].filter(Boolean).join(" · ");
+            return row(s, note, null, { withNext: false });
+          })
+        )
+      )
     );
   }
 
@@ -506,6 +650,8 @@
             "aria-selected": String(tb.id === active.id),
             "aria-controls": tb.id === "settings" ? "settings" : "tabpanel",
             tabindex: tb.id === active.id ? "0" : "-1",
+            title: tb.icon ? tb.label : null,
+            "aria-label": tb.icon ? tb.label : null,
             onclick: () => select(tb.id),
             onkeydown: (e) => {
               const i = shown.indexOf(tb);
@@ -519,7 +665,7 @@
               else if (e.key === "End") go(shown.length - 1);
             },
           },
-          el("span", { text: tb.label }),
+          tb.icon ? tb.icon() : el("span", { text: tb.label }),
           tb.count == null ? null : el("span", { class: "count", text: String(tb.count) })
         )
       )
@@ -863,6 +1009,7 @@
     const upToDate = sorted("upToDate", results.filter((r) => r.status === "uptodate" && !r.waitingDub && !r.waitingSub));
     const never = sorted("never", results.filter((r) => r.status === "never"));
     const errors = sorted("errors", results.filter((r) => r.status === "error"));
+    const week = upcomingWeek(results);
     const hiddenSorted = sorted("hidden", hidden);
 
     // Mesma contagem do ícone: sem especiais/recaps (e sem filtro da busca).
@@ -882,13 +1029,15 @@
         always: true,
         content: () =>
           pending.length
-            ? el("div", { class: "grid" }, pending.map(card))
+            ? settings.compact
+              ? el("ul", { class: "rows one-col" }, pending.map(compactRow))
+              : el("div", { class: "grid" }, pending.map(card))
             : el("p", { class: "empty", text: searching ? t("emptySearch") : t("emptyToWatch") }),
       },
       { id: "waitDub", label: t("secWaitDub"), count: waiting.length, content: () => rows(waiting, (s) => tn("noteWaitDub", s.waitingDub)) },
       {
         id: "waitSub",
-        label: t("secWaitSub", langName(settings.subLang)),
+        label: t("secWaitSub"),
         count: waitingSub.length,
         content: () => rows(waitingSub, (s) => tn("noteWaitSub", s.waitingSub)),
       },
@@ -922,6 +1071,7 @@
         always: true,
         content: () => rows(upToDate, (s) => (s.noDub ? t("noteNoDubSeason", settings.dubLang) : null)),
       },
+      { id: "week", label: t("secCalendar"), count: week.length, always: true, content: () => weekPanel(week) },
       {
         id: "never",
         label: t("secNever"),
@@ -958,7 +1108,7 @@
             )
           ),
       },
-      { id: "settings", label: t("btnSettings"), count: null, always: true, content: () => null },
+      { id: "settings", label: t("btnSettings"), count: null, always: true, icon: gearIcon, content: () => null },
     ]);
   }
 
@@ -1131,6 +1281,19 @@
         await saveSettings();
       }
     });
+    $("set-compact").addEventListener("change", async (e) => {
+      settings.compact = e.target.checked;
+      await saveSettings();
+      render();
+    });
+    $("btn-export").addEventListener("click", exportSettings);
+    $("btn-import").addEventListener("click", () => $("import-file").click());
+    $("import-file").addEventListener("change", (e) => {
+      const f = e.target.files && e.target.files[0];
+      e.target.value = "";
+      if (f) importSettings(f);
+    });
+    setInterval(tickSoon, 60000);
     $("set-skipped").addEventListener("change", async (e) => {
       settings.showSkipped = e.target.checked;
       await saveSettings();

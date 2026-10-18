@@ -1,12 +1,12 @@
 {
   "extName": {
-    "message": "Crunchyroll – Novos Episódios"
+    "message": "Novos Episódios para Crunchyroll"
   },
   "extDescription": {
-    "message": "Página própria com os episódios ainda não vistos das séries da sua Lista na Crunchyroll, respeitando se vê legendado ou dobrado."
+    "message": "Não oficial. Página própria com os episódios ainda não vistos das séries da sua Lista na Crunchyroll, respeitando se vê legendado ou dobrado."
   },
   "actionTitle": {
-    "message": "Novos episódios da Crunchyroll"
+    "message": "Novos episódios para Crunchyroll"
   },
   "pageTitle": {
     "message": "Novos episódios – Crunchyroll"
@@ -423,7 +423,7 @@
     "message": "Nenhum episódio novo nas séries que começou."
   },
   "secWaitDub": {
-    "message": "À espera de dobragem"
+    "message": "Dobragem pendente"
   },
   "noteWaitDub_one": {
     "message": "1 já saiu legendado"
@@ -437,18 +437,13 @@
     }
   },
   "secWaitSub": {
-    "message": "À espera de legendas em $P1$",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "Legendas pendentes"
   },
   "noteWaitSub_one": {
-    "message": "1 episódio já saiu sem estas legendas"
+    "message": "1 episódio já saiu sem legendas no seu idioma"
   },
   "noteWaitSub_other": {
-    "message": "$P1$ episódios já saíram sem estas legendas",
+    "message": "$P1$ episódios já saíram sem legendas no seu idioma",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -484,7 +479,7 @@
     "message": "Muda esta série para o modo legendado"
   },
   "secErrors": {
-    "message": "Não foi possível verificar"
+    "message": "Erros"
   },
   "secUpToDate": {
     "message": "Em dia"
@@ -498,7 +493,7 @@
     }
   },
   "secNever": {
-    "message": "A Iniciar"
+    "message": "Por começar"
   },
   "secHidden": {
     "message": "Ocultas"
@@ -711,7 +706,7 @@
     }
   },
   "secSearch": {
-    "message": "Pesquisa Avançada"
+    "message": "Pesquisa"
   },
   "searchQueryPlaceholder": {
     "message": "Nome do anime (português, inglês, romaji ou japonês)"
@@ -919,6 +914,60 @@
   },
   "listItems_other": {
     "message": "$P1$ itens",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secCalendar": {
+    "message": "Semana"
+  },
+  "futInMinutes": {
+    "message": "daqui a $P1$ min",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futInHours": {
+    "message": "daqui a $P1$ h ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "calToday": {
+    "message": "Hoje"
+  },
+  "calTomorrow": {
+    "message": "Amanhã"
+  },
+  "emptyCalendar": {
+    "message": "Nenhuma estreia conhecida nos próximos 7 dias."
+  },
+  "setCompactLabel": {
+    "message": "Mostrar \"Para ver\" em modo compacto (linhas em vez de cartões)"
+  },
+  "setBackupLabel": {
+    "message": "Cópia de segurança das definições"
+  },
+  "setBackupHelp": {
+    "message": "Guarda ou restaura as suas preferências (modos por série, séries ocultas, listas e idiomas) num ficheiro. Não inclui sessão nem histórico."
+  },
+  "btnExport": {
+    "message": "Exportar"
+  },
+  "btnImport": {
+    "message": "Importar"
+  },
+  "importError": {
+    "message": "Não foi possível importar: $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"

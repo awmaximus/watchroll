@@ -1,12 +1,12 @@
 {
   "extName": {
-    "message": "Crunchyroll – Episod Baharu"
+    "message": "Episod Baharu untuk Crunchyroll"
   },
   "extDescription": {
-    "message": "Halaman khas yang menyenaraikan episod yang belum anda tonton daripada siri dalam Senarai Tontonan Crunchyroll, mengikut pilihan sari kata atau alih suara."
+    "message": "Tidak rasmi. Halaman khas yang menyenaraikan episod yang belum anda tonton daripada siri dalam Senarai Tontonan Crunchyroll, mengikut pilihan sari kata atau alih suara."
   },
   "actionTitle": {
-    "message": "Episod baharu Crunchyroll"
+    "message": "Episod baharu untuk Crunchyroll"
   },
   "pageTitle": {
     "message": "Episod baharu – Crunchyroll"
@@ -423,7 +423,7 @@
     "message": "Tiada episod baharu dalam siri yang telah anda mulakan."
   },
   "secWaitDub": {
-    "message": "Menunggu alih suara"
+    "message": "Alih suara belum"
   },
   "noteWaitDub_one": {
     "message": "1 sudah keluar dengan sari kata"
@@ -437,18 +437,13 @@
     }
   },
   "secWaitSub": {
-    "message": "Menunggu sari kata $P1$",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "Sari kata belum"
   },
   "noteWaitSub_one": {
-    "message": "1 episod sudah keluar tanpa sari kata ini"
+    "message": "1 episod sudah keluar tanpa sari kata bahasa anda"
   },
   "noteWaitSub_other": {
-    "message": "$P1$ episod sudah keluar tanpa sari kata ini",
+    "message": "$P1$ episod sudah keluar tanpa sari kata bahasa anda",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -484,10 +479,10 @@
     "message": "Tukar siri ini ke mod sari kata"
   },
   "secErrors": {
-    "message": "Tidak dapat disemak"
+    "message": "Ralat"
   },
   "secUpToDate": {
-    "message": "Sudah terkini"
+    "message": "Terkini"
   },
   "noteNoDubSeason": {
     "message": "Tiada alih suara $P1$ dalam musim semasa",
@@ -498,10 +493,10 @@
     }
   },
   "secNever": {
-    "message": "Belum dimulakan"
+    "message": "Belum mula"
   },
   "secHidden": {
-    "message": "Disembunyikan"
+    "message": "Tersembunyi"
   },
   "btnShow": {
     "message": "Tunjukkan"
@@ -711,7 +706,7 @@
     }
   },
   "secSearch": {
-    "message": "Carian Lanjutan"
+    "message": "Cari"
   },
   "searchQueryPlaceholder": {
     "message": "Nama anime (Melayu, Inggeris, romaji atau Jepun)"
@@ -919,6 +914,60 @@
   },
   "listItems_other": {
     "message": "$P1$ item",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secCalendar": {
+    "message": "Minggu ini"
+  },
+  "futInMinutes": {
+    "message": "$P1$ min lagi",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futInHours": {
+    "message": "$P1$ jam lagi ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "calToday": {
+    "message": "Hari ini"
+  },
+  "calTomorrow": {
+    "message": "Esok"
+  },
+  "emptyCalendar": {
+    "message": "Tiada tayangan diketahui dalam 7 hari akan datang."
+  },
+  "setCompactLabel": {
+    "message": "Paparkan \"Untuk ditonton\" dalam mod padat (baris, bukan kad)"
+  },
+  "setBackupLabel": {
+    "message": "Sandaran tetapan"
+  },
+  "setBackupHelp": {
+    "message": "Menyimpan atau memulihkan pilihan anda (mod setiap siri, siri tersembunyi, senarai dan bahasa) ke fail. Tidak termasuk log masuk dan sejarah."
+  },
+  "btnExport": {
+    "message": "Eksport"
+  },
+  "btnImport": {
+    "message": "Import"
+  },
+  "importError": {
+    "message": "Tidak dapat mengimport: $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"

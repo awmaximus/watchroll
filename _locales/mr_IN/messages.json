@@ -1,12 +1,12 @@
 {
   "extName": {
-    "message": "Crunchyroll – नवीन भाग"
+    "message": "Crunchyroll साठी नवीन भाग"
   },
   "extDescription": {
-    "message": "Crunchyroll वॉचलिस्टमधील मालिकांचे तुम्ही अजून न पाहिलेले भाग, सबटायटल की डब या तुमच्या निवडीनुसार, एका स्वतंत्र पानावर."
+    "message": "अनधिकृत. Crunchyroll वॉचलिस्टमधील मालिकांचे तुम्ही अजून न पाहिलेले भाग, सबटायटल की डब या तुमच्या निवडीनुसार, एका स्वतंत्र पानावर."
   },
   "actionTitle": {
-    "message": "Crunchyroll चे नवीन भाग"
+    "message": "Crunchyroll साठी नवीन भाग"
   },
   "pageTitle": {
     "message": "नवीन भाग – Crunchyroll"
@@ -423,7 +423,7 @@
     "message": "तुम्ही सुरू केलेल्या मालिकांमध्ये नवीन भाग नाहीत."
   },
   "secWaitDub": {
-    "message": "डबच्या प्रतीक्षेत"
+    "message": "डब बाकी"
   },
   "noteWaitDub_one": {
     "message": "1 सबटायटलसह आला आहे"
@@ -437,18 +437,13 @@
     }
   },
   "secWaitSub": {
-    "message": "$P1$ सबटायटलच्या प्रतीक्षेत",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "सबटायटल बाकी"
   },
   "noteWaitSub_one": {
-    "message": "1 भाग या सबटायटलशिवाय आला आहे"
+    "message": "1 भाग तुमच्या भाषेतील सबटायटलशिवाय आला आहे"
   },
   "noteWaitSub_other": {
-    "message": "$P1$ भाग या सबटायटलशिवाय आले आहेत",
+    "message": "तुमच्या भाषेतील सबटायटलशिवाय आलेले भाग: $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -484,10 +479,10 @@
     "message": "ही मालिका सबटायटल मोडवर बदलते"
   },
   "secErrors": {
-    "message": "तपासता आले नाही"
+    "message": "त्रुटी"
   },
   "secUpToDate": {
-    "message": "सर्व पाहून झाले"
+    "message": "अद्ययावत"
   },
   "noteNoDubSeason": {
     "message": "सध्याच्या सीझनमध्ये $P1$ डब नाही",
@@ -498,7 +493,7 @@
     }
   },
   "secNever": {
-    "message": "सुरू करायच्या"
+    "message": "सुरू करायचे"
   },
   "secHidden": {
     "message": "लपवलेल्या"
@@ -711,7 +706,7 @@
     }
   },
   "secSearch": {
-    "message": "प्रगत शोध"
+    "message": "शोध"
   },
   "searchQueryPlaceholder": {
     "message": "ॲनिमेचे नाव (मराठी, इंग्रजी, रोमाजी किंवा जपानी)"
@@ -919,6 +914,60 @@
   },
   "listItems_other": {
     "message": "आयटम: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secCalendar": {
+    "message": "आठवडा"
+  },
+  "futInMinutes": {
+    "message": "$P1$ मिनिटांत",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futInHours": {
+    "message": "$P1$ तासांत ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "calToday": {
+    "message": "आज"
+  },
+  "calTomorrow": {
+    "message": "उद्या"
+  },
+  "emptyCalendar": {
+    "message": "पुढील 7 दिवसांत कोणतेही ज्ञात प्रकाशन नाही."
+  },
+  "setCompactLabel": {
+    "message": "\"पाहायचे\" संक्षिप्त स्वरूपात दाखवा (कार्डऐवजी ओळी)"
+  },
+  "setBackupLabel": {
+    "message": "सेटिंग्जचा बॅकअप"
+  },
+  "setBackupHelp": {
+    "message": "तुमच्या पसंती (प्रत्येक मालिकेचा मोड, लपवलेल्या मालिका, याद्या आणि भाषा) फाइलमध्ये जतन किंवा पुनर्संचयित करते. लॉगिन आणि इतिहास नाही."
+  },
+  "btnExport": {
+    "message": "निर्यात"
+  },
+  "btnImport": {
+    "message": "आयात"
+  },
+  "importError": {
+    "message": "आयात करता आले नाही: $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"

@@ -35,6 +35,7 @@ var CRChecker = (() => {
     sources: ["watchlist"], // "watchlist" (a Fila) e/ou IDs de Crunchylists
     listNames: {}, // ID da Crunchylist -> nome (o último lido da API)
     listFilter: "", // filtro das abas: "" = todas as listas
+    compact: false, // "Para assistir" em linhas em vez de cards
   };
 
   async function loadSettings(b = browser) {

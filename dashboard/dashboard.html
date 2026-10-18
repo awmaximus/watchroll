@@ -77,6 +77,10 @@
             <span data-i18n="setSkippedLabel"></span>
           </label>
           <label class="check">
+            <input id="set-compact" type="checkbox" />
+            <span data-i18n="setCompactLabel"></span>
+          </label>
+          <label class="check">
             <input id="set-anilist" type="checkbox" />
             <span data-i18n="setAniListLabel"></span>
           </label>
@@ -95,6 +99,15 @@
             <input id="set-phbatch" type="number" inputmode="numeric" step="10" />
             <small data-i18n="setPlayheadBatchHelp"></small>
           </label>
+          <div class="field">
+            <span data-i18n="setBackupLabel"></span>
+            <div class="backup">
+              <button id="btn-export" class="btn ghost small" type="button" data-i18n="btnExport"></button>
+              <button id="btn-import" class="btn ghost small" type="button" data-i18n="btnImport"></button>
+              <input id="import-file" type="file" accept="application/json,.json" hidden />
+            </div>
+            <small data-i18n="setBackupHelp"></small>
+          </div>
         </div>
         <p class="version" id="version"></p>
       </section>

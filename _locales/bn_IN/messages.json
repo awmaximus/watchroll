@@ -1,12 +1,12 @@
 {
   "extName": {
-    "message": "Crunchyroll – নতুন পর্ব"
+    "message": "Crunchyroll-এর জন্য নতুন এপিসোড"
   },
   "extDescription": {
-    "message": "Crunchyroll ওয়াচলিস্টের সিরিজগুলোর যেসব পর্ব আপনি এখনও দেখেননি, সাবটাইটেল না ডাব — আপনার পছন্দ অনুযায়ী, একটি আলাদা পাতায়।"
+    "message": "অনানুষ্ঠানিক। Crunchyroll ওয়াচলিস্টের সিরিজগুলোর যেসব পর্ব আপনি এখনও দেখেননি, সাবটাইটেল না ডাব — আপনার পছন্দ অনুযায়ী, একটি আলাদা পাতায়।"
   },
   "actionTitle": {
-    "message": "Crunchyroll-এর নতুন পর্ব"
+    "message": "Crunchyroll-এর জন্য নতুন এপিসোড"
   },
   "pageTitle": {
     "message": "নতুন পর্ব – Crunchyroll"
@@ -414,7 +414,7 @@
     "message": "সব দেখা হয়েছে"
   },
   "secToWatch": {
-    "message": "দেখার জন্য"
+    "message": "দেখার বাকি"
   },
   "emptySearch": {
     "message": "এখানে কোনো সিরিজ পাওয়া যায়নি।"
@@ -423,7 +423,7 @@
     "message": "আপনার শুরু করা সিরিজে কোনো নতুন পর্ব নেই।"
   },
   "secWaitDub": {
-    "message": "ডাবের অপেক্ষায়"
+    "message": "ডাব বাকি"
   },
   "noteWaitDub_one": {
     "message": "1টি সাবটাইটেলসহ এসেছে"
@@ -437,18 +437,13 @@
     }
   },
   "secWaitSub": {
-    "message": "$P1$ সাবটাইটেলের অপেক্ষায়",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "সাবটাইটেল বাকি"
   },
   "noteWaitSub_one": {
-    "message": "1টি পর্ব এই সাবটাইটেল ছাড়া এসেছে"
+    "message": "1টি এপিসোড আপনার ভাষার সাবটাইটেল ছাড়া এসেছে"
   },
   "noteWaitSub_other": {
-    "message": "$P1$টি পর্ব এই সাবটাইটেল ছাড়া এসেছে",
+    "message": "আপনার ভাষার সাবটাইটেল ছাড়া আসা এপিসোড: $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -484,10 +479,10 @@
     "message": "এই সিরিজটি সাবটাইটেল মোডে বদলায়"
   },
   "secErrors": {
-    "message": "যাচাই করা যায়নি"
+    "message": "ত্রুটি"
   },
   "secUpToDate": {
-    "message": "সব দেখা হয়েছে"
+    "message": "সব দেখা"
   },
   "noteNoDubSeason": {
     "message": "চলতি সিজনে $P1$ ডাব নেই",
@@ -498,7 +493,7 @@
     }
   },
   "secNever": {
-    "message": "শুরু করতে হবে"
+    "message": "শুরু হয়নি"
   },
   "secHidden": {
     "message": "লুকানো"
@@ -711,7 +706,7 @@
     }
   },
   "secSearch": {
-    "message": "উন্নত অনুসন্ধান"
+    "message": "অনুসন্ধান"
   },
   "searchQueryPlaceholder": {
     "message": "অ্যানিমের নাম (বাংলা, ইংরেজি, রোমাজি বা জাপানি)"
@@ -919,6 +914,60 @@
   },
   "listItems_other": {
     "message": "আইটেম: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secCalendar": {
+    "message": "সপ্তাহ"
+  },
+  "futInMinutes": {
+    "message": "$P1$ মিনিটে",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futInHours": {
+    "message": "$P1$ ঘণ্টায় ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "calToday": {
+    "message": "আজ"
+  },
+  "calTomorrow": {
+    "message": "আগামীকাল"
+  },
+  "emptyCalendar": {
+    "message": "আগামী 7 দিনে কোনো জানা রিলিজ নেই।"
+  },
+  "setCompactLabel": {
+    "message": "\"দেখার বাকি\" সংক্ষিপ্তভাবে দেখান (কার্ডের বদলে সারি)"
+  },
+  "setBackupLabel": {
+    "message": "সেটিংসের ব্যাকআপ"
+  },
+  "setBackupHelp": {
+    "message": "আপনার পছন্দ (প্রতি সিরিজের মোড, লুকানো সিরিজ, তালিকা ও ভাষা) ফাইলে সংরক্ষণ বা পুনরুদ্ধার করে। লগইন ও ইতিহাস থাকে না।"
+  },
+  "btnExport": {
+    "message": "রপ্তানি"
+  },
+  "btnImport": {
+    "message": "আমদানি"
+  },
+  "importError": {
+    "message": "আমদানি করা যায়নি: $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"

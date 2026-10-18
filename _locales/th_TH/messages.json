@@ -1,12 +1,12 @@
 {
   "extName": {
-    "message": "Crunchyroll – ตอนใหม่"
+    "message": "ตอนใหม่สำหรับ Crunchyroll"
   },
   "extDescription": {
-    "message": "หน้าเฉพาะที่แสดงตอนที่คุณยังไม่ได้ดูจากซีรีส์ในรายการที่จะดูของ Crunchyroll ตามที่คุณเลือกดูแบบซับหรือพากย์"
+    "message": "ไม่เป็นทางการ หน้าเฉพาะที่แสดงตอนที่คุณยังไม่ได้ดูจากซีรีส์ในรายการที่จะดูของ Crunchyroll ตามที่คุณเลือกดูแบบซับหรือพากย์"
   },
   "actionTitle": {
-    "message": "ตอนใหม่ของ Crunchyroll"
+    "message": "ตอนใหม่สำหรับ Crunchyroll"
   },
   "pageTitle": {
     "message": "ตอนใหม่ – Crunchyroll"
@@ -437,18 +437,13 @@
     }
   },
   "secWaitSub": {
-    "message": "รอซับ $P1$",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "รอซับ"
   },
   "noteWaitSub_one": {
-    "message": "ออกแล้ว 1 ตอนโดยไม่มีซับนี้"
+    "message": "ออกแล้ว 1 ตอนโดยไม่มีซับภาษาของคุณ"
   },
   "noteWaitSub_other": {
-    "message": "ออกแล้ว $P1$ ตอนโดยไม่มีซับนี้",
+    "message": "ออกแล้ว $P1$ ตอนโดยไม่มีซับภาษาของคุณ",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -484,7 +479,7 @@
     "message": "เปลี่ยนซีรีส์นี้เป็นโหมดซับ"
   },
   "secErrors": {
-    "message": "ตรวจสอบไม่ได้"
+    "message": "ข้อผิดพลาด"
   },
   "secUpToDate": {
     "message": "ดูครบแล้ว"
@@ -711,7 +706,7 @@
     }
   },
   "secSearch": {
-    "message": "ค้นหาขั้นสูง"
+    "message": "ค้นหา"
   },
   "searchQueryPlaceholder": {
     "message": "ชื่ออนิเมะ (ไทย อังกฤษ โรมาจิ หรือญี่ปุ่น)"
@@ -919,6 +914,60 @@
   },
   "listItems_other": {
     "message": "$P1$ รายการ",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secCalendar": {
+    "message": "สัปดาห์นี้"
+  },
+  "futInMinutes": {
+    "message": "อีก $P1$ นาที",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futInHours": {
+    "message": "อีก $P1$ ชม. ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "calToday": {
+    "message": "วันนี้"
+  },
+  "calTomorrow": {
+    "message": "พรุ่งนี้"
+  },
+  "emptyCalendar": {
+    "message": "ไม่มีกำหนดออกที่ทราบใน 7 วันข้างหน้า"
+  },
+  "setCompactLabel": {
+    "message": "แสดง \"รอดู\" แบบกะทัดรัด (เป็นแถวแทนการ์ด)"
+  },
+  "setBackupLabel": {
+    "message": "สำรองการตั้งค่า"
+  },
+  "setBackupHelp": {
+    "message": "บันทึกหรือกู้คืนการตั้งค่าของคุณ (โหมดของแต่ละซีรีส์ ซีรีส์ที่ซ่อน รายการ และภาษา) เป็นไฟล์ ไม่รวมการเข้าสู่ระบบและประวัติ"
+  },
+  "btnExport": {
+    "message": "ส่งออก"
+  },
+  "btnImport": {
+    "message": "นำเข้า"
+  },
+  "importError": {
+    "message": "นำเข้าไม่ได้: $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"

@@ -1,12 +1,12 @@
 {
   "extName": {
-    "message": "Crunchyroll – حلقات جديدة"
+    "message": "حلقات جديدة لـ Crunchyroll"
   },
   "extDescription": {
-    "message": "صفحة خاصة بالحلقات التي لم تشاهدها من المسلسلات في قائمة المشاهدة على Crunchyroll، حسب مشاهدتك مترجمًا أو مدبلجًا."
+    "message": "غير رسمي. صفحة خاصة بالحلقات التي لم تشاهدها من المسلسلات في قائمة المشاهدة على Crunchyroll، حسب مشاهدتك مترجمًا أو مدبلجًا."
   },
   "actionTitle": {
-    "message": "حلقات Crunchyroll الجديدة"
+    "message": "حلقات جديدة لـ Crunchyroll"
   },
   "pageTitle": {
     "message": "حلقات جديدة – Crunchyroll"
@@ -437,18 +437,13 @@
     }
   },
   "secWaitSub": {
-    "message": "بانتظار ترجمة $P1$",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "بانتظار الترجمة"
   },
   "noteWaitSub_one": {
-    "message": "حلقات صدرت دون هذه الترجمة: 1"
+    "message": "صدرت حلقة واحدة بدون ترجمة بلغتك"
   },
   "noteWaitSub_other": {
-    "message": "حلقات صدرت دون هذه الترجمة: $P1$",
+    "message": "حلقات صدرت بدون ترجمة بلغتك: $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -484,10 +479,10 @@
     "message": "يحوّل هذا المسلسل إلى الوضع المترجم"
   },
   "secErrors": {
-    "message": "تعذّر الفحص"
+    "message": "أخطاء"
   },
   "secUpToDate": {
-    "message": "تمت المشاهدة"
+    "message": "محدّثة"
   },
   "noteNoDubSeason": {
     "message": "لا دبلجة $P1$ في الموسم الحالي",
@@ -711,7 +706,7 @@
     }
   },
   "secSearch": {
-    "message": "بحث متقدم"
+    "message": "بحث"
   },
   "searchQueryPlaceholder": {
     "message": "اسم الأنمي (عربي، إنجليزي، روماجي أو ياباني)"
@@ -919,6 +914,60 @@
   },
   "listItems_other": {
     "message": "العناصر: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secCalendar": {
+    "message": "الأسبوع"
+  },
+  "futInMinutes": {
+    "message": "بعد $P1$ د",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futInHours": {
+    "message": "بعد $P1$ س ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "calToday": {
+    "message": "اليوم"
+  },
+  "calTomorrow": {
+    "message": "غدًا"
+  },
+  "emptyCalendar": {
+    "message": "لا توجد إصدارات معروفة خلال الأيام السبعة القادمة."
+  },
+  "setCompactLabel": {
+    "message": "عرض \"للمشاهدة\" بشكل مضغوط (صفوف بدل البطاقات)"
+  },
+  "setBackupLabel": {
+    "message": "نسخة احتياطية للإعدادات"
+  },
+  "setBackupHelp": {
+    "message": "يحفظ تفضيلاتك (وضع كل مسلسل، المسلسلات المخفية، القوائم واللغات) في ملف أو يستعيدها منه. لا يتضمن تسجيل الدخول أو السجل."
+  },
+  "btnExport": {
+    "message": "تصدير"
+  },
+  "btnImport": {
+    "message": "استيراد"
+  },
+  "importError": {
+    "message": "تعذّر الاستيراد: $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"

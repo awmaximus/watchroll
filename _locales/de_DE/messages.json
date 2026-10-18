@@ -1,12 +1,12 @@
 {
   "extName": {
-    "message": "Crunchyroll – Neue Folgen"
+    "message": "Neue Folgen für Crunchyroll"
   },
   "extDescription": {
-    "message": "Eine eigene Seite mit den noch nicht gesehenen Folgen der Serien auf deiner Crunchyroll-Watchlist – je nachdem, ob du mit Untertiteln oder synchronisiert schaust."
+    "message": "Inoffiziell. Eine eigene Seite mit den noch nicht gesehenen Folgen der Serien auf deiner Crunchyroll-Watchlist – je nachdem, ob du mit Untertiteln oder synchronisiert schaust."
   },
   "actionTitle": {
-    "message": "Neue Crunchyroll-Folgen"
+    "message": "Neue Folgen für Crunchyroll"
   },
   "pageTitle": {
     "message": "Neue Folgen – Crunchyroll"
@@ -414,7 +414,7 @@
     "message": "Alles aktuell"
   },
   "secToWatch": {
-    "message": "Zum Anschauen"
+    "message": "Anschauen"
   },
   "emptySearch": {
     "message": "Hier wurde keine Serie gefunden."
@@ -423,7 +423,7 @@
     "message": "Keine neuen Folgen in den Serien, die du angefangen hast."
   },
   "secWaitDub": {
-    "message": "Warten auf Synchro"
+    "message": "Synchro offen"
   },
   "noteWaitDub_one": {
     "message": "1 schon untertitelt erschienen"
@@ -437,18 +437,13 @@
     }
   },
   "secWaitSub": {
-    "message": "Warten auf $P1$-Untertitel",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "Untertitel offen"
   },
   "noteWaitSub_one": {
-    "message": "1 Folge schon ohne diese Untertitel erschienen"
+    "message": "1 Folge ohne Untertitel in deiner Sprache erschienen"
   },
   "noteWaitSub_other": {
-    "message": "$P1$ Folgen schon ohne diese Untertitel erschienen",
+    "message": "$P1$ Folgen ohne Untertitel in deiner Sprache erschienen",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -484,7 +479,7 @@
     "message": "Stellt diese Serie auf untertitelt um"
   },
   "secErrors": {
-    "message": "Prüfung fehlgeschlagen"
+    "message": "Fehler"
   },
   "secUpToDate": {
     "message": "Aktuell"
@@ -498,7 +493,7 @@
     }
   },
   "secNever": {
-    "message": "Noch anzufangen"
+    "message": "Nicht begonnen"
   },
   "secHidden": {
     "message": "Ausgeblendet"
@@ -711,7 +706,7 @@
     }
   },
   "secSearch": {
-    "message": "Erweiterte Suche"
+    "message": "Suche"
   },
   "searchQueryPlaceholder": {
     "message": "Anime-Name (Deutsch, Englisch, Romaji oder Japanisch)"
@@ -919,6 +914,60 @@
   },
   "listItems_other": {
     "message": "$P1$ Einträge",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secCalendar": {
+    "message": "Woche"
+  },
+  "futInMinutes": {
+    "message": "in $P1$ Min.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futInHours": {
+    "message": "in $P1$ Std. ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "calToday": {
+    "message": "Heute"
+  },
+  "calTomorrow": {
+    "message": "Morgen"
+  },
+  "emptyCalendar": {
+    "message": "Keine bekannten Veröffentlichungen in den nächsten 7 Tagen."
+  },
+  "setCompactLabel": {
+    "message": "„Anschauen“ kompakt anzeigen (Zeilen statt Karten)"
+  },
+  "setBackupLabel": {
+    "message": "Einstellungen sichern"
+  },
+  "setBackupHelp": {
+    "message": "Speichert oder stellt deine Einstellungen (Modus je Serie, ausgeblendete Serien, Listen und Sprachen) aus einer Datei wieder her. Ohne Anmeldung und Verlauf."
+  },
+  "btnExport": {
+    "message": "Exportieren"
+  },
+  "btnImport": {
+    "message": "Importieren"
+  },
+  "importError": {
+    "message": "Import fehlgeschlagen: $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"

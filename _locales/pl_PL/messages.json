@@ -1,12 +1,12 @@
 {
   "extName": {
-    "message": "Crunchyroll – Nowe odcinki"
+    "message": "Nowe odcinki dla Crunchyroll"
   },
   "extDescription": {
-    "message": "Osobna strona z odcinkami, których jeszcze nie obejrzałeś, z serii na Twojej liście obserwowanych w Crunchyroll, z uwzględnieniem, czy oglądasz z napisami, czy z dubbingiem."
+    "message": "Nieoficjalne. Osobna strona z odcinkami, których jeszcze nie obejrzałeś, z serii na Twojej liście obserwowanych w Crunchyroll, z uwzględnieniem, czy oglądasz z napisami, czy z dubbingiem."
   },
   "actionTitle": {
-    "message": "Nowe odcinki w Crunchyroll"
+    "message": "Nowe odcinki dla Crunchyroll"
   },
   "pageTitle": {
     "message": "Nowe odcinki – Crunchyroll"
@@ -437,18 +437,13 @@
     }
   },
   "secWaitSub": {
-    "message": "Czeka na napisy $P1$",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "Czeka na napisy"
   },
   "noteWaitSub_one": {
-    "message": "1 odcinek wydany bez tych napisów"
+    "message": "1 odcinek wyszedł bez napisów w Twoim języku"
   },
   "noteWaitSub_other": {
-    "message": "Odcinki wydane bez tych napisów: $P1$",
+    "message": "Odcinki bez napisów w Twoim języku: $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -484,7 +479,7 @@
     "message": "Przełącz tę serię na tryb napisów"
   },
   "secErrors": {
-    "message": "Nie udało się sprawdzić"
+    "message": "Błędy"
   },
   "secUpToDate": {
     "message": "Na bieżąco"
@@ -711,7 +706,7 @@
     }
   },
   "secSearch": {
-    "message": "Wyszukiwanie zaawansowane"
+    "message": "Szukaj"
   },
   "searchQueryPlaceholder": {
     "message": "Nazwa anime (polski, angielski, romaji lub japoński)"
@@ -919,6 +914,60 @@
   },
   "listItems_other": {
     "message": "Pozycje: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secCalendar": {
+    "message": "Tydzień"
+  },
+  "futInMinutes": {
+    "message": "za $P1$ min",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futInHours": {
+    "message": "za $P1$ godz. ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "calToday": {
+    "message": "Dziś"
+  },
+  "calTomorrow": {
+    "message": "Jutro"
+  },
+  "emptyCalendar": {
+    "message": "Brak znanych premier w ciągu 7 dni."
+  },
+  "setCompactLabel": {
+    "message": "Pokazuj „Do obejrzenia” w trybie kompaktowym (wiersze zamiast kart)"
+  },
+  "setBackupLabel": {
+    "message": "Kopia zapasowa ustawień"
+  },
+  "setBackupHelp": {
+    "message": "Zapisuje lub przywraca Twoje ustawienia (tryby serii, ukryte serie, listy i języki) z pliku. Bez logowania i historii."
+  },
+  "btnExport": {
+    "message": "Eksportuj"
+  },
+  "btnImport": {
+    "message": "Importuj"
+  },
+  "importError": {
+    "message": "Nie udało się zaimportować: $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"

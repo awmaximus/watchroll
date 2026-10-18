@@ -561,20 +561,20 @@ body.busy select.actions {
 }
 
 /* ---------- abas ---------- */
+/* As abas quebram linha em vez de criar barra de rolagem horizontal. */
 .tabs {
   display: flex;
-  gap: 4px;
-  overflow-x: auto;
+  flex-wrap: wrap;
+  gap: 0 2px;
   border-bottom: 1px solid var(--line);
   margin-bottom: 16px;
-  scrollbar-width: thin;
 }
 .tab {
   flex: 0 0 auto;
   display: inline-flex;
   align-items: baseline;
   gap: 8px;
-  padding: 10px 14px 9px;
+  padding: 10px 11px 9px;
   border: 0;
   border-bottom: 3px solid transparent;
   background: none;
@@ -900,4 +900,33 @@ body.busy select.actions {
 }
 #list-filter {
   max-width: 260px;
+}
+
+/* lançamento nas próximas horas */
+.hint.next.soon {
+  color: var(--orange);
+  font-weight: 600;
+}
+/* aba Configurações como ícone */
+.tab .gear {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vertical-align: -3px;
+}
+/* modo compacto */
+.play-btn {
+  text-decoration: none;
+  min-width: 34px;
+  text-align: center;
+}
+.backup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.rows.one-col {
+  grid-template-columns: minmax(0, 1fr);
 }

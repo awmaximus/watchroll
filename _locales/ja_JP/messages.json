@@ -1,12 +1,12 @@
 {
   "extName": {
-    "message": "Crunchyroll – 新着エピソード"
+    "message": "Crunchyroll 新着エピソード"
   },
   "extDescription": {
-    "message": "Crunchyroll のウォッチリストにあるシリーズの未視聴エピソードを、字幕・吹き替えの好みに合わせて一覧表示する専用ページ。"
+    "message": "非公式。Crunchyroll のウォッチリストにあるシリーズの未視聴エピソードを、字幕・吹き替えの好みに合わせて一覧表示する専用ページ。"
   },
   "actionTitle": {
-    "message": "Crunchyroll の新着エピソード"
+    "message": "Crunchyroll 新着エピソード"
   },
   "pageTitle": {
     "message": "新着エピソード – Crunchyroll"
@@ -437,18 +437,13 @@
     }
   },
   "secWaitSub": {
-    "message": "$P1$ 字幕待ち",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "字幕待ち"
   },
   "noteWaitSub_one": {
-    "message": "この字幕なしで 1 話公開済み"
+    "message": "1 話があなたの言語の字幕なしで配信済み"
   },
   "noteWaitSub_other": {
-    "message": "この字幕なしで $P1$ 話公開済み",
+    "message": "$P1$ 話があなたの言語の字幕なしで配信済み",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -484,10 +479,10 @@
     "message": "このシリーズを字幕モードに切り替えます"
   },
   "secErrors": {
-    "message": "確認できませんでした"
+    "message": "エラー"
   },
   "secUpToDate": {
-    "message": "視聴済み"
+    "message": "最新まで視聴"
   },
   "noteNoDubSeason": {
     "message": "今シーズンは $P1$ 吹き替えなし",
@@ -498,7 +493,7 @@
     }
   },
   "secNever": {
-    "message": "これから見る"
+    "message": "未視聴"
   },
   "secHidden": {
     "message": "非表示"
@@ -711,7 +706,7 @@
     }
   },
   "secSearch": {
-    "message": "詳細検索"
+    "message": "検索"
   },
   "searchQueryPlaceholder": {
     "message": "アニメ名(日本語・ローマ字・英語など)"
@@ -919,6 +914,60 @@
   },
   "listItems_other": {
     "message": "$P1$ 件",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secCalendar": {
+    "message": "今週"
+  },
+  "futInMinutes": {
+    "message": "あと $P1$ 分",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futInHours": {
+    "message": "あと $P1$ 時間($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "calToday": {
+    "message": "今日"
+  },
+  "calTomorrow": {
+    "message": "明日"
+  },
+  "emptyCalendar": {
+    "message": "今後 7 日間に予定されている配信はありません。"
+  },
+  "setCompactLabel": {
+    "message": "「視聴待ち」をコンパクト表示にする(カードではなく行)"
+  },
+  "setBackupLabel": {
+    "message": "設定のバックアップ"
+  },
+  "setBackupHelp": {
+    "message": "設定(シリーズごとのモード、非表示のシリーズ、リスト、言語)をファイルに保存・復元します。ログイン情報や履歴は含みません。"
+  },
+  "btnExport": {
+    "message": "書き出し"
+  },
+  "btnImport": {
+    "message": "読み込み"
+  },
+  "importError": {
+    "message": "読み込めませんでした: $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"

@@ -1,12 +1,15 @@
 {
   "categories": {
-    "firefox": ["alerts-updates", "photos-music-videos"]
+    "firefox": [
+      "alerts-updates",
+      "photos-music-videos"
+    ]
   },
   "summary": {
     "en-US": "Unofficial. Lists unwatched episodes from your Crunchyroll Watchlist and Crunchylists, sub or dub, and alerts you to new ones."
   },
   "description": {
-    "en-US": "A dedicated page that shows, for every series in your Crunchyroll Watchlist (and any Crunchylists you pick), the episodes released after the last one you watched.\n\n- Per-series choice of subbed or dubbed: a dubbed series only shows up when the dub in your language is out.\n- Tabs for To watch, Waiting for dub, Waiting for subtitles, No dub, Up to date, Not started (grouped by release season), Errors and Hidden.\n- Desktop notification and toolbar badge when new episodes arrive, with an extra check right after each known release time.\n- Advanced search over the whole catalog or your lists, with dub, age rating, year and season filters.\n- Interface in 27 languages.\n\nIt uses the Crunchyroll session you already have open in Firefox. It does not change the Crunchyroll site and sends nothing to third parties, except search text to AniList if you turn that option on.\n\nThis extension is not affiliated with or endorsed by Crunchyroll."
+    "en-US": "A dedicated page that shows, for every series in your Crunchyroll Watchlist (and any Crunchylists you pick), the episodes released after the last one you watched.\n\n- Per-series choice of subbed or dubbed: a dubbed series only shows up when the dub in your language is out.\n- Tabs for To watch, Dub pending, Subs pending, No dub, Caught up, Week, To start (grouped by release season), Errors and Hidden.\n- Desktop notification and toolbar badge when new episodes arrive, with an extra check right after each known release time.\n- A Week tab with the upcoming releases of the next 7 days, and a countdown on each series releasing in the next hours.\n- Compact list mode, and settings export/import.\n- Advanced search over the whole catalog or your lists, with dub, age rating, year and season filters.\n- Interface in 27 languages.\n\nIt uses the Crunchyroll session you already have open in Firefox. It does not change the Crunchyroll site and sends nothing to third parties, except search text to AniList if you turn that option on.\n\nThis extension is not affiliated with or endorsed by Crunchyroll."
   },
   "requires_payment": false,
   "version": {

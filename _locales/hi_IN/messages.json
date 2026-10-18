@@ -1,12 +1,12 @@
 {
   "extName": {
-    "message": "Crunchyroll – नए एपिसोड"
+    "message": "Crunchyroll के लिए नए एपिसोड"
   },
   "extDescription": {
-    "message": "Crunchyroll वॉचलिस्ट की सीरीज़ के वे एपिसोड जो आपने अभी तक नहीं देखे, सबटाइटल या डब की आपकी पसंद के अनुसार, एक अलग पेज पर।"
+    "message": "अनौपचारिक। Crunchyroll वॉचलिस्ट की सीरीज़ के वे एपिसोड जो आपने अभी तक नहीं देखे, सबटाइटल या डब की आपकी पसंद के अनुसार, एक अलग पेज पर।"
   },
   "actionTitle": {
-    "message": "Crunchyroll के नए एपिसोड"
+    "message": "Crunchyroll के लिए नए एपिसोड"
   },
   "pageTitle": {
     "message": "नए एपिसोड – Crunchyroll"
@@ -414,7 +414,7 @@
     "message": "सब देख लिया"
   },
   "secToWatch": {
-    "message": "देखने के लिए"
+    "message": "देखने हैं"
   },
   "emptySearch": {
     "message": "यहाँ कोई सीरीज़ नहीं मिली।"
@@ -423,7 +423,7 @@
     "message": "आपकी शुरू की गई सीरीज़ में कोई नया एपिसोड नहीं।"
   },
   "secWaitDub": {
-    "message": "डब का इंतज़ार"
+    "message": "डब बाकी"
   },
   "noteWaitDub_one": {
     "message": "1 सबटाइटल के साथ आ चुका"
@@ -437,18 +437,13 @@
     }
   },
   "secWaitSub": {
-    "message": "$P1$ सबटाइटल का इंतज़ार",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "सबटाइटल बाकी"
   },
   "noteWaitSub_one": {
-    "message": "1 एपिसोड इन सबटाइटल के बिना आ चुका"
+    "message": "1 एपिसोड आपकी भाषा के सबटाइटल के बिना आ चुका है"
   },
   "noteWaitSub_other": {
-    "message": "$P1$ एपिसोड इन सबटाइटल के बिना आ चुके",
+    "message": "आपकी भाषा के सबटाइटल के बिना आए एपिसोड: $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -484,10 +479,10 @@
     "message": "इस सीरीज़ को सबटाइटल मोड पर बदलें"
   },
   "secErrors": {
-    "message": "जाँच नहीं हो सकी"
+    "message": "त्रुटियाँ"
   },
   "secUpToDate": {
-    "message": "सब देख लिया"
+    "message": "अप टू डेट"
   },
   "noteNoDubSeason": {
     "message": "मौजूदा सीज़न में $P1$ डब नहीं",
@@ -498,10 +493,10 @@
     }
   },
   "secNever": {
-    "message": "शुरू करनी हैं"
+    "message": "शुरू करें"
   },
   "secHidden": {
-    "message": "छिपी हुई"
+    "message": "छिपी"
   },
   "btnShow": {
     "message": "दिखाएँ"
@@ -711,7 +706,7 @@
     }
   },
   "secSearch": {
-    "message": "उन्नत खोज"
+    "message": "खोज"
   },
   "searchQueryPlaceholder": {
     "message": "एनीमे का नाम (हिंदी, अंग्रेज़ी, रोमाजी या जापानी)"
@@ -919,6 +914,60 @@
   },
   "listItems_other": {
     "message": "आइटम: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secCalendar": {
+    "message": "सप्ताह"
+  },
+  "futInMinutes": {
+    "message": "$P1$ मिनट में",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futInHours": {
+    "message": "$P1$ घंटे में ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "calToday": {
+    "message": "आज"
+  },
+  "calTomorrow": {
+    "message": "कल"
+  },
+  "emptyCalendar": {
+    "message": "अगले 7 दिनों में कोई ज्ञात रिलीज़ नहीं।"
+  },
+  "setCompactLabel": {
+    "message": "\"देखने हैं\" को संक्षिप्त रूप में दिखाएँ (कार्ड की जगह पंक्तियाँ)"
+  },
+  "setBackupLabel": {
+    "message": "सेटिंग्स का बैकअप"
+  },
+  "setBackupHelp": {
+    "message": "आपकी पसंद (हर सीरीज़ का मोड, छिपी सीरीज़, सूचियाँ और भाषाएँ) फ़ाइल में सहेजता या वापस लाता है। लॉगिन और इतिहास शामिल नहीं।"
+  },
+  "btnExport": {
+    "message": "निर्यात"
+  },
+  "btnImport": {
+    "message": "आयात"
+  },
+  "importError": {
+    "message": "आयात नहीं हो सका: $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"

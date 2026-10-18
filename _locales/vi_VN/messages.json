@@ -1,12 +1,12 @@
 {
   "extName": {
-    "message": "Crunchyroll – Tập mới"
+    "message": "Tập mới cho Crunchyroll"
   },
   "extDescription": {
-    "message": "Trang riêng liệt kê các tập bạn chưa xem của những bộ trong Danh sách theo dõi Crunchyroll, theo việc bạn xem phụ đề hay lồng tiếng."
+    "message": "Không chính thức. Trang riêng liệt kê các tập bạn chưa xem của những bộ trong Danh sách theo dõi Crunchyroll, theo việc bạn xem phụ đề hay lồng tiếng."
   },
   "actionTitle": {
-    "message": "Tập mới trên Crunchyroll"
+    "message": "Tập mới cho Crunchyroll"
   },
   "pageTitle": {
     "message": "Tập mới – Crunchyroll"
@@ -437,18 +437,13 @@
     }
   },
   "secWaitSub": {
-    "message": "Chờ phụ đề $P1$",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "Chờ phụ đề"
   },
   "noteWaitSub_one": {
-    "message": "1 tập đã ra mà chưa có phụ đề này"
+    "message": "1 tập đã ra mà không có phụ đề ngôn ngữ của bạn"
   },
   "noteWaitSub_other": {
-    "message": "$P1$ tập đã ra mà chưa có phụ đề này",
+    "message": "$P1$ tập đã ra mà không có phụ đề ngôn ngữ của bạn",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -484,7 +479,7 @@
     "message": "Chuyển bộ này sang chế độ phụ đề"
   },
   "secErrors": {
-    "message": "Không kiểm tra được"
+    "message": "Lỗi"
   },
   "secUpToDate": {
     "message": "Đã xem hết"
@@ -711,7 +706,7 @@
     }
   },
   "secSearch": {
-    "message": "Tìm kiếm nâng cao"
+    "message": "Tìm kiếm"
   },
   "searchQueryPlaceholder": {
     "message": "Tên anime (tiếng Việt, tiếng Anh, romaji hoặc tiếng Nhật)"
@@ -919,6 +914,60 @@
   },
   "listItems_other": {
     "message": "$P1$ mục",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secCalendar": {
+    "message": "Tuần này"
+  },
+  "futInMinutes": {
+    "message": "$P1$ phút nữa",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futInHours": {
+    "message": "$P1$ giờ nữa ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "calToday": {
+    "message": "Hôm nay"
+  },
+  "calTomorrow": {
+    "message": "Ngày mai"
+  },
+  "emptyCalendar": {
+    "message": "Không có lịch phát hành nào trong 7 ngày tới."
+  },
+  "setCompactLabel": {
+    "message": "Hiển thị \"Cần xem\" dạng gọn (hàng thay vì thẻ)"
+  },
+  "setBackupLabel": {
+    "message": "Sao lưu cài đặt"
+  },
+  "setBackupHelp": {
+    "message": "Lưu hoặc khôi phục tùy chọn (chế độ từng bộ, bộ đã ẩn, danh sách và ngôn ngữ) vào tệp. Không gồm đăng nhập và lịch sử."
+  },
+  "btnExport": {
+    "message": "Xuất"
+  },
+  "btnImport": {
+    "message": "Nhập"
+  },
+  "importError": {
+    "message": "Không thể nhập: $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"

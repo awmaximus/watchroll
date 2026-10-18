@@ -1,12 +1,12 @@
 {
   "extName": {
-    "message": "Crunchyroll – Episode Baru"
+    "message": "Episode Baru untuk Crunchyroll"
   },
   "extDescription": {
-    "message": "Halaman khusus berisi episode yang belum kamu tonton dari seri di Daftar Tontonan Crunchyroll, sesuai pilihan subtitel atau dub."
+    "message": "Tidak resmi. Halaman khusus berisi episode yang belum kamu tonton dari seri di Daftar Tontonan Crunchyroll, sesuai pilihan subtitel atau dub."
   },
   "actionTitle": {
-    "message": "Episode baru Crunchyroll"
+    "message": "Episode baru untuk Crunchyroll"
   },
   "pageTitle": {
     "message": "Episode baru – Crunchyroll"
@@ -414,7 +414,7 @@
     "message": "Semua sudah ditonton"
   },
   "secToWatch": {
-    "message": "Untuk ditonton"
+    "message": "Tonton"
   },
   "emptySearch": {
     "message": "Tidak ada seri di sini."
@@ -423,7 +423,7 @@
     "message": "Tidak ada episode baru di seri yang sudah kamu mulai."
   },
   "secWaitDub": {
-    "message": "Menunggu dub"
+    "message": "Dub tertunda"
   },
   "noteWaitDub_one": {
     "message": "1 sudah keluar dengan subtitel"
@@ -437,18 +437,13 @@
     }
   },
   "secWaitSub": {
-    "message": "Menunggu subtitel $P1$",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "Subtitle tertunda"
   },
   "noteWaitSub_one": {
-    "message": "1 episode sudah keluar tanpa subtitel ini"
+    "message": "1 episode sudah rilis tanpa subtitle bahasamu"
   },
   "noteWaitSub_other": {
-    "message": "$P1$ episode sudah keluar tanpa subtitel ini",
+    "message": "$P1$ episode sudah rilis tanpa subtitle bahasamu",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -484,10 +479,10 @@
     "message": "Ubah seri ini ke mode subtitel"
   },
   "secErrors": {
-    "message": "Gagal diperiksa"
+    "message": "Galat"
   },
   "secUpToDate": {
-    "message": "Sudah terkejar"
+    "message": "Terkini"
   },
   "noteNoDubSeason": {
     "message": "Tidak ada dub $P1$ di musim ini",
@@ -498,10 +493,10 @@
     }
   },
   "secNever": {
-    "message": "Belum dimulai"
+    "message": "Belum mulai"
   },
   "secHidden": {
-    "message": "Disembunyikan"
+    "message": "Tersembunyi"
   },
   "btnShow": {
     "message": "Tampilkan"
@@ -711,7 +706,7 @@
     }
   },
   "secSearch": {
-    "message": "Pencarian Lanjutan"
+    "message": "Cari"
   },
   "searchQueryPlaceholder": {
     "message": "Nama anime (Indonesia, Inggris, romaji, atau Jepang)"
@@ -919,6 +914,60 @@
   },
   "listItems_other": {
     "message": "$P1$ item",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secCalendar": {
+    "message": "Minggu ini"
+  },
+  "futInMinutes": {
+    "message": "$P1$ mnt lagi",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futInHours": {
+    "message": "$P1$ jam lagi ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "calToday": {
+    "message": "Hari ini"
+  },
+  "calTomorrow": {
+    "message": "Besok"
+  },
+  "emptyCalendar": {
+    "message": "Tidak ada rilis yang diketahui dalam 7 hari ke depan."
+  },
+  "setCompactLabel": {
+    "message": "Tampilkan \"Tonton\" dalam mode ringkas (baris, bukan kartu)"
+  },
+  "setBackupLabel": {
+    "message": "Cadangan pengaturan"
+  },
+  "setBackupHelp": {
+    "message": "Menyimpan atau memulihkan preferensimu (mode per serial, serial tersembunyi, daftar, dan bahasa) ke file. Tidak termasuk login dan riwayat."
+  },
+  "btnExport": {
+    "message": "Ekspor"
+  },
+  "btnImport": {
+    "message": "Impor"
+  },
+  "importError": {
+    "message": "Tidak dapat mengimpor: $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"

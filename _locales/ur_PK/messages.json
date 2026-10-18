@@ -1,12 +1,12 @@
 {
   "extName": {
-    "message": "Crunchyroll – نئی اقساط"
+    "message": "Crunchyroll کے لیے نئی اقساط"
   },
   "extDescription": {
-    "message": "Crunchyroll کی واچ لسٹ کی سیریز کی وہ اقساط جو آپ نے ابھی تک نہیں دیکھیں، سب ٹائٹل یا ڈب کی آپ کی پسند کے مطابق، ایک الگ صفحے پر۔"
+    "message": "غیر سرکاری۔ Crunchyroll کی واچ لسٹ کی سیریز کی وہ اقساط جو آپ نے ابھی تک نہیں دیکھیں، سب ٹائٹل یا ڈب کی آپ کی پسند کے مطابق، ایک الگ صفحے پر۔"
   },
   "actionTitle": {
-    "message": "Crunchyroll کی نئی اقساط"
+    "message": "Crunchyroll کے لیے نئی اقساط"
   },
   "pageTitle": {
     "message": "نئی اقساط – Crunchyroll"
@@ -414,7 +414,7 @@
     "message": "سب دیکھ لیا"
   },
   "secToWatch": {
-    "message": "دیکھنے کے لیے"
+    "message": "دیکھنی ہیں"
   },
   "emptySearch": {
     "message": "یہاں کوئی سیریز نہیں ملی۔"
@@ -423,7 +423,7 @@
     "message": "آپ کی شروع کی گئی سیریز میں کوئی نئی قسط نہیں۔"
   },
   "secWaitDub": {
-    "message": "ڈب کی منتظر"
+    "message": "ڈب باقی"
   },
   "noteWaitDub_one": {
     "message": "1 سب ٹائٹل کے ساتھ آ چکی"
@@ -437,18 +437,13 @@
     }
   },
   "secWaitSub": {
-    "message": "$P1$ سب ٹائٹل کی منتظر",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "سب ٹائٹل باقی"
   },
   "noteWaitSub_one": {
-    "message": "1 قسط ان سب ٹائٹل کے بغیر آ چکی"
+    "message": "1 قسط آپ کی زبان کے سب ٹائٹل کے بغیر آ چکی ہے"
   },
   "noteWaitSub_other": {
-    "message": "$P1$ اقساط ان سب ٹائٹل کے بغیر آ چکیں",
+    "message": "آپ کی زبان کے سب ٹائٹل کے بغیر آنے والی اقساط: $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -484,10 +479,10 @@
     "message": "اس سیریز کو سب ٹائٹل موڈ پر بدلیں"
   },
   "secErrors": {
-    "message": "جانچ نہ ہو سکی"
+    "message": "خرابیاں"
   },
   "secUpToDate": {
-    "message": "سب دیکھ لیا"
+    "message": "تازہ ترین"
   },
   "noteNoDubSeason": {
     "message": "موجودہ سیزن میں $P1$ ڈب نہیں",
@@ -711,7 +706,7 @@
     }
   },
   "secSearch": {
-    "message": "اعلیٰ تلاش"
+    "message": "تلاش"
   },
   "searchQueryPlaceholder": {
     "message": "اینیمے کا نام (اردو، انگریزی، روماجی یا جاپانی)"
@@ -919,6 +914,60 @@
   },
   "listItems_other": {
     "message": "آئٹمز: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secCalendar": {
+    "message": "ہفتہ"
+  },
+  "futInMinutes": {
+    "message": "$P1$ منٹ میں",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futInHours": {
+    "message": "$P1$ گھنٹے میں ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "calToday": {
+    "message": "آج"
+  },
+  "calTomorrow": {
+    "message": "کل"
+  },
+  "emptyCalendar": {
+    "message": "اگلے 7 دنوں میں کوئی معلوم ریلیز نہیں۔"
+  },
+  "setCompactLabel": {
+    "message": "\"دیکھنی ہیں\" مختصر انداز میں دکھائیں (کارڈز کی جگہ قطاریں)"
+  },
+  "setBackupLabel": {
+    "message": "ترتیبات کا بیک اپ"
+  },
+  "setBackupHelp": {
+    "message": "آپ کی ترجیحات (ہر سیریز کا موڈ، چھپی سیریز، فہرستیں اور زبانیں) فائل میں محفوظ یا بحال کرتا ہے۔ لاگ اِن اور تاریخ شامل نہیں۔"
+  },
+  "btnExport": {
+    "message": "برآمد"
+  },
+  "btnImport": {
+    "message": "درآمد"
+  },
+  "importError": {
+    "message": "درآمد نہیں ہو سکا: $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"

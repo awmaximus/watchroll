@@ -1,12 +1,12 @@
 {
   "extName": {
-    "message": "Crunchyroll – Episodis nous"
+    "message": "Episodis nous per a Crunchyroll"
   },
   "extDescription": {
-    "message": "Pàgina pròpia amb els episodis que encara no has vist de les sèries de la teva llista de seguiment de Crunchyroll, tenint en compte si les mires subtitulades o doblades."
+    "message": "No oficial. Pàgina pròpia amb els episodis que encara no has vist de les sèries de la teva llista de seguiment de Crunchyroll, tenint en compte si les mires subtitulades o doblades."
   },
   "actionTitle": {
-    "message": "Episodis nous de Crunchyroll"
+    "message": "Episodis nous per a Crunchyroll"
   },
   "pageTitle": {
     "message": "Episodis nous – Crunchyroll"
@@ -423,7 +423,7 @@
     "message": "No hi ha episodis nous a les sèries que has començat."
   },
   "secWaitDub": {
-    "message": "Esperant el doblatge"
+    "message": "Doblatge pendent"
   },
   "noteWaitDub_one": {
     "message": "1 episodi ja disponible subtitulat"
@@ -437,18 +437,13 @@
     }
   },
   "secWaitSub": {
-    "message": "Esperant subtítols en $P1$",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "Subtítols pendents"
   },
   "noteWaitSub_one": {
-    "message": "1 episodi ja publicat sense aquest subtítol"
+    "message": "1 episodi ja ha sortit sense subtítols en el teu idioma"
   },
   "noteWaitSub_other": {
-    "message": "$P1$ episodis ja publicats sense aquest subtítol",
+    "message": "$P1$ episodis ja han sortit sense subtítols en el teu idioma",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -484,7 +479,7 @@
     "message": "Canvia aquesta sèrie al mode subtitulat"
   },
   "secErrors": {
-    "message": "No s'han pogut comprovar"
+    "message": "Errors"
   },
   "secUpToDate": {
     "message": "Al dia"
@@ -711,7 +706,7 @@
     }
   },
   "secSearch": {
-    "message": "Cerca avançada"
+    "message": "Cerca"
   },
   "searchQueryPlaceholder": {
     "message": "Nom de l'anime (català, anglès, romaji o japonès)"
@@ -919,6 +914,60 @@
   },
   "listItems_other": {
     "message": "$P1$ elements",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secCalendar": {
+    "message": "Setmana"
+  },
+  "futInMinutes": {
+    "message": "d'aquí a $P1$ min",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futInHours": {
+    "message": "d'aquí a $P1$ h ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "calToday": {
+    "message": "Avui"
+  },
+  "calTomorrow": {
+    "message": "Demà"
+  },
+  "emptyCalendar": {
+    "message": "No hi ha estrenes conegudes en els propers 7 dies."
+  },
+  "setCompactLabel": {
+    "message": "Mostra «Per mirar» en mode compacte (files en lloc de targetes)"
+  },
+  "setBackupLabel": {
+    "message": "Còpia de seguretat de la configuració"
+  },
+  "setBackupHelp": {
+    "message": "Desa o restaura les teves preferències (modes per sèrie, sèries amagades, llistes i idiomes) en un fitxer. No inclou la sessió ni l'historial."
+  },
+  "btnExport": {
+    "message": "Exporta"
+  },
+  "btnImport": {
+    "message": "Importa"
+  },
+  "importError": {
+    "message": "No s'ha pogut importar: $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"

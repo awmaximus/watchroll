@@ -1,12 +1,12 @@
 {
   "extName": {
-    "message": "Crunchyroll – 新剧集"
+    "message": "Crunchyroll 新剧集助手"
   },
   "extDescription": {
-    "message": "专属页面,列出 Crunchyroll 追番列表中尚未观看的剧集,并区分你看字幕版还是配音版。"
+    "message": "非官方。专属页面,列出 Crunchyroll 追番列表中尚未观看的剧集,并区分你看字幕版还是配音版。"
   },
   "actionTitle": {
-    "message": "Crunchyroll 新剧集"
+    "message": "Crunchyroll 新剧集助手"
   },
   "pageTitle": {
     "message": "新剧集 – Crunchyroll"
@@ -423,7 +423,7 @@
     "message": "你已开始的系列中没有新剧集。"
   },
   "secWaitDub": {
-    "message": "等待配音"
+    "message": "待配音"
   },
   "noteWaitDub_one": {
     "message": "已有 1 集字幕版"
@@ -437,18 +437,13 @@
     }
   },
   "secWaitSub": {
-    "message": "等待 $P1$ 字幕",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
+    "message": "待字幕"
   },
   "noteWaitSub_one": {
-    "message": "已有 1 集上线但没有此字幕"
+    "message": "已有 1 集上线但没有你的语言的字幕"
   },
   "noteWaitSub_other": {
-    "message": "已有 $P1$ 集上线但没有此字幕",
+    "message": "已有 $P1$ 集上线但没有你的语言的字幕",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -484,7 +479,7 @@
     "message": "将此系列切换为字幕模式"
   },
   "secErrors": {
-    "message": "无法检查"
+    "message": "错误"
   },
   "secUpToDate": {
     "message": "已追完"
@@ -711,7 +706,7 @@
     }
   },
   "secSearch": {
-    "message": "高级搜索"
+    "message": "搜索"
   },
   "searchQueryPlaceholder": {
     "message": "动画名称(中文、英文、罗马字或日文)"
@@ -919,6 +914,60 @@
   },
   "listItems_other": {
     "message": "$P1$ 项",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secCalendar": {
+    "message": "本周"
+  },
+  "futInMinutes": {
+    "message": "$P1$ 分钟后",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futInHours": {
+    "message": "$P1$ 小时后($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "calToday": {
+    "message": "今天"
+  },
+  "calTomorrow": {
+    "message": "明天"
+  },
+  "emptyCalendar": {
+    "message": "未来 7 天没有已知的上线。"
+  },
+  "setCompactLabel": {
+    "message": "以紧凑模式显示“待观看”(行而非卡片)"
+  },
+  "setBackupLabel": {
+    "message": "备份设置"
+  },
+  "setBackupHelp": {
+    "message": "将你的偏好(每部系列的模式、隐藏的系列、列表和语言)保存到文件或从文件恢复。不含登录信息和观看记录。"
+  },
+  "btnExport": {
+    "message": "导出"
+  },
+  "btnImport": {
+    "message": "导入"
+  },
+  "importError": {
+    "message": "无法导入:$P1$",
     "placeholders": {
       "p1": {
         "content": "$1"
