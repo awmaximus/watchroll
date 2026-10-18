@@ -139,14 +139,19 @@ usuários renovam o tempo todo.
 
 ## Idiomas
 
-A interface está em Português, Português (Portugal), English, Español (España), Español
-(Latinoamérica), Français, Deutsch, Italiano e 日本語. Em **Configurações → Idioma da
-extensão**, escolha um deles ou deixe em "Automático", que segue o idioma do Firefox (um
-idioma sem tradução cai no inglês). A notificação e a dica do ícone usam o mesmo idioma.
+A interface está nos 20 idiomas mais falados do mundo, mais o italiano: Português, Português
+(Portugal), English, Español (España), Español (Latinoamérica), Français, Deutsch, Italiano,
+日本語, 简体中文, 繁體中文, 한국어, हिन्दी, বাংলা, मराठी, తెలుగు, தமிழ், اردو, العربية, Русский,
+Türkçe, Bahasa Indonesia e Tiếng Việt. O pidgin nigeriano, que também está entre os 20, não
+tem código de idioma no Firefox nem escrita padronizada; no lugar dele entrou o coreano.
+Árabe e urdu são exibidos da direita para a esquerda.
+
+Em **Configurações → Idioma da extensão**, escolha um deles ou deixe em "Automático", que segue
+o idioma do Firefox (chinês de Taiwan, Hong Kong e Macau usa o tradicional; um idioma sem
+tradução cai no inglês). A notificação e a dica do ícone usam o mesmo idioma.
 
 Cada idioma é um arquivo `_locales/<código>/messages.json`, com o código no formato que o
-Firefox exige (`pt_BR`, `pt_PT`, `en_US`, `es_ES`, `es_419`, `fr_FR`, `de_DE`, `it_IT`,
-`ja_JP`). Os testes conferem que todos têm as mesmas chaves e os mesmos marcadores. Como o
+Firefox exige (`pt_BR`, `pt_PT`, `en_US`, `es_ES`, `es_419`, `zh_CN`, `zh_TW`, `ar_SA`…). Os testes conferem que todos têm as mesmas chaves e os mesmos marcadores. Como o
 `browser.i18n` do Firefox só usa o idioma do navegador, a extensão carrega o arquivo
 escolhido por conta própria (`src/i18n.js`), com o inglês como reserva.
 

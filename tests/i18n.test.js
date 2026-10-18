@@ -189,7 +189,17 @@ describe("escolha do idioma", () => {
     assert.equal(I.resolve("es-MX"), "es_419");
     assert.equal(I.resolve("es-419"), "es_419");
     assert.equal(I.resolve("en-GB"), "en_US");
-    assert.equal(I.resolve("zh-CN"), "en_US", "idioma sem tradução cai no inglês");
+    assert.equal(I.resolve("sw"), "en_US", "idioma sem tradução cai no inglês");
+    assert.equal(I.resolve("zh-CN"), "zh_CN");
+    assert.equal(I.resolve("zh"), "zh_CN");
+    assert.equal(I.resolve("zh-SG"), "zh_CN");
+    assert.equal(I.resolve("zh-TW"), "zh_TW");
+    assert.equal(I.resolve("zh-HK"), "zh_TW", "Hong Kong usa caracteres tradicionais");
+    assert.equal(I.resolve("zh-Hant"), "zh_TW");
+    assert.equal(I.resolve("yue"), "zh_TW", "cantonês");
+    assert.equal(I.resolve("ar-EG"), "ar_SA");
+    assert.equal(I.resolve("bn-BD"), "bn_IN");
+    assert.equal(I.resolve("hi"), "hi_IN");
   });
 
   test("automático segue o navegador; a escolha do usuário tem prioridade", async () => {
@@ -229,6 +239,24 @@ describe("escolha do idioma", () => {
     assert.equal(I.langName("pt-PT"), "Português (Portugal)");
     assert.equal(I.LANGUAGES.pt_BR, "Português");
     assert.deepEqual(plain(I.languageOptions()[0]), ["auto", readMessages("pt_BR").uiLangAuto.message]);
+  });
+
+  test("árabe e urdu: página da direita para a esquerda", async () => {
+    const I = ctx("ar");
+    await I.init("auto");
+    assert.equal(I.lang(), "ar-SA");
+    assert.equal(I.dir(), "rtl");
+    await I.init("ur_PK");
+    assert.equal(I.dir(), "rtl");
+    await I.init("ja_JP");
+    assert.equal(I.dir(), "ltr");
+  });
+
+  test("os 20 idiomas mais falados estão disponíveis (com o pidgin nigeriano trocado pelo coreano)", () => {
+    const I = ctx("pt-BR");
+    for (const f of ["en_US", "zh_CN", "hi_IN", "es_ES", "ar_SA", "fr_FR", "bn_IN", "pt_BR", "ru_RU", "ur_PK", "id_ID", "de_DE", "ja_JP", "mr_IN", "te_IN", "tr_TR", "ta_IN", "zh_TW", "vi_VN", "ko_KR"]) {
+      assert.ok(I.LANGUAGES[f], f);
+    }
   });
 
   test("todo idioma do seletor tem arquivo de tradução", () => {

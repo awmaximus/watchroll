@@ -1,0 +1,885 @@
+{
+  "extName": {
+    "message": "Crunchyroll – Tập mới"
+  },
+  "extDescription": {
+    "message": "Trang riêng liệt kê các tập bạn chưa xem của những bộ trong Danh sách theo dõi Crunchyroll, theo việc bạn xem phụ đề hay lồng tiếng."
+  },
+  "actionTitle": {
+    "message": "Tập mới trên Crunchyroll"
+  },
+  "pageTitle": {
+    "message": "Tập mới – Crunchyroll"
+  },
+  "heading": {
+    "message": "Tập mới"
+  },
+  "btnSettings": {
+    "message": "Cài đặt"
+  },
+  "btnRefresh": {
+    "message": "Làm mới"
+  },
+  "versionLabel": {
+    "message": "Phiên bản $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "Cài đặt"
+  },
+  "setDubLabel": {
+    "message": "Ngôn ngữ lồng tiếng bạn xem"
+  },
+  "setDubHelp": {
+    "message": "Các bộ đặt là “Lồng tiếng” chỉ hiện khi bản lồng tiếng bằng ngôn ngữ này được phát hành."
+  },
+  "setSubLabel": {
+    "message": "Ngôn ngữ phụ đề"
+  },
+  "setSubHelp": {
+    "message": "Các bộ đặt là “Phụ đề” chỉ hiện khi có phụ đề bằng ngôn ngữ này."
+  },
+  "setModeLabel": {
+    "message": "Chế độ mặc định"
+  },
+  "setModeHelp": {
+    "message": "Áp dụng cho các bộ bạn chưa đặt riêng."
+  },
+  "setLocaleLabel": {
+    "message": "Ngôn ngữ của tiêu đề và liên kết"
+  },
+  "setAutoLabel": {
+    "message": "Tự động kiểm tra"
+  },
+  "setAutoHelp": {
+    "message": "Cập nhật con số trên biểu tượng tiện ích ở chế độ nền. Cần một thẻ crunchyroll.com đang mở nếu truy cập trực tiếp bị chặn."
+  },
+  "setNotifyLabel": {
+    "message": "Thông báo khi có tập mới"
+  },
+  "setExtrasLabel": {
+    "message": "Hiện tập đặc biệt và tóm tắt (không tính vào số lượng)"
+  },
+  "setSkippedLabel": {
+    "message": "Hiện các tập bị bỏ qua (trước tập cuối bạn đã xem)"
+  },
+  "setMinStartedLabel": {
+    "message": "Tính là đã bắt đầu sau (giây)"
+  },
+  "setMinStartedHelp": {
+    "message": "Crunchyroll ghi lại vài giây chỉ vì bạn mở trang tập phim. Dưới thời gian này, bản ghi bị bỏ qua. Từ 0 đến 600."
+  },
+  "setConcurrencyLabel": {
+    "message": "Số bộ kiểm tra cùng lúc"
+  },
+  "setConcurrencyHelp": {
+    "message": "Số càng lớn càng nhanh. Nếu gặp lỗi “quá nhiều yêu cầu” (HTTP 429), hãy giảm xuống. Từ 1 đến 32."
+  },
+  "setPlayheadBatchLabel": {
+    "message": "Kích thước lô"
+  },
+  "setPlayheadBatchHelp": {
+    "message": "Số tập trong mỗi lần truy vấn tiến độ xem (playheads) và số mục trên mỗi trang của Danh sách theo dõi và lịch sử. Lô lớn hơn thì ít yêu cầu hơn. Nếu việc kiểm tra bắt đầu lỗi, hãy giảm xuống. Từ 10 đến 300."
+  },
+  "searchPlaceholder": {
+    "message": "Tìm bộ phim…"
+  },
+  "searchAria": {
+    "message": "Tìm bộ phim theo tiêu đề"
+  },
+  "sortLabel": {
+    "message": "Sắp xếp"
+  },
+  "modeSub": {
+    "message": "Phụ đề"
+  },
+  "modeDub": {
+    "message": "Lồng tiếng"
+  },
+  "modeAuto": {
+    "message": "Âm thanh bất kỳ"
+  },
+  "modeAutoLong": {
+    "message": "Âm thanh bất kỳ (báo khi phát hành đầu tiên)"
+  },
+  "modeDubLang": {
+    "message": "Lồng tiếng $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeDefault": {
+    "message": "Mặc định ($P1$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortSub": {
+    "message": "phụ đề"
+  },
+  "shortDub": {
+    "message": "lồng tiếng $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortAuto": {
+    "message": "âm thanh bất kỳ"
+  },
+  "modeAria": {
+    "message": "Âm thanh cho $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeTitle": {
+    "message": "Cách bạn xem bộ này"
+  },
+  "autoOff": {
+    "message": "Tắt"
+  },
+  "autoMinutes": {
+    "message": "Mỗi $P1$ phút",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "autoHour": {
+    "message": "Mỗi giờ"
+  },
+  "autoHours": {
+    "message": "Mỗi $P1$ giờ",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "epMovie": {
+    "message": "Phim"
+  },
+  "epLabel": {
+    "message": "M$P1$ T$P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "relNow": {
+    "message": "vừa xong"
+  },
+  "relHours": {
+    "message": "$P1$ giờ trước",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "relYesterday": {
+    "message": "hôm qua"
+  },
+  "relDays": {
+    "message": "$P1$ ngày trước",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futToday": {
+    "message": "hôm nay lúc $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futTomorrow": {
+    "message": "ngày mai lúc $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futDays": {
+    "message": "sau $P1$ ngày ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "nextText": {
+    "message": "Tiếp theo: $P1$ $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "watchedPct": {
+    "message": "Đã xem $P1$%",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "watchNext": {
+    "message": "Xem tập tiếp theo"
+  },
+  "tagRecap": {
+    "message": "tóm tắt"
+  },
+  "tagSpecial": {
+    "message": "đặc biệt"
+  },
+  "tagSkipped": {
+    "message": "bỏ qua"
+  },
+  "badgeContinue": {
+    "message": "xem tiếp"
+  },
+  "badgeMovie": {
+    "message": "phim"
+  },
+  "badgeNew_one": {
+    "message": "1 mới"
+  },
+  "badgeNew_other": {
+    "message": "$P1$ mới",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSkipped_one": {
+    "message": "1 bỏ qua"
+  },
+  "badgeSkipped_other": {
+    "message": "$P1$ bỏ qua",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSpecial_one": {
+    "message": "1 đặc biệt"
+  },
+  "badgeSpecial_other": {
+    "message": "$P1$ đặc biệt",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "moreEps_one": {
+    "message": "+ 1 tập"
+  },
+  "moreEps_other": {
+    "message": "+ $P1$ tập",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitDub": {
+    "message": "+$P1$ chờ lồng tiếng",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitSub": {
+    "message": "+$P1$ chờ phụ đề",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsAria": {
+    "message": "Thao tác cho $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsTitle": {
+    "message": "Thao tác"
+  },
+  "actDiag": {
+    "message": "Xuất chẩn đoán"
+  },
+  "actShow": {
+    "message": "Hiện lại"
+  },
+  "actHideNew": {
+    "message": "Ẩn đến khi có tập mới"
+  },
+  "actHideWeek": {
+    "message": "Ẩn trong 1 tuần"
+  },
+  "actHideForever": {
+    "message": "Luôn ẩn"
+  },
+  "hiddenUntil": {
+    "message": "Ẩn đến $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hiddenUntilNew": {
+    "message": "Ẩn đến khi có tập mới"
+  },
+  "hiddenForever": {
+    "message": "Luôn ẩn"
+  },
+  "epsCount_one": {
+    "message": "1 tập"
+  },
+  "epsCount_other": {
+    "message": "$P1$ tập",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "seriesCount_one": {
+    "message": "1 bộ"
+  },
+  "seriesCount_other": {
+    "message": "$P1$ bộ",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusEps": {
+    "message": "$P1$ trong $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "statusElapsed": {
+    "message": " · cập nhật trong $S$ giây",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusAllCaught": {
+    "message": "Đã xem hết"
+  },
+  "secToWatch": {
+    "message": "Cần xem"
+  },
+  "emptySearch": {
+    "message": "Không tìm thấy bộ nào ở đây."
+  },
+  "emptyToWatch": {
+    "message": "Không có tập mới trong các bộ bạn đã bắt đầu."
+  },
+  "secWaitDub": {
+    "message": "Chờ lồng tiếng"
+  },
+  "noteWaitDub_one": {
+    "message": "1 tập đã có phụ đề"
+  },
+  "noteWaitDub_other": {
+    "message": "$P1$ tập đã có phụ đề",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secWaitSub": {
+    "message": "Chờ phụ đề $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteWaitSub_one": {
+    "message": "1 tập đã ra mà chưa có phụ đề này"
+  },
+  "noteWaitSub_other": {
+    "message": "$P1$ tập đã ra mà chưa có phụ đề này",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secNoDub": {
+    "message": "Không lồng tiếng $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoDub_one": {
+    "message": "Mùa hiện tại không có lồng tiếng $P2$ · 1 tập phụ đề để xem",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoDub_other": {
+    "message": "Mùa hiện tại không có lồng tiếng $P2$ · $P1$ tập phụ đề để xem",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeSubbed": {
+    "message": "Xem phụ đề"
+  },
+  "btnSeeSubbedTitle": {
+    "message": "Chuyển bộ này sang chế độ phụ đề"
+  },
+  "secErrors": {
+    "message": "Không kiểm tra được"
+  },
+  "secUpToDate": {
+    "message": "Đã xem hết"
+  },
+  "noteNoDubSeason": {
+    "message": "Mùa hiện tại không có lồng tiếng $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secNever": {
+    "message": "Chưa bắt đầu"
+  },
+  "secHidden": {
+    "message": "Đã ẩn"
+  },
+  "btnShow": {
+    "message": "Hiện"
+  },
+  "progressChecking": {
+    "message": "Đang kiểm tra $P1$/$P2$ bộ…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "progressReading": {
+    "message": "Đang đọc Danh sách theo dõi…"
+  },
+  "errorQuery": {
+    "message": "Không kết nối được Crunchyroll: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errorHint": {
+    "message": "Hãy chắc rằng bạn đã đăng nhập crunchyroll.com rồi bấm Làm mới."
+  },
+  "diagSaved": {
+    "message": "Đã lưu chẩn đoán “$P1$”. Không chứa token, cookie hay dữ liệu tài khoản.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagError": {
+    "message": "Không tạo được chẩn đoán: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagFile": {
+    "message": "chan-doan"
+  },
+  "profileLabel": {
+    "message": " · hồ sơ $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "sortReleased": {
+    "message": "Phát hành mới nhất"
+  },
+  "sortWatched": {
+    "message": "Xem gần đây nhất"
+  },
+  "sortCount": {
+    "message": "Nhiều tập nhất"
+  },
+  "sortTitle": {
+    "message": "Tiêu đề (A–Z)"
+  },
+  "badgeTitleSome": {
+    "message": "Tập mới: $P1$ trong $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "badgeTitleNone": {
+    "message": "Tập mới trên Crunchyroll: đã xem hết"
+  },
+  "notifTitle_one": {
+    "message": "1 tập mới"
+  },
+  "notifTitle_other": {
+    "message": "$P1$ tập mới",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMore": {
+    "message": "+ $P1$ bộ khác",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMovie": {
+    "message": "phim"
+  },
+  "noticeOpeningTab": {
+    "message": "Đang mở crunchyroll.com ở chế độ nền để dùng phiên của bạn…"
+  },
+  "noticeProxy": {
+    "message": "Truy cập trực tiếp bị chặn; đang dùng một thẻ crunchyroll.com."
+  },
+  "noticeOtherProfile": {
+    "message": "Phiên đang dùng thuộc một hồ sơ khác trong tài khoản. Hãy mở crunchyroll.com bằng hồ sơ bạn dùng rồi bấm Làm mới."
+  },
+  "noticeSlowDown": {
+    "message": "Crunchyroll yêu cầu chậm lại; thử lại sau $P1$ giây…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errTabTimeout": {
+    "message": "Thẻ Crunchyroll tải quá lâu."
+  },
+  "errTabNoAnswer": {
+    "message": "Thẻ Crunchyroll không phản hồi."
+  },
+  "errNoTab": {
+    "message": "Không có thẻ crunchyroll.com nào đang mở để dùng phiên của bạn."
+  },
+  "errAuth": {
+    "message": "Không xác thực được (HTTP $P1$). Hãy chắc rằng bạn đã đăng nhập crunchyroll.com.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errHttp": {
+    "message": "HTTP $P1$ tại $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "errAccount": {
+    "message": "Không tìm thấy ID tài khoản."
+  },
+  "dubYes": {
+    "message": "Có lồng tiếng $L$",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubOld": {
+    "message": "Lồng tiếng $L$ chỉ có ở các mùa trước",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubNo": {
+    "message": "Không có lồng tiếng $L$",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "tabsAria": {
+    "message": "Mục"
+  },
+  "seasonWinter": {
+    "message": "Đông"
+  },
+  "seasonSpring": {
+    "message": "Xuân"
+  },
+  "seasonSummer": {
+    "message": "Hè"
+  },
+  "seasonFall": {
+    "message": "Thu"
+  },
+  "seasonUnknown": {
+    "message": "Không rõ mùa"
+  },
+  "emptyNever": {
+    "message": "Bạn đã bắt đầu tất cả các bộ trong Danh sách theo dõi."
+  },
+  "seasonLabel": {
+    "message": "Mùa $S$ $Y$",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      },
+      "y": {
+        "content": "$2"
+      }
+    }
+  },
+  "secSearch": {
+    "message": "Tìm kiếm nâng cao"
+  },
+  "searchQueryPlaceholder": {
+    "message": "Tên anime (tiếng Việt, tiếng Anh, romaji hoặc tiếng Nhật)"
+  },
+  "searchButton": {
+    "message": "Tìm"
+  },
+  "searchScope": {
+    "message": "Phạm vi"
+  },
+  "searchScopeAll": {
+    "message": "Toàn bộ thư viện"
+  },
+  "searchScopeMine": {
+    "message": "Chỉ Danh sách theo dõi"
+  },
+  "searchDub": {
+    "message": "Lồng tiếng"
+  },
+  "searchDubAny": {
+    "message": "Âm thanh bất kỳ"
+  },
+  "searchDubYes": {
+    "message": "Lồng tiếng $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchDubNo": {
+    "message": "Không lồng tiếng $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAge": {
+    "message": "Độ tuổi"
+  },
+  "searchAgeAny": {
+    "message": "Tất cả"
+  },
+  "searchAgeUpTo": {
+    "message": "Đến $P1$+",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "ageFree": {
+    "message": "Mọi lứa tuổi"
+  },
+  "ageMin": {
+    "message": "Không khuyến nghị cho người dưới $P1$ tuổi",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchYear": {
+    "message": "Năm phát hành"
+  },
+  "searchAny": {
+    "message": "Bất kỳ"
+  },
+  "searchSeason": {
+    "message": "Mùa"
+  },
+  "searchLoading": {
+    "message": "Đang tải…"
+  },
+  "searchNeedAniList": {
+    "message": "Tìm kiếm của Crunchyroll không hiểu tên tiếng Nhật. Khi bật AniList, nội dung tìm kiếm được gửi tới AniList để tìm tiêu đề."
+  },
+  "searchEnableAniList": {
+    "message": "Bật AniList"
+  },
+  "searchAniListError": {
+    "message": "Hiện không kết nối được AniList; kết quả chỉ từ tìm kiếm của Crunchyroll."
+  },
+  "searchMineEmpty": {
+    "message": "Danh sách theo dõi chưa được đọc. Bấm Làm mới rồi thử lại."
+  },
+  "searchError": {
+    "message": "Không tìm được: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchHint": {
+    "message": "Nhập tên hoặc chọn bộ lọc. Không có tên, việc tìm kiếm sẽ duyệt toàn bộ thư viện Crunchyroll (hoặc mùa đã chọn)."
+  },
+  "searchMore": {
+    "message": "Tải thêm"
+  },
+  "searchMovie": {
+    "message": "Phim"
+  },
+  "searchInList": {
+    "message": "Trong Danh sách theo dõi"
+  },
+  "setAniListLabel": {
+    "message": "Tìm cả tên tiếng Nhật và romaji (gửi nội dung tìm kiếm tới AniList)"
+  },
+  "searchCount_one": {
+    "message": "1 kết quả"
+  },
+  "searchCount_other": {
+    "message": "$P1$ kết quả",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSeasons_one": {
+    "message": "1 mùa"
+  },
+  "searchSeasons_other": {
+    "message": "$P1$ mùa",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSort": {
+    "message": "Sắp xếp"
+  },
+  "searchSortDefault": {
+    "message": "Thứ tự của Crunchyroll"
+  },
+  "searchSortYear": {
+    "message": "Phát hành mới nhất"
+  },
+  "searchSortTitle": {
+    "message": "Tiêu đề (A–Z)"
+  },
+  "searchLoadingCatalog": {
+    "message": "Đang tải thư viện Crunchyroll (chỉ lần đầu, mất vài giây)…"
+  },
+  "sortWaiting": {
+    "message": "Nhiều tập chờ nhất"
+  },
+  "sortNext": {
+    "message": "Phát hành tiếp theo"
+  },
+  "sortSeason": {
+    "message": "Mùa phát hành"
+  },
+  "uiLangAuto": {
+    "message": "Tự động (ngôn ngữ trình duyệt)"
+  },
+  "setUiLangLabel": {
+    "message": "Ngôn ngữ tiện ích"
+  },
+  "setUiLangHelp": {
+    "message": "“Tự động” theo ngôn ngữ của Firefox."
+  }
+}

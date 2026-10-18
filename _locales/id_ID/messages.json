@@ -1,27 +1,27 @@
 {
   "extName": {
-    "message": "Crunchyroll – New Episodes"
+    "message": "Crunchyroll – Episode Baru"
   },
   "extDescription": {
-    "message": "Its own page listing the episodes you haven't watched from the series in your Crunchyroll Watchlist, respecting whether you watch subbed or dubbed."
+    "message": "Halaman khusus berisi episode yang belum kamu tonton dari seri di Daftar Tontonan Crunchyroll, sesuai pilihan subtitel atau dub."
   },
   "actionTitle": {
-    "message": "New Crunchyroll episodes"
+    "message": "Episode baru Crunchyroll"
   },
   "pageTitle": {
-    "message": "New episodes – Crunchyroll"
+    "message": "Episode baru – Crunchyroll"
   },
   "heading": {
-    "message": "New episodes"
+    "message": "Episode baru"
   },
   "btnSettings": {
-    "message": "Settings"
+    "message": "Pengaturan"
   },
   "btnRefresh": {
-    "message": "Refresh"
+    "message": "Perbarui"
   },
   "versionLabel": {
-    "message": "Version $P1$",
+    "message": "Versi $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -29,85 +29,85 @@
     }
   },
   "settingsTitle": {
-    "message": "Settings"
+    "message": "Pengaturan"
   },
   "setDubLabel": {
-    "message": "Language you watch dubbed in"
+    "message": "Bahasa dub yang kamu tonton"
   },
   "setDubHelp": {
-    "message": "Series set to “Dubbed” only show up once the dub in this language is released."
+    "message": "Seri yang diatur ke “Dub” hanya muncul setelah dub dalam bahasa ini dirilis."
   },
   "setSubLabel": {
-    "message": "Subtitle language"
+    "message": "Bahasa subtitel"
   },
   "setSubHelp": {
-    "message": "Series set to “Subbed” only show up once subtitles in this language are available."
+    "message": "Seri yang diatur ke “Subtitel” hanya muncul setelah subtitel dalam bahasa ini tersedia."
   },
   "setModeLabel": {
-    "message": "Default mode for series"
+    "message": "Mode bawaan seri"
   },
   "setModeHelp": {
-    "message": "Applies to series you haven't set individually."
+    "message": "Berlaku untuk seri yang tidak kamu atur satu per satu."
   },
   "setLocaleLabel": {
-    "message": "Language for titles and links"
+    "message": "Bahasa judul dan tautan"
   },
   "setAutoLabel": {
-    "message": "Check automatically"
+    "message": "Periksa otomatis"
   },
   "setAutoHelp": {
-    "message": "Updates the number on the extension icon in the background. Needs an open crunchyroll.com tab if direct access is blocked."
+    "message": "Di latar belakang, memperbarui angka di ikon ekstensi. Memerlukan tab crunchyroll.com yang terbuka jika akses langsung diblokir."
   },
   "setNotifyLabel": {
-    "message": "Notify me when a new episode is out"
+    "message": "Beri tahu saat episode baru keluar"
   },
   "setExtrasLabel": {
-    "message": "Show specials and recaps (not included in counts)"
+    "message": "Tampilkan spesial dan rekap (tidak dihitung)"
   },
   "setSkippedLabel": {
-    "message": "Show skipped episodes (before the last one you watched)"
+    "message": "Tampilkan episode yang terlewat (sebelum yang terakhir kamu tonton)"
   },
   "setMinStartedLabel": {
-    "message": "Count as started after (seconds)"
+    "message": "Dianggap mulai setelah (detik)"
   },
   "setMinStartedHelp": {
-    "message": "Crunchyroll records a few seconds just from opening an episode page. Below this time, the record is ignored. Between 0 and 600."
+    "message": "Crunchyroll mencatat beberapa detik hanya karena halaman episode dibuka. Catatan di bawah waktu ini diabaikan. Antara 0 dan 600."
   },
   "setConcurrencyLabel": {
-    "message": "Series checked at the same time"
+    "message": "Seri yang diperiksa bersamaan"
   },
   "setConcurrencyHelp": {
-    "message": "Faster with higher numbers. If you get “too many requests” errors (HTTP 429), lower it. Between 1 and 32."
+    "message": "Lebih cepat dengan angka lebih besar. Jika muncul galat “terlalu banyak permintaan” (HTTP 429), turunkan. Antara 1 dan 32."
   },
   "setPlayheadBatchLabel": {
-    "message": "Batch size"
+    "message": "Ukuran batch"
   },
   "setPlayheadBatchHelp": {
-    "message": "How many episodes go in each query of what you have watched (playheads), and how many items come in each page of your Watchlist and watch history. Larger batches mean fewer requests. If checks start failing, lower it. Between 10 and 300."
+    "message": "Berapa episode dalam setiap permintaan progres tontonan (playheads) dan berapa item di setiap halaman Daftar Tontonan dan riwayat. Batch lebih besar berarti lebih sedikit permintaan. Jika pemeriksaan mulai gagal, turunkan. Antara 10 dan 300."
   },
   "searchPlaceholder": {
-    "message": "Search series…"
+    "message": "Cari seri…"
   },
   "searchAria": {
-    "message": "Search series by title"
+    "message": "Cari seri berdasarkan judul"
   },
   "sortLabel": {
-    "message": "Sort"
+    "message": "Urutkan"
   },
   "modeSub": {
-    "message": "Subbed"
+    "message": "Subtitel"
   },
   "modeDub": {
-    "message": "Dubbed"
+    "message": "Dub"
   },
   "modeAuto": {
-    "message": "Any audio"
+    "message": "Audio apa saja"
   },
   "modeAutoLong": {
-    "message": "Any audio (notify on the first release)"
+    "message": "Audio apa saja (beri tahu saat rilis pertama)"
   },
   "modeDubLang": {
-    "message": "Dubbed $P1$",
+    "message": "Dub $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -115,7 +115,7 @@
     }
   },
   "modeDefault": {
-    "message": "Default ($P1$)",
+    "message": "Bawaan ($P1$)",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -123,10 +123,10 @@
     }
   },
   "shortSub": {
-    "message": "subbed"
+    "message": "subtitel"
   },
   "shortDub": {
-    "message": "dubbed $P1$",
+    "message": "dub $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -134,10 +134,10 @@
     }
   },
   "shortAuto": {
-    "message": "any audio"
+    "message": "audio apa saja"
   },
   "modeAria": {
-    "message": "Audio for $P1$",
+    "message": "Audio untuk $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -145,13 +145,13 @@
     }
   },
   "modeTitle": {
-    "message": "How you watch this series"
+    "message": "Cara kamu menonton seri ini"
   },
   "autoOff": {
-    "message": "Off"
+    "message": "Mati"
   },
   "autoMinutes": {
-    "message": "Every $P1$ minutes",
+    "message": "Setiap $P1$ menit",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -159,10 +159,10 @@
     }
   },
   "autoHour": {
-    "message": "Every hour"
+    "message": "Setiap jam"
   },
   "autoHours": {
-    "message": "Every $P1$ hours",
+    "message": "Setiap $P1$ jam",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -170,7 +170,7 @@
     }
   },
   "epMovie": {
-    "message": "Movie"
+    "message": "Film"
   },
   "epLabel": {
     "message": "S$P1$ E$P2$",
@@ -184,10 +184,10 @@
     }
   },
   "relNow": {
-    "message": "just now"
+    "message": "baru saja"
   },
   "relHours": {
-    "message": "$P1$ h ago",
+    "message": "$P1$ jam lalu",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -195,10 +195,10 @@
     }
   },
   "relYesterday": {
-    "message": "yesterday"
+    "message": "kemarin"
   },
   "relDays": {
-    "message": "$P1$ days ago",
+    "message": "$P1$ hari lalu",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -206,7 +206,7 @@
     }
   },
   "futToday": {
-    "message": "today at $P1$",
+    "message": "hari ini pukul $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -214,7 +214,7 @@
     }
   },
   "futTomorrow": {
-    "message": "tomorrow at $P1$",
+    "message": "besok pukul $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -222,7 +222,7 @@
     }
   },
   "futDays": {
-    "message": "in $P1$ days ($P2$)",
+    "message": "dalam $P1$ hari ($P2$)",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -233,7 +233,7 @@
     }
   },
   "nextText": {
-    "message": "Next: $P1$ $P2$",
+    "message": "Berikutnya: $P1$ $P2$",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -244,7 +244,7 @@
     }
   },
   "watchedPct": {
-    "message": "$P1$% watched",
+    "message": "$P1$% ditonton",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -252,28 +252,28 @@
     }
   },
   "watchNext": {
-    "message": "Watch the next one"
+    "message": "Tonton berikutnya"
   },
   "tagRecap": {
-    "message": "recap"
+    "message": "rekap"
   },
   "tagSpecial": {
-    "message": "special"
+    "message": "spesial"
   },
   "tagSkipped": {
-    "message": "skipped"
+    "message": "terlewat"
   },
   "badgeContinue": {
-    "message": "continue"
+    "message": "lanjutkan"
   },
   "badgeMovie": {
-    "message": "movie"
+    "message": "film"
   },
   "badgeNew_one": {
-    "message": "1 new"
+    "message": "1 baru"
   },
   "badgeNew_other": {
-    "message": "$P1$ new",
+    "message": "$P1$ baru",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -281,10 +281,10 @@
     }
   },
   "badgeSkipped_one": {
-    "message": "1 skipped"
+    "message": "1 terlewat"
   },
   "badgeSkipped_other": {
-    "message": "$P1$ skipped",
+    "message": "$P1$ terlewat",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -292,10 +292,10 @@
     }
   },
   "badgeSpecial_one": {
-    "message": "1 special"
+    "message": "1 spesial"
   },
   "badgeSpecial_other": {
-    "message": "$P1$ specials",
+    "message": "$P1$ spesial",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -306,7 +306,7 @@
     "message": "+ 1 episode"
   },
   "moreEps_other": {
-    "message": "+ $P1$ episodes",
+    "message": "+ $P1$ episode",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -314,7 +314,7 @@
     }
   },
   "hintWaitDub": {
-    "message": "+$P1$ awaiting dub",
+    "message": "+$P1$ menunggu dub",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -322,7 +322,7 @@
     }
   },
   "hintWaitSub": {
-    "message": "+$P1$ awaiting subtitles",
+    "message": "+$P1$ menunggu subtitel",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -330,7 +330,7 @@
     }
   },
   "actionsAria": {
-    "message": "Actions for $P1$",
+    "message": "Tindakan untuk $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -338,25 +338,25 @@
     }
   },
   "actionsTitle": {
-    "message": "Actions"
+    "message": "Tindakan"
   },
   "actDiag": {
-    "message": "Export diagnostics"
+    "message": "Ekspor diagnostik"
   },
   "actShow": {
-    "message": "Show again"
+    "message": "Tampilkan lagi"
   },
   "actHideNew": {
-    "message": "Hide until a new episode is out"
+    "message": "Sembunyikan sampai ada episode baru"
   },
   "actHideWeek": {
-    "message": "Hide for 1 week"
+    "message": "Sembunyikan selama 1 minggu"
   },
   "actHideForever": {
-    "message": "Always hide"
+    "message": "Selalu sembunyikan"
   },
   "hiddenUntil": {
-    "message": "Hidden until $P1$",
+    "message": "Disembunyikan sampai $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -364,16 +364,16 @@
     }
   },
   "hiddenUntilNew": {
-    "message": "Hidden until a new episode is out"
+    "message": "Disembunyikan sampai ada episode baru"
   },
   "hiddenForever": {
-    "message": "Always hidden"
+    "message": "Selalu disembunyikan"
   },
   "epsCount_one": {
     "message": "1 episode"
   },
   "epsCount_other": {
-    "message": "$P1$ episodes",
+    "message": "$P1$ episode",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -381,10 +381,10 @@
     }
   },
   "seriesCount_one": {
-    "message": "1 series"
+    "message": "1 seri"
   },
   "seriesCount_other": {
-    "message": "$P1$ series",
+    "message": "$P1$ seri",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -392,7 +392,7 @@
     }
   },
   "statusEps": {
-    "message": "$P1$ in $P2$",
+    "message": "$P1$ di $P2$",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -403,8 +403,7 @@
     }
   },
   "statusElapsed": {
-    "message": " · updated in $S$ s",
-    "description": "Tempo que a última atualização levou; ex.: 4,7",
+    "message": " · diperbarui dalam $S$ dtk",
     "placeholders": {
       "s": {
         "content": "$1"
@@ -412,25 +411,25 @@
     }
   },
   "statusAllCaught": {
-    "message": "All caught up"
+    "message": "Semua sudah ditonton"
   },
   "secToWatch": {
-    "message": "To watch"
+    "message": "Untuk ditonton"
   },
   "emptySearch": {
-    "message": "No series found here."
+    "message": "Tidak ada seri di sini."
   },
   "emptyToWatch": {
-    "message": "No new episodes in the series you've started."
+    "message": "Tidak ada episode baru di seri yang sudah kamu mulai."
   },
   "secWaitDub": {
-    "message": "Awaiting dub"
+    "message": "Menunggu dub"
   },
   "noteWaitDub_one": {
-    "message": "1 already out subbed"
+    "message": "1 sudah keluar dengan subtitel"
   },
   "noteWaitDub_other": {
-    "message": "$P1$ already out subbed",
+    "message": "$P1$ sudah keluar dengan subtitel",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -438,7 +437,7 @@
     }
   },
   "secWaitSub": {
-    "message": "Awaiting $P1$ subtitles",
+    "message": "Menunggu subtitel $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -446,10 +445,10 @@
     }
   },
   "noteWaitSub_one": {
-    "message": "1 episode already out without these subtitles"
+    "message": "1 episode sudah keluar tanpa subtitel ini"
   },
   "noteWaitSub_other": {
-    "message": "$P1$ episodes already out without these subtitles",
+    "message": "$P1$ episode sudah keluar tanpa subtitel ini",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -457,7 +456,7 @@
     }
   },
   "secNoDub": {
-    "message": "No $P1$ dub",
+    "message": "Tanpa dub $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -465,7 +464,7 @@
     }
   },
   "noteNoDub_one": {
-    "message": "Current season has no $P2$ dub · 1 subbed episode to watch",
+    "message": "Musim ini tanpa dub $P2$ · 1 episode bersubtitel untuk ditonton",
     "placeholders": {
       "p2": {
         "content": "$2"
@@ -473,7 +472,7 @@
     }
   },
   "noteNoDub_other": {
-    "message": "Current season has no $P2$ dub · $P1$ subbed episodes to watch",
+    "message": "Musim ini tanpa dub $P2$ · $P1$ episode bersubtitel untuk ditonton",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -484,19 +483,19 @@
     }
   },
   "btnSeeSubbed": {
-    "message": "Watch subbed"
+    "message": "Tonton dengan subtitel"
   },
   "btnSeeSubbedTitle": {
-    "message": "Switches this series to subbed mode"
+    "message": "Ubah seri ini ke mode subtitel"
   },
   "secErrors": {
-    "message": "Couldn't check"
+    "message": "Gagal diperiksa"
   },
   "secUpToDate": {
-    "message": "Caught up"
+    "message": "Sudah terkejar"
   },
   "noteNoDubSeason": {
-    "message": "No $P1$ dub in the current season",
+    "message": "Tidak ada dub $P1$ di musim ini",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -504,16 +503,16 @@
     }
   },
   "secNever": {
-    "message": "To Start"
+    "message": "Belum dimulai"
   },
   "secHidden": {
-    "message": "Hidden"
+    "message": "Disembunyikan"
   },
   "btnShow": {
-    "message": "Show"
+    "message": "Tampilkan"
   },
   "progressChecking": {
-    "message": "Checking $P1$ of $P2$ series…",
+    "message": "Memeriksa $P1$ dari $P2$ seri…",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -524,10 +523,10 @@
     }
   },
   "progressReading": {
-    "message": "Reading your Watchlist…"
+    "message": "Membaca Daftar Tontonanmu…"
   },
   "errorQuery": {
-    "message": "Couldn't reach Crunchyroll: $P1$",
+    "message": "Tidak dapat menghubungi Crunchyroll: $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -535,10 +534,10 @@
     }
   },
   "errorHint": {
-    "message": "Make sure you're logged in at crunchyroll.com and click Refresh."
+    "message": "Pastikan kamu sudah masuk di crunchyroll.com, lalu klik Perbarui."
   },
   "diagSaved": {
-    "message": "Diagnostics for “$P1$” saved. It contains no token, cookie or account data.",
+    "message": "Diagnostik “$P1$” disimpan. Tidak berisi token, cookie, atau data akun.",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -546,7 +545,7 @@
     }
   },
   "diagError": {
-    "message": "Couldn't create the diagnostics: $P1$",
+    "message": "Tidak dapat membuat diagnostik: $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -554,10 +553,10 @@
     }
   },
   "diagFile": {
-    "message": "diagnostics"
+    "message": "diagnostik"
   },
   "profileLabel": {
-    "message": " · profile $P1$",
+    "message": " · profil $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -565,19 +564,19 @@
     }
   },
   "sortReleased": {
-    "message": "Most recent release"
+    "message": "Rilis terbaru"
   },
   "sortWatched": {
-    "message": "Most recently watched"
+    "message": "Terakhir ditonton"
   },
   "sortCount": {
-    "message": "Most episodes"
+    "message": "Episode terbanyak"
   },
   "sortTitle": {
-    "message": "Title (A–Z)"
+    "message": "Judul (A–Z)"
   },
   "badgeTitleSome": {
-    "message": "New episodes: $P1$ in $P2$",
+    "message": "Episode baru: $P1$ di $P2$",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -588,13 +587,13 @@
     }
   },
   "badgeTitleNone": {
-    "message": "New Crunchyroll episodes: all caught up"
+    "message": "Episode baru Crunchyroll: semua sudah ditonton"
   },
   "notifTitle_one": {
-    "message": "1 new episode"
+    "message": "1 episode baru"
   },
   "notifTitle_other": {
-    "message": "$P1$ new episodes",
+    "message": "$P1$ episode baru",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -602,7 +601,7 @@
     }
   },
   "notifMore": {
-    "message": "+ $P1$ more series",
+    "message": "+ $P1$ seri lainnya",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -610,19 +609,19 @@
     }
   },
   "notifMovie": {
-    "message": "movie"
+    "message": "film"
   },
   "noticeOpeningTab": {
-    "message": "Opening crunchyroll.com in the background to use your session…"
+    "message": "Membuka crunchyroll.com di latar belakang untuk memakai sesimu…"
   },
   "noticeProxy": {
-    "message": "Direct access blocked; using a crunchyroll.com tab."
+    "message": "Akses langsung diblokir; memakai tab crunchyroll.com."
   },
   "noticeOtherProfile": {
-    "message": "The session in use belongs to another profile on the account. Open crunchyroll.com in the profile you use and click Refresh."
+    "message": "Sesi yang dipakai milik profil lain di akun ini. Buka crunchyroll.com dengan profil yang kamu pakai lalu klik Perbarui."
   },
   "noticeSlowDown": {
-    "message": "Crunchyroll asked to slow down; retrying in $P1$ s…",
+    "message": "Crunchyroll meminta untuk melambat; mencoba lagi dalam $P1$ dtk…",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -630,16 +629,16 @@
     }
   },
   "errTabTimeout": {
-    "message": "The Crunchyroll tab took too long to load."
+    "message": "Tab Crunchyroll terlalu lama dimuat."
   },
   "errTabNoAnswer": {
-    "message": "The Crunchyroll tab didn't respond."
+    "message": "Tab Crunchyroll tidak merespons."
   },
   "errNoTab": {
-    "message": "No crunchyroll.com tab open to use your session."
+    "message": "Tidak ada tab crunchyroll.com yang terbuka untuk memakai sesimu."
   },
   "errAuth": {
-    "message": "Couldn't authenticate (HTTP $P1$). Make sure you're logged in at crunchyroll.com.",
+    "message": "Tidak dapat mengautentikasi (HTTP $P1$). Pastikan kamu sudah masuk di crunchyroll.com.",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -647,7 +646,7 @@
     }
   },
   "errHttp": {
-    "message": "HTTP $P1$ at $P2$",
+    "message": "HTTP $P1$ di $P2$",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -658,11 +657,10 @@
     }
   },
   "errAccount": {
-    "message": "Couldn't find your account ID."
+    "message": "ID akunmu tidak ditemukan."
   },
   "dubYes": {
-    "message": "Dubbed in $L$",
-    "description": "Dica do ícone de dublagem; $L$ = nome do idioma",
+    "message": "Ada dub $L$",
     "placeholders": {
       "l": {
         "content": "$1"
@@ -670,8 +668,7 @@
     }
   },
   "dubOld": {
-    "message": "$L$ dub only in earlier seasons",
-    "description": "Dica do ícone de dublagem; $L$ = nome do idioma",
+    "message": "Dub $L$ hanya di musim sebelumnya",
     "placeholders": {
       "l": {
         "content": "$1"
@@ -679,8 +676,7 @@
     }
   },
   "dubNo": {
-    "message": "No $L$ dub",
-    "description": "Dica do ícone de dublagem; $L$ = nome do idioma",
+    "message": "Tanpa dub $L$",
     "placeholders": {
       "l": {
         "content": "$1"
@@ -688,25 +684,25 @@
     }
   },
   "tabsAria": {
-    "message": "Sections"
+    "message": "Bagian"
   },
   "seasonWinter": {
-    "message": "Winter"
+    "message": "Musim Dingin"
   },
   "seasonSpring": {
-    "message": "Spring"
+    "message": "Musim Semi"
   },
   "seasonSummer": {
-    "message": "Summer"
+    "message": "Musim Panas"
   },
   "seasonFall": {
-    "message": "Fall"
+    "message": "Musim Gugur"
   },
   "seasonUnknown": {
-    "message": "No season listed"
+    "message": "Musim tidak disebutkan"
   },
   "emptyNever": {
-    "message": "Every series in your Watchlist has been started."
+    "message": "Semua seri di Daftar Tontonanmu sudah kamu mulai."
   },
   "seasonLabel": {
     "message": "$S$ $Y$",
@@ -720,31 +716,31 @@
     }
   },
   "secSearch": {
-    "message": "Advanced Search"
+    "message": "Pencarian Lanjutan"
   },
   "searchQueryPlaceholder": {
-    "message": "Anime name (English, Portuguese, romaji or Japanese)"
+    "message": "Nama anime (Indonesia, Inggris, romaji, atau Jepang)"
   },
   "searchButton": {
-    "message": "Search"
+    "message": "Cari"
   },
   "searchScope": {
-    "message": "Where"
+    "message": "Di mana"
   },
   "searchScopeAll": {
-    "message": "Whole catalog"
+    "message": "Seluruh katalog"
   },
   "searchScopeMine": {
-    "message": "My Watchlist only"
+    "message": "Hanya Daftar Tontonanku"
   },
   "searchDub": {
     "message": "Dub"
   },
   "searchDubAny": {
-    "message": "Any audio"
+    "message": "Audio apa saja"
   },
   "searchDubYes": {
-    "message": "Dubbed in $P1$",
+    "message": "Dub $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -752,7 +748,7 @@
     }
   },
   "searchDubNo": {
-    "message": "Not dubbed in $P1$",
+    "message": "Tanpa dub $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -760,13 +756,13 @@
     }
   },
   "searchAge": {
-    "message": "Rating"
+    "message": "Rating usia"
   },
   "searchAgeAny": {
-    "message": "All"
+    "message": "Semua"
   },
   "searchAgeUpTo": {
-    "message": "Up to $P1$+",
+    "message": "Hingga $P1$+",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -774,10 +770,10 @@
     }
   },
   "ageFree": {
-    "message": "Suitable for all ages"
+    "message": "Untuk semua umur"
   },
   "ageMin": {
-    "message": "Not recommended for under $P1$",
+    "message": "Tidak disarankan di bawah $P1$ tahun",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -785,31 +781,31 @@
     }
   },
   "searchYear": {
-    "message": "Release year"
+    "message": "Tahun rilis"
   },
   "searchAny": {
-    "message": "Any"
+    "message": "Apa saja"
   },
   "searchSeason": {
-    "message": "Season"
+    "message": "Musim"
   },
   "searchLoading": {
-    "message": "Loading…"
+    "message": "Memuat…"
   },
   "searchNeedAniList": {
-    "message": "Crunchyroll's search doesn't understand Japanese names. With AniList on, the search text is sent to it to find the title."
+    "message": "Pencarian Crunchyroll tidak memahami nama Jepang. Dengan AniList aktif, teks pencarian dikirim ke sana untuk menemukan judulnya."
   },
   "searchEnableAniList": {
-    "message": "Turn on AniList"
+    "message": "Aktifkan AniList"
   },
   "searchAniListError": {
-    "message": "Couldn't reach AniList right now; results come only from Crunchyroll's search."
+    "message": "AniList tidak dapat dihubungi sekarang; hasil hanya dari pencarian Crunchyroll."
   },
   "searchMineEmpty": {
-    "message": "Your Watchlist hasn't been read yet. Click Refresh and try again."
+    "message": "Daftar Tontonanmu belum dibaca. Klik Perbarui lalu coba lagi."
   },
   "searchError": {
-    "message": "Couldn't search: $P1$",
+    "message": "Tidak dapat mencari: $P1$",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -817,25 +813,25 @@
     }
   },
   "searchHint": {
-    "message": "Type a name or pick filters. Without a name, the search goes through the whole Crunchyroll catalog (or the chosen season)."
+    "message": "Ketik nama atau pilih filter. Tanpa nama, pencarian menelusuri seluruh katalog Crunchyroll (atau musim yang dipilih)."
   },
   "searchMore": {
-    "message": "Load more"
+    "message": "Muat lebih banyak"
   },
   "searchMovie": {
-    "message": "Movie"
+    "message": "Film"
   },
   "searchInList": {
-    "message": "In your Watchlist"
+    "message": "Ada di Daftar Tontonanmu"
   },
   "setAniListLabel": {
-    "message": "Also search Japanese and romaji names (sends the search text to AniList)"
+    "message": "Cari juga nama Jepang dan romaji (mengirim teks pencarian ke AniList)"
   },
   "searchCount_one": {
-    "message": "1 result"
+    "message": "1 hasil"
   },
   "searchCount_other": {
-    "message": "$P1$ results",
+    "message": "$P1$ hasil",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -843,10 +839,10 @@
     }
   },
   "searchSeasons_one": {
-    "message": "1 season"
+    "message": "1 musim"
   },
   "searchSeasons_other": {
-    "message": "$P1$ seasons",
+    "message": "$P1$ musim",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -854,36 +850,36 @@
     }
   },
   "searchSort": {
-    "message": "Sort"
+    "message": "Urutkan"
   },
   "searchSortDefault": {
-    "message": "Crunchyroll default"
+    "message": "Urutan Crunchyroll"
   },
   "searchSortYear": {
-    "message": "Newest release"
+    "message": "Rilis terbaru"
   },
   "searchSortTitle": {
-    "message": "Title (A–Z)"
+    "message": "Judul (A–Z)"
   },
   "searchLoadingCatalog": {
-    "message": "Downloading the Crunchyroll catalog (first time only, takes a few seconds)…"
+    "message": "Mengunduh katalog Crunchyroll (hanya pertama kali, beberapa detik)…"
   },
   "sortWaiting": {
-    "message": "Most episodes waiting"
+    "message": "Paling banyak menunggu"
   },
   "sortNext": {
-    "message": "Next release"
+    "message": "Rilis berikutnya"
   },
   "sortSeason": {
-    "message": "Release season"
+    "message": "Musim rilis"
   },
   "uiLangAuto": {
-    "message": "Automatic (browser language)"
+    "message": "Otomatis (bahasa peramban)"
   },
   "setUiLangLabel": {
-    "message": "Extension language"
+    "message": "Bahasa ekstensi"
   },
   "setUiLangHelp": {
-    "message": "“Automatic” follows Firefox’s language."
+    "message": "“Otomatis” mengikuti bahasa Firefox."
   }
 }

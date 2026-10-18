@@ -1,0 +1,885 @@
+{
+  "extName": {
+    "message": "Crunchyroll – नवीन भाग"
+  },
+  "extDescription": {
+    "message": "Crunchyroll वॉचलिस्टमधील मालिकांचे तुम्ही अजून न पाहिलेले भाग, सबटायटल की डब या तुमच्या निवडीनुसार, एका स्वतंत्र पानावर."
+  },
+  "actionTitle": {
+    "message": "Crunchyroll चे नवीन भाग"
+  },
+  "pageTitle": {
+    "message": "नवीन भाग – Crunchyroll"
+  },
+  "heading": {
+    "message": "नवीन भाग"
+  },
+  "btnSettings": {
+    "message": "सेटिंग्ज"
+  },
+  "btnRefresh": {
+    "message": "रिफ्रेश करा"
+  },
+  "versionLabel": {
+    "message": "आवृत्ती $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "सेटिंग्ज"
+  },
+  "setDubLabel": {
+    "message": "डबमध्ये पाहण्याची भाषा"
+  },
+  "setDubHelp": {
+    "message": "“डब” वर सेट केलेल्या मालिका या भाषेतील डब प्रकाशित झाल्यावरच दिसतात."
+  },
+  "setSubLabel": {
+    "message": "सबटायटलची भाषा"
+  },
+  "setSubHelp": {
+    "message": "“सबटायटल” वर सेट केलेल्या मालिका या भाषेतील सबटायटल उपलब्ध झाल्यावरच दिसतात."
+  },
+  "setModeLabel": {
+    "message": "मालिकांचा डीफॉल्ट मोड"
+  },
+  "setModeHelp": {
+    "message": "तुम्ही वेगळ्या सेट न केलेल्या मालिकांना लागू होतो."
+  },
+  "setLocaleLabel": {
+    "message": "शीर्षक आणि लिंकची भाषा"
+  },
+  "setAutoLabel": {
+    "message": "आपोआप तपासा"
+  },
+  "setAutoHelp": {
+    "message": "पार्श्वभूमीत एक्स्टेंशन आयकॉनवरील संख्या अपडेट करते. थेट प्रवेश बंद असल्यास crunchyroll.com चा एक टॅब उघडा असावा लागतो."
+  },
+  "setNotifyLabel": {
+    "message": "नवीन भाग आल्यावर सूचना द्या"
+  },
+  "setExtrasLabel": {
+    "message": "विशेष भाग आणि रीकॅप दाखवा (मोजणीत धरत नाहीत)"
+  },
+  "setSkippedLabel": {
+    "message": "वगळलेले भाग दाखवा (शेवटच्या पाहिलेल्या भागाआधीचे)"
+  },
+  "setMinStartedLabel": {
+    "message": "इतक्या सेकंदांनंतर सुरू झाले मानावे"
+  },
+  "setMinStartedHelp": {
+    "message": "भागाचे पान उघडताच Crunchyroll काही सेकंद नोंदवते. यापेक्षा कमी नोंद दुर्लक्षित केली जाते. 0 ते 600."
+  },
+  "setConcurrencyLabel": {
+    "message": "एकाच वेळी तपासल्या जाणाऱ्या मालिका"
+  },
+  "setConcurrencyHelp": {
+    "message": "मोठी संख्या जलद असते. “खूप जास्त विनंत्या” (HTTP 429) त्रुटी आल्यास कमी करा. 1 ते 32."
+  },
+  "setPlayheadBatchLabel": {
+    "message": "बॅचचा आकार"
+  },
+  "setPlayheadBatchHelp": {
+    "message": "पाहण्याच्या प्रगतीच्या (playheads) प्रत्येक विनंतीत किती भाग आणि वॉचलिस्ट व इतिहासाच्या प्रत्येक पानावर किती आयटम. मोठ्या बॅचमुळे विनंत्या कमी होतात. तपासणी अयशस्वी होऊ लागल्यास कमी करा. 10 ते 300."
+  },
+  "searchPlaceholder": {
+    "message": "मालिका शोधा…"
+  },
+  "searchAria": {
+    "message": "शीर्षकाने मालिका शोधा"
+  },
+  "sortLabel": {
+    "message": "क्रम"
+  },
+  "modeSub": {
+    "message": "सबटायटल"
+  },
+  "modeDub": {
+    "message": "डब"
+  },
+  "modeAuto": {
+    "message": "कोणताही ऑडिओ"
+  },
+  "modeAutoLong": {
+    "message": "कोणताही ऑडिओ (पहिल्या प्रकाशनावर सूचना)"
+  },
+  "modeDubLang": {
+    "message": "डब $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeDefault": {
+    "message": "डीफॉल्ट ($P1$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortSub": {
+    "message": "सबटायटल"
+  },
+  "shortDub": {
+    "message": "डब $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortAuto": {
+    "message": "कोणताही ऑडिओ"
+  },
+  "modeAria": {
+    "message": "$P1$ चा ऑडिओ",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeTitle": {
+    "message": "तुम्ही ही मालिका कशी पाहता"
+  },
+  "autoOff": {
+    "message": "बंद"
+  },
+  "autoMinutes": {
+    "message": "दर $P1$ मिनिटांनी",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "autoHour": {
+    "message": "दर तासाला"
+  },
+  "autoHours": {
+    "message": "दर $P1$ तासांनी",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "epMovie": {
+    "message": "चित्रपट"
+  },
+  "epLabel": {
+    "message": "S$P1$ E$P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "relNow": {
+    "message": "आत्ताच"
+  },
+  "relHours": {
+    "message": "$P1$ तासांपूर्वी",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "relYesterday": {
+    "message": "काल"
+  },
+  "relDays": {
+    "message": "$P1$ दिवसांपूर्वी",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futToday": {
+    "message": "आज $P1$ वाजता",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futTomorrow": {
+    "message": "उद्या $P1$ वाजता",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futDays": {
+    "message": "$P1$ दिवसांनी ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "nextText": {
+    "message": "पुढचा: $P1$ $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "watchedPct": {
+    "message": "$P1$% पाहिले",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "watchNext": {
+    "message": "पुढचा पाहा"
+  },
+  "tagRecap": {
+    "message": "रीकॅप"
+  },
+  "tagSpecial": {
+    "message": "विशेष"
+  },
+  "tagSkipped": {
+    "message": "वगळलेला"
+  },
+  "badgeContinue": {
+    "message": "सुरू ठेवा"
+  },
+  "badgeMovie": {
+    "message": "चित्रपट"
+  },
+  "badgeNew_one": {
+    "message": "1 नवीन"
+  },
+  "badgeNew_other": {
+    "message": "$P1$ नवीन",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSkipped_one": {
+    "message": "1 वगळलेला"
+  },
+  "badgeSkipped_other": {
+    "message": "$P1$ वगळलेले",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSpecial_one": {
+    "message": "1 विशेष"
+  },
+  "badgeSpecial_other": {
+    "message": "$P1$ विशेष",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "moreEps_one": {
+    "message": "+ 1 भाग"
+  },
+  "moreEps_other": {
+    "message": "+ $P1$ भाग",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitDub": {
+    "message": "+$P1$ डबच्या प्रतीक्षेत",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitSub": {
+    "message": "+$P1$ सबटायटलच्या प्रतीक्षेत",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsAria": {
+    "message": "$P1$ साठी क्रिया",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsTitle": {
+    "message": "क्रिया"
+  },
+  "actDiag": {
+    "message": "डायग्नोस्टिक निर्यात करा"
+  },
+  "actShow": {
+    "message": "पुन्हा दाखवा"
+  },
+  "actHideNew": {
+    "message": "नवीन भाग येईपर्यंत लपवा"
+  },
+  "actHideWeek": {
+    "message": "1 आठवड्यासाठी लपवा"
+  },
+  "actHideForever": {
+    "message": "नेहमी लपवा"
+  },
+  "hiddenUntil": {
+    "message": "$P1$ पर्यंत लपवलेली",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hiddenUntilNew": {
+    "message": "नवीन भाग येईपर्यंत लपवलेली"
+  },
+  "hiddenForever": {
+    "message": "नेहमी लपवलेली"
+  },
+  "epsCount_one": {
+    "message": "1 भाग"
+  },
+  "epsCount_other": {
+    "message": "$P1$ भाग",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "seriesCount_one": {
+    "message": "1 मालिका"
+  },
+  "seriesCount_other": {
+    "message": "$P1$ मालिका",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusEps": {
+    "message": "$P2$ मध्ये $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "statusElapsed": {
+    "message": " · $S$ सेकंदात अपडेट",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusAllCaught": {
+    "message": "सर्व पाहून झाले"
+  },
+  "secToWatch": {
+    "message": "पाहायचे"
+  },
+  "emptySearch": {
+    "message": "येथे कोणतीही मालिका सापडली नाही."
+  },
+  "emptyToWatch": {
+    "message": "तुम्ही सुरू केलेल्या मालिकांमध्ये नवीन भाग नाहीत."
+  },
+  "secWaitDub": {
+    "message": "डबच्या प्रतीक्षेत"
+  },
+  "noteWaitDub_one": {
+    "message": "1 सबटायटलसह आला आहे"
+  },
+  "noteWaitDub_other": {
+    "message": "$P1$ सबटायटलसह आले आहेत",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secWaitSub": {
+    "message": "$P1$ सबटायटलच्या प्रतीक्षेत",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteWaitSub_one": {
+    "message": "1 भाग या सबटायटलशिवाय आला आहे"
+  },
+  "noteWaitSub_other": {
+    "message": "$P1$ भाग या सबटायटलशिवाय आले आहेत",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secNoDub": {
+    "message": "$P1$ डब नाही",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoDub_one": {
+    "message": "सध्याच्या सीझनमध्ये $P2$ डब नाही · पाहण्यासाठी 1 सबटायटल भाग",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoDub_other": {
+    "message": "सध्याच्या सीझनमध्ये $P2$ डब नाही · पाहण्यासाठी $P1$ सबटायटल भाग",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeSubbed": {
+    "message": "सबटायटलसह पाहा"
+  },
+  "btnSeeSubbedTitle": {
+    "message": "ही मालिका सबटायटल मोडवर बदलते"
+  },
+  "secErrors": {
+    "message": "तपासता आले नाही"
+  },
+  "secUpToDate": {
+    "message": "सर्व पाहून झाले"
+  },
+  "noteNoDubSeason": {
+    "message": "सध्याच्या सीझनमध्ये $P1$ डब नाही",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secNever": {
+    "message": "सुरू करायच्या"
+  },
+  "secHidden": {
+    "message": "लपवलेल्या"
+  },
+  "btnShow": {
+    "message": "दाखवा"
+  },
+  "progressChecking": {
+    "message": "$P2$ पैकी $P1$ मालिका तपासत आहे…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "progressReading": {
+    "message": "तुमची वॉचलिस्ट वाचत आहे…"
+  },
+  "errorQuery": {
+    "message": "Crunchyroll शी संपर्क झाला नाही: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errorHint": {
+    "message": "तुम्ही crunchyroll.com वर लॉग इन आहात याची खात्री करा, मग रिफ्रेश करा."
+  },
+  "diagSaved": {
+    "message": "“$P1$” चे डायग्नोस्टिक जतन केले. त्यात टोकन, कुकी किंवा खात्याचा डेटा नाही.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagError": {
+    "message": "डायग्नोस्टिक तयार करता आले नाही: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagFile": {
+    "message": "diagnostics"
+  },
+  "profileLabel": {
+    "message": " · प्रोफाइल $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "sortReleased": {
+    "message": "सर्वात नवीन प्रकाशन"
+  },
+  "sortWatched": {
+    "message": "अलीकडे पाहिलेले"
+  },
+  "sortCount": {
+    "message": "सर्वाधिक भाग"
+  },
+  "sortTitle": {
+    "message": "शीर्षक (A–Z)"
+  },
+  "badgeTitleSome": {
+    "message": "नवीन भाग: $P2$ मध्ये $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "badgeTitleNone": {
+    "message": "Crunchyroll चे नवीन भाग: सर्व पाहून झाले"
+  },
+  "notifTitle_one": {
+    "message": "1 नवीन भाग"
+  },
+  "notifTitle_other": {
+    "message": "$P1$ नवीन भाग",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMore": {
+    "message": "+ आणखी $P1$ मालिका",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMovie": {
+    "message": "चित्रपट"
+  },
+  "noticeOpeningTab": {
+    "message": "तुमचे सत्र वापरण्यासाठी crunchyroll.com पार्श्वभूमीत उघडत आहे…"
+  },
+  "noticeProxy": {
+    "message": "थेट प्रवेश बंद; crunchyroll.com चा टॅब वापरत आहे."
+  },
+  "noticeOtherProfile": {
+    "message": "वापरले जाणारे सत्र खात्याच्या दुसऱ्या प्रोफाइलचे आहे. तुमच्या प्रोफाइलने crunchyroll.com उघडा आणि रिफ्रेश करा."
+  },
+  "noticeSlowDown": {
+    "message": "Crunchyroll ने वेग कमी करायला सांगितले; $P1$ सेकंदांनी पुन्हा प्रयत्न…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errTabTimeout": {
+    "message": "Crunchyroll टॅब लोड व्हायला खूप वेळ लागला."
+  },
+  "errTabNoAnswer": {
+    "message": "Crunchyroll टॅबने प्रतिसाद दिला नाही."
+  },
+  "errNoTab": {
+    "message": "तुमच्या सत्रासाठी crunchyroll.com चा कोणताही टॅब उघडा नाही."
+  },
+  "errAuth": {
+    "message": "प्रमाणीकरण झाले नाही (HTTP $P1$). तुम्ही crunchyroll.com वर लॉग इन आहात याची खात्री करा.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errHttp": {
+    "message": "HTTP $P1$ ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "errAccount": {
+    "message": "तुमच्या खात्याचा ID सापडला नाही."
+  },
+  "dubYes": {
+    "message": "$L$ डब उपलब्ध",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubOld": {
+    "message": "$L$ डब फक्त आधीच्या सीझनमध्ये",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubNo": {
+    "message": "$L$ डब नाही",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "tabsAria": {
+    "message": "विभाग"
+  },
+  "seasonWinter": {
+    "message": "हिवाळा"
+  },
+  "seasonSpring": {
+    "message": "वसंत"
+  },
+  "seasonSummer": {
+    "message": "उन्हाळा"
+  },
+  "seasonFall": {
+    "message": "शरद"
+  },
+  "seasonUnknown": {
+    "message": "सीझन नमूद नाही"
+  },
+  "emptyNever": {
+    "message": "तुम्ही तुमच्या वॉचलिस्टमधील सर्व मालिका सुरू केल्या आहेत."
+  },
+  "seasonLabel": {
+    "message": "$S$ $Y$",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      },
+      "y": {
+        "content": "$2"
+      }
+    }
+  },
+  "secSearch": {
+    "message": "प्रगत शोध"
+  },
+  "searchQueryPlaceholder": {
+    "message": "ॲनिमेचे नाव (मराठी, इंग्रजी, रोमाजी किंवा जपानी)"
+  },
+  "searchButton": {
+    "message": "शोधा"
+  },
+  "searchScope": {
+    "message": "कुठे"
+  },
+  "searchScopeAll": {
+    "message": "संपूर्ण कॅटलॉग"
+  },
+  "searchScopeMine": {
+    "message": "फक्त माझी वॉचलिस्ट"
+  },
+  "searchDub": {
+    "message": "डब"
+  },
+  "searchDubAny": {
+    "message": "कोणताही ऑडिओ"
+  },
+  "searchDubYes": {
+    "message": "$P1$ मध्ये डब",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchDubNo": {
+    "message": "$P1$ मध्ये डब नाही",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAge": {
+    "message": "वय मानांकन"
+  },
+  "searchAgeAny": {
+    "message": "सर्व"
+  },
+  "searchAgeUpTo": {
+    "message": "$P1$+ पर्यंत",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "ageFree": {
+    "message": "सर्व वयोगटांसाठी"
+  },
+  "ageMin": {
+    "message": "$P1$ वर्षांखालील व्यक्तींसाठी शिफारस नाही",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchYear": {
+    "message": "प्रकाशन वर्ष"
+  },
+  "searchAny": {
+    "message": "कोणतेही"
+  },
+  "searchSeason": {
+    "message": "सीझन"
+  },
+  "searchLoading": {
+    "message": "लोड होत आहे…"
+  },
+  "searchNeedAniList": {
+    "message": "Crunchyroll चा शोध जपानी नावे समजत नाही. AniList चालू असल्यास शीर्षक शोधण्यासाठी शोधाचा मजकूर AniList ला पाठवला जातो."
+  },
+  "searchEnableAniList": {
+    "message": "AniList चालू करा"
+  },
+  "searchAniListError": {
+    "message": "सध्या AniList शी संपर्क होत नाही; निकाल फक्त Crunchyroll च्या शोधातून."
+  },
+  "searchMineEmpty": {
+    "message": "तुमची वॉचलिस्ट अजून वाचली नाही. रिफ्रेश करा आणि पुन्हा प्रयत्न करा."
+  },
+  "searchError": {
+    "message": "शोध घेता आला नाही: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchHint": {
+    "message": "नाव लिहा किंवा फिल्टर निवडा. नावाशिवाय संपूर्ण Crunchyroll कॅटलॉगमध्ये (किंवा निवडलेल्या सीझनमध्ये) शोध घेतला जातो."
+  },
+  "searchMore": {
+    "message": "आणखी लोड करा"
+  },
+  "searchMovie": {
+    "message": "चित्रपट"
+  },
+  "searchInList": {
+    "message": "तुमच्या वॉचलिस्टमध्ये"
+  },
+  "setAniListLabel": {
+    "message": "जपानी आणि रोमाजी नावांनीही शोधा (शोधाचा मजकूर AniList ला पाठवते)"
+  },
+  "searchCount_one": {
+    "message": "1 निकाल"
+  },
+  "searchCount_other": {
+    "message": "$P1$ निकाल",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSeasons_one": {
+    "message": "1 सीझन"
+  },
+  "searchSeasons_other": {
+    "message": "$P1$ सीझन",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSort": {
+    "message": "क्रम"
+  },
+  "searchSortDefault": {
+    "message": "Crunchyroll चा क्रम"
+  },
+  "searchSortYear": {
+    "message": "सर्वात नवीन प्रकाशन"
+  },
+  "searchSortTitle": {
+    "message": "शीर्षक (A–Z)"
+  },
+  "searchLoadingCatalog": {
+    "message": "Crunchyroll कॅटलॉग डाउनलोड होत आहे (फक्त पहिल्यांदा, काही सेकंद)…"
+  },
+  "sortWaiting": {
+    "message": "सर्वाधिक प्रतीक्षेतील"
+  },
+  "sortNext": {
+    "message": "पुढचे प्रकाशन"
+  },
+  "sortSeason": {
+    "message": "प्रकाशन सीझन"
+  },
+  "uiLangAuto": {
+    "message": "स्वयंचलित (ब्राउझरची भाषा)"
+  },
+  "setUiLangLabel": {
+    "message": "एक्स्टेंशनची भाषा"
+  },
+  "setUiLangHelp": {
+    "message": "“स्वयंचलित” Firefox ची भाषा वापरते."
+  }
+}

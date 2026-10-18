@@ -1,0 +1,885 @@
+{
+  "extName": {
+    "message": "Crunchyroll – নতুন পর্ব"
+  },
+  "extDescription": {
+    "message": "Crunchyroll ওয়াচলিস্টের সিরিজগুলোর যেসব পর্ব আপনি এখনও দেখেননি, সাবটাইটেল না ডাব — আপনার পছন্দ অনুযায়ী, একটি আলাদা পাতায়।"
+  },
+  "actionTitle": {
+    "message": "Crunchyroll-এর নতুন পর্ব"
+  },
+  "pageTitle": {
+    "message": "নতুন পর্ব – Crunchyroll"
+  },
+  "heading": {
+    "message": "নতুন পর্ব"
+  },
+  "btnSettings": {
+    "message": "সেটিংস"
+  },
+  "btnRefresh": {
+    "message": "রিফ্রেশ"
+  },
+  "versionLabel": {
+    "message": "সংস্করণ $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "সেটিংস"
+  },
+  "setDubLabel": {
+    "message": "যে ভাষায় ডাব দেখেন"
+  },
+  "setDubHelp": {
+    "message": "“ডাব” সেট করা সিরিজ কেবল এই ভাষায় ডাব প্রকাশ হলে দেখা যায়।"
+  },
+  "setSubLabel": {
+    "message": "সাবটাইটেলের ভাষা"
+  },
+  "setSubHelp": {
+    "message": "“সাবটাইটেল” সেট করা সিরিজ কেবল এই ভাষায় সাবটাইটেল পাওয়া গেলে দেখা যায়।"
+  },
+  "setModeLabel": {
+    "message": "সিরিজের ডিফল্ট মোড"
+  },
+  "setModeHelp": {
+    "message": "যেসব সিরিজ আলাদা করে সেট করেননি, সেগুলোর জন্য প্রযোজ্য।"
+  },
+  "setLocaleLabel": {
+    "message": "শিরোনাম ও লিঙ্কের ভাষা"
+  },
+  "setAutoLabel": {
+    "message": "স্বয়ংক্রিয়ভাবে যাচাই করুন"
+  },
+  "setAutoHelp": {
+    "message": "পটভূমিতে এক্সটেনশন আইকনের সংখ্যা হালনাগাদ করে। সরাসরি প্রবেশ বন্ধ থাকলে crunchyroll.com-এর একটি ট্যাব খোলা রাখতে হবে।"
+  },
+  "setNotifyLabel": {
+    "message": "নতুন পর্ব এলে জানান"
+  },
+  "setExtrasLabel": {
+    "message": "বিশেষ পর্ব ও রিক্যাপ দেখান (গণনায় ধরা হয় না)"
+  },
+  "setSkippedLabel": {
+    "message": "বাদ পড়া পর্ব দেখান (শেষ দেখা পর্বের আগের)"
+  },
+  "setMinStartedLabel": {
+    "message": "শুরু ধরা হবে এত সেকেন্ড পর"
+  },
+  "setMinStartedHelp": {
+    "message": "পর্বের পাতা খুললেই Crunchyroll কয়েক সেকেন্ড রেকর্ড করে। এর কম সময়ের রেকর্ড উপেক্ষা করা হয়। 0 থেকে 600।"
+  },
+  "setConcurrencyLabel": {
+    "message": "একসাথে যাচাই হওয়া সিরিজ"
+  },
+  "setConcurrencyHelp": {
+    "message": "বড় সংখ্যায় দ্রুত হয়। “অনেক বেশি অনুরোধ” (HTTP 429) ত্রুটি হলে কমান। 1 থেকে 32।"
+  },
+  "setPlayheadBatchLabel": {
+    "message": "ব্যাচের আকার"
+  },
+  "setPlayheadBatchHelp": {
+    "message": "দেখার অগ্রগতি (playheads)-এর প্রতিটি অনুরোধে কতগুলো পর্ব এবং ওয়াচলিস্ট ও ইতিহাসের প্রতি পাতায় কতগুলো আইটেম। বড় ব্যাচে অনুরোধ কম হয়। যাচাই ব্যর্থ হতে শুরু করলে কমান। 10 থেকে 300।"
+  },
+  "searchPlaceholder": {
+    "message": "সিরিজ খুঁজুন…"
+  },
+  "searchAria": {
+    "message": "শিরোনাম দিয়ে সিরিজ খুঁজুন"
+  },
+  "sortLabel": {
+    "message": "সাজান"
+  },
+  "modeSub": {
+    "message": "সাবটাইটেল"
+  },
+  "modeDub": {
+    "message": "ডাব"
+  },
+  "modeAuto": {
+    "message": "যেকোনো অডিও"
+  },
+  "modeAutoLong": {
+    "message": "যেকোনো অডিও (প্রথম প্রকাশে জানান)"
+  },
+  "modeDubLang": {
+    "message": "ডাব $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeDefault": {
+    "message": "ডিফল্ট ($P1$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortSub": {
+    "message": "সাবটাইটেল"
+  },
+  "shortDub": {
+    "message": "ডাব $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortAuto": {
+    "message": "যেকোনো অডিও"
+  },
+  "modeAria": {
+    "message": "$P1$-এর অডিও",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeTitle": {
+    "message": "আপনি এই সিরিজটি কীভাবে দেখেন"
+  },
+  "autoOff": {
+    "message": "বন্ধ"
+  },
+  "autoMinutes": {
+    "message": "প্রতি $P1$ মিনিটে",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "autoHour": {
+    "message": "প্রতি ঘণ্টায়"
+  },
+  "autoHours": {
+    "message": "প্রতি $P1$ ঘণ্টায়",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "epMovie": {
+    "message": "চলচ্চিত্র"
+  },
+  "epLabel": {
+    "message": "S$P1$ E$P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "relNow": {
+    "message": "এইমাত্র"
+  },
+  "relHours": {
+    "message": "$P1$ ঘণ্টা আগে",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "relYesterday": {
+    "message": "গতকাল"
+  },
+  "relDays": {
+    "message": "$P1$ দিন আগে",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futToday": {
+    "message": "আজ $P1$-এ",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futTomorrow": {
+    "message": "আগামীকাল $P1$-এ",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futDays": {
+    "message": "$P1$ দিন পরে ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "nextText": {
+    "message": "পরবর্তী: $P1$ $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "watchedPct": {
+    "message": "$P1$% দেখা হয়েছে",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "watchNext": {
+    "message": "পরেরটি দেখুন"
+  },
+  "tagRecap": {
+    "message": "রিক্যাপ"
+  },
+  "tagSpecial": {
+    "message": "বিশেষ"
+  },
+  "tagSkipped": {
+    "message": "বাদ পড়া"
+  },
+  "badgeContinue": {
+    "message": "চালিয়ে যান"
+  },
+  "badgeMovie": {
+    "message": "চলচ্চিত্র"
+  },
+  "badgeNew_one": {
+    "message": "1টি নতুন"
+  },
+  "badgeNew_other": {
+    "message": "$P1$টি নতুন",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSkipped_one": {
+    "message": "1টি বাদ পড়া"
+  },
+  "badgeSkipped_other": {
+    "message": "$P1$টি বাদ পড়া",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSpecial_one": {
+    "message": "1টি বিশেষ"
+  },
+  "badgeSpecial_other": {
+    "message": "$P1$টি বিশেষ",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "moreEps_one": {
+    "message": "+ 1টি পর্ব"
+  },
+  "moreEps_other": {
+    "message": "+ $P1$টি পর্ব",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitDub": {
+    "message": "+$P1$টি ডাবের অপেক্ষায়",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitSub": {
+    "message": "+$P1$টি সাবটাইটেলের অপেক্ষায়",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsAria": {
+    "message": "$P1$-এর জন্য কাজ",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsTitle": {
+    "message": "কাজ"
+  },
+  "actDiag": {
+    "message": "ডায়াগনস্টিক রপ্তানি করুন"
+  },
+  "actShow": {
+    "message": "আবার দেখান"
+  },
+  "actHideNew": {
+    "message": "নতুন পর্ব না আসা পর্যন্ত লুকান"
+  },
+  "actHideWeek": {
+    "message": "1 সপ্তাহের জন্য লুকান"
+  },
+  "actHideForever": {
+    "message": "সবসময় লুকান"
+  },
+  "hiddenUntil": {
+    "message": "$P1$ পর্যন্ত লুকানো",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hiddenUntilNew": {
+    "message": "নতুন পর্ব না আসা পর্যন্ত লুকানো"
+  },
+  "hiddenForever": {
+    "message": "সবসময় লুকানো"
+  },
+  "epsCount_one": {
+    "message": "1টি পর্ব"
+  },
+  "epsCount_other": {
+    "message": "$P1$টি পর্ব",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "seriesCount_one": {
+    "message": "1টি সিরিজ"
+  },
+  "seriesCount_other": {
+    "message": "$P1$টি সিরিজ",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusEps": {
+    "message": "$P2$-এ $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "statusElapsed": {
+    "message": " · $S$ সেকেন্ডে হালনাগাদ",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusAllCaught": {
+    "message": "সব দেখা হয়েছে"
+  },
+  "secToWatch": {
+    "message": "দেখার জন্য"
+  },
+  "emptySearch": {
+    "message": "এখানে কোনো সিরিজ পাওয়া যায়নি।"
+  },
+  "emptyToWatch": {
+    "message": "আপনার শুরু করা সিরিজে কোনো নতুন পর্ব নেই।"
+  },
+  "secWaitDub": {
+    "message": "ডাবের অপেক্ষায়"
+  },
+  "noteWaitDub_one": {
+    "message": "1টি সাবটাইটেলসহ এসেছে"
+  },
+  "noteWaitDub_other": {
+    "message": "$P1$টি সাবটাইটেলসহ এসেছে",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secWaitSub": {
+    "message": "$P1$ সাবটাইটেলের অপেক্ষায়",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteWaitSub_one": {
+    "message": "1টি পর্ব এই সাবটাইটেল ছাড়া এসেছে"
+  },
+  "noteWaitSub_other": {
+    "message": "$P1$টি পর্ব এই সাবটাইটেল ছাড়া এসেছে",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secNoDub": {
+    "message": "$P1$ ডাব নেই",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoDub_one": {
+    "message": "চলতি সিজনে $P2$ ডাব নেই · দেখার মতো 1টি সাবটাইটেল পর্ব",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoDub_other": {
+    "message": "চলতি সিজনে $P2$ ডাব নেই · দেখার মতো $P1$টি সাবটাইটেল পর্ব",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeSubbed": {
+    "message": "সাবটাইটেলসহ দেখুন"
+  },
+  "btnSeeSubbedTitle": {
+    "message": "এই সিরিজটি সাবটাইটেল মোডে বদলায়"
+  },
+  "secErrors": {
+    "message": "যাচাই করা যায়নি"
+  },
+  "secUpToDate": {
+    "message": "সব দেখা হয়েছে"
+  },
+  "noteNoDubSeason": {
+    "message": "চলতি সিজনে $P1$ ডাব নেই",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secNever": {
+    "message": "শুরু করতে হবে"
+  },
+  "secHidden": {
+    "message": "লুকানো"
+  },
+  "btnShow": {
+    "message": "দেখান"
+  },
+  "progressChecking": {
+    "message": "$P2$টির মধ্যে $P1$টি সিরিজ যাচাই হচ্ছে…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "progressReading": {
+    "message": "আপনার ওয়াচলিস্ট পড়া হচ্ছে…"
+  },
+  "errorQuery": {
+    "message": "Crunchyroll-এর সাথে যোগাযোগ করা যায়নি: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errorHint": {
+    "message": "crunchyroll.com-এ লগ ইন আছেন কি না দেখে নিন, তারপর রিফ্রেশ করুন।"
+  },
+  "diagSaved": {
+    "message": "“$P1$”-এর ডায়াগনস্টিক সংরক্ষিত হয়েছে। এতে টোকেন, কুকি বা অ্যাকাউন্টের তথ্য নেই।",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagError": {
+    "message": "ডায়াগনস্টিক তৈরি করা যায়নি: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagFile": {
+    "message": "diagnostics"
+  },
+  "profileLabel": {
+    "message": " · প্রোফাইল $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "sortReleased": {
+    "message": "সর্বশেষ প্রকাশ"
+  },
+  "sortWatched": {
+    "message": "সম্প্রতি দেখা"
+  },
+  "sortCount": {
+    "message": "সবচেয়ে বেশি পর্ব"
+  },
+  "sortTitle": {
+    "message": "শিরোনাম (A–Z)"
+  },
+  "badgeTitleSome": {
+    "message": "নতুন পর্ব: $P2$-এ $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "badgeTitleNone": {
+    "message": "Crunchyroll-এর নতুন পর্ব: সব দেখা হয়েছে"
+  },
+  "notifTitle_one": {
+    "message": "1টি নতুন পর্ব"
+  },
+  "notifTitle_other": {
+    "message": "$P1$টি নতুন পর্ব",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMore": {
+    "message": "+ আরও $P1$টি সিরিজ",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMovie": {
+    "message": "চলচ্চিত্র"
+  },
+  "noticeOpeningTab": {
+    "message": "আপনার সেশন ব্যবহারের জন্য পটভূমিতে crunchyroll.com খোলা হচ্ছে…"
+  },
+  "noticeProxy": {
+    "message": "সরাসরি প্রবেশ বন্ধ; crunchyroll.com-এর একটি ট্যাব ব্যবহার হচ্ছে।"
+  },
+  "noticeOtherProfile": {
+    "message": "ব্যবহৃত সেশনটি অ্যাকাউন্টের অন্য প্রোফাইলের। নিজের প্রোফাইলে crunchyroll.com খুলে রিফ্রেশ করুন।"
+  },
+  "noticeSlowDown": {
+    "message": "Crunchyroll গতি কমাতে বলেছে; $P1$ সেকেন্ড পরে আবার চেষ্টা…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errTabTimeout": {
+    "message": "Crunchyroll ট্যাব লোড হতে খুব বেশি সময় নিয়েছে।"
+  },
+  "errTabNoAnswer": {
+    "message": "Crunchyroll ট্যাব সাড়া দেয়নি।"
+  },
+  "errNoTab": {
+    "message": "আপনার সেশনের জন্য কোনো crunchyroll.com ট্যাব খোলা নেই।"
+  },
+  "errAuth": {
+    "message": "প্রমাণীকরণ করা যায়নি (HTTP $P1$)। crunchyroll.com-এ লগ ইন আছেন কি না দেখুন।",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errHttp": {
+    "message": "HTTP $P1$ ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "errAccount": {
+    "message": "আপনার অ্যাকাউন্ট ID পাওয়া যায়নি।"
+  },
+  "dubYes": {
+    "message": "$L$ ডাব আছে",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubOld": {
+    "message": "$L$ ডাব শুধু আগের সিজনে",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubNo": {
+    "message": "$L$ ডাব নেই",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "tabsAria": {
+    "message": "বিভাগ"
+  },
+  "seasonWinter": {
+    "message": "শীত"
+  },
+  "seasonSpring": {
+    "message": "বসন্ত"
+  },
+  "seasonSummer": {
+    "message": "গ্রীষ্ম"
+  },
+  "seasonFall": {
+    "message": "শরৎ"
+  },
+  "seasonUnknown": {
+    "message": "সিজন উল্লেখ নেই"
+  },
+  "emptyNever": {
+    "message": "আপনার ওয়াচলিস্টের সব সিরিজ শুরু করেছেন।"
+  },
+  "seasonLabel": {
+    "message": "$S$ $Y$",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      },
+      "y": {
+        "content": "$2"
+      }
+    }
+  },
+  "secSearch": {
+    "message": "উন্নত অনুসন্ধান"
+  },
+  "searchQueryPlaceholder": {
+    "message": "অ্যানিমের নাম (বাংলা, ইংরেজি, রোমাজি বা জাপানি)"
+  },
+  "searchButton": {
+    "message": "খুঁজুন"
+  },
+  "searchScope": {
+    "message": "কোথায়"
+  },
+  "searchScopeAll": {
+    "message": "পুরো ক্যাটালগ"
+  },
+  "searchScopeMine": {
+    "message": "শুধু আমার ওয়াচলিস্ট"
+  },
+  "searchDub": {
+    "message": "ডাব"
+  },
+  "searchDubAny": {
+    "message": "যেকোনো অডিও"
+  },
+  "searchDubYes": {
+    "message": "$P1$-এ ডাব",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchDubNo": {
+    "message": "$P1$-এ ডাব নেই",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAge": {
+    "message": "বয়সের রেটিং"
+  },
+  "searchAgeAny": {
+    "message": "সব"
+  },
+  "searchAgeUpTo": {
+    "message": "$P1$+ পর্যন্ত",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "ageFree": {
+    "message": "সব বয়সের জন্য"
+  },
+  "ageMin": {
+    "message": "$P1$ বছরের কম বয়সীদের জন্য উপযুক্ত নয়",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchYear": {
+    "message": "প্রকাশের বছর"
+  },
+  "searchAny": {
+    "message": "যেকোনো"
+  },
+  "searchSeason": {
+    "message": "সিজন"
+  },
+  "searchLoading": {
+    "message": "লোড হচ্ছে…"
+  },
+  "searchNeedAniList": {
+    "message": "Crunchyroll-এর অনুসন্ধান জাপানি নাম বোঝে না। AniList চালু থাকলে শিরোনাম খুঁজতে অনুসন্ধানের লেখা AniList-এ পাঠানো হয়।"
+  },
+  "searchEnableAniList": {
+    "message": "AniList চালু করুন"
+  },
+  "searchAniListError": {
+    "message": "এখন AniList-এর সাথে যোগাযোগ করা যাচ্ছে না; ফলাফল শুধু Crunchyroll-এর অনুসন্ধান থেকে।"
+  },
+  "searchMineEmpty": {
+    "message": "আপনার ওয়াচলিস্ট এখনও পড়া হয়নি। রিফ্রেশ করে আবার চেষ্টা করুন।"
+  },
+  "searchError": {
+    "message": "অনুসন্ধান করা যায়নি: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchHint": {
+    "message": "নাম লিখুন বা ফিল্টার বেছে নিন। নাম ছাড়া পুরো Crunchyroll ক্যাটালগে (বা বেছে নেওয়া সিজনে) খোঁজা হয়।"
+  },
+  "searchMore": {
+    "message": "আরও লোড করুন"
+  },
+  "searchMovie": {
+    "message": "চলচ্চিত্র"
+  },
+  "searchInList": {
+    "message": "আপনার ওয়াচলিস্টে"
+  },
+  "setAniListLabel": {
+    "message": "জাপানি ও রোমাজি নামেও খুঁজুন (অনুসন্ধানের লেখা AniList-এ পাঠায়)"
+  },
+  "searchCount_one": {
+    "message": "1টি ফলাফল"
+  },
+  "searchCount_other": {
+    "message": "$P1$টি ফলাফল",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSeasons_one": {
+    "message": "1টি সিজন"
+  },
+  "searchSeasons_other": {
+    "message": "$P1$টি সিজন",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSort": {
+    "message": "সাজান"
+  },
+  "searchSortDefault": {
+    "message": "Crunchyroll-এর ক্রম"
+  },
+  "searchSortYear": {
+    "message": "সর্বশেষ প্রকাশ"
+  },
+  "searchSortTitle": {
+    "message": "শিরোনাম (A–Z)"
+  },
+  "searchLoadingCatalog": {
+    "message": "Crunchyroll ক্যাটালগ ডাউনলোড হচ্ছে (শুধু প্রথমবার, কয়েক সেকেন্ড)…"
+  },
+  "sortWaiting": {
+    "message": "সবচেয়ে বেশি অপেক্ষমাণ"
+  },
+  "sortNext": {
+    "message": "পরবর্তী প্রকাশ"
+  },
+  "sortSeason": {
+    "message": "প্রকাশের সিজন"
+  },
+  "uiLangAuto": {
+    "message": "স্বয়ংক্রিয় (ব্রাউজারের ভাষা)"
+  },
+  "setUiLangLabel": {
+    "message": "এক্সটেনশনের ভাষা"
+  },
+  "setUiLangHelp": {
+    "message": "“স্বয়ংক্রিয়” Firefox-এর ভাষা অনুসরণ করে।"
+  }
+}

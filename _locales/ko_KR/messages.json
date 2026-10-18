@@ -1,0 +1,885 @@
+{
+  "extName": {
+    "message": "Crunchyroll – 새 에피소드"
+  },
+  "extDescription": {
+    "message": "Crunchyroll 관심 목록에 있는 시리즈 중 아직 보지 않은 에피소드를 자막·더빙 선택에 맞춰 보여 주는 전용 페이지."
+  },
+  "actionTitle": {
+    "message": "Crunchyroll 새 에피소드"
+  },
+  "pageTitle": {
+    "message": "새 에피소드 – Crunchyroll"
+  },
+  "heading": {
+    "message": "새 에피소드"
+  },
+  "btnSettings": {
+    "message": "설정"
+  },
+  "btnRefresh": {
+    "message": "새로고침"
+  },
+  "versionLabel": {
+    "message": "버전 $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "설정"
+  },
+  "setDubLabel": {
+    "message": "더빙으로 볼 때의 언어"
+  },
+  "setDubHelp": {
+    "message": "‘더빙’으로 설정한 시리즈는 이 언어의 더빙이 공개된 뒤에만 표시됩니다."
+  },
+  "setSubLabel": {
+    "message": "자막 언어"
+  },
+  "setSubHelp": {
+    "message": "‘자막’으로 설정한 시리즈는 이 언어의 자막이 공개된 뒤에만 표시됩니다."
+  },
+  "setModeLabel": {
+    "message": "시리즈 기본 모드"
+  },
+  "setModeHelp": {
+    "message": "따로 설정하지 않은 시리즈에 적용됩니다."
+  },
+  "setLocaleLabel": {
+    "message": "제목과 링크 언어"
+  },
+  "setAutoLabel": {
+    "message": "자동 확인"
+  },
+  "setAutoHelp": {
+    "message": "백그라운드에서 확장 프로그램 아이콘의 숫자를 업데이트합니다. 직접 접근이 차단되면 crunchyroll.com 탭이 열려 있어야 합니다."
+  },
+  "setNotifyLabel": {
+    "message": "새 에피소드가 나오면 알림"
+  },
+  "setExtrasLabel": {
+    "message": "특별편과 총집편 표시(개수에는 포함 안 함)"
+  },
+  "setSkippedLabel": {
+    "message": "건너뛴 에피소드 표시(마지막으로 본 에피소드 이전)"
+  },
+  "setMinStartedLabel": {
+    "message": "시청 시작으로 볼 시간(초)"
+  },
+  "setMinStartedHelp": {
+    "message": "Crunchyroll은 에피소드 페이지를 열기만 해도 몇 초를 기록합니다. 이 시간보다 짧은 기록은 무시합니다. 0~600."
+  },
+  "setConcurrencyLabel": {
+    "message": "동시에 확인할 시리즈 수"
+  },
+  "setConcurrencyHelp": {
+    "message": "숫자가 클수록 빠릅니다. ‘요청이 너무 많음’(HTTP 429) 오류가 나면 줄이세요. 1~32."
+  },
+  "setPlayheadBatchLabel": {
+    "message": "배치 크기"
+  },
+  "setPlayheadBatchHelp": {
+    "message": "시청 기록(playheads) 조회 한 번에 넣을 에피소드 수와, 관심 목록·시청 기록 한 페이지의 항목 수입니다. 클수록 요청이 줄어듭니다. 확인이 실패하기 시작하면 줄이세요. 10~300."
+  },
+  "searchPlaceholder": {
+    "message": "시리즈 검색…"
+  },
+  "searchAria": {
+    "message": "제목으로 시리즈 검색"
+  },
+  "sortLabel": {
+    "message": "정렬"
+  },
+  "modeSub": {
+    "message": "자막"
+  },
+  "modeDub": {
+    "message": "더빙"
+  },
+  "modeAuto": {
+    "message": "모든 오디오"
+  },
+  "modeAutoLong": {
+    "message": "모든 오디오(첫 공개 시 알림)"
+  },
+  "modeDubLang": {
+    "message": "더빙 $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeDefault": {
+    "message": "기본값($P1$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortSub": {
+    "message": "자막"
+  },
+  "shortDub": {
+    "message": "더빙 $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortAuto": {
+    "message": "모든 오디오"
+  },
+  "modeAria": {
+    "message": "$P1$의 오디오",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeTitle": {
+    "message": "이 시리즈를 보는 방식"
+  },
+  "autoOff": {
+    "message": "끔"
+  },
+  "autoMinutes": {
+    "message": "$P1$분마다",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "autoHour": {
+    "message": "1시간마다"
+  },
+  "autoHours": {
+    "message": "$P1$시간마다",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "epMovie": {
+    "message": "영화"
+  },
+  "epLabel": {
+    "message": "S$P1$ E$P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "relNow": {
+    "message": "방금"
+  },
+  "relHours": {
+    "message": "$P1$시간 전",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "relYesterday": {
+    "message": "어제"
+  },
+  "relDays": {
+    "message": "$P1$일 전",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futToday": {
+    "message": "오늘 $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futTomorrow": {
+    "message": "내일 $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futDays": {
+    "message": "$P1$일 후($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "nextText": {
+    "message": "다음: $P1$ $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "watchedPct": {
+    "message": "$P1$% 시청",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "watchNext": {
+    "message": "다음 에피소드 보기"
+  },
+  "tagRecap": {
+    "message": "총집편"
+  },
+  "tagSpecial": {
+    "message": "특별편"
+  },
+  "tagSkipped": {
+    "message": "건너뜀"
+  },
+  "badgeContinue": {
+    "message": "이어 보기"
+  },
+  "badgeMovie": {
+    "message": "영화"
+  },
+  "badgeNew_one": {
+    "message": "새 에피소드 1"
+  },
+  "badgeNew_other": {
+    "message": "새 에피소드 $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSkipped_one": {
+    "message": "건너뜀 1"
+  },
+  "badgeSkipped_other": {
+    "message": "건너뜀 $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSpecial_one": {
+    "message": "특별편 1"
+  },
+  "badgeSpecial_other": {
+    "message": "특별편 $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "moreEps_one": {
+    "message": "+ 에피소드 1개"
+  },
+  "moreEps_other": {
+    "message": "+ 에피소드 $P1$개",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitDub": {
+    "message": "+$P1$개 더빙 대기 중",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitSub": {
+    "message": "+$P1$개 자막 대기 중",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsAria": {
+    "message": "$P1$ 작업",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsTitle": {
+    "message": "작업"
+  },
+  "actDiag": {
+    "message": "진단 정보 내보내기"
+  },
+  "actShow": {
+    "message": "다시 표시"
+  },
+  "actHideNew": {
+    "message": "새 에피소드가 나올 때까지 숨기기"
+  },
+  "actHideWeek": {
+    "message": "1주일 동안 숨기기"
+  },
+  "actHideForever": {
+    "message": "항상 숨기기"
+  },
+  "hiddenUntil": {
+    "message": "$P1$까지 숨김",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hiddenUntilNew": {
+    "message": "새 에피소드가 나올 때까지 숨김"
+  },
+  "hiddenForever": {
+    "message": "항상 숨김"
+  },
+  "epsCount_one": {
+    "message": "에피소드 1개"
+  },
+  "epsCount_other": {
+    "message": "에피소드 $P1$개",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "seriesCount_one": {
+    "message": "시리즈 1개"
+  },
+  "seriesCount_other": {
+    "message": "시리즈 $P1$개",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusEps": {
+    "message": "$P2$에 $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "statusElapsed": {
+    "message": " · $S$초 만에 업데이트",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusAllCaught": {
+    "message": "모두 시청함"
+  },
+  "secToWatch": {
+    "message": "볼 차례"
+  },
+  "emptySearch": {
+    "message": "여기에는 해당하는 시리즈가 없습니다."
+  },
+  "emptyToWatch": {
+    "message": "시작한 시리즈에 새 에피소드가 없습니다."
+  },
+  "secWaitDub": {
+    "message": "더빙 대기 중"
+  },
+  "noteWaitDub_one": {
+    "message": "자막판 1개 공개됨"
+  },
+  "noteWaitDub_other": {
+    "message": "자막판 $P1$개 공개됨",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secWaitSub": {
+    "message": "$P1$ 자막 대기 중",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteWaitSub_one": {
+    "message": "이 자막 없이 에피소드 1개 공개됨"
+  },
+  "noteWaitSub_other": {
+    "message": "이 자막 없이 에피소드 $P1$개 공개됨",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secNoDub": {
+    "message": "$P1$ 더빙 없음",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoDub_one": {
+    "message": "현재 시즌 $P2$ 더빙 없음 · 자막으로 볼 에피소드 1개",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoDub_other": {
+    "message": "현재 시즌 $P2$ 더빙 없음 · 자막으로 볼 에피소드 $P1$개",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeSubbed": {
+    "message": "자막으로 보기"
+  },
+  "btnSeeSubbedTitle": {
+    "message": "이 시리즈를 자막 모드로 바꿉니다"
+  },
+  "secErrors": {
+    "message": "확인하지 못함"
+  },
+  "secUpToDate": {
+    "message": "모두 시청"
+  },
+  "noteNoDubSeason": {
+    "message": "현재 시즌에 $P1$ 더빙 없음",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secNever": {
+    "message": "시작 전"
+  },
+  "secHidden": {
+    "message": "숨김"
+  },
+  "btnShow": {
+    "message": "표시"
+  },
+  "progressChecking": {
+    "message": "시리즈 $P2$개 중 $P1$개 확인 중…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "progressReading": {
+    "message": "관심 목록을 읽는 중…"
+  },
+  "errorQuery": {
+    "message": "Crunchyroll에 연결할 수 없습니다: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errorHint": {
+    "message": "crunchyroll.com에 로그인되어 있는지 확인한 뒤 새로고침을 누르세요."
+  },
+  "diagSaved": {
+    "message": "‘$P1$’ 진단 정보를 저장했습니다. 토큰, 쿠키, 계정 정보는 들어 있지 않습니다.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagError": {
+    "message": "진단 정보를 만들 수 없습니다: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagFile": {
+    "message": "diagnostics"
+  },
+  "profileLabel": {
+    "message": " · 프로필 $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "sortReleased": {
+    "message": "최근 공개순"
+  },
+  "sortWatched": {
+    "message": "최근 시청순"
+  },
+  "sortCount": {
+    "message": "에피소드 많은 순"
+  },
+  "sortTitle": {
+    "message": "제목순(A–Z)"
+  },
+  "badgeTitleSome": {
+    "message": "새 에피소드: $P2$에 $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "badgeTitleNone": {
+    "message": "Crunchyroll 새 에피소드: 모두 시청함"
+  },
+  "notifTitle_one": {
+    "message": "새 에피소드 1개"
+  },
+  "notifTitle_other": {
+    "message": "새 에피소드 $P1$개",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMore": {
+    "message": "+ 다른 시리즈 $P1$개",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMovie": {
+    "message": "영화"
+  },
+  "noticeOpeningTab": {
+    "message": "세션을 사용하기 위해 백그라운드에서 crunchyroll.com을 여는 중…"
+  },
+  "noticeProxy": {
+    "message": "직접 접근이 차단되어 crunchyroll.com 탭을 사용합니다."
+  },
+  "noticeOtherProfile": {
+    "message": "사용 중인 세션이 계정의 다른 프로필 것입니다. 사용하는 프로필로 crunchyroll.com을 연 뒤 새로고침을 누르세요."
+  },
+  "noticeSlowDown": {
+    "message": "Crunchyroll이 속도를 줄여 달라고 했습니다. $P1$초 후 다시 시도합니다…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errTabTimeout": {
+    "message": "Crunchyroll 탭을 불러오는 데 너무 오래 걸렸습니다."
+  },
+  "errTabNoAnswer": {
+    "message": "Crunchyroll 탭이 응답하지 않았습니다."
+  },
+  "errNoTab": {
+    "message": "세션에 사용할 crunchyroll.com 탭이 열려 있지 않습니다."
+  },
+  "errAuth": {
+    "message": "인증할 수 없습니다(HTTP $P1$). crunchyroll.com에 로그인되어 있는지 확인하세요.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errHttp": {
+    "message": "HTTP $P1$($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "errAccount": {
+    "message": "계정 ID를 찾을 수 없습니다."
+  },
+  "dubYes": {
+    "message": "$L$ 더빙 있음",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubOld": {
+    "message": "$L$ 더빙은 이전 시즌에만 있음",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubNo": {
+    "message": "$L$ 더빙 없음",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "tabsAria": {
+    "message": "섹션"
+  },
+  "seasonWinter": {
+    "message": "겨울"
+  },
+  "seasonSpring": {
+    "message": "봄"
+  },
+  "seasonSummer": {
+    "message": "여름"
+  },
+  "seasonFall": {
+    "message": "가을"
+  },
+  "seasonUnknown": {
+    "message": "시즌 정보 없음"
+  },
+  "emptyNever": {
+    "message": "관심 목록의 시리즈를 모두 시작했습니다."
+  },
+  "seasonLabel": {
+    "message": "$Y$년 $S$",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      },
+      "y": {
+        "content": "$2"
+      }
+    }
+  },
+  "secSearch": {
+    "message": "상세 검색"
+  },
+  "searchQueryPlaceholder": {
+    "message": "애니메이션 이름(한국어, 영어, 로마자 또는 일본어)"
+  },
+  "searchButton": {
+    "message": "검색"
+  },
+  "searchScope": {
+    "message": "범위"
+  },
+  "searchScopeAll": {
+    "message": "전체 카탈로그"
+  },
+  "searchScopeMine": {
+    "message": "내 관심 목록만"
+  },
+  "searchDub": {
+    "message": "더빙"
+  },
+  "searchDubAny": {
+    "message": "모든 오디오"
+  },
+  "searchDubYes": {
+    "message": "$P1$ 더빙 있음",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchDubNo": {
+    "message": "$P1$ 더빙 없음",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAge": {
+    "message": "등급"
+  },
+  "searchAgeAny": {
+    "message": "전체"
+  },
+  "searchAgeUpTo": {
+    "message": "$P1$세 이용가까지",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "ageFree": {
+    "message": "전체 이용가"
+  },
+  "ageMin": {
+    "message": "$P1$세 미만 비권장",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchYear": {
+    "message": "방영 시작 연도"
+  },
+  "searchAny": {
+    "message": "전체"
+  },
+  "searchSeason": {
+    "message": "시즌"
+  },
+  "searchLoading": {
+    "message": "불러오는 중…"
+  },
+  "searchNeedAniList": {
+    "message": "Crunchyroll 검색은 일본어 이름을 이해하지 못합니다. AniList를 켜면 검색어를 AniList로 보내 제목을 찾습니다."
+  },
+  "searchEnableAniList": {
+    "message": "AniList 켜기"
+  },
+  "searchAniListError": {
+    "message": "지금은 AniList에 연결할 수 없어 Crunchyroll 검색 결과만 표시합니다."
+  },
+  "searchMineEmpty": {
+    "message": "아직 관심 목록을 읽지 않았습니다. 새로고침을 누른 뒤 다시 시도하세요."
+  },
+  "searchError": {
+    "message": "검색할 수 없습니다: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchHint": {
+    "message": "이름을 입력하거나 필터를 고르세요. 이름이 없으면 Crunchyroll 전체 카탈로그(또는 고른 시즌)에서 찾습니다."
+  },
+  "searchMore": {
+    "message": "더 보기"
+  },
+  "searchMovie": {
+    "message": "영화"
+  },
+  "searchInList": {
+    "message": "관심 목록에 있음"
+  },
+  "setAniListLabel": {
+    "message": "일본어·로마자 이름도 검색(검색어를 AniList로 보냄)"
+  },
+  "searchCount_one": {
+    "message": "결과 1개"
+  },
+  "searchCount_other": {
+    "message": "결과 $P1$개",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSeasons_one": {
+    "message": "시즌 1개"
+  },
+  "searchSeasons_other": {
+    "message": "시즌 $P1$개",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSort": {
+    "message": "정렬"
+  },
+  "searchSortDefault": {
+    "message": "Crunchyroll 기본 순서"
+  },
+  "searchSortYear": {
+    "message": "최근 방영순"
+  },
+  "searchSortTitle": {
+    "message": "제목순(A–Z)"
+  },
+  "searchLoadingCatalog": {
+    "message": "Crunchyroll 카탈로그를 내려받는 중(처음 한 번만, 몇 초 걸립니다)…"
+  },
+  "sortWaiting": {
+    "message": "대기 에피소드 많은 순"
+  },
+  "sortNext": {
+    "message": "다음 공개순"
+  },
+  "sortSeason": {
+    "message": "방영 시즌순"
+  },
+  "uiLangAuto": {
+    "message": "자동(브라우저 언어)"
+  },
+  "setUiLangLabel": {
+    "message": "확장 프로그램 언어"
+  },
+  "setUiLangHelp": {
+    "message": "‘자동’은 Firefox 언어를 따릅니다."
+  }
+}

@@ -1,0 +1,885 @@
+{
+  "extName": {
+    "message": "Crunchyroll – புதிய எபிசோடுகள்"
+  },
+  "extDescription": {
+    "message": "Crunchyroll வாட்ச்லிஸ்டில் உள்ள தொடர்களில் நீங்கள் இன்னும் பார்க்காத எபிசோடுகளை, சப்டைட்டில் அல்லது டப் என்ற உங்கள் விருப்பப்படி, தனிப் பக்கத்தில் காட்டுகிறது."
+  },
+  "actionTitle": {
+    "message": "Crunchyroll புதிய எபிசோடுகள்"
+  },
+  "pageTitle": {
+    "message": "புதிய எபிசோடுகள் – Crunchyroll"
+  },
+  "heading": {
+    "message": "புதிய எபிசோடுகள்"
+  },
+  "btnSettings": {
+    "message": "அமைப்புகள்"
+  },
+  "btnRefresh": {
+    "message": "புதுப்பி"
+  },
+  "versionLabel": {
+    "message": "பதிப்பு $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "அமைப்புகள்"
+  },
+  "setDubLabel": {
+    "message": "டப்பில் பார்க்கும் மொழி"
+  },
+  "setDubHelp": {
+    "message": "“டப்” என அமைத்த தொடர்கள் இந்த மொழியில் டப் வெளியான பிறகே தெரியும்."
+  },
+  "setSubLabel": {
+    "message": "சப்டைட்டில் மொழி"
+  },
+  "setSubHelp": {
+    "message": "“சப்டைட்டில்” என அமைத்த தொடர்கள் இந்த மொழியில் சப்டைட்டில் கிடைத்த பிறகே தெரியும்."
+  },
+  "setModeLabel": {
+    "message": "தொடர்களின் இயல்பு முறை"
+  },
+  "setModeHelp": {
+    "message": "தனியாக அமைக்காத தொடர்களுக்குப் பொருந்தும்."
+  },
+  "setLocaleLabel": {
+    "message": "தலைப்புகள் மற்றும் இணைப்புகளின் மொழி"
+  },
+  "setAutoLabel": {
+    "message": "தானாகச் சரிபார்"
+  },
+  "setAutoHelp": {
+    "message": "பின்னணியில் நீட்டிப்பு ஐகானில் உள்ள எண்ணைப் புதுப்பிக்கிறது. நேரடி அணுகல் தடுக்கப்பட்டால் crunchyroll.com தாவல் திறந்திருக்க வேண்டும்."
+  },
+  "setNotifyLabel": {
+    "message": "புதிய எபிசோடு வந்தால் அறிவி"
+  },
+  "setExtrasLabel": {
+    "message": "சிறப்பு எபிசோடுகள், சுருக்கங்களைக் காட்டு (எண்ணிக்கையில் சேராது)"
+  },
+  "setSkippedLabel": {
+    "message": "தவறவிட்ட எபிசோடுகளைக் காட்டு (கடைசியாகப் பார்த்ததற்கு முந்தையவை)"
+  },
+  "setMinStartedLabel": {
+    "message": "இத்தனை வினாடிகளுக்குப் பிறகு தொடங்கியதாகக் கருது"
+  },
+  "setMinStartedHelp": {
+    "message": "எபிசோடு பக்கத்தைத் திறந்தாலே Crunchyroll சில வினாடிகளைப் பதிவு செய்கிறது. இதைவிடக் குறைவான பதிவு புறக்கணிக்கப்படும். 0 முதல் 600."
+  },
+  "setConcurrencyLabel": {
+    "message": "ஒரே நேரத்தில் சரிபார்க்கும் தொடர்கள்"
+  },
+  "setConcurrencyHelp": {
+    "message": "பெரிய எண் வேகமானது. “மிக அதிக கோரிக்கைகள்” (HTTP 429) பிழை வந்தால் குறையுங்கள். 1 முதல் 32."
+  },
+  "setPlayheadBatchLabel": {
+    "message": "தொகுப்பு அளவு"
+  },
+  "setPlayheadBatchHelp": {
+    "message": "பார்வை முன்னேற்ற (playheads) ஒவ்வொரு கோரிக்கையிலும் எத்தனை எபிசோடுகள், வாட்ச்லிஸ்ட் மற்றும் வரலாற்றின் ஒவ்வொரு பக்கத்திலும் எத்தனை உருப்படிகள். பெரிய தொகுப்பு குறைவான கோரிக்கைகள். சரிபார்ப்பு தோல்வியடையத் தொடங்கினால் குறையுங்கள். 10 முதல் 300."
+  },
+  "searchPlaceholder": {
+    "message": "தொடரைத் தேடு…"
+  },
+  "searchAria": {
+    "message": "தலைப்பால் தொடரைத் தேடு"
+  },
+  "sortLabel": {
+    "message": "வரிசை"
+  },
+  "modeSub": {
+    "message": "சப்டைட்டில்"
+  },
+  "modeDub": {
+    "message": "டப்"
+  },
+  "modeAuto": {
+    "message": "எந்த ஆடியோவும்"
+  },
+  "modeAutoLong": {
+    "message": "எந்த ஆடியோவும் (முதல் வெளியீட்டில் அறிவி)"
+  },
+  "modeDubLang": {
+    "message": "டப் $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeDefault": {
+    "message": "இயல்பு ($P1$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortSub": {
+    "message": "சப்டைட்டில்"
+  },
+  "shortDub": {
+    "message": "டப் $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortAuto": {
+    "message": "எந்த ஆடியோவும்"
+  },
+  "modeAria": {
+    "message": "$P1$ ஆடியோ",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeTitle": {
+    "message": "இந்தத் தொடரை நீங்கள் எப்படிப் பார்க்கிறீர்கள்"
+  },
+  "autoOff": {
+    "message": "அணைக்கப்பட்டது"
+  },
+  "autoMinutes": {
+    "message": "ஒவ்வொரு $P1$ நிமிடமும்",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "autoHour": {
+    "message": "ஒவ்வொரு மணிநேரமும்"
+  },
+  "autoHours": {
+    "message": "ஒவ்வொரு $P1$ மணிநேரமும்",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "epMovie": {
+    "message": "திரைப்படம்"
+  },
+  "epLabel": {
+    "message": "S$P1$ E$P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "relNow": {
+    "message": "இப்போதுதான்"
+  },
+  "relHours": {
+    "message": "$P1$ மணி முன்",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "relYesterday": {
+    "message": "நேற்று"
+  },
+  "relDays": {
+    "message": "$P1$ நாட்களுக்கு முன்",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futToday": {
+    "message": "இன்று $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futTomorrow": {
+    "message": "நாளை $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futDays": {
+    "message": "$P1$ நாட்களில் ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "nextText": {
+    "message": "அடுத்தது: $P1$ $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "watchedPct": {
+    "message": "$P1$% பார்த்தது",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "watchNext": {
+    "message": "அடுத்ததைப் பார்"
+  },
+  "tagRecap": {
+    "message": "சுருக்கம்"
+  },
+  "tagSpecial": {
+    "message": "சிறப்பு"
+  },
+  "tagSkipped": {
+    "message": "தவறவிட்டது"
+  },
+  "badgeContinue": {
+    "message": "தொடர்"
+  },
+  "badgeMovie": {
+    "message": "திரைப்படம்"
+  },
+  "badgeNew_one": {
+    "message": "1 புதியது"
+  },
+  "badgeNew_other": {
+    "message": "$P1$ புதியவை",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSkipped_one": {
+    "message": "1 தவறவிட்டது"
+  },
+  "badgeSkipped_other": {
+    "message": "$P1$ தவறவிட்டவை",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSpecial_one": {
+    "message": "1 சிறப்பு"
+  },
+  "badgeSpecial_other": {
+    "message": "$P1$ சிறப்பு",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "moreEps_one": {
+    "message": "+ 1 எபிசோடு"
+  },
+  "moreEps_other": {
+    "message": "+ $P1$ எபிசோடுகள்",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitDub": {
+    "message": "+$P1$ டப்புக்காகக் காத்திருக்கின்றன",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitSub": {
+    "message": "+$P1$ சப்டைட்டிலுக்காகக் காத்திருக்கின்றன",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsAria": {
+    "message": "$P1$க்கான செயல்கள்",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsTitle": {
+    "message": "செயல்கள்"
+  },
+  "actDiag": {
+    "message": "கண்டறிதல் தகவலை ஏற்றுமதி செய்"
+  },
+  "actShow": {
+    "message": "மீண்டும் காட்டு"
+  },
+  "actHideNew": {
+    "message": "புதிய எபிசோடு வரும் வரை மறை"
+  },
+  "actHideWeek": {
+    "message": "1 வாரம் மறை"
+  },
+  "actHideForever": {
+    "message": "எப்போதும் மறை"
+  },
+  "hiddenUntil": {
+    "message": "$P1$ வரை மறைக்கப்பட்டது",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hiddenUntilNew": {
+    "message": "புதிய எபிசோடு வரும் வரை மறைக்கப்பட்டது"
+  },
+  "hiddenForever": {
+    "message": "எப்போதும் மறைக்கப்பட்டது"
+  },
+  "epsCount_one": {
+    "message": "1 எபிசோடு"
+  },
+  "epsCount_other": {
+    "message": "$P1$ எபிசோடுகள்",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "seriesCount_one": {
+    "message": "1 தொடர்"
+  },
+  "seriesCount_other": {
+    "message": "$P1$ தொடர்கள்",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusEps": {
+    "message": "$P2$இல் $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "statusElapsed": {
+    "message": " · $S$ வினாடியில் புதுப்பிக்கப்பட்டது",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusAllCaught": {
+    "message": "அனைத்தும் பார்த்தாயிற்று"
+  },
+  "secToWatch": {
+    "message": "பார்க்க வேண்டியவை"
+  },
+  "emptySearch": {
+    "message": "இங்கே எந்தத் தொடரும் கிடைக்கவில்லை."
+  },
+  "emptyToWatch": {
+    "message": "நீங்கள் தொடங்கிய தொடர்களில் புதிய எபிசோடுகள் இல்லை."
+  },
+  "secWaitDub": {
+    "message": "டப்புக்காகக் காத்திருப்பவை"
+  },
+  "noteWaitDub_one": {
+    "message": "1 சப்டைட்டிலுடன் வந்துவிட்டது"
+  },
+  "noteWaitDub_other": {
+    "message": "$P1$ சப்டைட்டிலுடன் வந்துவிட்டன",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secWaitSub": {
+    "message": "$P1$ சப்டைட்டிலுக்காகக் காத்திருப்பவை",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteWaitSub_one": {
+    "message": "1 எபிசோடு இந்த சப்டைட்டில் இல்லாமல் வந்துவிட்டது"
+  },
+  "noteWaitSub_other": {
+    "message": "$P1$ எபிசோடுகள் இந்த சப்டைட்டில் இல்லாமல் வந்துவிட்டன",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secNoDub": {
+    "message": "$P1$ டப் இல்லை",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoDub_one": {
+    "message": "தற்போதைய சீசனில் $P2$ டப் இல்லை · பார்க்க 1 சப்டைட்டில் எபிசோடு",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoDub_other": {
+    "message": "தற்போதைய சீசனில் $P2$ டப் இல்லை · பார்க்க $P1$ சப்டைட்டில் எபிசோடுகள்",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeSubbed": {
+    "message": "சப்டைட்டிலுடன் பார்"
+  },
+  "btnSeeSubbedTitle": {
+    "message": "இந்தத் தொடரை சப்டைட்டில் முறைக்கு மாற்றுகிறது"
+  },
+  "secErrors": {
+    "message": "சரிபார்க்க முடியவில்லை"
+  },
+  "secUpToDate": {
+    "message": "அனைத்தும் பார்த்தாயிற்று"
+  },
+  "noteNoDubSeason": {
+    "message": "தற்போதைய சீசனில் $P1$ டப் இல்லை",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secNever": {
+    "message": "தொடங்க வேண்டியவை"
+  },
+  "secHidden": {
+    "message": "மறைக்கப்பட்டவை"
+  },
+  "btnShow": {
+    "message": "காட்டு"
+  },
+  "progressChecking": {
+    "message": "$P2$இல் $P1$ தொடர் சரிபார்க்கப்படுகிறது…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "progressReading": {
+    "message": "உங்கள் வாட்ச்லிஸ்ட் படிக்கப்படுகிறது…"
+  },
+  "errorQuery": {
+    "message": "Crunchyroll-ஐத் தொடர்புகொள்ள முடியவில்லை: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errorHint": {
+    "message": "crunchyroll.com-இல் உள்நுழைந்திருப்பதை உறுதிசெய்து புதுப்பி என்பதை அழுத்துங்கள்."
+  },
+  "diagSaved": {
+    "message": "“$P1$” கண்டறிதல் தகவல் சேமிக்கப்பட்டது. இதில் டோக்கன், குக்கீ அல்லது கணக்குத் தரவு இல்லை.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagError": {
+    "message": "கண்டறிதல் தகவலை உருவாக்க முடியவில்லை: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagFile": {
+    "message": "diagnostics"
+  },
+  "profileLabel": {
+    "message": " · சுயவிவரம் $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "sortReleased": {
+    "message": "சமீபத்திய வெளியீடு"
+  },
+  "sortWatched": {
+    "message": "சமீபத்தில் பார்த்தவை"
+  },
+  "sortCount": {
+    "message": "அதிக எபிசோடுகள்"
+  },
+  "sortTitle": {
+    "message": "தலைப்பு (A–Z)"
+  },
+  "badgeTitleSome": {
+    "message": "புதிய எபிசோடுகள்: $P2$இல் $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "badgeTitleNone": {
+    "message": "Crunchyroll புதிய எபிசோடுகள்: அனைத்தும் பார்த்தாயிற்று"
+  },
+  "notifTitle_one": {
+    "message": "1 புதிய எபிசோடு"
+  },
+  "notifTitle_other": {
+    "message": "$P1$ புதிய எபிசோடுகள்",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMore": {
+    "message": "+ மேலும் $P1$ தொடர்கள்",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMovie": {
+    "message": "திரைப்படம்"
+  },
+  "noticeOpeningTab": {
+    "message": "உங்கள் அமர்வைப் பயன்படுத்த crunchyroll.com பின்னணியில் திறக்கப்படுகிறது…"
+  },
+  "noticeProxy": {
+    "message": "நேரடி அணுகல் தடுக்கப்பட்டது; crunchyroll.com தாவல் பயன்படுத்தப்படுகிறது."
+  },
+  "noticeOtherProfile": {
+    "message": "பயன்பாட்டில் உள்ள அமர்வு கணக்கின் வேறு சுயவிவரத்துடையது. உங்கள் சுயவிவரத்தில் crunchyroll.com-ஐத் திறந்து புதுப்பி என்பதை அழுத்துங்கள்."
+  },
+  "noticeSlowDown": {
+    "message": "Crunchyroll வேகத்தைக் குறைக்கச் சொன்னது; $P1$ வினாடியில் மீண்டும் முயற்சி…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errTabTimeout": {
+    "message": "Crunchyroll தாவல் ஏற்ற அதிக நேரம் எடுத்தது."
+  },
+  "errTabNoAnswer": {
+    "message": "Crunchyroll தாவல் பதிலளிக்கவில்லை."
+  },
+  "errNoTab": {
+    "message": "உங்கள் அமர்வுக்கு crunchyroll.com தாவல் எதுவும் திறந்திருக்கவில்லை."
+  },
+  "errAuth": {
+    "message": "அங்கீகரிக்க முடியவில்லை (HTTP $P1$). crunchyroll.com-இல் உள்நுழைந்திருப்பதை உறுதிசெய்யுங்கள்.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errHttp": {
+    "message": "HTTP $P1$ ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "errAccount": {
+    "message": "உங்கள் கணக்கு ID கிடைக்கவில்லை."
+  },
+  "dubYes": {
+    "message": "$L$ டப் உள்ளது",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubOld": {
+    "message": "$L$ டப் முந்தைய சீசன்களில் மட்டும்",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubNo": {
+    "message": "$L$ டப் இல்லை",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "tabsAria": {
+    "message": "பிரிவுகள்"
+  },
+  "seasonWinter": {
+    "message": "குளிர்காலம்"
+  },
+  "seasonSpring": {
+    "message": "வசந்தகாலம்"
+  },
+  "seasonSummer": {
+    "message": "கோடைகாலம்"
+  },
+  "seasonFall": {
+    "message": "இலையுதிர்காலம்"
+  },
+  "seasonUnknown": {
+    "message": "சீசன் குறிப்பிடப்படவில்லை"
+  },
+  "emptyNever": {
+    "message": "உங்கள் வாட்ச்லிஸ்டில் உள்ள எல்லாத் தொடர்களையும் தொடங்கிவிட்டீர்கள்."
+  },
+  "seasonLabel": {
+    "message": "$S$ $Y$",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      },
+      "y": {
+        "content": "$2"
+      }
+    }
+  },
+  "secSearch": {
+    "message": "மேம்பட்ட தேடல்"
+  },
+  "searchQueryPlaceholder": {
+    "message": "அனிமே பெயர் (தமிழ், ஆங்கிலம், ரோமாஜி அல்லது ஜப்பானியம்)"
+  },
+  "searchButton": {
+    "message": "தேடு"
+  },
+  "searchScope": {
+    "message": "எங்கே"
+  },
+  "searchScopeAll": {
+    "message": "முழு அட்டவணை"
+  },
+  "searchScopeMine": {
+    "message": "என் வாட்ச்லிஸ்ட் மட்டும்"
+  },
+  "searchDub": {
+    "message": "டப்"
+  },
+  "searchDubAny": {
+    "message": "எந்த ஆடியோவும்"
+  },
+  "searchDubYes": {
+    "message": "$P1$ டப் உள்ளது",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchDubNo": {
+    "message": "$P1$ டப் இல்லை",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAge": {
+    "message": "வயது மதிப்பீடு"
+  },
+  "searchAgeAny": {
+    "message": "அனைத்தும்"
+  },
+  "searchAgeUpTo": {
+    "message": "$P1$+ வரை",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "ageFree": {
+    "message": "அனைத்து வயதினருக்கும்"
+  },
+  "ageMin": {
+    "message": "$P1$ வயதுக்குக் குறைந்தவர்களுக்குப் பரிந்துரைக்கப்படவில்லை",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchYear": {
+    "message": "வெளியீட்டு ஆண்டு"
+  },
+  "searchAny": {
+    "message": "ஏதேனும்"
+  },
+  "searchSeason": {
+    "message": "சீசன்"
+  },
+  "searchLoading": {
+    "message": "ஏற்றுகிறது…"
+  },
+  "searchNeedAniList": {
+    "message": "Crunchyroll தேடலுக்கு ஜப்பானியப் பெயர்கள் புரியாது. AniList இயக்கத்தில் இருந்தால், தலைப்பைக் கண்டறிய தேடல் உரை AniList-க்கு அனுப்பப்படும்."
+  },
+  "searchEnableAniList": {
+    "message": "AniList-ஐ இயக்கு"
+  },
+  "searchAniListError": {
+    "message": "இப்போது AniList-ஐத் தொடர்புகொள்ள முடியவில்லை; முடிவுகள் Crunchyroll தேடலில் இருந்து மட்டும்."
+  },
+  "searchMineEmpty": {
+    "message": "உங்கள் வாட்ச்லிஸ்ட் இன்னும் படிக்கப்படவில்லை. புதுப்பி என்பதை அழுத்தி மீண்டும் முயலுங்கள்."
+  },
+  "searchError": {
+    "message": "தேட முடியவில்லை: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchHint": {
+    "message": "பெயரை உள்ளிடுங்கள் அல்லது வடிகட்டிகளைத் தேர்ந்தெடுங்கள். பெயர் இல்லாமல், முழு Crunchyroll அட்டவணையிலும் (அல்லது தேர்ந்தெடுத்த சீசனில்) தேடப்படும்."
+  },
+  "searchMore": {
+    "message": "மேலும் ஏற்று"
+  },
+  "searchMovie": {
+    "message": "திரைப்படம்"
+  },
+  "searchInList": {
+    "message": "உங்கள் வாட்ச்லிஸ்டில் உள்ளது"
+  },
+  "setAniListLabel": {
+    "message": "ஜப்பானிய மற்றும் ரோமாஜி பெயர்களாலும் தேடு (தேடல் உரையை AniList-க்கு அனுப்பும்)"
+  },
+  "searchCount_one": {
+    "message": "1 முடிவு"
+  },
+  "searchCount_other": {
+    "message": "$P1$ முடிவுகள்",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSeasons_one": {
+    "message": "1 சீசன்"
+  },
+  "searchSeasons_other": {
+    "message": "$P1$ சீசன்கள்",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSort": {
+    "message": "வரிசை"
+  },
+  "searchSortDefault": {
+    "message": "Crunchyroll வரிசை"
+  },
+  "searchSortYear": {
+    "message": "சமீபத்திய வெளியீடு"
+  },
+  "searchSortTitle": {
+    "message": "தலைப்பு (A–Z)"
+  },
+  "searchLoadingCatalog": {
+    "message": "Crunchyroll அட்டவணை பதிவிறக்கப்படுகிறது (முதல் முறை மட்டும், சில வினாடிகள்)…"
+  },
+  "sortWaiting": {
+    "message": "அதிகம் காத்திருப்பவை"
+  },
+  "sortNext": {
+    "message": "அடுத்த வெளியீடு"
+  },
+  "sortSeason": {
+    "message": "வெளியீட்டு சீசன்"
+  },
+  "uiLangAuto": {
+    "message": "தானியங்கு (உலாவியின் மொழி)"
+  },
+  "setUiLangLabel": {
+    "message": "நீட்டிப்பின் மொழி"
+  },
+  "setUiLangHelp": {
+    "message": "“தானியங்கு” Firefox-இன் மொழியைப் பின்பற்றும்."
+  }
+}

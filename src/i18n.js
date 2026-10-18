@@ -28,16 +28,34 @@ var CRI18n = (() => {
     de_DE: "Deutsch",
     it_IT: "Italiano",
     ja_JP: "日本語",
+    zh_CN: "简体中文",
+    zh_TW: "繁體中文",
+    ko_KR: "한국어",
+    hi_IN: "हिन्दी",
+    bn_IN: "বাংলা",
+    mr_IN: "मराठी",
+    te_IN: "తెలుగు",
+    ta_IN: "தமிழ்",
+    ur_PK: "اردو",
+    ar_SA: "العربية",
+    ru_RU: "Русский",
+    tr_TR: "Türkçe",
+    id_ID: "Bahasa Indonesia",
+    vi_VN: "Tiếng Việt",
   };
+  // Idiomas escritos da direita para a esquerda.
+  const RTL = new Set(["ar_SA", "ur_PK"]);
   const FALLBACK = "en_US";
 
   let current = null; // pasta em uso (ex.: "pt_BR"), depois do init
   let messages = null;
   let reserve = null;
 
+  // "pt-br" → "pt_BR"; "es-419" → "es_419"; o script ("zh-Hant-TW") é ignorado aqui.
   const toFolder = (code) => {
-    const [l, r] = String(code || "").replace("_", "-").split("-");
-    return r ? `${l.toLowerCase()}_${/^\d+$/.test(r) ? r : r.toUpperCase()}` : l.toLowerCase();
+    const parts = String(code || "").replace(/_/g, "-").split("-").filter((p) => !/^[A-Za-z]{4}$/.test(p));
+    const [l, r] = parts;
+    return r ? `${l.toLowerCase()}_${/^\d+$/.test(r) ? r : r.toUpperCase()}` : (l || "").toLowerCase();
   };
   const toBcp47 = (folder) => folder.replace("_", "-");
 
@@ -57,6 +75,11 @@ var CRI18n = (() => {
     const lang = f.split("_")[0];
     if (lang === "pt") return "pt_BR"; // pt-PT já caiu acima; pt-AO, pt-MZ… → pt_BR
     if (lang === "es") return "es_419"; // es-ES já caiu acima; es-MX, es-AR… → América Latina
+    if (lang === "zh") {
+      // Tradicional em Taiwan, Hong Kong e Macau (e quando o script Hant vem no código).
+      return /Hant|[-_](TW|HK|MO)\b/i.test(String(code)) ? "zh_TW" : "zh_CN";
+    }
+    if (lang === "yue") return "zh_TW"; // cantonês escrito em caracteres tradicionais
     const same = Object.keys(LANGUAGES).find((k) => k.split("_")[0] === lang);
     return same || FALLBACK;
   }
@@ -145,8 +168,13 @@ var CRI18n = (() => {
   // Opções do seletor de idioma: [valor, rótulo].
   const languageOptions = () => [["auto", t("uiLangAuto")], ...Object.entries(LANGUAGES)];
 
+  const dir = () => (current && RTL.has(current) ? "rtl" : "ltr");
+
   function applyToDocument(doc = document) {
-    if (doc.documentElement) doc.documentElement.lang = lang();
+    if (doc.documentElement) {
+      doc.documentElement.lang = lang();
+      doc.documentElement.dir = dir();
+    }
     for (const el of doc.querySelectorAll("[data-i18n]")) el.textContent = t(el.dataset.i18n);
     for (const [attr, prop] of [
       ["placeholder", "i18nPlaceholder"],
@@ -157,5 +185,5 @@ var CRI18n = (() => {
     }
   }
 
-  return { t, tn, lang, langName, applyToDocument, init, use, resolve, languageOptions, LANGUAGES, FALLBACK };
+  return { t, tn, lang, dir, langName, applyToDocument, init, use, resolve, languageOptions, LANGUAGES, FALLBACK };
 })();

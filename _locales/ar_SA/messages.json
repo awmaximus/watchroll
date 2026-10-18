@@ -1,0 +1,885 @@
+{
+  "extName": {
+    "message": "Crunchyroll – حلقات جديدة"
+  },
+  "extDescription": {
+    "message": "صفحة خاصة بالحلقات التي لم تشاهدها من المسلسلات في قائمة المشاهدة على Crunchyroll، حسب مشاهدتك مترجمًا أو مدبلجًا."
+  },
+  "actionTitle": {
+    "message": "حلقات Crunchyroll الجديدة"
+  },
+  "pageTitle": {
+    "message": "حلقات جديدة – Crunchyroll"
+  },
+  "heading": {
+    "message": "حلقات جديدة"
+  },
+  "btnSettings": {
+    "message": "الإعدادات"
+  },
+  "btnRefresh": {
+    "message": "تحديث"
+  },
+  "versionLabel": {
+    "message": "الإصدار $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "الإعدادات"
+  },
+  "setDubLabel": {
+    "message": "اللغة التي تشاهد بها مدبلجًا"
+  },
+  "setDubHelp": {
+    "message": "المسلسلات المضبوطة على «مدبلج» لا تظهر إلا بعد صدور الدبلجة بهذه اللغة."
+  },
+  "setSubLabel": {
+    "message": "لغة الترجمة"
+  },
+  "setSubHelp": {
+    "message": "المسلسلات المضبوطة على «مترجم» لا تظهر إلا بعد توفر الترجمة بهذه اللغة."
+  },
+  "setModeLabel": {
+    "message": "الوضع الافتراضي للمسلسلات"
+  },
+  "setModeHelp": {
+    "message": "ينطبق على المسلسلات التي لم تضبطها بشكل فردي."
+  },
+  "setLocaleLabel": {
+    "message": "لغة العناوين والروابط"
+  },
+  "setAutoLabel": {
+    "message": "التحقق تلقائيًا"
+  },
+  "setAutoHelp": {
+    "message": "يحدّث الرقم على أيقونة الإضافة في الخلفية. يحتاج إلى علامة تبويب crunchyroll.com مفتوحة إذا كان الوصول المباشر محظورًا."
+  },
+  "setNotifyLabel": {
+    "message": "نبّهني عند صدور حلقة جديدة"
+  },
+  "setExtrasLabel": {
+    "message": "إظهار الحلقات الخاصة والملخصات (لا تُحسب)"
+  },
+  "setSkippedLabel": {
+    "message": "إظهار الحلقات المتخطاة (قبل آخر حلقة شاهدتها)"
+  },
+  "setMinStartedLabel": {
+    "message": "تُعدّ بدأت بعد (ثوانٍ)"
+  },
+  "setMinStartedHelp": {
+    "message": "يسجّل Crunchyroll بضع ثوانٍ لمجرد فتح صفحة الحلقة. يُتجاهل التسجيل الأقل من هذه المدة. من 0 إلى 600."
+  },
+  "setConcurrencyLabel": {
+    "message": "المسلسلات التي تُفحص في الوقت نفسه"
+  },
+  "setConcurrencyHelp": {
+    "message": "الأرقام الأكبر أسرع. إذا ظهرت أخطاء «طلبات كثيرة جدًا» (HTTP 429) فقلّلها. من 1 إلى 32."
+  },
+  "setPlayheadBatchLabel": {
+    "message": "حجم الدفعة"
+  },
+  "setPlayheadBatchHelp": {
+    "message": "عدد الحلقات في كل استعلام عن تقدّم المشاهدة (playheads) وعدد العناصر في كل صفحة من قائمة المشاهدة والسجل. الدفعات الأكبر تعني طلبات أقل. إذا بدأ الفحص يفشل فقلّلها. من 10 إلى 300."
+  },
+  "searchPlaceholder": {
+    "message": "ابحث عن مسلسل…"
+  },
+  "searchAria": {
+    "message": "ابحث عن مسلسل بالعنوان"
+  },
+  "sortLabel": {
+    "message": "ترتيب"
+  },
+  "modeSub": {
+    "message": "مترجم"
+  },
+  "modeDub": {
+    "message": "مدبلج"
+  },
+  "modeAuto": {
+    "message": "أي صوت"
+  },
+  "modeAutoLong": {
+    "message": "أي صوت (تنبيه عند أول صدور)"
+  },
+  "modeDubLang": {
+    "message": "مدبلج $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeDefault": {
+    "message": "افتراضي ($P1$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortSub": {
+    "message": "مترجم"
+  },
+  "shortDub": {
+    "message": "مدبلج $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortAuto": {
+    "message": "أي صوت"
+  },
+  "modeAria": {
+    "message": "الصوت لـ $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeTitle": {
+    "message": "طريقة مشاهدتك لهذا المسلسل"
+  },
+  "autoOff": {
+    "message": "متوقف"
+  },
+  "autoMinutes": {
+    "message": "كل $P1$ دقيقة",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "autoHour": {
+    "message": "كل ساعة"
+  },
+  "autoHours": {
+    "message": "كل $P1$ ساعات",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "epMovie": {
+    "message": "فيلم"
+  },
+  "epLabel": {
+    "message": "م$P1$ ح$P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "relNow": {
+    "message": "الآن"
+  },
+  "relHours": {
+    "message": "قبل $P1$ س",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "relYesterday": {
+    "message": "أمس"
+  },
+  "relDays": {
+    "message": "قبل $P1$ يوم",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futToday": {
+    "message": "اليوم $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futTomorrow": {
+    "message": "غدًا $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futDays": {
+    "message": "بعد $P1$ يوم ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "nextText": {
+    "message": "التالية: $P1$ $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "watchedPct": {
+    "message": "شوهد $P1$%",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "watchNext": {
+    "message": "شاهد التالية"
+  },
+  "tagRecap": {
+    "message": "ملخص"
+  },
+  "tagSpecial": {
+    "message": "خاصة"
+  },
+  "tagSkipped": {
+    "message": "متخطاة"
+  },
+  "badgeContinue": {
+    "message": "متابعة"
+  },
+  "badgeMovie": {
+    "message": "فيلم"
+  },
+  "badgeNew_one": {
+    "message": "جديدة: 1"
+  },
+  "badgeNew_other": {
+    "message": "جديدة: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSkipped_one": {
+    "message": "متخطاة: 1"
+  },
+  "badgeSkipped_other": {
+    "message": "متخطاة: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSpecial_one": {
+    "message": "خاصة: 1"
+  },
+  "badgeSpecial_other": {
+    "message": "خاصة: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "moreEps_one": {
+    "message": "+ حلقات أخرى: 1"
+  },
+  "moreEps_other": {
+    "message": "+ حلقات أخرى: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitDub": {
+    "message": "+$P1$ بانتظار الدبلجة",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitSub": {
+    "message": "+$P1$ بانتظار الترجمة",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsAria": {
+    "message": "إجراءات لـ $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsTitle": {
+    "message": "إجراءات"
+  },
+  "actDiag": {
+    "message": "تصدير التشخيص"
+  },
+  "actShow": {
+    "message": "إظهار مجددًا"
+  },
+  "actHideNew": {
+    "message": "إخفاء حتى صدور حلقة جديدة"
+  },
+  "actHideWeek": {
+    "message": "إخفاء لمدة أسبوع"
+  },
+  "actHideForever": {
+    "message": "إخفاء دائمًا"
+  },
+  "hiddenUntil": {
+    "message": "مخفي حتى $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hiddenUntilNew": {
+    "message": "مخفي حتى صدور حلقة جديدة"
+  },
+  "hiddenForever": {
+    "message": "مخفي دائمًا"
+  },
+  "epsCount_one": {
+    "message": "الحلقات: 1"
+  },
+  "epsCount_other": {
+    "message": "الحلقات: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "seriesCount_one": {
+    "message": "المسلسلات: 1"
+  },
+  "seriesCount_other": {
+    "message": "المسلسلات: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusEps": {
+    "message": "$P1$ · $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "statusElapsed": {
+    "message": " · حُدّث في $S$ ث",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusAllCaught": {
+    "message": "شاهدت كل شيء"
+  },
+  "secToWatch": {
+    "message": "للمشاهدة"
+  },
+  "emptySearch": {
+    "message": "لا توجد مسلسلات هنا."
+  },
+  "emptyToWatch": {
+    "message": "لا حلقات جديدة في المسلسلات التي بدأتها."
+  },
+  "secWaitDub": {
+    "message": "بانتظار الدبلجة"
+  },
+  "noteWaitDub_one": {
+    "message": "صدرت مترجمة: 1"
+  },
+  "noteWaitDub_other": {
+    "message": "صدرت مترجمة: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secWaitSub": {
+    "message": "بانتظار ترجمة $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteWaitSub_one": {
+    "message": "حلقات صدرت دون هذه الترجمة: 1"
+  },
+  "noteWaitSub_other": {
+    "message": "حلقات صدرت دون هذه الترجمة: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secNoDub": {
+    "message": "بلا دبلجة $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoDub_one": {
+    "message": "الموسم الحالي بلا دبلجة $P2$ · حلقات مترجمة للمشاهدة: 1",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoDub_other": {
+    "message": "الموسم الحالي بلا دبلجة $P2$ · حلقات مترجمة للمشاهدة: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeSubbed": {
+    "message": "شاهد مترجمًا"
+  },
+  "btnSeeSubbedTitle": {
+    "message": "يحوّل هذا المسلسل إلى الوضع المترجم"
+  },
+  "secErrors": {
+    "message": "تعذّر الفحص"
+  },
+  "secUpToDate": {
+    "message": "تمت المشاهدة"
+  },
+  "noteNoDubSeason": {
+    "message": "لا دبلجة $P1$ في الموسم الحالي",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secNever": {
+    "message": "لم تبدأ"
+  },
+  "secHidden": {
+    "message": "مخفية"
+  },
+  "btnShow": {
+    "message": "إظهار"
+  },
+  "progressChecking": {
+    "message": "جارٍ فحص $P1$ من $P2$…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "progressReading": {
+    "message": "جارٍ قراءة قائمة المشاهدة…"
+  },
+  "errorQuery": {
+    "message": "تعذّر الاتصال بـ Crunchyroll: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errorHint": {
+    "message": "تأكد من تسجيل الدخول في crunchyroll.com ثم انقر تحديث."
+  },
+  "diagSaved": {
+    "message": "تم حفظ تشخيص «$P1$». لا يحتوي على رمز أو ملف تعريف ارتباط أو بيانات الحساب.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagError": {
+    "message": "تعذّر إنشاء التشخيص: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagFile": {
+    "message": "diagnostics"
+  },
+  "profileLabel": {
+    "message": " · الملف الشخصي $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "sortReleased": {
+    "message": "الأحدث صدورًا"
+  },
+  "sortWatched": {
+    "message": "الأحدث مشاهدة"
+  },
+  "sortCount": {
+    "message": "الأكثر حلقات"
+  },
+  "sortTitle": {
+    "message": "العنوان (أ–ي)"
+  },
+  "badgeTitleSome": {
+    "message": "حلقات جديدة: $P1$ · $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "badgeTitleNone": {
+    "message": "حلقات Crunchyroll الجديدة: شاهدت كل شيء"
+  },
+  "notifTitle_one": {
+    "message": "حلقات جديدة: 1"
+  },
+  "notifTitle_other": {
+    "message": "حلقات جديدة: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMore": {
+    "message": "+ مسلسلات أخرى: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMovie": {
+    "message": "فيلم"
+  },
+  "noticeOpeningTab": {
+    "message": "جارٍ فتح crunchyroll.com في الخلفية لاستخدام جلستك…"
+  },
+  "noticeProxy": {
+    "message": "الوصول المباشر محظور؛ يتم استخدام علامة تبويب crunchyroll.com."
+  },
+  "noticeOtherProfile": {
+    "message": "الجلسة المستخدمة تخص ملفًا شخصيًا آخر في الحساب. افتح crunchyroll.com بالملف الذي تستخدمه ثم انقر تحديث."
+  },
+  "noticeSlowDown": {
+    "message": "طلب Crunchyroll الإبطاء؛ إعادة المحاولة بعد $P1$ ث…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errTabTimeout": {
+    "message": "استغرق تحميل علامة تبويب Crunchyroll وقتًا طويلًا."
+  },
+  "errTabNoAnswer": {
+    "message": "لم تستجب علامة تبويب Crunchyroll."
+  },
+  "errNoTab": {
+    "message": "لا توجد علامة تبويب crunchyroll.com مفتوحة لاستخدام جلستك."
+  },
+  "errAuth": {
+    "message": "تعذّرت المصادقة (HTTP $P1$). تأكد من تسجيل الدخول في crunchyroll.com.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errHttp": {
+    "message": "HTTP $P1$ في $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "errAccount": {
+    "message": "تعذّر العثور على معرّف حسابك."
+  },
+  "dubYes": {
+    "message": "مدبلج بـ $L$",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubOld": {
+    "message": "دبلجة $L$ في المواسم السابقة فقط",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubNo": {
+    "message": "بلا دبلجة $L$",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "tabsAria": {
+    "message": "الأقسام"
+  },
+  "seasonWinter": {
+    "message": "شتاء"
+  },
+  "seasonSpring": {
+    "message": "ربيع"
+  },
+  "seasonSummer": {
+    "message": "صيف"
+  },
+  "seasonFall": {
+    "message": "خريف"
+  },
+  "seasonUnknown": {
+    "message": "الموسم غير محدد"
+  },
+  "emptyNever": {
+    "message": "بدأت كل المسلسلات في قائمة المشاهدة."
+  },
+  "seasonLabel": {
+    "message": "$S$ $Y$",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      },
+      "y": {
+        "content": "$2"
+      }
+    }
+  },
+  "secSearch": {
+    "message": "بحث متقدم"
+  },
+  "searchQueryPlaceholder": {
+    "message": "اسم الأنمي (عربي، إنجليزي، روماجي أو ياباني)"
+  },
+  "searchButton": {
+    "message": "بحث"
+  },
+  "searchScope": {
+    "message": "أين"
+  },
+  "searchScopeAll": {
+    "message": "الكتالوج كله"
+  },
+  "searchScopeMine": {
+    "message": "قائمتي فقط"
+  },
+  "searchDub": {
+    "message": "الدبلجة"
+  },
+  "searchDubAny": {
+    "message": "أي صوت"
+  },
+  "searchDubYes": {
+    "message": "مدبلج بـ $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchDubNo": {
+    "message": "بلا دبلجة $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAge": {
+    "message": "التصنيف العمري"
+  },
+  "searchAgeAny": {
+    "message": "الكل"
+  },
+  "searchAgeUpTo": {
+    "message": "حتى $P1$+",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "ageFree": {
+    "message": "لجميع الأعمار"
+  },
+  "ageMin": {
+    "message": "غير مناسب لمن هم دون $P1$ عامًا",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchYear": {
+    "message": "سنة الصدور"
+  },
+  "searchAny": {
+    "message": "أي"
+  },
+  "searchSeason": {
+    "message": "الموسم"
+  },
+  "searchLoading": {
+    "message": "جارٍ التحميل…"
+  },
+  "searchNeedAniList": {
+    "message": "بحث Crunchyroll لا يفهم الأسماء اليابانية. عند تفعيل AniList يُرسل نص البحث إليه للعثور على العنوان."
+  },
+  "searchEnableAniList": {
+    "message": "تفعيل AniList"
+  },
+  "searchAniListError": {
+    "message": "تعذّر الاتصال بـ AniList الآن؛ النتائج من بحث Crunchyroll فقط."
+  },
+  "searchMineEmpty": {
+    "message": "لم تتم قراءة قائمة المشاهدة بعد. انقر تحديث وحاول مجددًا."
+  },
+  "searchError": {
+    "message": "تعذّر البحث: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchHint": {
+    "message": "اكتب اسمًا أو اختر عوامل التصفية. دون اسم يبحث في كتالوج Crunchyroll كله (أو الموسم المختار)."
+  },
+  "searchMore": {
+    "message": "تحميل المزيد"
+  },
+  "searchMovie": {
+    "message": "فيلم"
+  },
+  "searchInList": {
+    "message": "في قائمتك"
+  },
+  "setAniListLabel": {
+    "message": "البحث أيضًا بالأسماء اليابانية والروماجي (يُرسل نص البحث إلى AniList)"
+  },
+  "searchCount_one": {
+    "message": "النتائج: 1"
+  },
+  "searchCount_other": {
+    "message": "النتائج: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSeasons_one": {
+    "message": "المواسم: 1"
+  },
+  "searchSeasons_other": {
+    "message": "المواسم: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSort": {
+    "message": "ترتيب"
+  },
+  "searchSortDefault": {
+    "message": "ترتيب Crunchyroll"
+  },
+  "searchSortYear": {
+    "message": "الأحدث صدورًا"
+  },
+  "searchSortTitle": {
+    "message": "العنوان (أ–ي)"
+  },
+  "searchLoadingCatalog": {
+    "message": "جارٍ تنزيل كتالوج Crunchyroll (أول مرة فقط، بضع ثوانٍ)…"
+  },
+  "sortWaiting": {
+    "message": "الأكثر حلقات منتظرة"
+  },
+  "sortNext": {
+    "message": "الصدور التالي"
+  },
+  "sortSeason": {
+    "message": "موسم الصدور"
+  },
+  "uiLangAuto": {
+    "message": "تلقائي (لغة المتصفح)"
+  },
+  "setUiLangLabel": {
+    "message": "لغة الإضافة"
+  },
+  "setUiLangHelp": {
+    "message": "«تلقائي» يتبع لغة Firefox."
+  }
+}

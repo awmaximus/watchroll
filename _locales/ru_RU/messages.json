@@ -1,0 +1,885 @@
+{
+  "extName": {
+    "message": "Crunchyroll – Новые серии"
+  },
+  "extDescription": {
+    "message": "Отдельная страница с непросмотренными сериями из вашего списка Crunchyroll — с учётом того, смотрите вы с субтитрами или в озвучке."
+  },
+  "actionTitle": {
+    "message": "Новые серии Crunchyroll"
+  },
+  "pageTitle": {
+    "message": "Новые серии – Crunchyroll"
+  },
+  "heading": {
+    "message": "Новые серии"
+  },
+  "btnSettings": {
+    "message": "Настройки"
+  },
+  "btnRefresh": {
+    "message": "Обновить"
+  },
+  "versionLabel": {
+    "message": "Версия $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "Настройки"
+  },
+  "setDubLabel": {
+    "message": "Язык озвучки, на котором вы смотрите"
+  },
+  "setDubHelp": {
+    "message": "Сериалы с режимом «Озвучка» появляются только после выхода озвучки на этом языке."
+  },
+  "setSubLabel": {
+    "message": "Язык субтитров"
+  },
+  "setSubHelp": {
+    "message": "Сериалы с режимом «Субтитры» появляются только когда доступны субтитры на этом языке."
+  },
+  "setModeLabel": {
+    "message": "Режим по умолчанию"
+  },
+  "setModeHelp": {
+    "message": "Для сериалов, которые вы не настроили отдельно."
+  },
+  "setLocaleLabel": {
+    "message": "Язык названий и ссылок"
+  },
+  "setAutoLabel": {
+    "message": "Проверять автоматически"
+  },
+  "setAutoHelp": {
+    "message": "В фоне обновляет число на значке расширения. Если прямой доступ заблокирован, нужна открытая вкладка crunchyroll.com."
+  },
+  "setNotifyLabel": {
+    "message": "Уведомлять о новой серии"
+  },
+  "setExtrasLabel": {
+    "message": "Показывать спецвыпуски и пересказы (не учитываются в счётчиках)"
+  },
+  "setSkippedLabel": {
+    "message": "Показывать пропущенные серии (до последней просмотренной)"
+  },
+  "setMinStartedLabel": {
+    "message": "Считать начатой после (секунд)"
+  },
+  "setMinStartedHelp": {
+    "message": "Crunchyroll записывает несколько секунд, даже если просто открыть страницу серии. Записи короче этого времени игнорируются. От 0 до 600."
+  },
+  "setConcurrencyLabel": {
+    "message": "Сериалов проверяется одновременно"
+  },
+  "setConcurrencyHelp": {
+    "message": "Чем больше, тем быстрее. Если появляются ошибки «слишком много запросов» (HTTP 429), уменьшите. От 1 до 32."
+  },
+  "setPlayheadBatchLabel": {
+    "message": "Размер пакета"
+  },
+  "setPlayheadBatchHelp": {
+    "message": "Сколько серий входит в один запрос прогресса просмотра (playheads) и сколько элементов на одной странице списка и истории. Чем больше пакет, тем меньше запросов. Если проверки начнут сбоить, уменьшите. От 10 до 300."
+  },
+  "searchPlaceholder": {
+    "message": "Поиск сериала…"
+  },
+  "searchAria": {
+    "message": "Поиск сериала по названию"
+  },
+  "sortLabel": {
+    "message": "Сортировка"
+  },
+  "modeSub": {
+    "message": "Субтитры"
+  },
+  "modeDub": {
+    "message": "Озвучка"
+  },
+  "modeAuto": {
+    "message": "Любая дорожка"
+  },
+  "modeAutoLong": {
+    "message": "Любая дорожка (сообщать о первом выходе)"
+  },
+  "modeDubLang": {
+    "message": "Озвучка $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeDefault": {
+    "message": "По умолчанию ($P1$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortSub": {
+    "message": "субтитры"
+  },
+  "shortDub": {
+    "message": "озвучка $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortAuto": {
+    "message": "любая дорожка"
+  },
+  "modeAria": {
+    "message": "Дорожка для $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeTitle": {
+    "message": "Как вы смотрите этот сериал"
+  },
+  "autoOff": {
+    "message": "Выключено"
+  },
+  "autoMinutes": {
+    "message": "Каждые $P1$ мин",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "autoHour": {
+    "message": "Каждый час"
+  },
+  "autoHours": {
+    "message": "Каждые $P1$ ч",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "epMovie": {
+    "message": "Фильм"
+  },
+  "epLabel": {
+    "message": "С$P1$ Э$P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "relNow": {
+    "message": "только что"
+  },
+  "relHours": {
+    "message": "$P1$ ч назад",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "relYesterday": {
+    "message": "вчера"
+  },
+  "relDays": {
+    "message": "дней назад: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futToday": {
+    "message": "сегодня в $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futTomorrow": {
+    "message": "завтра в $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futDays": {
+    "message": "через дней: $P1$ ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "nextText": {
+    "message": "Следующая: $P1$ $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "watchedPct": {
+    "message": "Просмотрено $P1$%",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "watchNext": {
+    "message": "Смотреть следующую"
+  },
+  "tagRecap": {
+    "message": "пересказ"
+  },
+  "tagSpecial": {
+    "message": "спецвыпуск"
+  },
+  "tagSkipped": {
+    "message": "пропущена"
+  },
+  "badgeContinue": {
+    "message": "продолжить"
+  },
+  "badgeMovie": {
+    "message": "фильм"
+  },
+  "badgeNew_one": {
+    "message": "новых: 1"
+  },
+  "badgeNew_other": {
+    "message": "новых: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSkipped_one": {
+    "message": "пропущено: 1"
+  },
+  "badgeSkipped_other": {
+    "message": "пропущено: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSpecial_one": {
+    "message": "спецвыпусков: 1"
+  },
+  "badgeSpecial_other": {
+    "message": "спецвыпусков: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "moreEps_one": {
+    "message": "+ ещё серий: 1"
+  },
+  "moreEps_other": {
+    "message": "+ ещё серий: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitDub": {
+    "message": "+$P1$ ждут озвучки",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitSub": {
+    "message": "+$P1$ ждут субтитров",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsAria": {
+    "message": "Действия для $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsTitle": {
+    "message": "Действия"
+  },
+  "actDiag": {
+    "message": "Экспорт диагностики"
+  },
+  "actShow": {
+    "message": "Показать снова"
+  },
+  "actHideNew": {
+    "message": "Скрыть до новой серии"
+  },
+  "actHideWeek": {
+    "message": "Скрыть на неделю"
+  },
+  "actHideForever": {
+    "message": "Скрыть навсегда"
+  },
+  "hiddenUntil": {
+    "message": "Скрыт до $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hiddenUntilNew": {
+    "message": "Скрыт до новой серии"
+  },
+  "hiddenForever": {
+    "message": "Скрыт навсегда"
+  },
+  "epsCount_one": {
+    "message": "серий: 1"
+  },
+  "epsCount_other": {
+    "message": "серий: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "seriesCount_one": {
+    "message": "сериалов: 1"
+  },
+  "seriesCount_other": {
+    "message": "сериалов: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusEps": {
+    "message": "$P1$ · $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "statusElapsed": {
+    "message": " · обновлено за $S$ с",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusAllCaught": {
+    "message": "Всё просмотрено"
+  },
+  "secToWatch": {
+    "message": "Смотреть"
+  },
+  "emptySearch": {
+    "message": "Здесь ничего не найдено."
+  },
+  "emptyToWatch": {
+    "message": "В начатых сериалах нет новых серий."
+  },
+  "secWaitDub": {
+    "message": "Ждут озвучки"
+  },
+  "noteWaitDub_one": {
+    "message": "уже вышло с субтитрами: 1"
+  },
+  "noteWaitDub_other": {
+    "message": "уже вышло с субтитрами: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secWaitSub": {
+    "message": "Ждут субтитров ($P1$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteWaitSub_one": {
+    "message": "вышло без этих субтитров: 1"
+  },
+  "noteWaitSub_other": {
+    "message": "вышло без этих субтитров: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secNoDub": {
+    "message": "Без озвучки ($P1$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoDub_one": {
+    "message": "В текущем сезоне нет озвучки $P2$ · серий с субтитрами: 1",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoDub_other": {
+    "message": "В текущем сезоне нет озвучки $P2$ · серий с субтитрами: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeSubbed": {
+    "message": "Смотреть с субтитрами"
+  },
+  "btnSeeSubbedTitle": {
+    "message": "Переключает этот сериал на субтитры"
+  },
+  "secErrors": {
+    "message": "Не удалось проверить"
+  },
+  "secUpToDate": {
+    "message": "Всё просмотрено"
+  },
+  "noteNoDubSeason": {
+    "message": "В текущем сезоне нет озвучки $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secNever": {
+    "message": "Не начатые"
+  },
+  "secHidden": {
+    "message": "Скрытые"
+  },
+  "btnShow": {
+    "message": "Показать"
+  },
+  "progressChecking": {
+    "message": "Проверка $P1$ из $P2$…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "progressReading": {
+    "message": "Читаю ваш список…"
+  },
+  "errorQuery": {
+    "message": "Не удалось связаться с Crunchyroll: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errorHint": {
+    "message": "Убедитесь, что вы вошли на crunchyroll.com, и нажмите «Обновить»."
+  },
+  "diagSaved": {
+    "message": "Диагностика «$P1$» сохранена. В ней нет токена, cookie и данных аккаунта.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagError": {
+    "message": "Не удалось создать диагностику: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagFile": {
+    "message": "diagnostics"
+  },
+  "profileLabel": {
+    "message": " · профиль $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "sortReleased": {
+    "message": "Сначала новые выпуски"
+  },
+  "sortWatched": {
+    "message": "Недавно просмотренные"
+  },
+  "sortCount": {
+    "message": "Больше серий"
+  },
+  "sortTitle": {
+    "message": "Название (А–Я)"
+  },
+  "badgeTitleSome": {
+    "message": "Новые серии: $P1$ · $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "badgeTitleNone": {
+    "message": "Новые серии Crunchyroll: всё просмотрено"
+  },
+  "notifTitle_one": {
+    "message": "Новых серий: 1"
+  },
+  "notifTitle_other": {
+    "message": "Новых серий: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMore": {
+    "message": "+ ещё сериалов: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMovie": {
+    "message": "фильм"
+  },
+  "noticeOpeningTab": {
+    "message": "Открываю crunchyroll.com в фоне, чтобы использовать вашу сессию…"
+  },
+  "noticeProxy": {
+    "message": "Прямой доступ заблокирован; использую вкладку crunchyroll.com."
+  },
+  "noticeOtherProfile": {
+    "message": "Текущая сессия принадлежит другому профилю аккаунта. Откройте crunchyroll.com в своём профиле и нажмите «Обновить»."
+  },
+  "noticeSlowDown": {
+    "message": "Crunchyroll попросил притормозить; повтор через $P1$ с…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errTabTimeout": {
+    "message": "Вкладка Crunchyroll слишком долго загружалась."
+  },
+  "errTabNoAnswer": {
+    "message": "Вкладка Crunchyroll не ответила."
+  },
+  "errNoTab": {
+    "message": "Нет открытой вкладки crunchyroll.com для вашей сессии."
+  },
+  "errAuth": {
+    "message": "Не удалось войти (HTTP $P1$). Убедитесь, что вы вошли на crunchyroll.com.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errHttp": {
+    "message": "HTTP $P1$ на $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "errAccount": {
+    "message": "Не удалось найти ID аккаунта."
+  },
+  "dubYes": {
+    "message": "Есть озвучка: $L$",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubOld": {
+    "message": "Озвучка ($L$) только в прошлых сезонах",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubNo": {
+    "message": "Нет озвучки: $L$",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "tabsAria": {
+    "message": "Разделы"
+  },
+  "seasonWinter": {
+    "message": "Зима"
+  },
+  "seasonSpring": {
+    "message": "Весна"
+  },
+  "seasonSummer": {
+    "message": "Лето"
+  },
+  "seasonFall": {
+    "message": "Осень"
+  },
+  "seasonUnknown": {
+    "message": "Сезон не указан"
+  },
+  "emptyNever": {
+    "message": "Вы начали все сериалы из своего списка."
+  },
+  "seasonLabel": {
+    "message": "$S$ $Y$",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      },
+      "y": {
+        "content": "$2"
+      }
+    }
+  },
+  "secSearch": {
+    "message": "Расширенный поиск"
+  },
+  "searchQueryPlaceholder": {
+    "message": "Название аниме (русский, английский, ромадзи или японский)"
+  },
+  "searchButton": {
+    "message": "Найти"
+  },
+  "searchScope": {
+    "message": "Где искать"
+  },
+  "searchScopeAll": {
+    "message": "Весь каталог"
+  },
+  "searchScopeMine": {
+    "message": "Только мой список"
+  },
+  "searchDub": {
+    "message": "Озвучка"
+  },
+  "searchDubAny": {
+    "message": "Любая дорожка"
+  },
+  "searchDubYes": {
+    "message": "С озвучкой: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchDubNo": {
+    "message": "Без озвучки: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAge": {
+    "message": "Возрастной рейтинг"
+  },
+  "searchAgeAny": {
+    "message": "Любой"
+  },
+  "searchAgeUpTo": {
+    "message": "До $P1$+",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "ageFree": {
+    "message": "Для всех возрастов"
+  },
+  "ageMin": {
+    "message": "Не рекомендуется до $P1$ лет",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchYear": {
+    "message": "Год выхода"
+  },
+  "searchAny": {
+    "message": "Любой"
+  },
+  "searchSeason": {
+    "message": "Сезон"
+  },
+  "searchLoading": {
+    "message": "Загрузка…"
+  },
+  "searchNeedAniList": {
+    "message": "Поиск Crunchyroll не понимает японские названия. С AniList текст запроса отправляется туда, чтобы найти название."
+  },
+  "searchEnableAniList": {
+    "message": "Включить AniList"
+  },
+  "searchAniListError": {
+    "message": "AniList сейчас недоступен; результаты только из поиска Crunchyroll."
+  },
+  "searchMineEmpty": {
+    "message": "Ваш список ещё не загружен. Нажмите «Обновить» и попробуйте снова."
+  },
+  "searchError": {
+    "message": "Не удалось выполнить поиск: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchHint": {
+    "message": "Введите название или выберите фильтры. Без названия поиск идёт по всему каталогу Crunchyroll (или выбранному сезону)."
+  },
+  "searchMore": {
+    "message": "Показать ещё"
+  },
+  "searchMovie": {
+    "message": "Фильм"
+  },
+  "searchInList": {
+    "message": "В вашем списке"
+  },
+  "setAniListLabel": {
+    "message": "Искать также японские названия и ромадзи (текст запроса отправляется в AniList)"
+  },
+  "searchCount_one": {
+    "message": "Результатов: 1"
+  },
+  "searchCount_other": {
+    "message": "Результатов: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSeasons_one": {
+    "message": "сезонов: 1"
+  },
+  "searchSeasons_other": {
+    "message": "сезонов: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSort": {
+    "message": "Сортировка"
+  },
+  "searchSortDefault": {
+    "message": "Как на Crunchyroll"
+  },
+  "searchSortYear": {
+    "message": "Сначала новые"
+  },
+  "searchSortTitle": {
+    "message": "Название (А–Я)"
+  },
+  "searchLoadingCatalog": {
+    "message": "Загружаю каталог Crunchyroll (только в первый раз, несколько секунд)…"
+  },
+  "sortWaiting": {
+    "message": "Больше ждущих серий"
+  },
+  "sortNext": {
+    "message": "Ближайший выход"
+  },
+  "sortSeason": {
+    "message": "Сезон выхода"
+  },
+  "uiLangAuto": {
+    "message": "Автоматически (язык браузера)"
+  },
+  "setUiLangLabel": {
+    "message": "Язык расширения"
+  },
+  "setUiLangHelp": {
+    "message": "«Автоматически» — как в Firefox."
+  }
+}

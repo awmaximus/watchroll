@@ -65,7 +65,7 @@ h1 {
   min-height: 1.2em;
 }
 .actions {
-  margin-left: auto;
+  margin-inline-start: auto;
   display: flex;
   gap: 8px;
 }
@@ -130,7 +130,7 @@ main {
   margin: 0 0 16px;
   padding: 8px 12px;
   background: var(--surface);
-  border-left: 3px solid var(--orange);
+  border-inline-start: 3px solid var(--orange);
   color: var(--muted);
   font-size: 0.85rem;
 }
@@ -281,7 +281,7 @@ input[type="number"] {
 .badge {
   position: absolute;
   top: 4px;
-  left: 4px;
+  inset-inline-start: 4px;
   background: var(--orange);
   color: #000;
   font-size: 0.68rem;
@@ -354,7 +354,7 @@ select.actions:hover {
   align-items: center;
   gap: 4px;
   flex: 0 1 auto;
-  margin-left: auto;
+  margin-inline-start: auto;
 }
 .eps {
   list-style: none;
@@ -479,7 +479,7 @@ select.actions:hover {
 
 .error-box {
   background: var(--surface);
-  border-left: 3px solid var(--danger);
+  border-inline-start: 3px solid var(--danger);
   padding: 12px 16px;
 }
 .error-box p {
@@ -543,7 +543,8 @@ body.busy select.actions {
   opacity: 0.85;
 }
 .dub.compact {
-  margin: 0 0 0 6px;
+  margin: 0;
+  margin-inline-start: 6px;
   padding: 0;
   border: 0;
   vertical-align: -2px;
