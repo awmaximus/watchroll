@@ -192,7 +192,9 @@ ok "$(unzip -Z1 "$ZIP" | grep -vc '/$') arquivos em ${ZIP#"$ROOT"/} ($(du -h "$Z
 if (( SIGN )); then
   step "Assinando na Mozilla (canal $CHANNEL)"
   META_ARGS=()
-  [[ "$CHANNEL" == listed ]] && META_ARGS=(--amo-metadata "$ROOT/amo-metadata.json")
+  # Na loja pública a revisão leva de horas a dias: envia e não fica esperando
+  # (--approval-timeout 0). O .xpi aparece no Developer Hub depois de aprovado.
+  [[ "$CHANNEL" == listed ]] && META_ARGS=(--amo-metadata "$ROOT/amo-metadata.json" --approval-timeout 0)
   # Envia exatamente a pasta conferida acima. Credenciais vão por variável de
   # ambiente (não aparecem na lista de processos).
   WEB_EXT_API_KEY="$SIGN_KEY" WEB_EXT_API_SECRET="$SIGN_SECRET" \
@@ -202,7 +204,7 @@ if (( SIGN )); then
   signed="$(find "$ARTIFACTS" -maxdepth 1 -name '*.xpi' | head -n1)"
   if [[ -z "$signed" && "$CHANNEL" == listed ]]; then
     # Na loja pública a versão passa pela revisão da Mozilla antes de ser assinada.
-    warn "Enviado para a loja; o .xpi fica disponível depois da revisão da Mozilla."
+    warn "Enviado para a revisão da Mozilla. Acompanhe em https://addons.mozilla.org/developers/addons (o .xpi fica disponível depois de aprovado)."
     XPI=""
   else
     [[ -n "$signed" ]] || die "A assinatura não gerou o .xpi."

@@ -283,7 +283,8 @@ chmod 600 .amo-credentials
 
 `--listed` sends the store metadata in `amo-metadata.json`: summary and description in English
 and Portuguese, category, the `streaming` tag, license, homepage and support links, and notes for
-Mozilla's reviewers (without credentials). The `.xpi` becomes available after Mozilla's review.
+Mozilla's reviewers (without credentials). The script sends the version and returns right away (`--approval-timeout 0`); review takes
+hours to days, and the signed `.xpi` appears in the Developer Hub once it is approved.
 The store name and summary also come from `_locales/<code>/messages.json`, with English as the
 manifest's `default_locale`.
 
