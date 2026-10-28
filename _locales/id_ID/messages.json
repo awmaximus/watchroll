@@ -58,6 +58,9 @@
   "setAutoHelp": {
     "message": "Di latar belakang, memperbarui angka di ikon ekstensi. Memerlukan tab crunchyroll.com yang terbuka jika akses langsung diblokir."
   },
+  "setAutoRange": {
+    "message": "Dalam menit (bawaan: 60). 0 mematikannya. Minimal 5, maksimal 1440 (1 hari)."
+  },
   "setNotifyLabel": {
     "message": "Beri tahu saat episode baru keluar"
   },
@@ -146,28 +149,6 @@
   },
   "modeTitle": {
     "message": "Cara kamu menonton seri ini"
-  },
-  "autoOff": {
-    "message": "Mati"
-  },
-  "autoMinutes": {
-    "message": "Setiap $P1$ menit",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
-  },
-  "autoHour": {
-    "message": "Setiap jam"
-  },
-  "autoHours": {
-    "message": "Setiap $P1$ jam",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
   },
   "epMovie": {
     "message": "Film"
@@ -951,6 +932,9 @@
   "emptyCalendar": {
     "message": "Tidak ada rilis yang diketahui dalam 7 hari ke depan."
   },
+  "calEstimatedNote": {
+    "message": "~ = perkiraan dari ritme mingguan episode sebelumnya. Crunchyroll baru menampilkan episode saat sudah rilis."
+  },
   "setCompactLabel": {
     "message": "Tampilkan \"Tonton\" dalam mode ringkas (baris, bukan kartu)"
   },
@@ -976,5 +960,31 @@
   },
   "localeAuto": {
     "message": "Otomatis (bahasa ekstensi)"
+  },
+  "groupBySeason": {
+    "message": "Kelompokkan per musim"
+  },
+  "sortSeasonsCount": {
+    "message": "Musim terbanyak"
+  },
+  "sortEpisodesTotal": {
+    "message": "Total episode terbanyak"
+  },
+  "linkHome": {
+    "message": "Beranda"
+  },
+  "linksAria": {
+    "message": "Buka di Crunchyroll"
+  },
+  "ratingTitle": {
+    "message": "Rating Crunchyroll: $P1$ dari 5 · jumlah rating: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
   }
 }

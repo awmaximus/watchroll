@@ -81,14 +81,10 @@
     phb.min = CRAnalyzer.PLAYHEAD_BATCH.min;
     phb.max = CRAnalyzer.PLAYHEAD_BATCH.max;
     phb.value = CRAnalyzer.playheadBatchFrom(settings);
-    fillSelect(
-      $("set-auto"),
-      CRChecker.AUTO_CHECK_OPTIONS.map((m) => [
-        String(m),
-        m === 0 ? t("autoOff") : m < 60 ? t("autoMinutes", m) : m === 60 ? t("autoHour") : t("autoHours", m / 60),
-      ]),
-      String(CRChecker.autoCheckMinutes(settings))
-    );
+    const auto = $("set-auto");
+    auto.min = 0;
+    auto.max = CRChecker.AUTO_CHECK.max;
+    auto.value = CRChecker.autoCheckMinutes(settings);
     $("set-notify").checked = settings.notify !== false;
     $("set-extras").checked = settings.showExtras !== false;
     $("set-skipped").checked = !!settings.showSkipped;
@@ -204,6 +200,7 @@
     const msg = listsState.loading ? t("listsLoading") : listsState.error ? t("listsError", listsState.error) : "";
     status.hidden = !msg;
     status.textContent = msg;
+    renderHeaderLinks();
   }
 
   async function changeSources(id, on, order) {
@@ -291,9 +288,98 @@
     }
   }
 
+  // ---------- nota da Crunchyroll ----------
+  // Uma consulta por série, guardada por 24 h (a nota muda devagar). As notas são
+  // buscadas depois da verificação e dos resultados da Pesquisa, sem atrasar a lista.
+  const RATINGS_KEY = "crnovos:ratings";
+  const RATING_TTL = 24 * 3600000;
+  const RATING_KEEP = 30 * 86400000; // entradas sem uso há 30 dias saem do armazenamento
+  let ratings = {}; // id -> { average, total, at } | { none: true, at }
+  const ratingQueue = new Map(); // id -> "series" | "movie"
+  let ratingsRunning = false;
+
+  async function loadRatings() {
+    try {
+      ratings = (await browser.storage.local.get(RATINGS_KEY))[RATINGS_KEY] || {};
+    } catch (_) {
+      ratings = {};
+    }
+  }
+
+  // items: [{ id, kind, inline }]. Pede só as notas que não vieram junto com a lista
+  // e que faltam ou passaram de 24 h.
+  function wantRatings(items) {
+    const now = Date.now();
+    for (const { id, kind, inline } of items) {
+      if (!id || inline) continue;
+      const r = ratings[id];
+      if (!r || now - (r.at || 0) > RATING_TTL) ratingQueue.set(id, kind === "movie" ? "movie" : "series");
+    }
+    if (ratingQueue.size && !ratingsRunning && !busy) fetchRatings();
+  }
+
+  async function fetchRatings() {
+    ratingsRunning = true;
+    try {
+      while (ratingQueue.size && !busy) {
+        const batch = [...ratingQueue.entries()].slice(0, 50);
+        for (const [id] of batch) ratingQueue.delete(id);
+        let next = 0;
+        const worker = async () => {
+          while (next < batch.length) {
+            const [id, kind] = batch[next++];
+            try {
+              const r = await CRApi.rating(id, kind);
+              ratings[id] = r ? { ...r, at: Date.now() } : { none: true, at: Date.now() };
+            } catch (err) {
+              // 404: o título não tem página de notas. Outros erros: tenta de novo outra vez.
+              if (err && err.status === 404) ratings[id] = { none: true, at: Date.now() };
+            }
+          }
+        };
+        await Promise.all(Array.from({ length: Math.min(CRAnalyzer.concurrencyFrom(settings), batch.length) }, worker));
+        render();
+      }
+      const now = Date.now();
+      for (const [id, r] of Object.entries(ratings)) if (now - (r.at || 0) > RATING_KEEP) delete ratings[id];
+      try {
+        await browser.storage.local.set({ [RATINGS_KEY]: ratings });
+      } catch (_) {}
+    } finally {
+      ratingsRunning = false;
+      if (!busy) await CRApi.release();
+    }
+  }
+
+  const ratingItems = (list) =>
+    list.map((s) => ({ id: s.seriesId || s.id, kind: s.kind === "movie" || s.type === "movie" ? "movie" : "series", inline: !!s.rating }));
+
+  // s: resultado da verificação ou da Pesquisa. Primeiro a nota que veio junto.
+  function ratingBadge(s, { compact = false } = {}) {
+    const r = s.rating || ratings[s.seriesId || s.id];
+    if (!r || r.none) return null;
+    const avg = r.average.toLocaleString(UI, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+    const tip = t("ratingTitle", avg, r.total.toLocaleString(UI));
+    return el("span", { class: `rating${compact ? " compact" : ""}`, title: tip, "aria-label": tip, role: "img" }, el("span", { class: "star", "aria-hidden": "true", text: "★" }), avg);
+  }
+
   // ---------- links ----------
   // Mesmo formato de link do site: /pt-br, /es, /fr…; en-US sem prefixo.
   const prefix = () => CRI18n.sitePath(contentLocale());
+  // Links do cabeçalho para o site: início, Fila e as Crunchylists escolhidas
+  // nas Configurações (no idioma dos títulos e links).
+  function renderHeaderLinks() {
+    const nav = $("cr-links");
+    if (!nav) return;
+    const base = `https://www.crunchyroll.com${prefix()}`;
+    const link = (href, text, extra = {}) =>
+      el("a", { class: "cr-link", href, target: "_blank", rel: "noopener", text, title: text, ...extra });
+    const lists = sources()
+      .filter((id) => id !== CRAnalyzer.WATCHLIST)
+      .map((id) => link(`${base}/crunchylists/${encodeURIComponent(id)}`, listName(id), { class: "cr-link list" }));
+    nav.replaceChildren(link(`${base}/`, t("linkHome")), link(`${base}/watchlist`, t("listWatchlist")), ...lists);
+  }
+
   const watchUrl = (ep) => `https://www.crunchyroll.com${prefix()}/watch/${ep.id}/${ep.slug}`;
   // Filme: o título leva ao player (o primeiro filme pendente, se houver).
   const seriesUrl = (s) =>
@@ -338,8 +424,12 @@
     const time = new Date(ts).toLocaleTimeString(UI, { hour: "2-digit", minute: "2-digit" });
     return t("futInHours", Math.floor(d / 3600000), time);
   }
+  // "~" marca o horário previsto pelo ritmo semanal (a Crunchyroll não informou).
+  const approx = (next) => (next && next.estimated ? "~" : "");
   const nextText = (s, now = Date.now()) =>
-    s.next ? t("nextText", epLabel(s.next), relSoon(s.next.at, now) || relFuture(s.next.at, now)) : null;
+    s.next
+      ? t("nextText", epLabel(s.next), approx(s.next) + (relSoon(s.next.at, now) || relFuture(s.next.at, now)))
+      : null;
 
   // A contagem regressiva dos cards é atualizada a cada minuto, sem redesenhar a página.
   function tickSoon() {
@@ -465,18 +555,24 @@
     return svg;
   }
 
-  function gearIcon() {
+  // Ícones de traço das abas (Pesquisa e Configurações); o nome fica no title/aria-label.
+  function tabIcon(paths) {
     const svg = document.createElementNS(SVG, "svg");
-    for (const [k, v] of Object.entries({ viewBox: "0 0 24 24", width: "18", height: "18", "aria-hidden": "true", class: "gear" })) svg.setAttribute(k, v);
-    for (const d of [
-      "M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z",
-      "M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z",
-    ]) {
+    for (const [k, v] of Object.entries({ viewBox: "0 0 24 24", width: "18", height: "18", "aria-hidden": "true", class: "tab-icon" })) svg.setAttribute(k, v);
+    for (const d of paths) {
       const p = document.createElementNS(SVG, "path");
       p.setAttribute("d", d);
       svg.append(p);
     }
     return svg;
+  }
+  const searchIcon = () => tabIcon(["M10.5 17.5a7 7 0 1 0 0-14 7 7 0 0 0 0 14z", "M15.5 15.5 21 21"]);
+
+  function gearIcon() {
+    return tabIcon([
+      "M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z",
+      "M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z",
+    ]);
   }
 
   function dubBadge(s, { compact = false } = {}) {
@@ -511,7 +607,7 @@
         "div",
         { class: "info" },
         el("a", { class: "series", href: seriesUrl(s), target: "_blank", rel: "noopener", text: s.title, title: s.title }),
-        el("div", { class: "badges" }, dubBadge(s), listChips(s)),
+        el("div", { class: "badges" }, ratingBadge(s), dubBadge(s), listChips(s)),
         el(
           "ul",
           { class: "eps" },
@@ -546,7 +642,7 @@
       el(
         "div",
         { class: "row-text" },
-        el("span", { class: "row-title" }, el("a", { href: seriesUrl(s), target: "_blank", rel: "noopener", text: s.title }), dubBadge(s, { compact: true }), listChips(s, { compact: true })),
+        el("span", { class: "row-title" }, el("a", { href: seriesUrl(s), target: "_blank", rel: "noopener", text: s.title }), ratingBadge(s, { compact: true }), dubBadge(s, { compact: true }), listChips(s, { compact: true })),
         note ? el("small", { text: note, title: note }) : null
       ),
       el("div", { class: "row-actions" }, extraButton, modeSelect(s), actionsSelect(s))
@@ -586,13 +682,14 @@
 
   function weekPanel(list) {
     if (!list.length) return el("p", { class: "empty", text: t("emptyCalendar") });
+    const legend = list.some((s) => s.next.estimated) ? [el("p", { class: "hint cal-note", text: t("calEstimatedNote") })] : [];
     const days = new Map();
     for (const s of list) {
       const k = startOfDay(s.next.at);
       if (!days.has(k)) days.set(k, []);
       days.get(k).push(s);
     }
-    return [...days.entries()].map(([k, items]) =>
+    return [...legend, ...[...days.entries()].map(([k, items]) =>
       el(
         "section",
         { class: "group" },
@@ -601,14 +698,14 @@
           "ul",
           { class: "rows" },
           items.map((s) => {
-            const time = new Date(s.next.at).toLocaleTimeString(UI, { hour: "2-digit", minute: "2-digit" });
-            const soon = relSoon(s.next.at);
+            const time = approx(s.next) + new Date(s.next.at).toLocaleTimeString(UI, { hour: "2-digit", minute: "2-digit" });
+            const soon = relSoon(s.next.at) && approx(s.next) + relSoon(s.next.at);
             const note = [time, epLabel(s.next), s.next.title, soon].filter(Boolean).join(" · ");
             return row(s, note, null, { withNext: false });
           })
         )
       )
-    );
+    )];
   }
 
   // ---------- abas ----------
@@ -624,6 +721,8 @@
     if (sorts) fillSelect($("sort"), sorts.map((k) => [k, t(CRChecker.SORTS[k])]), CRChecker.sortFor(settings, active.id));
     $("sort").dataset.tab = active.id;
     $("toolbar").hidden = active.id === "search" || active.id === "settings";
+    $("group-wrap").hidden = active.id !== "never";
+    $("group-never").checked = settings.groupNever !== false;
     // As Configurações são um painel fixo da página (os campos guardam estado e
     // ouvintes): a aba só o mostra ou esconde.
     $("settings").hidden = active.id !== "settings";
@@ -794,6 +893,7 @@
         el(
           "div",
           { class: "result-tags" },
+          ratingBadge(r),
           r.age == null ? null : el("span", { class: `age age-${r.age}`, text: r.age === 0 ? "L" : String(r.age), title: r.age === 0 ? t("ageFree") : t("ageMin", r.age) }),
           dubBadge(s),
           r.inWatchlist ? el("span", { class: "in-list", text: t("searchInList") }) : null
@@ -933,7 +1033,11 @@
       );
     } else {
       parts.push(el("p", { class: "result-count", text: tn("searchCount", st.items.length) }));
-      if (st.items.length) parts.push(el("div", { class: "results" }, st.items.slice(0, st.shown).map(resultCard)));
+      if (st.items.length) {
+        const visible = st.items.slice(0, st.shown);
+        parts.push(el("div", { class: "results" }, visible.map(resultCard)));
+        wantRatings(ratingItems(visible));
+      }
       if (st.items.length > st.shown) {
         parts.push(
           el("button", {
@@ -977,9 +1081,21 @@
           "section",
           { class: "group" },
           el("h3", {}, el("span", { text: g.title }), el("span", { class: "count", text: String(g.items.length) })),
-          el("ul", { class: "rows" }, g.items.map((s) => row(s, null)))
+          el("ul", { class: "rows" }, g.items.map((s) => row(s, statsNote(s))))
         )
       );
+  }
+
+  // "3 temporadas · 36 episódios" (nada para filmes ou sem a informação).
+  function statsNote(s) {
+    const st = s.stats;
+    if (!st) return null;
+    return [
+      typeof st.seasons === "number" ? tn("searchSeasons", st.seasons) : null,
+      typeof st.episodes === "number" ? tn("epsCount", st.episodes) : null,
+    ]
+      .filter(Boolean)
+      .join(" · ") || null;
   }
 
 
@@ -1083,12 +1199,12 @@
         content: () =>
           !never.length
             ? el("p", { class: "empty", text: searching ? t("emptySearch") : t("emptyNever") })
-            : by("never") === "season"
-            ? neverGroups(never)
-            : rows(never, () => null),
+            : settings.groupNever !== false
+            ? neverGroups(never) // dentro de cada grupo, a ordem escolhida
+            : rows(never, statsNote),
       },
       { id: "errors", label: t("secErrors"), count: errors.length, content: () => rows(errors, (s) => s.error) },
-      { id: "search", label: t("secSearch"), count: null, always: true, content: searchPanel },
+      { id: "search", label: t("secSearch"), count: null, always: true, icon: searchIcon, content: searchPanel },
       {
         id: "hidden",
         label: t("secHidden"),
@@ -1160,6 +1276,7 @@
     } finally {
       await CRApi.release();
       setBusy(false);
+      wantRatings(ratingItems(results)); // notas que faltam, depois da verificação
     }
   }
 
@@ -1230,6 +1347,7 @@
   // ---------- início ----------
   async function init() {
     await loadSettings();
+    await loadRatings();
     // Idioma da interface: o escolhido nas Configurações, ou o do navegador.
     await CRI18n.init(settings.uiLang || "auto");
     CRI18n.applyToDocument();
@@ -1245,7 +1363,7 @@
     }
     if (changed) await saveSettings();
     renderSettingsForm();
-    renderListsField();
+    renderListsField(); // também desenha os links do cabeçalho
     CRApi.setNoticeHandler(notice);
 
     $("btn-refresh").addEventListener("click", () => refresh(true));
@@ -1264,7 +1382,8 @@
       await onSetting("locale")(e);
     });
     $("set-auto").addEventListener("change", async (e) => {
-      settings.autoCheckMinutes = Number(e.target.value);
+      settings.autoCheckMinutes = CRChecker.autoCheckMinutes({ autoCheckMinutes: e.target.value });
+      e.target.value = settings.autoCheckMinutes;
       await saveSettings(); // o segundo plano reagenda ao ver a mudança
     });
     $("set-notify").addEventListener("change", async (e) => {
@@ -1330,6 +1449,11 @@
       const id = e.target.dataset.tab || "toWatch";
       settings.sortByTab = { ...(settings.sortByTab || {}), [id]: e.target.value };
       if (id === "toWatch") settings.sortBy = e.target.value;
+      await saveSettings();
+      render();
+    });
+    $("group-never").addEventListener("change", async (e) => {
+      settings.groupNever = e.target.checked;
       await saveSettings();
       render();
     });

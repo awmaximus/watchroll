@@ -25,6 +25,7 @@ only reads data from your own account.
   releases.
 - **Advanced Search** over the whole Crunchyroll catalog or your lists, with dub, age rating,
   year and season filters, and optional Japanese/romaji title lookup through AniList.
+- **Crunchyroll rating** (★ 4.9) on every series, in every tab and in Advanced Search.
 - **Hide or snooze** a series, **next release** dates with a countdown when it's close,
   **dub indicator** on every series.
 - **Compact mode** (rows instead of cards) and **settings export/import**.
@@ -34,13 +35,15 @@ Requires Firefox 142 or later and a Crunchyroll account signed in in Firefox.
 
 ## Using the extension
 
-Click the Watchroll icon in the toolbar to open its page. The last known result
+Click the Watchroll icon in the toolbar to open its page. The header has links that open
+Crunchyroll in a new tab: the home page, your Watchlist and each Crunchylist selected in
+Settings (in the language chosen for titles and links). The last known result
 appears immediately and is refreshed in the background. **Refresh** forces a full check.
 
 ### Tabs
 
-Tab names are short so the tab bar never scrolls sideways; on narrow screens it wraps. Settings
-is the gear icon. Empty tabs are hidden, except *To watch*, *Caught up*, *Week*, *To start*,
+Tab names are short so the tab bar never scrolls sideways; on narrow screens it wraps. *Search*
+is the magnifier icon and Settings the gear icon. Empty tabs are hidden, except *To watch*, *Caught up*, *Week*, *To start*,
 *Search* and Settings. The selected tab is remembered. ← and → switch tabs from the keyboard.
 
 | Tab | Shows |
@@ -50,8 +53,8 @@ is the gear icon. Empty tabs are hidden, except *To watch*, *Caught up*, *Week*,
 | Subs pending | Subbed-mode series with episodes released without subtitles in your language. |
 | No dub | Dubbed-mode series whose current season has no episode at all in your language. **Watch subbed** switches the series to subbed mode. |
 | Caught up | Series with nothing pending. |
-| Week | The next known episode of each series releasing in the next 7 days, grouped by day (Today, Tomorrow, Wednesday, October 21…), with the time. |
-| To start | Series you never watched, grouped by release season (Fall 2026, Summer 2026…), newest first. |
+| Week | The next episode of each series releasing in the next 7 days, grouped by day (Today, Tomorrow, Wednesday, October 21…), with the time. Crunchyroll only lists an episode once it is out, so for simulcasts the date is estimated from the weekly pace (7 days after the last episode, same time) and marked with `~`; a date Crunchyroll does publish takes precedence. No estimate when episodes aren't weekly or the expected one is already late (break or season end). For series you haven't started, only seasons from the current or previous anime season are checked (one extra request each). |
+| To start | Series you never watched, with their number of seasons and episodes ("3 seasons · 36 episodes", counting regular seasons only: dub copies and specials are left out). By default grouped by release season (Fall 2026, Summer 2026…), newest first; **Group by release season** turns the groups off. |
 | Errors | Series whose check failed, with the error. |
 | Search | See [Advanced Search](#advanced-search). |
 | Hidden | Series you hid. **Show** brings one back. |
@@ -70,11 +73,13 @@ Above the list tabs:
 | To watch | Most recent release, Most recently watched, Most episodes, Title |
 | Dub pending, Subs pending, No dub | Most episodes waiting, Most recently watched, Title |
 | Caught up | Most recently watched, Next release, Title |
-| To start | Release season (grouped), Title |
+| To start | Release season, Title, Most seasons, Most episodes in total (inside each group when grouping is on) |
 | Hidden | Title, Most recently watched |
 
 ### On each series
 
+- **Rating:** the Crunchyroll average (★ 4.9); hovering shows it out of 5 and the number of
+  ratings. Series without ratings show nothing.
 - **Dub indicator:** a microphone with your dub language. Green: the latest season has that
   dub. Yellow, dashed: only earlier seasons have it. Grey, crossed out: no dub.
 - **List labels:** with more than one list selected, the list(s) the series came from.
@@ -135,7 +140,7 @@ Changes are saved immediately.
 | Subtitle language | Subtitles required before a subbed episode is announced. Same list and initial value as the dub language. |
 | Default mode for series | Subbed, dubbed or any audio, for series without their own mode. |
 | Language for titles and links | Language Crunchyroll uses for series and episode names, and for links. *Automatic* (default) follows the extension language; otherwise one of the 16 languages the Crunchyroll site supports (any other would make the API answer in English). Every API request of a check, the Advanced Search and the Crunchylist names use this same language, and changing it refreshes the results and the search. |
-| Check automatically | Off, or every 30 min, 1 h (default), 3 h or 6 h. |
+| Check automatically | Interval in minutes, any value from 5 to 1440 (default 60); 0 turns it off. |
 | Notify me when a new episode is out | Desktop notifications (on by default). |
 | Show specials and recaps | Shows them, tagged and uncounted (on by default). |
 | Show "To watch" in compact mode | Rows instead of cards in *To watch* (off by default). |
@@ -182,6 +187,13 @@ Rules:
   `/content/v2/{account}/custom-lists/{list}` (Crunchyroll caps each Crunchylist at 100 items).
 
 ### Speed and freshness
+
+- Ratings come with the lists themselves: the Watchlist and Crunchylist requests ask for
+  `ratings=true`, as the site's list pages do, and each item then carries its average and number
+  of ratings. Only titles that arrive without one are looked up with
+  `/content-reviews/v3/user/{account}/rating/series/{id}` (`movie_listing` for movies), the
+  request the series page makes, after the check, and kept for 24 hours, so the list never
+  waits for them.
 
 - The Watchlist, the Crunchylists and the history are read at the same time, with their pages
   in parallel, up to the *Series checked at the same time* limit.
@@ -298,7 +310,7 @@ For the store listing, `store/screenshots/` has 1280×800 screenshots (English i
 fictional titles and generated artwork) and `PRIVACY.md` is the privacy policy to paste in the
 add-on's Developer Hub page. The listing icon is `icons/icon-128.png`.
 
-Bump `version` in both `manifest.json` and `package.json` for every release (current: 1.0.1);
+Bump `version` in both `manifest.json` and `package.json` for every release (current: 1.0.4);
 AMO does not accept the same version twice, not even in different channels: `--sign` (unlisted)
 and `--sign --listed` each use up a version number, so run only the one you need. The add-on ID
 (`crunchyroll-novos-eps@awmaximus.github.io`) comes from before the rename and must stay as it

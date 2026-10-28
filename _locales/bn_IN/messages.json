@@ -58,6 +58,9 @@
   "setAutoHelp": {
     "message": "পটভূমিতে এক্সটেনশন আইকনের সংখ্যা হালনাগাদ করে। সরাসরি প্রবেশ বন্ধ থাকলে crunchyroll.com-এর একটি ট্যাব খোলা রাখতে হবে।"
   },
+  "setAutoRange": {
+    "message": "মিনিটে (ডিফল্ট: 60)। 0 দিলে বন্ধ। সর্বনিম্ন 5, সর্বোচ্চ 1440 (1 দিন)।"
+  },
   "setNotifyLabel": {
     "message": "নতুন পর্ব এলে জানান"
   },
@@ -146,28 +149,6 @@
   },
   "modeTitle": {
     "message": "আপনি এই সিরিজটি কীভাবে দেখেন"
-  },
-  "autoOff": {
-    "message": "বন্ধ"
-  },
-  "autoMinutes": {
-    "message": "প্রতি $P1$ মিনিটে",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
-  },
-  "autoHour": {
-    "message": "প্রতি ঘণ্টায়"
-  },
-  "autoHours": {
-    "message": "প্রতি $P1$ ঘণ্টায়",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
   },
   "epMovie": {
     "message": "চলচ্চিত্র"
@@ -951,6 +932,9 @@
   "emptyCalendar": {
     "message": "আগামী 7 দিনে কোনো জানা রিলিজ নেই।"
   },
+  "calEstimatedNote": {
+    "message": "~ = আগের পর্বগুলোর সাপ্তাহিক গতি থেকে অনুমান। Crunchyroll কোনো পর্ব প্রকাশের পরেই দেখায়।"
+  },
   "setCompactLabel": {
     "message": "\"দেখার বাকি\" সংক্ষিপ্তভাবে দেখান (কার্ডের বদলে সারি)"
   },
@@ -976,5 +960,31 @@
   },
   "localeAuto": {
     "message": "স্বয়ংক্রিয় (এক্সটেনশনের ভাষা)"
+  },
+  "groupBySeason": {
+    "message": "মৌসুম অনুযায়ী সাজান"
+  },
+  "sortSeasonsCount": {
+    "message": "সবচেয়ে বেশি সিজন"
+  },
+  "sortEpisodesTotal": {
+    "message": "মোট সবচেয়ে বেশি এপিসোড"
+  },
+  "linkHome": {
+    "message": "হোম"
+  },
+  "linksAria": {
+    "message": "Crunchyroll-এ খুলুন"
+  },
+  "ratingTitle": {
+    "message": "Crunchyroll রেটিং: 5-এর মধ্যে $P1$ · রেটিং সংখ্যা: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
   }
 }

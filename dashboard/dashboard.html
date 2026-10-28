@@ -18,6 +18,7 @@
           </div>
         </div>
         <div class="actions">
+          <nav class="cr-links" id="cr-links" data-i18n-aria-label="linksAria"></nav>
           <button id="btn-refresh" class="btn" type="button" data-i18n="btnRefresh"></button>
         </div>
       </div>
@@ -61,7 +62,8 @@
           </label>
           <label>
             <span data-i18n="setAutoLabel"></span>
-            <select id="set-auto"></select>
+            <input id="set-auto" type="number" inputmode="numeric" step="5" />
+            <small data-i18n="setAutoRange"></small>
             <small data-i18n="setAutoHelp"></small>
           </label>
           <label class="check">
@@ -117,6 +119,10 @@
         <label class="sort" id="listfilter-wrap" hidden>
           <span data-i18n="listFilterLabel"></span>
           <select id="list-filter"></select>
+        </label>
+        <label class="sort group-toggle" id="group-wrap" hidden>
+          <input id="group-never" type="checkbox" />
+          <span data-i18n="groupBySeason"></span>
         </label>
         <label class="sort" id="sort-wrap">
           <span data-i18n="sortLabel"></span>

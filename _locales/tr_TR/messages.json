@@ -58,6 +58,9 @@
   "setAutoHelp": {
     "message": "Arka planda uzantı simgesindeki sayıyı günceller. Doğrudan erişim engellenirse açık bir crunchyroll.com sekmesi gerekir."
   },
+  "setAutoRange": {
+    "message": "Dakika olarak (varsayılan: 60). 0 kapatır. En az 5, en fazla 1440 (1 gün)."
+  },
   "setNotifyLabel": {
     "message": "Yeni bölüm çıkınca bildir"
   },
@@ -146,28 +149,6 @@
   },
   "modeTitle": {
     "message": "Bu diziyi nasıl izliyorsun"
-  },
-  "autoOff": {
-    "message": "Kapalı"
-  },
-  "autoMinutes": {
-    "message": "$P1$ dakikada bir",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
-  },
-  "autoHour": {
-    "message": "Saatte bir"
-  },
-  "autoHours": {
-    "message": "$P1$ saatte bir",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
   },
   "epMovie": {
     "message": "Film"
@@ -951,6 +932,9 @@
   "emptyCalendar": {
     "message": "Önümüzdeki 7 günde bilinen yayın yok."
   },
+  "calEstimatedNote": {
+    "message": "~ = önceki bölümlerin haftalık temposuna göre tahmin. Crunchyroll bir bölümü ancak yayınlandığında gösterir."
+  },
   "setCompactLabel": {
     "message": "\"İzlenecek\" sekmesini sıkı göster (kart yerine satır)"
   },
@@ -976,5 +960,31 @@
   },
   "localeAuto": {
     "message": "Otomatik (eklenti dili)"
+  },
+  "groupBySeason": {
+    "message": "Sezona göre grupla"
+  },
+  "sortSeasonsCount": {
+    "message": "En çok sezon"
+  },
+  "sortEpisodesTotal": {
+    "message": "Toplamda en çok bölüm"
+  },
+  "linkHome": {
+    "message": "Ana sayfa"
+  },
+  "linksAria": {
+    "message": "Crunchyroll'da aç"
+  },
+  "ratingTitle": {
+    "message": "Crunchyroll puanı: 5 üzerinden $P1$ · oy sayısı: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
   }
 }

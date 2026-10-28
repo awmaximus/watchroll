@@ -423,7 +423,7 @@ var CRApi = (() => {
   async function readWatchlist(acc, locale, n, parallel) {
     const { responses } = await readPages(
       `watchlist:${n}`,
-      (i) => get(`/content/v2/discover/${acc}/watchlist`, { order: "desc", n, start: i * n, locale }),
+      (i) => get(`/content/v2/discover/${acc}/watchlist`, { order: "desc", n, start: i * n, ratings: "true", locale }),
       (r, count) => (r.data || []).length < n || (typeof r.total === "number" && count >= r.total),
       { parallel, maxPages: Math.ceil(WATCHLIST_MAX / n) }
     );
@@ -449,6 +449,25 @@ var CRApi = (() => {
     return r.items;
   }
 
+  // ---------- nota da série ----------
+  // A mesma consulta da página da série no site (conferida num HAR em out/2026):
+  // GET /content-reviews/v3/user/{conta}/rating/series/{id} →
+  // { average: "4.9", total: 434187, "1s"…"5s": {...}, rating: "<nota do usuário>" }.
+  // Filmes: mesmo caminho com movie_listing. null = sem nota (nenhuma avaliação).
+  // Nota que vem junto com um item (panel.rating, quando pedido com ratings=true).
+  function panelRating(r) {
+    const average = parseFloat(r && r.average);
+    const total = Number(r && r.total) || 0;
+    return Number.isFinite(average) && total > 0 ? { average, total } : null;
+  }
+
+  async function rating(id, kind = "series") {
+    const acc = await getAccountId();
+    const type = kind === "movie" ? "movie_listing" : "series";
+    const r = await get(`/content-reviews/v3/user/${acc}/rating/${type}/${encodeURIComponent(id)}`);
+    return panelRating(r);
+  }
+
   // ---------- Crunchylists (listas personalizadas) ----------
   // Nomes: GET /content/v2/{conta}/custom-lists (conferido num HAR do site em
   // out/2026): { data: [{ list_id, title, total, is_public, modified_at }] }.
@@ -465,7 +484,8 @@ var CRApi = (() => {
   // resposta vem inteira (sem páginas).
   async function customListItems(listId, locale) {
     const acc = await getAccountId();
-    const r = await get(`/content/v2/${acc}/custom-lists/${encodeURIComponent(listId)}`, { locale });
+    // ratings=true: a nota de cada série vem junto (como a página da lista do site pede).
+    const r = await get(`/content/v2/${acc}/custom-lists/${encodeURIComponent(listId)}`, { ratings: "true", locale });
     return (r.data || []).filter((it) => it && it.panel);
   }
 
@@ -649,6 +669,8 @@ var CRApi = (() => {
     watchlist,
     customLists,
     customListItems,
+    rating,
+    panelRating,
     watchHistory,
     seasons,
     episodes,

@@ -58,6 +58,9 @@
   "setAutoHelp": {
     "message": "Updates the number on the extension icon in the background. Needs an open crunchyroll.com tab if direct access is blocked."
   },
+  "setAutoRange": {
+    "message": "In minutes (default: 60). 0 turns it off. Minimum 5, maximum 1440 (1 day)."
+  },
   "setNotifyLabel": {
     "message": "Notify me when a new episode is out"
   },
@@ -146,28 +149,6 @@
   },
   "modeTitle": {
     "message": "How you watch this series"
-  },
-  "autoOff": {
-    "message": "Off"
-  },
-  "autoMinutes": {
-    "message": "Every $P1$ minutes",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
-  },
-  "autoHour": {
-    "message": "Every hour"
-  },
-  "autoHours": {
-    "message": "Every $P1$ hours",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
   },
   "epMovie": {
     "message": "Movie"
@@ -955,6 +936,9 @@
   "emptyCalendar": {
     "message": "No known releases in the next 7 days."
   },
+  "calEstimatedNote": {
+    "message": "~ = estimated from the weekly pace of previous episodes. Crunchyroll only lists an episode once it's out."
+  },
   "setCompactLabel": {
     "message": "Show \"To watch\" in compact mode (rows instead of cards)"
   },
@@ -980,5 +964,31 @@
   },
   "localeAuto": {
     "message": "Automatic (extension language)"
+  },
+  "groupBySeason": {
+    "message": "Group by release season"
+  },
+  "sortSeasonsCount": {
+    "message": "Most seasons"
+  },
+  "sortEpisodesTotal": {
+    "message": "Most episodes in total"
+  },
+  "linkHome": {
+    "message": "Home"
+  },
+  "linksAria": {
+    "message": "Open on Crunchyroll"
+  },
+  "ratingTitle": {
+    "message": "Crunchyroll rating: $P1$ out of 5 · ratings: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
   }
 }

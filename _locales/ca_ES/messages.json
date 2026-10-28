@@ -58,6 +58,9 @@
   "setAutoHelp": {
     "message": "Actualitza el número de la icona de l'extensió en segon pla. Cal una pestanya de crunchyroll.com oberta si l'accés directe està bloquejat."
   },
+  "setAutoRange": {
+    "message": "En minuts (per defecte: 60). 0 la desactiva. Mínim 5, màxim 1440 (1 dia)."
+  },
   "setNotifyLabel": {
     "message": "Avisa'm quan hi hagi episodis nous"
   },
@@ -146,28 +149,6 @@
   },
   "modeTitle": {
     "message": "Com mires aquesta sèrie"
-  },
-  "autoOff": {
-    "message": "Desactivada"
-  },
-  "autoMinutes": {
-    "message": "Cada $P1$ minuts",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
-  },
-  "autoHour": {
-    "message": "Cada hora"
-  },
-  "autoHours": {
-    "message": "Cada $P1$ hores",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
   },
   "epMovie": {
     "message": "Pel·lícula"
@@ -951,6 +932,9 @@
   "emptyCalendar": {
     "message": "No hi ha estrenes conegudes en els propers 7 dies."
   },
+  "calEstimatedNote": {
+    "message": "~ = estimació segons el ritme setmanal dels episodis anteriors. Crunchyroll només mostra un episodi quan surt."
+  },
   "setCompactLabel": {
     "message": "Mostra «Per mirar» en mode compacte (files en lloc de targetes)"
   },
@@ -976,5 +960,31 @@
   },
   "localeAuto": {
     "message": "Automàtic (idioma de l'extensió)"
+  },
+  "groupBySeason": {
+    "message": "Agrupa per temporada d'estrena"
+  },
+  "sortSeasonsCount": {
+    "message": "Més temporades"
+  },
+  "sortEpisodesTotal": {
+    "message": "Més episodis en total"
+  },
+  "linkHome": {
+    "message": "Inici"
+  },
+  "linksAria": {
+    "message": "Obre a Crunchyroll"
+  },
+  "ratingTitle": {
+    "message": "Valoració a Crunchyroll: $P1$ de 5 · valoracions: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
   }
 }

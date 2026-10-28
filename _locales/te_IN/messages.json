@@ -58,6 +58,9 @@
   "setAutoHelp": {
     "message": "బ్యాక్‌గ్రౌండ్‌లో ఎక్స్‌టెన్షన్ ఐకాన్‌పై సంఖ్యను అప్‌డేట్ చేస్తుంది. నేరుగా యాక్సెస్ బ్లాక్ అయితే crunchyroll.com ట్యాబ్ తెరిచి ఉండాలి."
   },
+  "setAutoRange": {
+    "message": "నిమిషాల్లో (డిఫాల్ట్: 60). 0 అయితే ఆఫ్. కనిష్ఠం 5, గరిష్ఠం 1440 (1 రోజు)."
+  },
   "setNotifyLabel": {
     "message": "కొత్త ఎపిసోడ్ వచ్చినప్పుడు తెలియజేయండి"
   },
@@ -146,28 +149,6 @@
   },
   "modeTitle": {
     "message": "మీరు ఈ సిరీస్‌ను ఎలా చూస్తారు"
-  },
-  "autoOff": {
-    "message": "ఆఫ్"
-  },
-  "autoMinutes": {
-    "message": "ప్రతి $P1$ నిమిషాలకు",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
-  },
-  "autoHour": {
-    "message": "ప్రతి గంటకు"
-  },
-  "autoHours": {
-    "message": "ప్రతి $P1$ గంటలకు",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
   },
   "epMovie": {
     "message": "సినిమా"
@@ -951,6 +932,9 @@
   "emptyCalendar": {
     "message": "రాబోయే 7 రోజుల్లో తెలిసిన విడుదలలు లేవు."
   },
+  "calEstimatedNote": {
+    "message": "~ = గత ఎపిసోడ్‌ల వారపు వేగం ఆధారంగా అంచనా. Crunchyroll ఎపిసోడ్ విడుదలైన తర్వాతే చూపిస్తుంది."
+  },
   "setCompactLabel": {
     "message": "\"చూడాల్సినవి\"ని కాంపాక్ట్‌గా చూపించు (కార్డులకు బదులు వరుసలు)"
   },
@@ -976,5 +960,31 @@
   },
   "localeAuto": {
     "message": "ఆటోమేటిక్ (ఎక్స్‌టెన్షన్ భాష)"
+  },
+  "groupBySeason": {
+    "message": "సీజన్ వారీగా గుంపు చేయి"
+  },
+  "sortSeasonsCount": {
+    "message": "ఎక్కువ సీజన్‌లు"
+  },
+  "sortEpisodesTotal": {
+    "message": "మొత్తం ఎక్కువ ఎపిసోడ్‌లు"
+  },
+  "linkHome": {
+    "message": "హోమ్"
+  },
+  "linksAria": {
+    "message": "Crunchyroll‌లో తెరవండి"
+  },
+  "ratingTitle": {
+    "message": "Crunchyroll రేటింగ్: 5కి $P1$ · రేటింగ్‌ల సంఖ్య: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
   }
 }

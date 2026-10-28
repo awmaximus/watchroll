@@ -11,7 +11,8 @@ var CRChecker = (() => {
   const LAST_KEY = "crnovos:last"; // último resultado completo (a página mostra na hora)
   const SEEN_KEY = "crnovos:seen"; // episódios pendentes já mostrados ou notificados
   const NOTIFICATION_ID = "crnovos-novos";
-  const AUTO_CHECK_OPTIONS = [0, 30, 60, 180, 360]; // minutos; 0 = desligado
+  // Verificação automática, em minutos: 0 desliga; fora disso, de 5 a 1440 (1 dia).
+  const AUTO_CHECK = { default: 60, min: 5, max: 1440 };
 
   const DEFAULT_SETTINGS = {
     locale: "auto", // idioma dos títulos e links: "auto" = idioma da interface
@@ -20,7 +21,7 @@ var CRChecker = (() => {
     defaultMode: "sub",
     concurrency: 4,
     playheadBatch: 100,
-    autoCheckMinutes: 60,
+    autoCheckMinutes: AUTO_CHECK.default,
     notify: true,
     showExtras: true,
     showSkipped: false,
@@ -36,6 +37,7 @@ var CRChecker = (() => {
     listNames: {}, // ID da Crunchylist -> nome (o último lido da API)
     listFilter: "", // filtro das abas: "" = todas as listas
     compact: false, // "Para assistir" em linhas em vez de cards
+    groupNever: true, // "A iniciar" agrupado pela temporada de lançamento
   };
 
   async function loadSettings(b = browser) {
@@ -56,8 +58,12 @@ var CRChecker = (() => {
   const saveSettings = (settings, b = browser) => b.storage.local.set({ [SETTINGS_KEY]: settings });
 
   function autoCheckMinutes(settings) {
-    const m = Number(settings && settings.autoCheckMinutes);
-    return AUTO_CHECK_OPTIONS.includes(m) ? m : DEFAULT_SETTINGS.autoCheckMinutes;
+    const raw = settings ? settings.autoCheckMinutes : undefined;
+    if (raw === undefined || raw === null || String(raw).trim() === "") return AUTO_CHECK.default;
+    const n = Math.round(Number(raw));
+    if (!Number.isFinite(n) || n < 0) return AUTO_CHECK.default;
+    if (n === 0) return 0;
+    return Math.min(AUTO_CHECK.max, Math.max(AUTO_CHECK.min, n));
   }
 
   // Episódios que contam como "novos" (os marcados como extra/pulado ficam de fora).
@@ -131,6 +137,8 @@ var CRChecker = (() => {
     waiting: "sortWaiting",
     next: "sortNext",
     season: "sortSeason",
+    seasons: "sortSeasonsCount",
+    episodes: "sortEpisodesTotal",
   };
   // Ordenações que fazem sentido em cada aba (a primeira é a padrão).
   const TAB_SORTS = {
@@ -139,7 +147,7 @@ var CRChecker = (() => {
     waitSub: ["waiting", "watched", "title"],
     noDub: ["waiting", "watched", "title"],
     upToDate: ["watched", "next", "title"],
-    never: ["season", "title"],
+    never: ["season", "title", "seasons", "episodes"],
     errors: ["title"],
     hidden: ["title", "watched"],
   };
@@ -147,6 +155,8 @@ var CRChecker = (() => {
   const launchRank = (r) => (r.launch ? r.launch.year * 10 + (SEASON_RANK[r.launch.season] ?? 0) : -1);
   const waitingCount = (r) => (r.waitingDub || 0) + (r.waitingSub || 0);
   const nextAt = (r) => (r.next && r.next.at) || Infinity;
+  // Temporadas/episódios da série; sem a informação (filme, cache antigo) vai para o fim.
+  const statOf = (r, k) => (r.stats && typeof r.stats[k] === "number" ? r.stats[k] : -1);
 
   // Ordenação escolhida para a aba (salva por aba; "Para assistir" herda a antiga sortBy).
   function sortFor(settings, tab) {
@@ -163,6 +173,8 @@ var CRChecker = (() => {
       waiting: (a, b) => waitingCount(b) - waitingCount(a) || byTitle(a, b),
       next: (a, b) => nextAt(a) - nextAt(b) || byTitle(a, b),
       season: (a, b) => launchRank(b) - launchRank(a) || byTitle(a, b),
+      seasons: (a, b) => statOf(b, "seasons") - statOf(a, "seasons") || byTitle(a, b),
+      episodes: (a, b) => statOf(b, "episodes") - statOf(a, "episodes") || byTitle(a, b),
       title: byTitle,
     }[by] || byTitle;
     return [...list].sort(cmp);
@@ -265,7 +277,10 @@ var CRChecker = (() => {
   const releaseKey = (e) => `${e.seriesId}:${e.id}`;
   const isOut = (results, e) => {
     const r = results.find((x) => x.seriesId === e.seriesId);
-    return !r || (r.pending || []).some((p) => p.id === e.id);
+    // Também conta como saído quando a série já aponta um lançamento posterior
+    // (o episódio saiu com outro id, como nas previsões pelo ritmo semanal, ou
+    // foi remarcado).
+    return !r || (r.pending || []).some((p) => p.id === e.id) || !!(r.next && r.next.at > e.at);
   };
 
   // Devolve { when, watch }: o horário da próxima verificação extra (ou null) e a
@@ -337,7 +352,7 @@ var CRChecker = (() => {
     nextReleaseCheck,
     releaseAlertsOn,
     NOTIFICATION_ID,
-    AUTO_CHECK_OPTIONS,
+    AUTO_CHECK,
     DEFAULT_SETTINGS,
     loadSettings,
     saveSettings,

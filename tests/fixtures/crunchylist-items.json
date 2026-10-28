@@ -1,0 +1,130 @@
+{
+ "total": 1,
+ "data": [
+  {
+   "list_id": "LIST",
+   "id": "GT00258001",
+   "modified_at": "2026-10-18T22:17:06Z",
+   "panel": {
+    "id": "GT00258001",
+    "external_id": "SRZ.GT00258001",
+    "channel_id": "crunchyroll",
+    "title": "Witch Hat Atelier",
+    "description": "In a world where only witches can cast magic, they must avoid being seen by ordinary people while casting. While Coco does her chores, she daydreams of becoming a witch. When a young witch named Qifrey visits her village, Coco uncovers the “absolute secret,” becomes Qifrey’s apprentice, and begins her studies. This is the story of children who encounter despair, yet reach out toward hope.",
+    "type": "series",
+    "slug": "",
+    "slug_title": "witch-hat-atelier",
+    "series_metadata": {
+     "availability_status": "available",
+     "extended_description": "",
+     "keywords": [
+      "spring-2026",
+      "seinen"
+     ],
+     "episode_count": 13,
+     "season_count": 1,
+     "extended_maturity_rating": {
+      "system": "cr-br-tv",
+      "rating": "A12",
+      "level": "M2"
+     },
+     "maturity_ratings": [
+      "A12"
+     ],
+     "content_descriptors": [
+      "Violência Fantasiosa"
+     ],
+     "content_descriptors_with_symbol": [
+      {
+       "label": "Violência Fantasiosa"
+      }
+     ],
+     "is_mature": false,
+     "mature_blocked": false,
+     "is_subbed": true,
+     "is_dubbed": true,
+     "is_simulcast": false,
+     "tenant_categories": [
+      "Fantasia",
+      "Aventura",
+      "Drama",
+      "Seinen"
+     ],
+     "availability_notes": "",
+     "audio_locales": [
+      "it-IT",
+      "ja-JP",
+      "pt-BR",
+      "es-419",
+      "de-DE",
+      "ar-SA",
+      "en-US",
+      "es-ES",
+      "fr-FR"
+     ],
+     "subtitle_locales": [
+      "ar-SA",
+      "es-419",
+      "en-US",
+      "it-IT",
+      "de-DE",
+      "fr-FR",
+      "pt-BR",
+      "es-ES",
+      "ru-RU",
+      "pl-PL"
+     ],
+     "series_launch_year": 2026,
+     "date_updated": "2026-06-22T14:00:00.000Z"
+    },
+    "rating": {
+     "1s": {
+      "displayed": "1.3",
+      "unit": "K",
+      "percentage": 2
+     },
+     "2s": {
+      "displayed": "558",
+      "unit": "",
+      "percentage": 1
+     },
+     "3s": {
+      "displayed": "1.5",
+      "unit": "K",
+      "percentage": 2
+     },
+     "4s": {
+      "displayed": "5",
+      "unit": "K",
+      "percentage": 5
+     },
+     "5s": {
+      "displayed": "103",
+      "unit": "K",
+      "percentage": 93
+     },
+     "average": "4.9",
+     "total": 111376
+    },
+    "linked_resource_key": "cms:/series/GT00258001",
+    "language_presentation": {
+     "audio_notation": "BR",
+     "text_notation": "BR",
+     "is_original_audio": false,
+     "audio_locale": "pt-BR",
+     "text_locale": "pt-BR",
+     "audio_notation_reason": "preferred",
+     "text_notation_reason": "default"
+    }
+   }
+  }
+ ],
+ "meta": {
+  "is_public": false,
+  "max": 100,
+  "modified_at": "2026-10-18T22:17:06Z",
+  "next_page": "",
+  "prev_page": "",
+  "title": "Lista de teste"
+ }
+}

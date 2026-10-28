@@ -58,6 +58,9 @@
   "setAutoHelp": {
     "message": "バックグラウンドで拡張機能アイコンの数字を更新します。直接アクセスがブロックされる場合は crunchyroll.com のタブを開いておく必要があります。"
   },
+  "setAutoRange": {
+    "message": "分単位（既定: 60）。0 でオフ。最小 5、最大 1440（1 日）。"
+  },
   "setNotifyLabel": {
     "message": "新しいエピソードが出たら通知する"
   },
@@ -146,28 +149,6 @@
   },
   "modeTitle": {
     "message": "このシリーズの見方"
-  },
-  "autoOff": {
-    "message": "オフ"
-  },
-  "autoMinutes": {
-    "message": "$P1$ 分ごと",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
-  },
-  "autoHour": {
-    "message": "1 時間ごと"
-  },
-  "autoHours": {
-    "message": "$P1$ 時間ごと",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
   },
   "epMovie": {
     "message": "映画"
@@ -951,6 +932,9 @@
   "emptyCalendar": {
     "message": "今後 7 日間に予定されている配信はありません。"
   },
+  "calEstimatedNote": {
+    "message": "~ = これまでのエピソードの週ごとのペースから推定。Crunchyroll は配信されるまでエピソードを表示しません。"
+  },
   "setCompactLabel": {
     "message": "「視聴待ち」をコンパクト表示にする(カードではなく行)"
   },
@@ -976,5 +960,31 @@
   },
   "localeAuto": {
     "message": "自動(拡張機能の言語)"
+  },
+  "groupBySeason": {
+    "message": "放送シーズンでまとめる"
+  },
+  "sortSeasonsCount": {
+    "message": "シーズン数が多い順"
+  },
+  "sortEpisodesTotal": {
+    "message": "総話数が多い順"
+  },
+  "linkHome": {
+    "message": "ホーム"
+  },
+  "linksAria": {
+    "message": "Crunchyroll で開く"
+  },
+  "ratingTitle": {
+    "message": "Crunchyroll の評価: 5 点中 $P1$ · 評価数: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
   }
 }

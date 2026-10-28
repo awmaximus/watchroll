@@ -58,6 +58,9 @@
   "setAutoHelp": {
     "message": "يحدّث الرقم على أيقونة الإضافة في الخلفية. يحتاج إلى علامة تبويب crunchyroll.com مفتوحة إذا كان الوصول المباشر محظورًا."
   },
+  "setAutoRange": {
+    "message": "بالدقائق (الافتراضي: 60). القيمة 0 توقفه. الحد الأدنى 5 والأقصى 1440 (يوم واحد)."
+  },
   "setNotifyLabel": {
     "message": "نبّهني عند صدور حلقة جديدة"
   },
@@ -146,28 +149,6 @@
   },
   "modeTitle": {
     "message": "طريقة مشاهدتك لهذا المسلسل"
-  },
-  "autoOff": {
-    "message": "متوقف"
-  },
-  "autoMinutes": {
-    "message": "كل $P1$ دقيقة",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
-  },
-  "autoHour": {
-    "message": "كل ساعة"
-  },
-  "autoHours": {
-    "message": "كل $P1$ ساعات",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
   },
   "epMovie": {
     "message": "فيلم"
@@ -951,6 +932,9 @@
   "emptyCalendar": {
     "message": "لا توجد إصدارات معروفة خلال الأيام السبعة القادمة."
   },
+  "calEstimatedNote": {
+    "message": "~ = تقدير حسب الإيقاع الأسبوعي للحلقات السابقة. لا تعرض Crunchyroll الحلقة إلا عند صدورها."
+  },
   "setCompactLabel": {
     "message": "عرض \"للمشاهدة\" بشكل مضغوط (صفوف بدل البطاقات)"
   },
@@ -976,5 +960,31 @@
   },
   "localeAuto": {
     "message": "تلقائي (لغة الإضافة)"
+  },
+  "groupBySeason": {
+    "message": "التجميع حسب الموسم"
+  },
+  "sortSeasonsCount": {
+    "message": "الأكثر مواسم"
+  },
+  "sortEpisodesTotal": {
+    "message": "الأكثر حلقات إجمالًا"
+  },
+  "linkHome": {
+    "message": "الرئيسية"
+  },
+  "linksAria": {
+    "message": "فتح في Crunchyroll"
+  },
+  "ratingTitle": {
+    "message": "تقييم Crunchyroll: $P1$ من 5 · عدد التقييمات: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
   }
 }

@@ -589,6 +589,22 @@ describe("Crunchylists", () => {
     const items = await api.customListItems("05a4", "pt-BR");
     assert.equal(items.length, 1);
     assert.equal(items[0].panel.id, "S1");
-    assert.match(requests[0].url, new RegExp(`/content/v2/${ACC}/custom-lists/05a4\\?locale=pt-BR$`));
+    assert.match(requests[0].url, new RegExp(`/content/v2/${ACC}/custom-lists/05a4\\?ratings=true&locale=pt-BR$`));
+  });
+});
+
+describe("nota da série", () => {
+  const REAL = { "1s": { displayed: "2.5", unit: "K", percentage: 1 }, "5s": { displayed: "418.1", unit: "K", percentage: 97 }, average: "4.9", total: 434187, rating: "" };
+
+  test("lê média e total do formato real (HAR do site)", async () => {
+    const { api, requests } = setup(() => json(REAL), { sessionToken: validSession() });
+    assert.deepEqual(plain(await api.rating("G3KHEVDJ7")), { average: 4.9, total: 434187 });
+    assert.match(requests[0].url, new RegExp(`/content-reviews/v3/user/${ACC}/rating/series/G3KHEVDJ7$`));
+  });
+
+  test("filme usa movie_listing; sem avaliações devolve null", async () => {
+    const { api, requests } = setup(() => json({ average: "0", total: 0, rating: "" }), { sessionToken: validSession() });
+    assert.equal(await api.rating("M1", "movie"), null);
+    assert.match(requests[0].url, /\/rating\/movie_listing\/M1$/);
   });
 });

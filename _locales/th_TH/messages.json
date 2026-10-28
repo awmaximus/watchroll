@@ -58,6 +58,9 @@
   "setAutoHelp": {
     "message": "อัปเดตตัวเลขบนไอคอนส่วนขยายในเบื้องหลัง ต้องเปิดแท็บ crunchyroll.com ไว้หากการเข้าถึงโดยตรงถูกบล็อก"
   },
+  "setAutoRange": {
+    "message": "หน่วยเป็นนาที (ค่าเริ่มต้น: 60) ใส่ 0 เพื่อปิด ต่ำสุด 5 สูงสุด 1440 (1 วัน)"
+  },
   "setNotifyLabel": {
     "message": "แจ้งเตือนเมื่อมีตอนใหม่"
   },
@@ -146,28 +149,6 @@
   },
   "modeTitle": {
     "message": "วิธีที่คุณดูซีรีส์นี้"
-  },
-  "autoOff": {
-    "message": "ปิด"
-  },
-  "autoMinutes": {
-    "message": "ทุก $P1$ นาที",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
-  },
-  "autoHour": {
-    "message": "ทุกชั่วโมง"
-  },
-  "autoHours": {
-    "message": "ทุก $P1$ ชั่วโมง",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
   },
   "epMovie": {
     "message": "ภาพยนตร์"
@@ -951,6 +932,9 @@
   "emptyCalendar": {
     "message": "ไม่มีกำหนดออกที่ทราบใน 7 วันข้างหน้า"
   },
+  "calEstimatedNote": {
+    "message": "~ = คาดการณ์จากจังหวะรายสัปดาห์ของตอนก่อนหน้า Crunchyroll จะแสดงตอนใหม่ก็ต่อเมื่อออกฉายแล้วเท่านั้น"
+  },
   "setCompactLabel": {
     "message": "แสดง \"รอดู\" แบบกะทัดรัด (เป็นแถวแทนการ์ด)"
   },
@@ -976,5 +960,31 @@
   },
   "localeAuto": {
     "message": "อัตโนมัติ (ภาษาของส่วนขยาย)"
+  },
+  "groupBySeason": {
+    "message": "จัดกลุ่มตามฤดูกาล"
+  },
+  "sortSeasonsCount": {
+    "message": "จำนวนซีซันมากที่สุด"
+  },
+  "sortEpisodesTotal": {
+    "message": "จำนวนตอนรวมมากที่สุด"
+  },
+  "linkHome": {
+    "message": "หน้าแรก"
+  },
+  "linksAria": {
+    "message": "เปิดใน Crunchyroll"
+  },
+  "ratingTitle": {
+    "message": "คะแนนบน Crunchyroll: $P1$ จาก 5 · จำนวนผู้ให้คะแนน: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
   }
 }

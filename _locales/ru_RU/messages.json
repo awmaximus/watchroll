@@ -58,6 +58,9 @@
   "setAutoHelp": {
     "message": "В фоне обновляет число на значке расширения. Если прямой доступ заблокирован, нужна открытая вкладка crunchyroll.com."
   },
+  "setAutoRange": {
+    "message": "В минутах (по умолчанию: 60). 0 — выключить. Минимум 5, максимум 1440 (1 день)."
+  },
   "setNotifyLabel": {
     "message": "Уведомлять о новой серии"
   },
@@ -146,28 +149,6 @@
   },
   "modeTitle": {
     "message": "Как вы смотрите этот сериал"
-  },
-  "autoOff": {
-    "message": "Выключено"
-  },
-  "autoMinutes": {
-    "message": "Каждые $P1$ мин",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
-  },
-  "autoHour": {
-    "message": "Каждый час"
-  },
-  "autoHours": {
-    "message": "Каждые $P1$ ч",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
   },
   "epMovie": {
     "message": "Фильм"
@@ -951,6 +932,9 @@
   "emptyCalendar": {
     "message": "Нет известных выходов в ближайшие 7 дней."
   },
+  "calEstimatedNote": {
+    "message": "~ = оценка по еженедельному ритму предыдущих серий. Crunchyroll показывает серию только после её выхода."
+  },
   "setCompactLabel": {
     "message": "Показывать «Смотреть» компактно (строки вместо карточек)"
   },
@@ -976,5 +960,31 @@
   },
   "localeAuto": {
     "message": "Автоматически (язык расширения)"
+  },
+  "groupBySeason": {
+    "message": "Группировать по сезону"
+  },
+  "sortSeasonsCount": {
+    "message": "Больше сезонов"
+  },
+  "sortEpisodesTotal": {
+    "message": "Больше всего серий"
+  },
+  "linkHome": {
+    "message": "Главная"
+  },
+  "linksAria": {
+    "message": "Открыть на Crunchyroll"
+  },
+  "ratingTitle": {
+    "message": "Оценка на Crunchyroll: $P1$ из 5 · оценок: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
   }
 }

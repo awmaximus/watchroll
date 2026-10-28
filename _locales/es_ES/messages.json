@@ -58,6 +58,9 @@
   "setAutoHelp": {
     "message": "En segundo plano, actualiza el número en el icono de la extensión. Necesita una pestaña de crunchyroll.com abierta si el acceso directo está bloqueado."
   },
+  "setAutoRange": {
+    "message": "En minutos (predeterminado: 60). 0 lo desactiva. Mínimo 5, máximo 1440 (1 día)."
+  },
   "setNotifyLabel": {
     "message": "Avisar cuando salga un episodio nuevo"
   },
@@ -146,28 +149,6 @@
   },
   "modeTitle": {
     "message": "Cómo ves esta serie"
-  },
-  "autoOff": {
-    "message": "Desactivada"
-  },
-  "autoMinutes": {
-    "message": "Cada $P1$ minutos",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
-  },
-  "autoHour": {
-    "message": "Cada hora"
-  },
-  "autoHours": {
-    "message": "Cada $P1$ horas",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
   },
   "epMovie": {
     "message": "Película"
@@ -951,6 +932,9 @@
   "emptyCalendar": {
     "message": "No hay estrenos conocidos en los próximos 7 días."
   },
+  "calEstimatedNote": {
+    "message": "~ = estimado según el ritmo semanal de los episodios anteriores. Crunchyroll solo muestra un episodio cuando sale."
+  },
   "setCompactLabel": {
     "message": "Mostrar \"Por ver\" en modo compacto (filas en vez de tarjetas)"
   },
@@ -976,5 +960,31 @@
   },
   "localeAuto": {
     "message": "Automático (idioma de la extensión)"
+  },
+  "groupBySeason": {
+    "message": "Agrupar por temporada de estreno"
+  },
+  "sortSeasonsCount": {
+    "message": "Más temporadas"
+  },
+  "sortEpisodesTotal": {
+    "message": "Más episodios en total"
+  },
+  "linkHome": {
+    "message": "Inicio"
+  },
+  "linksAria": {
+    "message": "Abrir en Crunchyroll"
+  },
+  "ratingTitle": {
+    "message": "Valoración en Crunchyroll: $P1$ de 5 · valoraciones: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
   }
 }

@@ -72,7 +72,12 @@ describe("contagem e ícone", () => {
   test("verificação automática: valores fora da lista voltam ao padrão (60)", () => {
     assert.equal(CRChecker.autoCheckMinutes({ autoCheckMinutes: 0 }), 0);
     assert.equal(CRChecker.autoCheckMinutes({ autoCheckMinutes: 180 }), 180);
-    assert.equal(CRChecker.autoCheckMinutes({ autoCheckMinutes: 7 }), 60);
+    assert.equal(CRChecker.autoCheckMinutes({ autoCheckMinutes: 7 }), 7, "qualquer número de minutos");
+    assert.equal(CRChecker.autoCheckMinutes({ autoCheckMinutes: "45" }), 45);
+    assert.equal(CRChecker.autoCheckMinutes({ autoCheckMinutes: 2 }), 5, "mínimo de 5");
+    assert.equal(CRChecker.autoCheckMinutes({ autoCheckMinutes: 99999 }), 1440, "máximo de 1 dia");
+    assert.equal(CRChecker.autoCheckMinutes({ autoCheckMinutes: -3 }), 60);
+    assert.equal(CRChecker.autoCheckMinutes({ autoCheckMinutes: "abc" }), 60);
     assert.equal(CRChecker.autoCheckMinutes({}), 60);
   });
 });
@@ -361,6 +366,19 @@ describe("ordenação por aba", () => {
     assert.deepEqual(order(list, "season"), ["A", "B", "C"], "sem temporada vai por último");
     assert.deepEqual(order(list, "title"), ["A", "B", "C"]);
   });
+
+  test("A iniciar: mais temporadas e mais episódios; sem a informação vai por último", () => {
+    const list = [
+      R("B", { stats: { seasons: 1, episodes: 24 } }),
+      R("A", { stats: { seasons: 3, episodes: 36 } }),
+      R("C", {}),
+      R("D", { stats: { seasons: 3, episodes: null } }),
+    ];
+    assert.deepEqual(order(list, "seasons"), ["A", "D", "B", "C"]);
+    assert.deepEqual(order(list, "episodes"), ["A", "B", "C", "D"]);
+    assert.deepEqual(plain(CRChecker.TAB_SORTS.never), ["season", "title", "seasons", "episodes"]);
+    assert.equal(CRChecker.DEFAULT_SETTINGS.groupNever, true);
+  });
 });
 
 describe("filtro por lista", () => {
@@ -419,6 +437,14 @@ describe("alerta na hora do lançamento", () => {
     assert.equal(out.watch.length, 0);
     assert.equal(C.planReleases([r("A")], [{ seriesId: "A", id: "a2", at: NOW - 4 * 3600000 }], { hidden: {} }, NOW).when, null);
     assert.equal(C.planReleases([], [{ seriesId: "A", id: "a2", at: NOW - MIN }], { hidden: {} }, NOW).when, null);
+  });
+
+  test("previsão pelo ritmo semanal: para quando a série já aponta o lançamento seguinte", () => {
+    const prev = [{ seriesId: "A", id: "est:S1:5", at: NOW - 20 * MIN }];
+    const next = { id: "est:S1:6", at: NOW + 7 * 24 * 60 * MIN, estimated: true };
+    const out = C.planReleases([r("A", { status: "pending", pending: [{ id: "real5" }], next })], prev, { hidden: {} }, NOW);
+    assert.deepEqual(plain(out.watch.map((e) => e.id)), ["est:S1:6"]);
+    assert.equal(out.when, next.at + 3 * MIN);
   });
 
   test("séries ocultas não geram alerta", () => {

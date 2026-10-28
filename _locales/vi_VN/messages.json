@@ -58,6 +58,9 @@
   "setAutoHelp": {
     "message": "Cập nhật con số trên biểu tượng tiện ích ở chế độ nền. Cần một thẻ crunchyroll.com đang mở nếu truy cập trực tiếp bị chặn."
   },
+  "setAutoRange": {
+    "message": "Tính bằng phút (mặc định: 60). 0 để tắt. Tối thiểu 5, tối đa 1440 (1 ngày)."
+  },
   "setNotifyLabel": {
     "message": "Thông báo khi có tập mới"
   },
@@ -146,28 +149,6 @@
   },
   "modeTitle": {
     "message": "Cách bạn xem bộ này"
-  },
-  "autoOff": {
-    "message": "Tắt"
-  },
-  "autoMinutes": {
-    "message": "Mỗi $P1$ phút",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
-  },
-  "autoHour": {
-    "message": "Mỗi giờ"
-  },
-  "autoHours": {
-    "message": "Mỗi $P1$ giờ",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
   },
   "epMovie": {
     "message": "Phim"
@@ -951,6 +932,9 @@
   "emptyCalendar": {
     "message": "Không có lịch phát hành nào trong 7 ngày tới."
   },
+  "calEstimatedNote": {
+    "message": "~ = ước tính theo nhịp hằng tuần của các tập trước. Crunchyroll chỉ hiển thị tập phim khi đã phát hành."
+  },
   "setCompactLabel": {
     "message": "Hiển thị \"Cần xem\" dạng gọn (hàng thay vì thẻ)"
   },
@@ -976,5 +960,31 @@
   },
   "localeAuto": {
     "message": "Tự động (ngôn ngữ của tiện ích)"
+  },
+  "groupBySeason": {
+    "message": "Nhóm theo mùa"
+  },
+  "sortSeasonsCount": {
+    "message": "Nhiều mùa nhất"
+  },
+  "sortEpisodesTotal": {
+    "message": "Nhiều tập nhất"
+  },
+  "linkHome": {
+    "message": "Trang chủ"
+  },
+  "linksAria": {
+    "message": "Mở trên Crunchyroll"
+  },
+  "ratingTitle": {
+    "message": "Điểm trên Crunchyroll: $P1$/5 · số lượt đánh giá: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
   }
 }

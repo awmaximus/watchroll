@@ -58,6 +58,9 @@
   "setAutoHelp": {
     "message": "Di latar belakang, mengemas kini nombor pada ikon sambungan. Memerlukan tab crunchyroll.com yang terbuka jika akses terus disekat."
   },
+  "setAutoRange": {
+    "message": "Dalam minit (lalai: 60). 0 mematikannya. Minimum 5, maksimum 1440 (1 hari)."
+  },
   "setNotifyLabel": {
     "message": "Maklumkan apabila episod baharu keluar"
   },
@@ -146,28 +149,6 @@
   },
   "modeTitle": {
     "message": "Cara anda menonton siri ini"
-  },
-  "autoOff": {
-    "message": "Mati"
-  },
-  "autoMinutes": {
-    "message": "Setiap $P1$ minit",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
-  },
-  "autoHour": {
-    "message": "Setiap jam"
-  },
-  "autoHours": {
-    "message": "Setiap $P1$ jam",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
   },
   "epMovie": {
     "message": "Filem"
@@ -951,6 +932,9 @@
   "emptyCalendar": {
     "message": "Tiada tayangan diketahui dalam 7 hari akan datang."
   },
+  "calEstimatedNote": {
+    "message": "~ = anggaran berdasarkan rentak mingguan episod sebelumnya. Crunchyroll hanya memaparkan episod apabila ia keluar."
+  },
   "setCompactLabel": {
     "message": "Paparkan \"Untuk ditonton\" dalam mod padat (baris, bukan kad)"
   },
@@ -976,5 +960,31 @@
   },
   "localeAuto": {
     "message": "Automatik (bahasa sambungan)"
+  },
+  "groupBySeason": {
+    "message": "Kumpulkan mengikut musim"
+  },
+  "sortSeasonsCount": {
+    "message": "Musim paling banyak"
+  },
+  "sortEpisodesTotal": {
+    "message": "Jumlah episod paling banyak"
+  },
+  "linkHome": {
+    "message": "Laman utama"
+  },
+  "linksAria": {
+    "message": "Buka di Crunchyroll"
+  },
+  "ratingTitle": {
+    "message": "Penarafan Crunchyroll: $P1$ daripada 5 · bilangan penarafan: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
   }
 }

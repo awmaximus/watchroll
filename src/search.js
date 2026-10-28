@@ -56,7 +56,14 @@ var CRSearch = (() => {
       episodes: meta.episode_count || null,
       seasons: meta.season_count || null,
       inWatchlist: !!(watchIds && watchIds.has(item.id)),
+      rating: itemRating(item.rating),
     };
+  }
+
+  function itemRating(r) {
+    const average = parseFloat(r && r.average);
+    const total = Number(r && r.total) || 0;
+    return Number.isFinite(average) && total > 0 ? { average, total } : null;
   }
 
   const hasCJK = (q) => /[぀-ヿ㐀-鿿ｦ-ﾟ]/.test(q || "");
@@ -147,6 +154,7 @@ var CRSearch = (() => {
       images: img ? { poster_wide: [img[0] || []] } : undefined,
       series_metadata: meta(x.series_metadata),
       movie_listing_metadata: meta(x.movie_listing_metadata),
+      rating: x.rating && { average: x.rating.average, total: x.rating.total },
     };
   }
 

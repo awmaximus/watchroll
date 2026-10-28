@@ -58,6 +58,9 @@
   "setAutoHelp": {
     "message": "پس منظر میں ایکسٹینشن کے آئیکن پر نمبر اپ ڈیٹ کرتا ہے۔ براہِ راست رسائی بند ہو تو crunchyroll.com کا ایک ٹیب کھلا ہونا ضروری ہے۔"
   },
+  "setAutoRange": {
+    "message": "منٹوں میں (طے شدہ: 60)۔ 0 سے بند ہو جاتا ہے۔ کم از کم 5، زیادہ سے زیادہ 1440 (1 دن)۔"
+  },
   "setNotifyLabel": {
     "message": "نئی قسط آنے پر اطلاع دیں"
   },
@@ -146,28 +149,6 @@
   },
   "modeTitle": {
     "message": "آپ یہ سیریز کیسے دیکھتے ہیں"
-  },
-  "autoOff": {
-    "message": "بند"
-  },
-  "autoMinutes": {
-    "message": "ہر $P1$ منٹ",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
-  },
-  "autoHour": {
-    "message": "ہر گھنٹے"
-  },
-  "autoHours": {
-    "message": "ہر $P1$ گھنٹے",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
   },
   "epMovie": {
     "message": "فلم"
@@ -951,6 +932,9 @@
   "emptyCalendar": {
     "message": "اگلے 7 دنوں میں کوئی معلوم ریلیز نہیں۔"
   },
+  "calEstimatedNote": {
+    "message": "~ = پچھلی اقساط کی ہفتہ وار رفتار سے اندازہ۔ Crunchyroll کوئی قسط ریلیز ہونے کے بعد ہی دکھاتا ہے۔"
+  },
   "setCompactLabel": {
     "message": "\"دیکھنی ہیں\" مختصر انداز میں دکھائیں (کارڈز کی جگہ قطاریں)"
   },
@@ -976,5 +960,31 @@
   },
   "localeAuto": {
     "message": "خودکار (ایکسٹینشن کی زبان)"
+  },
+  "groupBySeason": {
+    "message": "سیزن کے لحاظ سے گروپ کریں"
+  },
+  "sortSeasonsCount": {
+    "message": "سب سے زیادہ سیزن"
+  },
+  "sortEpisodesTotal": {
+    "message": "کل سب سے زیادہ اقساط"
+  },
+  "linkHome": {
+    "message": "ہوم"
+  },
+  "linksAria": {
+    "message": "Crunchyroll پر کھولیں"
+  },
+  "ratingTitle": {
+    "message": "Crunchyroll ریٹنگ: 5 میں سے $P1$ · ریٹنگز: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
   }
 }

@@ -58,6 +58,9 @@
   "setAutoHelp": {
     "message": "在背景更新擴充功能圖示上的數字。如果直接存取被阻止,需要開啟一個 crunchyroll.com 分頁。"
   },
+  "setAutoRange": {
+    "message": "單位為分鐘（預設：60）。0 表示關閉。最小 5，最大 1440（1 天）。"
+  },
   "setNotifyLabel": {
     "message": "有新劇集時通知我"
   },
@@ -146,28 +149,6 @@
   },
   "modeTitle": {
     "message": "你觀看這部系列的方式"
-  },
-  "autoOff": {
-    "message": "關閉"
-  },
-  "autoMinutes": {
-    "message": "每 $P1$ 分鐘",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
-  },
-  "autoHour": {
-    "message": "每小時"
-  },
-  "autoHours": {
-    "message": "每 $P1$ 小時",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
   },
   "epMovie": {
     "message": "電影"
@@ -951,6 +932,9 @@
   "emptyCalendar": {
     "message": "未來 7 天沒有已知的上線。"
   },
+  "calEstimatedNote": {
+    "message": "~ = 依先前集數的每週節奏推估。Crunchyroll 只在集數上線後才會顯示。"
+  },
   "setCompactLabel": {
     "message": "以精簡模式顯示「待觀看」(列而非卡片)"
   },
@@ -976,5 +960,31 @@
   },
   "localeAuto": {
     "message": "自動(擴充功能語言)"
+  },
+  "groupBySeason": {
+    "message": "依季度分組"
+  },
+  "sortSeasonsCount": {
+    "message": "季數最多"
+  },
+  "sortEpisodesTotal": {
+    "message": "總集數最多"
+  },
+  "linkHome": {
+    "message": "首頁"
+  },
+  "linksAria": {
+    "message": "在 Crunchyroll 中開啟"
+  },
+  "ratingTitle": {
+    "message": "Crunchyroll 評分:$P1$ / 5 · 評分人數:$P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
   }
 }

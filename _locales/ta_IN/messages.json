@@ -58,6 +58,9 @@
   "setAutoHelp": {
     "message": "பின்னணியில் நீட்டிப்பு ஐகானில் உள்ள எண்ணைப் புதுப்பிக்கிறது. நேரடி அணுகல் தடுக்கப்பட்டால் crunchyroll.com தாவல் திறந்திருக்க வேண்டும்."
   },
+  "setAutoRange": {
+    "message": "நிமிடங்களில் (இயல்பு: 60). 0 என்றால் அணைக்கப்படும். குறைந்தது 5, அதிகபட்சம் 1440 (1 நாள்)."
+  },
   "setNotifyLabel": {
     "message": "புதிய எபிசோடு வந்தால் அறிவி"
   },
@@ -146,28 +149,6 @@
   },
   "modeTitle": {
     "message": "இந்தத் தொடரை நீங்கள் எப்படிப் பார்க்கிறீர்கள்"
-  },
-  "autoOff": {
-    "message": "அணைக்கப்பட்டது"
-  },
-  "autoMinutes": {
-    "message": "ஒவ்வொரு $P1$ நிமிடமும்",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
-  },
-  "autoHour": {
-    "message": "ஒவ்வொரு மணிநேரமும்"
-  },
-  "autoHours": {
-    "message": "ஒவ்வொரு $P1$ மணிநேரமும்",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
   },
   "epMovie": {
     "message": "திரைப்படம்"
@@ -951,6 +932,9 @@
   "emptyCalendar": {
     "message": "அடுத்த 7 நாட்களில் தெரிந்த வெளியீடுகள் இல்லை."
   },
+  "calEstimatedNote": {
+    "message": "~ = முந்தைய எபிசோடுகளின் வாராந்திர வேகத்திலிருந்து கணிப்பு. Crunchyroll ஒரு எபிசோடை வெளியான பிறகே காட்டும்."
+  },
   "setCompactLabel": {
     "message": "\"பார்க்க\" பகுதியைச் சுருக்கமாகக் காட்டு (அட்டைகளுக்குப் பதில் வரிசைகள்)"
   },
@@ -976,5 +960,31 @@
   },
   "localeAuto": {
     "message": "தானியங்கு (நீட்டிப்பின் மொழி)"
+  },
+  "groupBySeason": {
+    "message": "பருவப்படி குழுவாக்கு"
+  },
+  "sortSeasonsCount": {
+    "message": "அதிக சீசன்கள்"
+  },
+  "sortEpisodesTotal": {
+    "message": "மொத்தம் அதிக எபிசோடுகள்"
+  },
+  "linkHome": {
+    "message": "முகப்பு"
+  },
+  "linksAria": {
+    "message": "Crunchyroll-இல் திற"
+  },
+  "ratingTitle": {
+    "message": "Crunchyroll மதிப்பீடு: 5-க்கு $P1$ · மதிப்பீடுகள்: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
   }
 }

@@ -12,7 +12,7 @@
 
 /* global browser, CRApi */
 var CRAnalyzer = (() => {
-  const CACHE_KEY = "crnovos:v7:cache"; // v7: guarda a temporada de lançamento (primavera, verão…) de cada série
+  const CACHE_KEY = "crnovos:v9:cache"; // v9: previsão do próximo episódio pelo ritmo semanal
   const CACHE_TTL = 5 * 60 * 1000; // dentro disso: reaproveita sem nenhuma consulta
   const REVALIDATE_TTL = 6 * 60 * 60 * 1000; // até isso: reaproveita se nada mudou
   // Quantas séries são consultadas ao mesmo tempo (configurável na página).
@@ -138,6 +138,20 @@ var CRAnalyzer = (() => {
       }
     }
     return null;
+  }
+
+  // Tamanho da série, a partir da lista de temporadas (já sem as cópias por
+  // dublagem): temporadas normais e a soma dos episódios delas. Uma série só com
+  // temporadas especiais conta essas. null quando a API não traz os números.
+  function seriesStats(seasons) {
+    if (!seasons || !seasons.length) return null;
+    const normal = seasons.filter((s) => !isSpecialSeason(s));
+    const counted = normal.length ? normal : seasons;
+    const known = counted.filter((s) => typeof s.number_of_episodes === "number");
+    return {
+      seasons: counted.length,
+      episodes: known.length ? known.reduce((n, s) => n + Math.max(0, s.number_of_episodes), 0) : null,
+    };
   }
 
   // Áudios que a temporada oferece (o dela, os das versões e audio_locales).
@@ -282,6 +296,7 @@ var CRAnalyzer = (() => {
         slug: p.type === "movie_listing" ? p.slug_title : mm.movie_listing_slug_title || p.slug_title || "",
         image: pickImage(p.images, 320),
         neverWatchedFlag: !!item.never_watched,
+        rating: itemRating(p),
       };
     }
     const seriesId = p.type === "series" ? p.id : meta.series_id || p.series_id;
@@ -292,7 +307,16 @@ var CRAnalyzer = (() => {
       slug: p.type === "series" ? p.slug_title : meta.series_slug_title || "",
       image: pickImage(p.images, 320),
       neverWatchedFlag: !!item.never_watched,
+      rating: itemRating(p),
     };
+  }
+
+  // Nota da Crunchyroll que vem no item (listas pedidas com ratings=true).
+  function itemRating(p) {
+    const r = p && p.rating;
+    const average = parseFloat(r && r.average);
+    const total = Number(r && r.total) || 0;
+    return Number.isFinite(average) && total > 0 ? { average, total } : null;
   }
 
   // ---------- análise de uma série ----------
@@ -333,6 +357,8 @@ var CRAnalyzer = (() => {
     // Listas de episódios usadas na temporada mais recente e a impressão digital
     // de cada uma, para a revalidação perceber episódio/dublagem/legenda nova.
     let latestFp = null;
+    // Episódios da temporada mais recente, para prever o próximo pelo ritmo semanal.
+    let latest = null;
 
     for (let i = seasons.length - 1, back = 0; i >= 0 && back < MAX_SEASONS_BACK; i--, back++) {
       const season = seasons[i];
@@ -369,6 +395,7 @@ var CRAnalyzer = (() => {
         .filter((e) => !e.is_clip)
         .sort((a, b) => (a.sequence_number ?? 0) - (b.sequence_number ?? 0));
       if (!eps.length) continue;
+      if (back === 0) latest = { eps, season, eligible };
 
       if (mode === "dub" && latestHasDub === null) {
         latestHasDub = eligible && eps.some((e) => isInAudio(e, dubLang));
@@ -468,8 +495,12 @@ var CRAnalyzer = (() => {
       fp: { seasons: seasonsKey(rawSeasons), latest: latestFp },
       audios: seriesAudios(seasons),
       launch: seriesLaunch(seasons),
+      stats: seriesStats(seasons),
     };
-    if (!anyActivity) return { ...base, status: "never", pending: [] };
+    const upcoming = () =>
+      nextRelease(ordered, mode, dubLang, now) ||
+      (latest && latest.eligible ? estimateNext(latest.eps, latest.season, mode, dubLang, now) : null);
+    if (!anyActivity) return { ...base, status: "never", pending: [], next: upcoming() };
 
     let lastIdx = -1;
     for (let i = 0; i < ordered.length; i++) if (ordered[i].started) lastIdx = i;
@@ -532,7 +563,7 @@ var CRAnalyzer = (() => {
       image: base.image || (pending[0] && pending[0].thumb) || null,
       status: pending.length ? "pending" : "uptodate",
       pending,
-      next: nextRelease(ordered, mode, dubLang, now),
+      next: upcoming(),
       waitingDub: waitingDub + waitingDubLatest,
       waitingSub,
       dubMissing: mode === "dub" && dubMissingSomewhere,
@@ -667,6 +698,63 @@ var CRAnalyzer = (() => {
     return best;
   }
 
+  // A Crunchyroll só põe o episódio no catálogo quando ele sai, então quase nunca
+  // há data futura. Para simulcasts, a previsão segue o ritmo: se os últimos
+  // episódios saíram de semana em semana, o próximo sai 7 dias depois do último,
+  // no mesmo horário. Sem ritmo semanal, ou com o episódio previsto já atrasado
+  // (pausa ou fim da temporada), não há previsão.
+  const DAY_MS = 86400000;
+  const WEEK_MS = 7 * DAY_MS;
+  function estimateNext(eps, season, mode, dubLang, now) {
+    const out = (eps || [])
+      .filter((e) => isAvailable(e, now) && !extraKind(e, season) && (mode !== "dub" || isInAudio(e, dubLang)))
+      .map((e) => ({ e, at: Date.parse(e.availability_starts || e.premium_available_date || "") }))
+      .filter((x) => x.at && x.at <= now)
+      .sort((a, b) => a.at - b.at);
+    if (out.length < 2) return null;
+    const gaps = [];
+    for (let i = Math.max(1, out.length - 4); i < out.length; i++) gaps.push(out[i].at - out[i - 1].at);
+    gaps.sort((a, b) => a - b);
+    const median = gaps[Math.floor(gaps.length / 2)];
+    if (median < 6 * DAY_MS || median > 8 * DAY_MS) return null;
+    const last = out[out.length - 1];
+    const at = last.at + WEEK_MS;
+    if (at <= now) return null;
+    const n = parseInt(last.e.episode != null && last.e.episode !== "" ? last.e.episode : last.e.episode_number, 10);
+    const number = Number.isFinite(n) ? String(n + 1) : "";
+    return {
+      at,
+      id: `est:${season.id}:${number || at}`,
+      season: last.e.season_number,
+      number,
+      title: "",
+      estimated: true,
+    };
+  }
+
+  // Série ainda não começada (pelo histórico, sem ler os episódios): se a temporada
+  // mais recente é desta temporada de anime ou da anterior, lê os episódios dela
+  // (1 consulta) só para prever o próximo lançamento.
+  const RECENT_LAUNCH_MS = 200 * DAY_MS;
+  const SEASON_MONTH = { winter: 0, spring: 3, summer: 6, fall: 9 };
+  async function nextForNever(seasons, mode, settings, api = CRApi, now = Date.now()) {
+    const launch = seriesLaunch(seasons);
+    if (!launch) return null;
+    const start = Date.UTC(launch.year, SEASON_MONTH[launch.season] || 0, 1);
+    if (now - start > RECENT_LAUNCH_MS || start - now > 31 * DAY_MS) return null;
+    const normal = seasons.filter((x) => !isSpecialSeason(x));
+    const season = (normal.length ? normal : seasons)[(normal.length ? normal : seasons).length - 1];
+    if (!season) return null;
+    let candidates = [season.id];
+    if (mode === "sub") candidates = seasonCandidates(season, "original");
+    else if (mode === "dub") {
+      candidates = seasonCandidates(season, settings.dubLang);
+      if (!candidates.length) return null;
+    }
+    const got = await episodesOfFirst(api, candidates, settings.locale);
+    return estimateNext(got.eps || [], season, mode, settings.dubLang, now);
+  }
+
   const analyzeEntry = (entry, mode, settings, api = CRApi, prefetchedSeasons = null) =>
     entry.kind === "movie"
       ? analyzeMovie(entry, mode, settings, api)
@@ -781,6 +869,7 @@ var CRAnalyzer = (() => {
           if (!prev.lists.includes(id)) prev.lists.push(id);
           prev.neverWatchedFlag = prev.neverWatchedFlag || e.neverWatchedFlag;
           if (!prev.image) prev.image = e.image;
+          if (!prev.rating) prev.rating = e.rating;
         }
       }
     }
@@ -838,6 +927,8 @@ var CRAnalyzer = (() => {
             const ss = sortSeasons(await CRApi.seasons(entry.seriesId, settings.locale, settings.dubLang));
             result.audios = seriesAudios(ss);
             result.launch = seriesLaunch(ss);
+            result.stats = seriesStats(ss);
+            result.next = await nextForNever(ss, mode, settings, CRApi, now);
           } catch (_) {}
         }
       } else {
@@ -872,7 +963,7 @@ var CRAnalyzer = (() => {
       }
       onProgress(++done, unique.length);
       // De quais listas a série veio (não vai para o cache: muda sem mudar a série).
-      return { ...result, lists: entry.lists };
+      return { ...result, lists: entry.lists, rating: entry.rating || result.rating || null };
     });
 
     // Remove do cache séries que saíram da Fila.
@@ -977,5 +1068,5 @@ var CRAnalyzer = (() => {
     return entry.lists ? { ...result, lists: entry.lists } : result;
   }
 
-  return { run, runOne, cacheScope, withLocale, WATCHLIST, listSources, readSources, mergeSources, historyActivity, dubStatus, seriesAudios, parseSeasonTag, seriesLaunch, diagnose, sanitize, extraKind, CONCURRENCY, concurrencyFrom, PLAYHEAD_BATCH, playheadBatchFrom, MIN_STARTED, MIN_STARTED_SECONDS, minStartedFrom };
+  return { run, runOne, cacheScope, withLocale, WATCHLIST, listSources, readSources, mergeSources, historyActivity, dubStatus, seriesAudios, parseSeasonTag, seriesLaunch, seriesStats, estimateNext, nextForNever, diagnose, sanitize, extraKind, CONCURRENCY, concurrencyFrom, PLAYHEAD_BATCH, playheadBatchFrom, MIN_STARTED, MIN_STARTED_SECONDS, minStartedFrom };
 })();

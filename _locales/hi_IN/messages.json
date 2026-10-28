@@ -58,6 +58,9 @@
   "setAutoHelp": {
     "message": "बैकग्राउंड में एक्सटेंशन आइकन पर संख्या अपडेट करता है। सीधी पहुँच ब्लॉक होने पर crunchyroll.com का एक टैब खुला होना चाहिए।"
   },
+  "setAutoRange": {
+    "message": "मिनटों में (डिफ़ॉल्ट: 60)। 0 से बंद होता है। न्यूनतम 5, अधिकतम 1440 (1 दिन)।"
+  },
   "setNotifyLabel": {
     "message": "नया एपिसोड आने पर सूचित करें"
   },
@@ -146,28 +149,6 @@
   },
   "modeTitle": {
     "message": "आप यह सीरीज़ कैसे देखते हैं"
-  },
-  "autoOff": {
-    "message": "बंद"
-  },
-  "autoMinutes": {
-    "message": "हर $P1$ मिनट",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
-  },
-  "autoHour": {
-    "message": "हर घंटे"
-  },
-  "autoHours": {
-    "message": "हर $P1$ घंटे",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
   },
   "epMovie": {
     "message": "फ़िल्म"
@@ -951,6 +932,9 @@
   "emptyCalendar": {
     "message": "अगले 7 दिनों में कोई ज्ञात रिलीज़ नहीं।"
   },
+  "calEstimatedNote": {
+    "message": "~ = पिछले एपिसोड की साप्ताहिक रफ़्तार से अनुमान। Crunchyroll किसी एपिसोड को रिलीज़ होने पर ही दिखाता है।"
+  },
   "setCompactLabel": {
     "message": "\"देखने हैं\" को संक्षिप्त रूप में दिखाएँ (कार्ड की जगह पंक्तियाँ)"
   },
@@ -976,5 +960,31 @@
   },
   "localeAuto": {
     "message": "स्वचालित (एक्सटेंशन की भाषा)"
+  },
+  "groupBySeason": {
+    "message": "सीज़न के अनुसार समूह बनाएँ"
+  },
+  "sortSeasonsCount": {
+    "message": "सबसे ज़्यादा सीज़न"
+  },
+  "sortEpisodesTotal": {
+    "message": "कुल सबसे ज़्यादा एपिसोड"
+  },
+  "linkHome": {
+    "message": "होम"
+  },
+  "linksAria": {
+    "message": "Crunchyroll पर खोलें"
+  },
+  "ratingTitle": {
+    "message": "Crunchyroll रेटिंग: 5 में से $P1$ · रेटिंग की संख्या: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
   }
 }

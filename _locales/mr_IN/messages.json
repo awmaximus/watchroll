@@ -58,6 +58,9 @@
   "setAutoHelp": {
     "message": "पार्श्वभूमीत एक्स्टेंशन आयकॉनवरील संख्या अपडेट करते. थेट प्रवेश बंद असल्यास crunchyroll.com चा एक टॅब उघडा असावा लागतो."
   },
+  "setAutoRange": {
+    "message": "मिनिटांमध्ये (डीफॉल्ट: 60). 0 ने बंद होते. किमान 5, कमाल 1440 (1 दिवस)."
+  },
   "setNotifyLabel": {
     "message": "नवीन भाग आल्यावर सूचना द्या"
   },
@@ -146,28 +149,6 @@
   },
   "modeTitle": {
     "message": "तुम्ही ही मालिका कशी पाहता"
-  },
-  "autoOff": {
-    "message": "बंद"
-  },
-  "autoMinutes": {
-    "message": "दर $P1$ मिनिटांनी",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
-  },
-  "autoHour": {
-    "message": "दर तासाला"
-  },
-  "autoHours": {
-    "message": "दर $P1$ तासांनी",
-    "placeholders": {
-      "p1": {
-        "content": "$1"
-      }
-    }
   },
   "epMovie": {
     "message": "चित्रपट"
@@ -951,6 +932,9 @@
   "emptyCalendar": {
     "message": "पुढील 7 दिवसांत कोणतेही ज्ञात प्रकाशन नाही."
   },
+  "calEstimatedNote": {
+    "message": "~ = आधीच्या भागांच्या साप्ताहिक वेगावरून अंदाज. Crunchyroll एखादा भाग प्रदर्शित झाल्यावरच दाखवते."
+  },
   "setCompactLabel": {
     "message": "\"पाहायचे\" संक्षिप्त स्वरूपात दाखवा (कार्डऐवजी ओळी)"
   },
@@ -976,5 +960,31 @@
   },
   "localeAuto": {
     "message": "स्वयंचलित (एक्स्टेंशनची भाषा)"
+  },
+  "groupBySeason": {
+    "message": "हंगामानुसार गट करा"
+  },
+  "sortSeasonsCount": {
+    "message": "सर्वाधिक सीझन"
+  },
+  "sortEpisodesTotal": {
+    "message": "एकूण सर्वाधिक भाग"
+  },
+  "linkHome": {
+    "message": "मुख्यपृष्ठ"
+  },
+  "linksAria": {
+    "message": "Crunchyroll वर उघडा"
+  },
+  "ratingTitle": {
+    "message": "Crunchyroll रेटिंग: 5 पैकी $P1$ · रेटिंग संख्या: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
   }
 }

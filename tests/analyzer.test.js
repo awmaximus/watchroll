@@ -11,6 +11,7 @@ function setup(db) {
   const CRApi = {
     getAccountId: async () => "conta-1",
     watchlist: async (locale) => (calls.push(["watchlist"]), (calls.locales = calls.locales || []).push(locale), db.watchlist),
+    ...(db.history ? { watchHistory: async () => db.history } : {}),
     customListItems: async (id) => {
       calls.push(["customList", id]);
       if ((db.missingLists || []).includes(id)) throw Object.assign(new Error("HTTP 404"), { status: 404 });
@@ -1268,13 +1269,14 @@ describe("atalho pelo histórico de reprodução", () => {
   const H = (entries, complete = true) => ({ entries, complete });
   const play = (parent, secs, fully = false) => ({ parent_id: parent, playhead: secs, fully_watched: fully, date_played: "2026-10-01T00:00:00Z" });
 
-  test("histórico completo + never_watched + ausente: só as temporadas, 'never'", async () => {
+  test("histórico completo + never_watched + ausente: sem playheads, 'never'", async () => {
     const { analyzer, calls, epCalls } = withHistory(H([play("OUTRA", 1400, true)]), [series("A", { never_watched: true })]);
     const [r] = await analyzer.run({ settings: settings() });
     assert.equal(r.status, "never");
     assert.equal(r.viaHistory, true);
     assert.deepEqual(calls, ["A"], "uma consulta: temporadas");
-    assert.deepEqual(epCalls, [], "nenhuma lista de episódios");
+    // Temporada desta temporada de anime: lê só a lista de episódios dela, para a previsão.
+    assert.deepEqual(epCalls, ["T-A"], "só a lista de episódios da temporada atual");
     assert.deepEqual(plain(r.launch), { season: "fall", year: 2026 }, "com a temporada de lançamento");
     assert.equal(analyzer.dubStatus(r, "ja-JP"), "yes", "e os áudios");
   });
@@ -1309,7 +1311,7 @@ describe("atalho pelo histórico de reprodução", () => {
     const [r] = await analyzer.run({ settings: settings() });
     assert.equal(r.status, "never");
     assert.equal(r.viaHistory, true);
-    assert.deepEqual(epCalls, []);
+    assert.deepEqual(epCalls, ["T-A"]);
   });
 
   test("filmes usam o mesmo atalho (parent_id = título do filme)", async () => {
@@ -1345,7 +1347,7 @@ describe("revalidar só o que mudou", () => {
     const ctx = load(["src/analyzer.js"], { browser, CRApi });
     // Envelhece a análise guardada no cache.
     const age = (ms) => {
-      const all = browser.storage.local.data["crnovos:v7:cache"];
+      const all = browser.storage.local.data["crnovos:v9:cache"];
       for (const scope of Object.values(all)) {
         for (const r of Object.values(scope)) {
           r.checkedAt -= ms;
@@ -1705,6 +1707,43 @@ describe("temporada de lançamento (aba Ainda não começadas)", () => {
   });
 });
 
+describe("tamanho da série (aba A iniciar)", () => {
+  const S = (id, n, extra = {}) => ({ id, season_sequence_number: n, season_number: n, number_of_episodes: 12, ...extra });
+
+  test("conta temporadas normais e soma os episódios; cópias por dublagem e especiais ficam de fora", () => {
+    const { analyzer: a } = setup({ watchlist: [], seasons: {}, episodes: {}, playheads: {} });
+    const seasons = [
+      S("A1", 1, { versions: [{ guid: "A1", original: true }] }),
+      S("A1-dub", 1, { versions: [{ guid: "A1", original: true }] }), // mesma temporada, outro áudio
+      S("A2", 2, { number_of_episodes: 13 }),
+      S("SP", 0, { season_number: 0, title: "Specials", number_of_episodes: 3 }),
+    ];
+    const sorted = seasons.filter((x, i) => i !== 1); // o analisador já tira as cópias antes
+    assert.deepEqual(plain(a.seriesStats(sorted)), { seasons: 2, episodes: 25 });
+  });
+
+  test("série só com temporada especial conta essa; sem number_of_episodes, episódios = null", () => {
+    const { analyzer: a } = setup({ watchlist: [], seasons: {}, episodes: {}, playheads: {} });
+    assert.deepEqual(plain(a.seriesStats([S("SP", 0, { season_number: 0, number_of_episodes: 2 })])), { seasons: 1, episodes: 2 });
+    assert.deepEqual(plain(a.seriesStats([{ id: "X", season_number: 1 }])), { seasons: 1, episodes: null });
+    assert.equal(a.seriesStats([]), null);
+  });
+
+  test("análise completa e atalho pelo histórico guardam o tamanho", async () => {
+    const seasons = { N: [S("N1", 1), S("N2", 2, { number_of_episodes: 24 })] };
+    const full = setup({ watchlist: [series("N")], seasons, episodes: { N1: [episode("n1", 1)], N2: [episode("n2", 1)] }, playheads: {} });
+    const [r1] = await full.analyzer.run({ settings: settings() });
+    assert.equal(r1.status, "never");
+    assert.deepEqual(plain(r1.stats), { seasons: 2, episodes: 36 });
+
+    const quick = setup({ watchlist: [series("N", { never_watched: true })], seasons, episodes: {}, playheads: {}, history: { entries: [], complete: true } });
+    const [r2] = await quick.analyzer.run({ settings: settings() });
+    assert.equal(r2.status, "never");
+    assert.equal(r2.viaHistory, true, "passou pelo atalho do histórico");
+    assert.deepEqual(plain(r2.stats), { seasons: 2, episodes: 36 });
+  });
+});
+
 describe("Fila + Crunchylists", () => {
   const db = (over = {}) => ({
     watchlist: [series("A", { never_watched: true }), series("B")],
@@ -1807,5 +1846,116 @@ describe("idioma das consultas", () => {
     assert.equal(calls.locales.length, 1);
     assert.notEqual(calls.locales[0], "auto");
     assert.match(calls.locales[0], /^[a-z]{2}-[A-Z0-9]{2,3}$/); // navegador de teste em pt-BR → "pt-BR"
+  });
+});
+
+describe("nota da Crunchyroll vinda com a lista", () => {
+  const real = require("./fixtures/crunchylist-items.json"); // HAR da página de uma Crunchylist (out/2026)
+
+  test("item real de Crunchylist (ratings=true): a nota chega ao resultado", async () => {
+    const id = real.data[0].panel.id;
+    const { analyzer } = setup({ watchlist: [], lists: { LIST: real.data }, seasons: {}, episodes: {}, playheads: {} });
+    const [r] = await analyzer.run({ settings: settings({ sources: ["LIST"] }) });
+    assert.equal(r.seriesId, id);
+    assert.equal(r.rating.average, parseFloat(real.data[0].panel.rating.average));
+    assert.equal(r.rating.total, real.data[0].panel.rating.total);
+  });
+
+  test("sem nota no item (ou sem avaliações): rating = null, a página consulta à parte", async () => {
+    const { analyzer } = setup({ watchlist: [series("A"), series("B", {})], seasons: {}, episodes: {}, playheads: {} });
+    const r = await analyzer.run({ settings: settings() });
+    assert.equal(r[0].rating, null);
+    const merged = analyzer.mergeSources([
+      { id: "watchlist", items: [{ panel: { type: "series", id: "Z", title: "Z", rating: { average: "0", total: 0 } } }] },
+      { id: "L1", items: [{ panel: { type: "series", id: "Z", title: "Z", rating: { average: "4.5", total: 10 } } }] },
+    ]);
+    assert.deepEqual(plain(merged[0].rating), { average: 4.5, total: 10 });
+  });
+});
+
+describe("previsão do próximo episódio pelo ritmo semanal (aba Semana)", () => {
+  const HOUR = 3600000;
+  // Episódios semanais: o último saiu `lastAgo` atrás, no mesmo horário.
+  const weekly = (count, lastAgo, opts = {}) =>
+    Array.from({ length: count }, (_, i) =>
+      episode(`w${i + 1}`, i + 1, { availableAt: Date.now() - lastAgo - (count - 1 - i) * 7 * DAY, ...opts })
+    );
+  const season = { id: "S1", season_sequence_number: 1 };
+  const est = (eps, mode = "auto") => {
+    const ctx = load(["src/analyzer.js"], { browser: fakeBrowser(), CRApi: {} });
+    return ctx.CRAnalyzer.estimateNext(eps, season, mode, "pt-BR", Date.now());
+  };
+
+  test("semanal: próximo 7 dias depois do último, no mesmo horário, número seguinte", () => {
+    const eps = weekly(4, 2 * DAY);
+    const r = est(eps);
+    assert.equal(r.at, Date.parse(eps[3].availability_starts) + 7 * DAY);
+    assert.equal(r.number, "5");
+    assert.equal(r.estimated, true);
+    assert.match(r.id, /^est:S1:5$/);
+  });
+
+  test("episódio previsto já passou (pausa ou fim da temporada): sem previsão", () => {
+    assert.equal(est(weekly(4, 7 * DAY + HOUR)), null);
+  });
+
+  test("um episódio só, ou episódios diários: sem ritmo semanal", () => {
+    assert.equal(est(weekly(1, DAY)), null);
+    assert.equal(est([1, 2, 3].map((n) => episode(`d${n}`, n, { availableAt: Date.now() - (4 - n) * DAY }))), null);
+  });
+
+  test("modo dublado: só conta episódios no áudio escolhido", () => {
+    assert.equal(est(weekly(3, DAY), "dub"), null, "lista só em japonês");
+    const dub = weekly(3, DAY, { audio: "pt-BR" });
+    assert.ok(est(dub, "dub"));
+  });
+
+  test("especiais e recaps não definem o ritmo nem o número", () => {
+    const eps = weekly(3, DAY);
+    eps.push(episode("sp", 4, { availableAt: Date.now() - HOUR }));
+    eps[3].episode = "3.5";
+    const r = est(eps);
+    assert.equal(r.number, "4");
+    assert.equal(r.at, Date.parse(eps[2].availability_starts) + 7 * DAY);
+  });
+
+  test("análise completa: série em dia ganha a previsão em r.next", async () => {
+    const eps = weekly(3, DAY);
+    const { analyzer } = setup({
+      watchlist: [series("A")],
+      seasons: { A: [{ id: "A1", season_sequence_number: 1 }] },
+      episodes: { A1: eps },
+      playheads: Object.fromEntries(eps.map((e) => [e.id, playhead(e.id, FULL, true)])),
+    });
+    const [r] = await analyzer.run({ settings: settings() });
+    assert.equal(r.status, "uptodate");
+    assert.equal(r.next.estimated, true);
+    assert.equal(r.next.number, "4");
+  });
+
+  test("série não começada também ganha a previsão", async () => {
+    const { analyzer } = setup({
+      watchlist: [series("A")],
+      seasons: { A: [{ id: "A1", season_sequence_number: 1 }] },
+      episodes: { A1: weekly(3, DAY) },
+      playheads: {},
+    });
+    const [r] = await analyzer.run({ settings: settings() });
+    assert.equal(r.status, "never");
+    assert.equal(r.next && r.next.number, "4");
+  });
+
+  test("data futura informada pela Crunchyroll tem prioridade sobre a previsão", async () => {
+    const eps = weekly(3, DAY);
+    eps.push(episode("f4", 4, { availableAt: Date.now() + 2 * DAY }));
+    const { analyzer } = setup({
+      watchlist: [series("A")],
+      seasons: { A: [{ id: "A1", season_sequence_number: 1 }] },
+      episodes: { A1: eps },
+      playheads: { w1: playhead("w1", FULL, true) },
+    });
+    const [r] = await analyzer.run({ settings: settings() });
+    assert.equal(r.next.id, "f4");
+    assert.ok(!r.next.estimated);
   });
 });
