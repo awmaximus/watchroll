@@ -1127,34 +1127,6 @@
           )
         ),
         el(
-          "label",
-          {},
-          el("span", { text: t("searchAge") }),
-          el(
-            "select",
-            { id: "sf-age", onchange: onFilter("maxAge") },
-            RATING_OPTIONS.map((v) => opt(v, v === "" ? t("searchAgeAny") : v === "0" ? t("ageFree") : t("searchAgeUpTo", v), f.maxAge))
-          )
-        ),
-        el(
-          "label",
-          {},
-          el("span", { text: t("searchYear") }),
-          el("select", { id: "sf-year", onchange: onFilter("year") }, opt("", t("searchAny"), f.year), years.map((y) => opt(y, y, f.year)))
-        ),
-        el(
-          "label",
-          {},
-          el("span", { text: t("searchSort") }),
-          el(
-            "select",
-            { id: "sf-sort", onchange: onFilter("sort") },
-            opt("default", t("searchSortDefault"), f.sort),
-            opt("year", t("searchSortYear"), f.sort),
-            opt("title", t("searchSortTitle"), f.sort)
-          )
-        ),
-        el(
           "div",
           { class: "search-field-multi" },
           el("span", { id: "sf-cat-label", text: t("genreFilterLabel") }),
@@ -1176,12 +1148,40 @@
         el(
           "label",
           {},
+          el("span", { text: t("searchAge") }),
+          el(
+            "select",
+            { id: "sf-age", onchange: onFilter("maxAge") },
+            RATING_OPTIONS.map((v) => opt(v, v === "" ? t("searchAgeAny") : v === "0" ? t("ageFree") : t("searchAgeUpTo", v), f.maxAge))
+          )
+        ),
+        el(
+          "label",
+          {},
+          el("span", { text: t("searchYear") }),
+          el("select", { id: "sf-year", onchange: onFilter("year") }, opt("", t("searchAny"), f.year), years.map((y) => opt(y, y, f.year)))
+        ),
+        el(
+          "label",
+          {},
           el("span", { text: t("searchSeason") }),
           el(
             "select",
             { id: "sf-season", onchange: onFilter("season"), disabled: !st.seasons || null },
             opt("", st.seasons ? t("searchAny") : t("searchLoading"), f.season),
             (st.seasons || []).map((s) => opt(s.id, s.title, f.season))
+          )
+        ),
+        el(
+          "label",
+          {},
+          el("span", { text: t("searchSort") }),
+          el(
+            "select",
+            { id: "sf-sort", onchange: onFilter("sort") },
+            opt("default", t("searchSortDefault"), f.sort),
+            opt("year", t("searchSortYear"), f.sort),
+            opt("title", t("searchSortTitle"), f.sort)
           )
         )
       )
