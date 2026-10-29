@@ -18,4 +18,6 @@ What a Chrome build still needs (not done yet):
   Crunchyroll app" option stays hidden there.
 - A `build-chrome.sh` at the repository root, like `build-firefox.sh`: copy `common/` plus this
   folder's `manifest.json` into a clean folder and zip it for the Chrome Web Store.
+- The tests in `../common/tests/` already cover the shared code; a Chrome build only needs
+  them to pass.
 - Chrome Web Store listing text, screenshots (1280×800) and icons in `chrome/store/`.

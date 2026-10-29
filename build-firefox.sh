@@ -148,7 +148,7 @@ ok "Sintaxe OK"
 # ---------- testes ----------
 if (( RUN_TESTS )); then
   step "Rodando testes unitários"
-  node --test --test-reporter=spec "tests/*.test.js" ||
+  node --test --test-reporter=spec "common/tests/*.test.js" ||
     die "Testes falharam. Corrija antes do build (ou use --skip-tests)."
   ok "Testes passaram"
 else

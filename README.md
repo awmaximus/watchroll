@@ -288,7 +288,7 @@ cd watchroll
 Requires Node 22 or later. No dependencies to install.
 
 ```sh
-npm test        # unit tests (node:test)
+npm test        # unit tests (node:test, in common/tests/)
 npm run lint    # web-ext lint only
 npm start       # builds and opens a test Firefox with the extension loaded
 ```
@@ -418,13 +418,13 @@ common/                       shared by all browsers
   src/i18n.js                 translations and language selection
   src/page-hook.js            reads the token used by the site (world: MAIN)
   src/bridge.js               relays requests through a crunchyroll.com tab
+  tests/                      unit and integration tests with mocked browser and API (not packaged)
 firefox/                      Firefox only (desktop and Android)
   manifest.json               MV3 manifest for Firefox
   amo-metadata.json           store metadata for releases (even versions)
   store/screenshots/          addons.mozilla.org screenshots
 chrome/                       Chrome and Chromium-based browsers (planned; see chrome/README.md)
 build-firefox.sh              Firefox build: tests, lint, package and signing
-tests/                        unit and integration tests with mocked browser and API
 PRIVACY.md                    privacy policy
 .github/workflows/            CI
 ```
@@ -435,7 +435,7 @@ If a series looks wrong, use **⋯ → Export diagnostics** on it. The page save
 everything the check used (seasons, episodes, that series' playback history and the result),
 without tokens, cookies, or account or profile IDs. Prefer it over copying requests from the
 developer tools, which include your session. A diagnostics file can become a test with
-`apiFromDiagnostic()` from `tests/helpers.js`.
+`apiFromDiagnostic()` from `common/tests/helpers.js`.
 
 When something breaks, open the page's console (F12); messages start with `[Watchroll]`.
 

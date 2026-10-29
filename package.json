@@ -5,7 +5,7 @@
   "description": "Watchroll: unofficial browser extension (Firefox now; Chrome planned) that tracks new anime episodes from your Crunchyroll Watchlist and Crunchylists, sub or dub, with a release calendar and notifications.",
   "license": "MIT",
   "scripts": {
-    "test": "node --test \"tests/*.test.js\"",
+    "test": "node --test \"common/tests/*.test.js\"",
     "lint": "./build-firefox.sh --skip-tests",
     "build": "./build-firefox.sh",
     "build:firefox": "./build-firefox.sh",

@@ -1,0 +1,350 @@
+{
+ "seasons": [
+  {
+   "id": "GMSE00334078PTBR",
+   "channel_id": "crunchyroll",
+   "title": "OVERLORD: O Reino Sagrado",
+   "slug_title": "overlord-the-sacred-kingdom",
+   "series_id": "GMTE00334078",
+   "season_display_number": "",
+   "season_sequence_number": 0,
+   "season_number": 0,
+   "is_complete": false,
+   "keywords": [],
+   "season_tags": [],
+   "images_localized": {
+    "ultra_tall": {
+     "url": "https://imgsrv.crunchyroll.com/cdn-cgi/image/{:param}/display/keyart/E00334078-ultra_tall-ZXX",
+     "behavior": "localized",
+     "locale": "pt-BR"
+    },
+    "ultra_wide": {
+     "url": "https://imgsrv.crunchyroll.com/cdn-cgi/image/{:param}/display/keyart/E00334078-ultra_wide-ZXX",
+     "behavior": "localized",
+     "locale": "pt-BR"
+    },
+    "tile_artwork": {
+     "url": "https://imgsrv.crunchyroll.com/cdn-cgi/image/{:param}/display/keyart/E00334078-tile_artwork-ZXX",
+     "behavior": "localized",
+     "locale": "pt-BR"
+    },
+    "base_asset_2x3": {
+     "url": "https://imgsrv.crunchyroll.com/cdn-cgi/image/{:param}/display/keyart/E00334078-base_asset_2x3-en-US",
+     "behavior": "fallback",
+     "locale": "en-US"
+    },
+    "cover_artwork_horizontal": {
+     "url": "https://imgsrv.crunchyroll.com/cdn-cgi/image/{:param}/display/keyart/E00334078-cover_artwork_horizontal-en-US",
+     "behavior": "fallback",
+     "locale": "en-US"
+    },
+    "ultra_logo": {
+     "url": "https://imgsrv.crunchyroll.com/cdn-cgi/image/{:param}/display/keyart/E00334078-ultra_logo-en-US",
+     "behavior": "fallback",
+     "locale": "en-US"
+    },
+    "content_logo_monochromatic": {
+     "url": "https://imgsrv.crunchyroll.com/cdn-cgi/image/{:param}/display/keyart/E00334078-content_logo_monochromatic-en-US",
+     "behavior": "fallback",
+     "locale": "en-US"
+    },
+    "content_logo_polychromatic": {
+     "url": "https://imgsrv.crunchyroll.com/cdn-cgi/image/{:param}/display/keyart/E00334078-content_logo_polychromatic-en-US",
+     "behavior": "fallback",
+     "locale": "en-US"
+    }
+   },
+   "extended_maturity_rating": {
+    "system": "cr-br-tv",
+    "rating": "16",
+    "level": "M2"
+   },
+   "maturity_ratings": [
+    "16"
+   ],
+   "content_descriptors": [
+    "Violência Extrema"
+   ],
+   "content_descriptors_with_symbol": [
+    {
+     "label": "Violência Extrema"
+    }
+   ],
+   "is_mature": false,
+   "mature_blocked": false,
+   "is_subbed": true,
+   "is_dubbed": true,
+   "is_simulcast": false,
+   "seo_title": "",
+   "seo_description": "",
+   "availability_notes": "",
+   "audio_locales": [
+    "pt-BR"
+   ],
+   "subtitle_locales": [
+    "es-419",
+    "ru-RU",
+    "pt-BR",
+    "en-US"
+   ],
+   "audio_locale": "pt-BR",
+   "versions": [
+    {
+     "audio_locale": "ja-JP",
+     "guid": "G8WU7P32E",
+     "original": true,
+     "variant": ""
+    },
+    {
+     "audio_locale": "es-419",
+     "guid": "GZ7UDMQP0",
+     "original": false,
+     "variant": ""
+    },
+    {
+     "audio_locale": "pt-BR",
+     "guid": "GD9UEG92J",
+     "original": false,
+     "variant": ""
+    },
+    {
+     "audio_locale": "ru-RU",
+     "guid": "GQJUMZNEJ",
+     "original": false,
+     "variant": ""
+    },
+    {
+     "audio_locale": "en-US",
+     "guid": "G50UMDKEQ",
+     "original": false,
+     "variant": ""
+    },
+    {
+     "audio_locale": "en-US",
+     "guid": "GMSE00334078ENUS",
+     "original": false,
+     "variant": ""
+    },
+    {
+     "audio_locale": "es-419",
+     "guid": "GMSE00334078ESLA",
+     "original": false,
+     "variant": ""
+    },
+    {
+     "audio_locale": "pt-BR",
+     "guid": "GMSE00334078PTBR",
+     "original": false,
+     "variant": ""
+    },
+    {
+     "audio_locale": "ru-RU",
+     "guid": "GMSE00334078RURU",
+     "original": false,
+     "variant": ""
+    },
+    {
+     "audio_locale": "ja-JP",
+     "guid": "GMSE00334078JAJP",
+     "original": true,
+     "variant": ""
+    }
+   ],
+   "identifier": "GMTE00334078|E00334078A0033407",
+   "number_of_episodes": 1
+  }
+ ],
+ "episodesPTBR": [
+  {
+   "id": "GD9UEG92J",
+   "channel_id": "crunchyroll",
+   "series_id": "GMTE00334078",
+   "series_title": "OVERLORD: O Reino Sagrado",
+   "series_slug_title": "overlord-the-sacred-kingdom",
+   "season_id": "GMSE00334078PTBR",
+   "season_title": "OVERLORD: O Reino Sagrado",
+   "season_slug_title": "overlord-the-sacred-kingdom",
+   "season_number": 0,
+   "episode": "",
+   "episode_number": 1,
+   "sequence_number": 1,
+   "season_display_number": "",
+   "season_sequence_number": 0,
+   "production_episode_id": "",
+   "title": "OVERLORD: O Reino Sagrado",
+   "slug_title": "overlord-the-sacred-kingdom",
+   "next_episode_id": "GQJUMZNEJ",
+   "next_episode_title": "OVERLORD: O Reino Sagrado",
+   "hd_flag": true,
+   "maturity_ratings": [
+    "16"
+   ],
+   "extended_maturity_rating": {
+    "system": "cr-br-tv",
+    "rating": "16",
+    "level": "M2"
+   },
+   "is_mature": false,
+   "mature_blocked": false,
+   "episode_air_date": "2024-09-20T00:00:00Z",
+   "upload_date": "2024-09-20T00:00:00Z",
+   "availability_starts": "2025-04-25T00:00:00Z",
+   "availability_ends": "9998-12-01T07:59:00Z",
+   "eligible_region": "BR",
+   "available_date": null,
+   "free_available_date": "9998-11-30T17:45:00Z",
+   "premium_date": null,
+   "premium_available_date": "2025-04-25T00:00:00Z",
+   "is_subbed": true,
+   "is_dubbed": true,
+   "is_clip": false,
+   "seo_title": "",
+   "seo_description": "",
+   "season_tags": [],
+   "available_offline": true,
+   "subtitle_locales": [
+    "en-US",
+    "es-419",
+    "pt-BR",
+    "ru-RU"
+   ],
+   "availability_notes": "",
+   "audio_locale": "pt-BR",
+   "versions": [
+    {
+     "audio_locale": "ja-JP",
+     "guid": "G8WU7P32E",
+     "original": true,
+     "variant": "",
+     "season_guid": "GMSE00334078JAJP",
+     "media_guid": "G8WU7P32EV",
+     "is_premium_only": true,
+     "roles": [
+      "main"
+     ]
+    },
+    {
+     "audio_locale": "es-419",
+     "guid": "GZ7UDMQP0",
+     "original": false,
+     "variant": "",
+     "season_guid": "GMSE00334078ESLA",
+     "media_guid": "GZ7UDMQP0V",
+     "is_premium_only": true,
+     "roles": [
+      "dub"
+     ]
+    },
+    {
+     "audio_locale": "pt-BR",
+     "guid": "GD9UEG92J",
+     "original": false,
+     "variant": "",
+     "season_guid": "GMSE00334078PTBR",
+     "media_guid": "GD9UEG92JV",
+     "is_premium_only": true,
+     "roles": [
+      "dub"
+     ]
+    },
+    {
+     "audio_locale": "ru-RU",
+     "guid": "GQJUMZNEJ",
+     "original": false,
+     "variant": "",
+     "season_guid": "GMSE00334078RURU",
+     "media_guid": "GQJUMZNEJV",
+     "is_premium_only": true,
+     "roles": [
+      "dub"
+     ]
+    },
+    {
+     "audio_locale": "en-US",
+     "guid": "G50UMDKEQ",
+     "original": false,
+     "variant": "",
+     "season_guid": "GMSE00334078ENUS",
+     "media_guid": "G50UMDKEQV",
+     "is_premium_only": true,
+     "roles": [
+      "dub"
+     ]
+    }
+   ],
+   "closed_captions_available": false,
+   "identifier": "GMTE00334078|E00334078A0033407",
+   "content_descriptors": [
+    "Violência Extrema"
+   ],
+   "content_descriptors_with_symbol": [
+    {
+     "label": "Violência Extrema"
+    }
+   ],
+   "media_type": "episode",
+   "slug": "",
+   "images_localized": {
+    "tile_artwork": {
+     "url": "https://imgsrv.crunchyroll.com/cdn-cgi/image/{:param}/display/keyart/E00334078-tile_artwork-ZXX",
+     "behavior": "localized",
+     "locale": "pt-BR"
+    },
+    "ultra_tall": {
+     "url": "https://imgsrv.crunchyroll.com/cdn-cgi/image/{:param}/display/keyart/E00334078-ultra_tall-ZXX",
+     "behavior": "localized",
+     "locale": "pt-BR"
+    },
+    "ultra_wide": {
+     "url": "https://imgsrv.crunchyroll.com/cdn-cgi/image/{:param}/display/keyart/E00334078-ultra_wide-ZXX",
+     "behavior": "localized",
+     "locale": "pt-BR"
+    },
+    "base_asset_2x3": {
+     "url": "https://imgsrv.crunchyroll.com/cdn-cgi/image/{:param}/display/keyart/E00334078-base_asset_2x3-en-US",
+     "behavior": "fallback",
+     "locale": "en-US"
+    },
+    "content_logo_monochromatic": {
+     "url": "https://imgsrv.crunchyroll.com/cdn-cgi/image/{:param}/display/keyart/E00334078-content_logo_monochromatic-en-US",
+     "behavior": "fallback",
+     "locale": "en-US"
+    },
+    "content_logo_polychromatic": {
+     "url": "https://imgsrv.crunchyroll.com/cdn-cgi/image/{:param}/display/keyart/E00334078-content_logo_polychromatic-en-US",
+     "behavior": "fallback",
+     "locale": "en-US"
+    },
+    "cover_artwork_horizontal": {
+     "url": "https://imgsrv.crunchyroll.com/cdn-cgi/image/{:param}/display/keyart/E00334078-cover_artwork_horizontal-en-US",
+     "behavior": "fallback",
+     "locale": "en-US"
+    },
+    "ultra_logo": {
+     "url": "https://imgsrv.crunchyroll.com/cdn-cgi/image/{:param}/display/keyart/E00334078-ultra_logo-en-US",
+     "behavior": "fallback",
+     "locale": "en-US"
+    }
+   },
+   "duration_ms": 8089882,
+   "is_premium_only": true,
+   "listing_id": "",
+   "recent_audio_locale": "pt-BR",
+   "recent_variant": "",
+   "streams_link": "/content/v2/cms/videos/GD9UEG92JV/streams",
+   "availability_status": "available",
+   "language_presentation": {
+    "audio_notation": "BR",
+    "text_notation": "BR",
+    "is_original_audio": false,
+    "audio_locale": "pt-BR",
+    "text_locale": "pt-BR",
+    "audio_notation_reason": "default",
+    "text_notation_reason": "default"
+   },
+   "roles": [
+    "dub"
+   ]
+  }
+ ]
+}
