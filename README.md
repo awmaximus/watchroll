@@ -142,7 +142,9 @@ filters at once:
   series are excluded when the filter is on), category (several at once: a title shows up if
   it has any of them), release year and release season. When a result does not carry its
   categories, the extension asks Crunchyroll for the titles of each chosen category (one request
-  per category, kept for 6 hours).
+  per category, kept for 6 hours). **Min. seasons** keeps titles with at least 2 to 6 seasons,
+  using the season count Crunchyroll reports (it can include dubbed copies of a season, so it
+  may be higher than the real number); movies are left out when it is set.
 - **Sort:** Crunchyroll default, newest release or title. Results load 60 at a time.
 
 ### Firefox for Android
@@ -356,7 +358,7 @@ fictional titles and generated artwork) and `PRIVACY.md` is the privacy policy t
 add-on's Developer Hub page. The listing icon is `icons/icon-128.png`.
 
 Bump `version` in both `manifest.json` and `package.json` for every build you sign (current:
-1.0.11); AMO does not accept the same version twice, not even in different channels, which is why
+1.0.13); AMO does not accept the same version twice, not even in different channels, which is why
 test builds and releases use different numbers. The add-on ID
 (`crunchyroll-novos-eps@awmaximus.github.io`) comes from before the rename and must stay as it
 is: changing it makes Firefox and AMO treat Watchroll as a different extension.

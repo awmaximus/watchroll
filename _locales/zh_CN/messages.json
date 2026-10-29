@@ -1077,5 +1077,16 @@
   },
   "setOpenAppLabel": {
     "message": "在 Crunchyroll 应用中打开 Crunchyroll 链接"
+  },
+  "searchMinSeasons": {
+    "message": "最少季数"
+  },
+  "searchAtLeast": {
+    "message": "$P1$ 季及以上",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }

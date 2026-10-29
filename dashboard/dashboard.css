@@ -657,9 +657,90 @@ body.busy select.actions {
   }
 }
 
+/* ---------- carregando (Pesquisa) ---------- */
+.search-loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 18px 0 14px;
+  color: var(--muted);
+}
+.spinner {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  border: 3px solid var(--line);
+  border-top-color: var(--orange);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+.spinner.small {
+  width: 14px;
+  height: 14px;
+  border-width: 2px;
+  border-color: rgba(0, 0, 0, 0.25);
+  border-top-color: currentColor;
+}
+.btn.is-loading {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.skeleton {
+  pointer-events: none;
+}
+.sk-thumb,
+.sk-line {
+  display: block;
+  background: linear-gradient(90deg, var(--surface-2) 25%, var(--line) 50%, var(--surface-2) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+.sk-thumb {
+  flex: 0 0 120px;
+  aspect-ratio: 16 / 9;
+}
+.sk-lines {
+  flex: 1;
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  padding-top: 4px;
+}
+.sk-line {
+  height: 12px;
+  width: 80%;
+}
+.sk-line.short {
+  width: 45%;
+}
+@keyframes shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     transition: none !important;
+  }
+  /* Sem animação de giro/brilho: o indicador fica parado, mas continua visível. */
+  .spinner {
+    animation: none;
+    border-color: var(--orange);
+    opacity: 0.8;
+  }
+  .sk-thumb,
+  .sk-line {
+    animation: none;
   }
 }
 
@@ -807,14 +888,24 @@ body.busy select.actions {
   outline: 2px solid var(--orange);
   outline-offset: 1px;
 }
-/* Os 7 filtros da Pesquisa numa linha só (em telas estreitas, 4 e depois 2 por linha). */
+/* Os 8 filtros da Pesquisa numa linha só (em telas estreitas, 4 e depois 2 por linha). */
+/* Larguras pensadas para o texto de cada um ("Todo o catálogo" > "Todas"). Os
+   nomes não quebram linha: a fileira fica alinhada. */
 .search-filters {
   display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-template-columns:
+    minmax(0, 1.2fr) minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 0.95fr)
+    minmax(0, 0.85fr) minmax(0, 0.85fr) minmax(0, 1fr) minmax(0, 1.25fr);
   gap: 10px 8px;
+}
+.search-filters > * > span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 @media (max-width: 900px) {
   .search-filters {
+    display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
@@ -956,6 +1047,7 @@ body.busy select.actions {
 }
 @media (max-width: 600px) {
   .search-filters {
+    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .result-thumb {

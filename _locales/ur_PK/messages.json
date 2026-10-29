@@ -1077,5 +1077,16 @@
   },
   "setOpenAppLabel": {
     "message": "Crunchyroll لنکس Crunchyroll ایپ میں کھولیں"
+  },
+  "searchMinSeasons": {
+    "message": "کم از کم سیزن"
+  },
+  "searchAtLeast": {
+    "message": "$P1$ یا زیادہ",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }

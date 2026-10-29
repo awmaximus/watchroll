@@ -1077,5 +1077,16 @@
   },
   "setOpenAppLabel": {
     "message": "เปิดลิงก์ Crunchyroll ในแอป Crunchyroll"
+  },
+  "searchMinSeasons": {
+    "message": "ซีซันขั้นต่ำ"
+  },
+  "searchAtLeast": {
+    "message": "$P1$ ขึ้นไป",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }

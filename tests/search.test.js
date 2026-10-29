@@ -296,3 +296,16 @@ describe("filtro por categoria na Pesquisa", () => {
     assert.equal((await bad.CRSearch.categories("pt-BR")).length, S.CATEGORY_IDS.length);
   });
 });
+
+describe("mínimo de temporadas na Pesquisa", () => {
+  test("só títulos com pelo menos N temporadas; filme fica de fora", async () => {
+    const s2 = item("B");
+    s2.series_metadata.season_count = 2;
+    const s3 = item("C");
+    s3.series_metadata.season_count = 3;
+    const { S } = setup({ search: { a: [item("A"), s2, s3, item("M", { type: "movie_listing" })] } });
+    assert.deepEqual(titles(await S.run({ q: "a", filters: { minSeasons: "2" }, settings })), ["B", "C"]);
+    assert.deepEqual(titles(await S.run({ q: "a", filters: { minSeasons: "3" }, settings })), ["C"]);
+    assert.equal((await S.run({ q: "a", filters: { minSeasons: "" }, settings })).items.length, 4);
+  });
+});

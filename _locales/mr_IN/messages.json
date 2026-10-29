@@ -1077,5 +1077,16 @@
   },
   "setOpenAppLabel": {
     "message": "Crunchyroll लिंक Crunchyroll ॲपमध्ये उघडा"
+  },
+  "searchMinSeasons": {
+    "message": "किमान सीझन"
+  },
+  "searchAtLeast": {
+    "message": "$P1$ किंवा अधिक",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }

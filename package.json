@@ -1,6 +1,6 @@
 {
   "name": "watchroll",
-  "version": "1.0.11",
+  "version": "1.0.13",
   "private": true,
   "description": "Watchroll: unofficial Firefox extension that tracks new anime episodes from your Crunchyroll Watchlist and Crunchylists, sub or dub, with a release calendar and notifications.",
   "license": "MIT",

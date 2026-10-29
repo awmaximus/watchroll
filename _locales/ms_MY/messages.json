@@ -1077,5 +1077,16 @@
   },
   "setOpenAppLabel": {
     "message": "Buka pautan Crunchyroll dalam aplikasi Crunchyroll"
+  },
+  "searchMinSeasons": {
+    "message": "Musim min."
+  },
+  "searchAtLeast": {
+    "message": "$P1$ atau lebih",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }

@@ -1077,5 +1077,16 @@
   },
   "setOpenAppLabel": {
     "message": "Crunchyroll இணைப்புகளை Crunchyroll செயலியில் திற"
+  },
+  "searchMinSeasons": {
+    "message": "குறைந்தபட்ச சீசன்கள்"
+  },
+  "searchAtLeast": {
+    "message": "$P1$ அல்லது அதிகம்",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }

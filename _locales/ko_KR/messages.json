@@ -1077,5 +1077,16 @@
   },
   "setOpenAppLabel": {
     "message": "Crunchyroll 링크를 Crunchyroll 앱에서 열기"
+  },
+  "searchMinSeasons": {
+    "message": "최소 시즌"
+  },
+  "searchAtLeast": {
+    "message": "$P1$개 이상",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }

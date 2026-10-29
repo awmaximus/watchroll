@@ -1077,5 +1077,16 @@
   },
   "setOpenAppLabel": {
     "message": "Crunchyroll のリンクを Crunchyroll アプリで開く"
+  },
+  "searchMinSeasons": {
+    "message": "最小シーズン数"
+  },
+  "searchAtLeast": {
+    "message": "$P1$ 以上",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }

@@ -1077,5 +1077,16 @@
   },
   "setOpenAppLabel": {
     "message": "Crunchyroll లింక్‌లను Crunchyroll యాప్‌లో తెరువు"
+  },
+  "searchMinSeasons": {
+    "message": "కనీస సీజన్‌లు"
+  },
+  "searchAtLeast": {
+    "message": "$P1$ లేదా ఎక్కువ",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
   }
 }

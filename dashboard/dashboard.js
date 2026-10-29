@@ -21,7 +21,7 @@
   // Estado da aba Pesquisar (sobrevive às re-renderizações da página).
   const searchState = {
     q: "",
-    filters: { scope: "all", dub: "any", maxAge: "", year: "", season: "", sort: "default", categories: [] },
+    filters: { scope: "all", dub: "any", maxAge: "", year: "", season: "", sort: "default", categories: [], minSeasons: "" },
     items: null,
     shown: 60, // resultados visíveis; "Carregar mais" mostra mais 60
     loading: false,
@@ -1103,7 +1103,12 @@
           autocomplete: "off",
           oninput: (e) => (st.q = e.target.value),
         }),
-        el("button", { class: "btn", type: "submit", text: t("searchButton"), disabled: st.loading || null })
+        el(
+          "button",
+          { class: `btn${st.loading ? " is-loading" : ""}`, type: "submit", disabled: st.loading || null, "aria-busy": st.loading ? "true" : null },
+          st.loading ? el("span", { class: "spinner small", "aria-hidden": "true" }) : null,
+          el("span", { text: t("searchButton") })
+        )
       ),
       el(
         "div",
@@ -1144,6 +1149,17 @@
               runSearch();
             },
           })
+        ),
+        el(
+          "label",
+          {},
+          el("span", { text: t("searchMinSeasons") }),
+          el(
+            "select",
+            { id: "sf-minseasons", onchange: onFilter("minSeasons") },
+            opt("", t("searchAny"), f.minSeasons),
+            ["2", "3", "4", "5", "6"].map((n) => opt(n, t("searchAtLeast", n), f.minSeasons))
+          )
         ),
         el(
           "label",
@@ -1212,9 +1228,32 @@
     if (st.error) parts.push(el("div", { class: "error-box" }, el("p", { text: st.error })));
     else if (st.items === null) {
       const catalogMode = !st.q.trim() && !f.season && f.scope !== "mine";
-      parts.push(
-        el("p", { class: "empty", text: st.loading ? (catalogMode ? t("searchLoadingCatalog") : t("searchLoading")) : t("searchHint") })
-      );
+      if (st.loading) {
+        // Indicador animado + cartões "fantasma" no lugar dos resultados.
+        const msg = catalogMode ? t("searchLoadingCatalog") : t("searchLoading");
+        parts.push(
+          el(
+            "div",
+            { class: "search-loading", role: "status", "aria-live": "polite" },
+            el("span", { class: "spinner", "aria-hidden": "true" }),
+            el("span", { text: msg })
+          ),
+          el(
+            "div",
+            { class: "results skeletons", "aria-hidden": "true" },
+            Array.from({ length: 6 }, () =>
+              el(
+                "div",
+                { class: "result skeleton" },
+                el("span", { class: "sk-thumb" }),
+                el("span", { class: "sk-lines" }, el("span", { class: "sk-line" }), el("span", { class: "sk-line short" }))
+              )
+            )
+          )
+        );
+      } else {
+        parts.push(el("p", { class: "empty", text: t("searchHint") }));
+      }
     } else {
       parts.push(el("p", { class: "result-count", text: tn("searchCount", st.items.length) }));
       if (st.items.length) {

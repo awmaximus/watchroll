@@ -146,7 +146,8 @@ var CRSearch = (() => {
 
   // ---------- filtros ----------
   // filters: { dub: "any"|"dub"|"nodub", maxAge: null|0|10|12|14|16|18,
-  //            year: null|número, season: null|"fall-2026", scope: "all"|"mine" }
+  //            year: null|número, season: null|"fall-2026", scope: "all"|"mine",
+  //            minSeasons: ""|número, categories: [IDs] }
   function matches(r, filters, dubLang) {
     const f = filters || {};
     if (f.scope === "mine" && !r.inWatchlist) return false;
@@ -154,6 +155,8 @@ var CRSearch = (() => {
     if (f.dub === "nodub" && r.audios.includes(dubLang)) return false;
     if (f.maxAge != null && f.maxAge !== "" && (r.age == null || r.age > Number(f.maxAge))) return false;
     if (f.year && Number(r.year) !== Number(f.year)) return false;
+    // Mínimo de temporadas (o número que a Crunchyroll informa; filme não tem).
+    if (f.minSeasons && !(Number(r.seasons) >= Number(f.minSeasons))) return false;
     return true;
   }
 
