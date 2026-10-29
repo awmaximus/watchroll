@@ -56,8 +56,8 @@ O Watchroll usa a própria API da Crunchyroll com a sessão que você já tem no
 O Watchroll não tem relação com a Crunchyroll nem é endossado por ela.
 ```
 
-**Graphics:** icon `common/icons/icon-128.png`; screenshots (1280×800) from
-`firefox/store/screenshots/`. A small promo tile (440×280) is optional.
+**Graphics:** icon `common/icons/icon-128.png`; screenshots (1280×800) in
+`chrome/store/screenshots/`; small promo tile (440×280) `chrome/store/promo-440x280.png`.
 
 **Homepage / support:** <https://github.com/awmaximus/watchroll> ·
 <https://github.com/awmaximus/watchroll/issues>

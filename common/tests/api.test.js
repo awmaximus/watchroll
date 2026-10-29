@@ -55,6 +55,14 @@ describe("autenticação", () => {
     assert.match(requests[1].url, new RegExp(`/content/v2/discover/${ACC}/watchlist`));
   });
 
+  test("ID da conta também vem do claim etp_user_id (o token do site não traz account_id)", async () => {
+    const { api, requests } = setup(() => json({ data: [], total: 0 }), {
+      sessionToken: validSession({ etp_user_id: ACC, profile_id: "p1" }),
+    });
+    assert.equal(await api.getAccountId(), ACC);
+    assert.equal(requests.length, 0); // sem /accounts/v1/me
+  });
+
   test("token do site expirado é ignorado", async () => {
     const { api, requests } = setup(
       (url) =>

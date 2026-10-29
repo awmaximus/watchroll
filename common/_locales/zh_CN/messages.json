@@ -859,7 +859,7 @@
     "message": "扩展语言"
   },
   "setUiLangHelp": {
-    "message": "“自动”会跟随 Firefox 的语言。"
+    "message": "“自动”会跟随浏览器的语言。"
   },
   "setListsLabel": {
     "message": "要检查的列表"

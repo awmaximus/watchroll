@@ -275,7 +275,8 @@ var CRApi = (() => {
       if (crToken && crToken.exp - Date.now() > 30 * 1000) {
         token = { value: crToken.token, exp: crToken.exp };
         const p = jwtPayload(crToken.token) || {};
-        const acc = p.account_id || p.sub;
+        // O token do site traz o ID da conta em etp_user_id (conferido em out/2026).
+        const acc = p.account_id || p.sub || p.etp_user_id;
         if (isUuidish(acc)) accountId = acc;
         return token.value;
       }

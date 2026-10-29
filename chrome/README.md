@@ -58,7 +58,7 @@ release keeps things simple. Chrome accepts only numbers (`1.2.3`, up to four pa
 1. Create a developer account at <https://chrome.google.com/webstore/devconsole> (one-time fee).
 2. **New item** → upload `chrome/dist/watchroll-chrome-<version>.zip`.
 3. Fill the listing and the privacy tab with the texts in [store/listing.md](store/listing.md).
-   Screenshots: the 1280×800 images in `../firefox/store/screenshots/` work as they are.
+   Screenshots: the 1280×800 images in `store/screenshots/`; promo tile: `store/promo-440x280.png`.
 4. For a new version: bump `version` in `manifest.json` and `package.json`, build and upload
    the new `.zip` in the same item.
 

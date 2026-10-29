@@ -859,7 +859,7 @@
     "message": "Lingua dell’estensione"
   },
   "setUiLangHelp": {
-    "message": "“Automatico” segue la lingua di Firefox."
+    "message": "“Automatico” segue la lingua del browser."
   },
   "setListsLabel": {
     "message": "Liste controllate"

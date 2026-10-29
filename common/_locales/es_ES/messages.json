@@ -859,7 +859,7 @@
     "message": "Idioma de la extensión"
   },
   "setUiLangHelp": {
-    "message": "En “Automático”, sigue el idioma de Firefox."
+    "message": "En “Automático”, sigue el idioma del navegador."
   },
   "setListsLabel": {
     "message": "Listas revisadas"

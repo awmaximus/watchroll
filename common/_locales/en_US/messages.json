@@ -865,7 +865,7 @@
     "message": "Extension language"
   },
   "setUiLangHelp": {
-    "message": "“Automatic” follows Firefox’s language."
+    "message": "“Automatic” follows your browser’s language."
   },
   "setListsLabel": {
     "message": "Lists to check"

@@ -859,7 +859,7 @@
     "message": "拡張機能の言語"
   },
   "setUiLangHelp": {
-    "message": "「自動」では Firefox の言語に合わせます。"
+    "message": "「自動」ではブラウザの言語に合わせます。"
   },
   "setListsLabel": {
     "message": "確認するリスト"

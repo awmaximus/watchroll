@@ -859,7 +859,7 @@
     "message": "확장 프로그램 언어"
   },
   "setUiLangHelp": {
-    "message": "‘자동’은 Firefox 언어를 따릅니다."
+    "message": "‘자동’은 브라우저 언어를 따릅니다."
   },
   "setListsLabel": {
     "message": "확인할 목록"
