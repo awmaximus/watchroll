@@ -1,0 +1,1114 @@
+{
+  "extName": {
+    "message": "Watchroll – Crunchyroll కోసం కొత్త ఎపిసోడ్‌లు"
+  },
+  "extDescription": {
+    "message": "అనధికారికం. Crunchyroll కోసం అనిమే ట్రాకర్: వాచ్‌లిస్ట్, Crunchylists లోని కొత్త ఎపిసోడ్‌లు, సబ్ లేదా డబ్, విడుదల క్యాలెండర్, సిమల్‌కాస్ట్ కౌంట్‌డౌన్, కొత్త ఎపిసోడ్ నోటిఫికేషన్‌లు."
+  },
+  "actionTitle": {
+    "message": "Watchroll – Crunchyroll కోసం కొత్త ఎపిసోడ్‌లు"
+  },
+  "pageTitle": {
+    "message": "Watchroll – కొత్త ఎపిసోడ్‌లు"
+  },
+  "heading": {
+    "message": "కొత్త ఎపిసోడ్‌లు"
+  },
+  "btnSettings": {
+    "message": "సెట్టింగ్‌లు"
+  },
+  "btnRefresh": {
+    "message": "రిఫ్రెష్"
+  },
+  "versionLabel": {
+    "message": "వెర్షన్ $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "సెట్టింగ్‌లు"
+  },
+  "setDubLabel": {
+    "message": "డబ్‌లో చూసే భాష"
+  },
+  "setDubHelp": {
+    "message": "“డబ్” అని సెట్ చేసిన సిరీస్‌లు ఈ భాషలో డబ్ విడుదలైనప్పుడే కనిపిస్తాయి."
+  },
+  "setSubLabel": {
+    "message": "సబ్‌టైటిల్ భాష"
+  },
+  "setSubHelp": {
+    "message": "“సబ్‌టైటిల్” అని సెట్ చేసిన సిరీస్‌లు ఈ భాషలో సబ్‌టైటిల్ అందుబాటులోకి వచ్చినప్పుడే కనిపిస్తాయి."
+  },
+  "setModeLabel": {
+    "message": "సిరీస్‌ల డిఫాల్ట్ మోడ్"
+  },
+  "setModeHelp": {
+    "message": "మీరు విడిగా సెట్ చేయని సిరీస్‌లకు వర్తిస్తుంది."
+  },
+  "setLocaleLabel": {
+    "message": "శీర్షికలు, లింక్‌ల భాష"
+  },
+  "setAutoLabel": {
+    "message": "స్వయంచాలకంగా తనిఖీ చేయండి"
+  },
+  "setAutoHelp": {
+    "message": "బ్యాక్‌గ్రౌండ్‌లో ఎక్స్‌టెన్షన్ ఐకాన్‌పై సంఖ్యను అప్‌డేట్ చేస్తుంది. నేరుగా యాక్సెస్ బ్లాక్ అయితే crunchyroll.com ట్యాబ్ తెరిచి ఉండాలి."
+  },
+  "setAutoRange": {
+    "message": "నిమిషాల్లో (డిఫాల్ట్: 60). 0 అయితే ఆఫ్. కనిష్ఠం 5, గరిష్ఠం 1440 (1 రోజు)."
+  },
+  "setNotifyLabel": {
+    "message": "కొత్త ఎపిసోడ్ వచ్చినప్పుడు తెలియజేయండి"
+  },
+  "setExtrasLabel": {
+    "message": "స్పెషల్‌లు, రీక్యాప్‌లు చూపించు (లెక్కలోకి రావు)"
+  },
+  "setSkippedLabel": {
+    "message": "వదిలేసిన ఎపిసోడ్‌లు చూపించు (చివరిగా చూసిన దానికంటే ముందువి)"
+  },
+  "setMinStartedLabel": {
+    "message": "ఇన్ని సెకన్ల తర్వాత మొదలైనట్టు పరిగణించు"
+  },
+  "setMinStartedHelp": {
+    "message": "ఎపిసోడ్ పేజీ తెరిచినంత మాత్రాన Crunchyroll కొన్ని సెకన్లు నమోదు చేస్తుంది. దీనికంటే తక్కువ నమోదు విస్మరించబడుతుంది. 0 నుండి 600."
+  },
+  "setConcurrencyLabel": {
+    "message": "ఒకేసారి తనిఖీ చేసే సిరీస్‌లు"
+  },
+  "setConcurrencyHelp": {
+    "message": "పెద్ద సంఖ్యతో వేగంగా ఉంటుంది. “చాలా ఎక్కువ అభ్యర్థనలు” (HTTP 429) లోపాలు వస్తే తగ్గించండి. 1 నుండి 32."
+  },
+  "setPlayheadBatchLabel": {
+    "message": "బ్యాచ్ పరిమాణం"
+  },
+  "setPlayheadBatchHelp": {
+    "message": "చూసిన ప్రగతి (playheads) ప్రతి అభ్యర్థనలో ఎన్ని ఎపిసోడ్‌లు, వాచ్‌లిస్ట్ మరియు చరిత్ర ప్రతి పేజీలో ఎన్ని అంశాలు. పెద్ద బ్యాచ్‌తో అభ్యర్థనలు తగ్గుతాయి. తనిఖీలు విఫలమవుతుంటే తగ్గించండి. 10 నుండి 300."
+  },
+  "searchPlaceholder": {
+    "message": "సిరీస్ వెతకండి…"
+  },
+  "searchAria": {
+    "message": "శీర్షికతో సిరీస్ వెతకండి"
+  },
+  "sortLabel": {
+    "message": "క్రమం"
+  },
+  "modeSub": {
+    "message": "సబ్‌టైటిల్"
+  },
+  "modeDub": {
+    "message": "డబ్"
+  },
+  "modeAuto": {
+    "message": "ఏదైనా ఆడియో"
+  },
+  "modeAutoLong": {
+    "message": "ఏదైనా ఆడియో (మొదటి విడుదలకే తెలియజేయి)"
+  },
+  "modeDubLang": {
+    "message": "డబ్ $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeDefault": {
+    "message": "డిఫాల్ట్ ($P1$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortSub": {
+    "message": "సబ్‌టైటిల్"
+  },
+  "shortDub": {
+    "message": "డబ్ $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortAuto": {
+    "message": "ఏదైనా ఆడియో"
+  },
+  "modeAria": {
+    "message": "$P1$ ఆడియో",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeTitle": {
+    "message": "మీరు ఈ సిరీస్‌ను ఎలా చూస్తారు"
+  },
+  "epMovie": {
+    "message": "సినిమా"
+  },
+  "epLabel": {
+    "message": "S$P1$ E$P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "relNow": {
+    "message": "ఇప్పుడే"
+  },
+  "relHours": {
+    "message": "$P1$ గం. క్రితం",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "relYesterday": {
+    "message": "నిన్న"
+  },
+  "relDays": {
+    "message": "$P1$ రోజుల క్రితం",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futToday": {
+    "message": "ఈరోజు $P1$కి",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futTomorrow": {
+    "message": "రేపు $P1$కి",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futDays": {
+    "message": "$P1$ రోజుల్లో ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "nextText": {
+    "message": "తదుపరి: $P1$ $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "watchedPct": {
+    "message": "$P1$% చూశారు",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "watchNext": {
+    "message": "తదుపరిది చూడండి"
+  },
+  "tagRecap": {
+    "message": "రీక్యాప్"
+  },
+  "tagSpecial": {
+    "message": "స్పెషల్"
+  },
+  "tagSkipped": {
+    "message": "వదిలేసింది"
+  },
+  "badgeContinue": {
+    "message": "కొనసాగించు"
+  },
+  "badgeMovie": {
+    "message": "సినిమా"
+  },
+  "badgeNew_one": {
+    "message": "1 కొత్తది"
+  },
+  "badgeNew_other": {
+    "message": "$P1$ కొత్తవి",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSkipped_one": {
+    "message": "1 వదిలేసింది"
+  },
+  "badgeSkipped_other": {
+    "message": "$P1$ వదిలేసినవి",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSpecial_one": {
+    "message": "1 స్పెషల్"
+  },
+  "badgeSpecial_other": {
+    "message": "$P1$ స్పెషల్‌లు",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "moreEps_one": {
+    "message": "+ 1 ఎపిసోడ్"
+  },
+  "moreEps_other": {
+    "message": "+ $P1$ ఎపిసోడ్‌లు",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitDub": {
+    "message": "+$P1$ డబ్ కోసం వేచి ఉన్నాయి",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitSub": {
+    "message": "+$P1$ సబ్‌టైటిల్ కోసం వేచి ఉన్నాయి",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsAria": {
+    "message": "$P1$ కోసం చర్యలు",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsTitle": {
+    "message": "చర్యలు"
+  },
+  "actDiag": {
+    "message": "డయాగ్నస్టిక్ ఎగుమతి చేయండి"
+  },
+  "actShow": {
+    "message": "మళ్లీ చూపించు"
+  },
+  "actHideNew": {
+    "message": "కొత్త ఎపిసోడ్ వచ్చే వరకు దాచు"
+  },
+  "actHideWeek": {
+    "message": "1 వారం దాచు"
+  },
+  "actHideForever": {
+    "message": "ఎప్పుడూ దాచు"
+  },
+  "hiddenUntil": {
+    "message": "$P1$ వరకు దాచబడింది",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hiddenUntilNew": {
+    "message": "కొత్త ఎపిసోడ్ వచ్చే వరకు దాచబడింది"
+  },
+  "hiddenForever": {
+    "message": "ఎప్పుడూ దాచబడింది"
+  },
+  "epsCount_one": {
+    "message": "1 ఎపిసోడ్"
+  },
+  "epsCount_other": {
+    "message": "$P1$ ఎపిసోడ్‌లు",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "seriesCount_one": {
+    "message": "1 సిరీస్"
+  },
+  "seriesCount_other": {
+    "message": "$P1$ సిరీస్‌లు",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusEps": {
+    "message": "$P2$లో $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "statusUpdatedAt": {
+    "message": " · చివరి అప్‌డేట్: $WHEN$",
+    "placeholders": {
+      "when": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusElapsed": {
+    "message": " · $S$ సెకన్లలో అప్‌డేట్",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusAllCaught": {
+    "message": "అన్నీ చూశారు"
+  },
+  "secToWatch": {
+    "message": "చూడాల్సినవి"
+  },
+  "emptySearch": {
+    "message": "ఇక్కడ ఏ సిరీస్ కనబడలేదు."
+  },
+  "emptyToWatch": {
+    "message": "మీరు మొదలుపెట్టిన సిరీస్‌లలో కొత్త ఎపిసోడ్‌లు లేవు."
+  },
+  "secWaitDub": {
+    "message": "డబ్ పెండింగ్"
+  },
+  "noteWaitDub_one": {
+    "message": "1 సబ్‌టైటిల్‌తో వచ్చింది"
+  },
+  "noteWaitDub_other": {
+    "message": "$P1$ సబ్‌టైటిల్‌తో వచ్చాయి",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secWaitSub": {
+    "message": "సబ్‌టైటిల్ పెండింగ్"
+  },
+  "noteWaitSub_one": {
+    "message": "1 ఎపిసోడ్ మీ భాష సబ్‌టైటిల్స్ లేకుండా వచ్చింది"
+  },
+  "noteWaitSub_other": {
+    "message": "మీ భాష సబ్‌టైటిల్స్ లేకుండా వచ్చిన ఎపిసోడ్‌లు: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoDub_one": {
+    "message": "ప్రస్తుత సీజన్‌లో $P2$ డబ్ లేదు · చూడటానికి 1 సబ్‌టైటిల్ ఎపిసోడ్",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoDub_other": {
+    "message": "ప్రస్తుత సీజన్‌లో $P2$ డబ్ లేదు · చూడటానికి $P1$ సబ్‌టైటిల్ ఎపిసోడ్‌లు",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeSubbed": {
+    "message": "సబ్‌టైటిల్‌తో చూడండి"
+  },
+  "btnSeeSubbedTitle": {
+    "message": "ఈ సిరీస్‌ను సబ్‌టైటిల్ మోడ్‌కు మారుస్తుంది"
+  },
+  "secErrors": {
+    "message": "లోపాలు"
+  },
+  "secUpToDate": {
+    "message": "తాజాగా ఉన్నవి"
+  },
+  "noteNoDubSeason": {
+    "message": "ప్రస్తుత సీజన్‌లో $P1$ డబ్ లేదు",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secNever": {
+    "message": "మొదలుపెట్టాల్సినవి"
+  },
+  "secHidden": {
+    "message": "దాచినవి"
+  },
+  "btnShow": {
+    "message": "చూపించు"
+  },
+  "progressChecking": {
+    "message": "$P2$లో $P1$వ సిరీస్ తనిఖీ అవుతోంది…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "progressReading": {
+    "message": "మీ జాబితాలు చదువుతోంది…"
+  },
+  "errorQuery": {
+    "message": "Crunchyrollను సంప్రదించలేకపోయాం: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errorHint": {
+    "message": "మీరు crunchyroll.comలో లాగిన్ అయ్యారని నిర్ధారించుకుని రిఫ్రెష్ నొక్కండి."
+  },
+  "diagSaved": {
+    "message": "“$P1$” డయాగ్నస్టిక్ సేవ్ అయింది. ఇందులో టోకెన్, కుకీ లేదా ఖాతా డేటా లేదు.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagError": {
+    "message": "డయాగ్నస్టిక్ సృష్టించలేకపోయాం: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagFile": {
+    "message": "diagnostics"
+  },
+  "profileLabel": {
+    "message": " · ప్రొఫైల్ $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "sortReleased": {
+    "message": "తాజా విడుదల"
+  },
+  "sortWatched": {
+    "message": "ఇటీవల చూసినవి"
+  },
+  "sortCount": {
+    "message": "ఎక్కువ ఎపిసోడ్‌లు"
+  },
+  "sortTitle": {
+    "message": "శీర్షిక (A–Z)"
+  },
+  "badgeTitleSome": {
+    "message": "కొత్త ఎపిసోడ్‌లు: $P2$లో $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "badgeTitleNone": {
+    "message": "Watchroll: అన్నీ చూశారు"
+  },
+  "notifTitle_one": {
+    "message": "1 కొత్త ఎపిసోడ్"
+  },
+  "notifTitle_other": {
+    "message": "$P1$ కొత్త ఎపిసోడ్‌లు",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMore": {
+    "message": "+ మరో $P1$ సిరీస్‌లు",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMovie": {
+    "message": "సినిమా"
+  },
+  "noticeOpeningTab": {
+    "message": "మీ సెషన్ వాడటానికి crunchyroll.comను బ్యాక్‌గ్రౌండ్‌లో తెరుస్తోంది…"
+  },
+  "noticeProxy": {
+    "message": "నేరుగా యాక్సెస్ బ్లాక్ అయింది; crunchyroll.com ట్యాబ్ వాడుతోంది."
+  },
+  "noticeOtherProfile": {
+    "message": "వాడుతున్న సెషన్ ఖాతాలోని మరో ప్రొఫైల్‌ది. మీ ప్రొఫైల్‌తో crunchyroll.com తెరిచి రిఫ్రెష్ నొక్కండి."
+  },
+  "noticeSlowDown": {
+    "message": "Crunchyroll వేగం తగ్గించమని కోరింది; $P1$ సెకన్లలో మళ్లీ ప్రయత్నం…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errTabTimeout": {
+    "message": "Crunchyroll ట్యాబ్ లోడ్ కావడానికి చాలా సమయం పట్టింది."
+  },
+  "errTabNoAnswer": {
+    "message": "Crunchyroll ట్యాబ్ స్పందించలేదు."
+  },
+  "errNoTab": {
+    "message": "మీ సెషన్ కోసం crunchyroll.com ట్యాబ్ ఏదీ తెరిచి లేదు."
+  },
+  "errAuth": {
+    "message": "ప్రమాణీకరణ కాలేదు (HTTP $P1$). మీరు crunchyroll.comలో లాగిన్ అయ్యారని నిర్ధారించుకోండి.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errHttp": {
+    "message": "HTTP $P1$ ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "errAccount": {
+    "message": "మీ ఖాతా ID కనబడలేదు."
+  },
+  "dubYes": {
+    "message": "$L$ డబ్ ఉంది",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubOld": {
+    "message": "$L$ డబ్ గత సీజన్‌లలో మాత్రమే",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubNo": {
+    "message": "$L$ డబ్ లేదు",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "tabsAria": {
+    "message": "విభాగాలు"
+  },
+  "seasonWinter": {
+    "message": "శీతాకాలం"
+  },
+  "seasonSpring": {
+    "message": "వసంతకాలం"
+  },
+  "seasonSummer": {
+    "message": "వేసవి"
+  },
+  "seasonFall": {
+    "message": "శరదృతువు"
+  },
+  "seasonUnknown": {
+    "message": "సీజన్ పేర్కొనలేదు"
+  },
+  "emptyNever": {
+    "message": "మీ జాబితాల్లోని అన్ని సిరీస్‌లు మొదలుపెట్టారు."
+  },
+  "seasonLabel": {
+    "message": "$S$ $Y$",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      },
+      "y": {
+        "content": "$2"
+      }
+    }
+  },
+  "secSearch": {
+    "message": "శోధన"
+  },
+  "searchQueryPlaceholder": {
+    "message": "అనిమే పేరు (తెలుగు, ఇంగ్లీష్, రోమాజీ లేదా జపనీస్)"
+  },
+  "searchButton": {
+    "message": "వెతకండి"
+  },
+  "searchScope": {
+    "message": "ఎక్కడ"
+  },
+  "searchScopeAll": {
+    "message": "మొత్తం కేటలాగ్"
+  },
+  "searchScopeMine": {
+    "message": "నా జాబితాలు మాత్రమే"
+  },
+  "searchDub": {
+    "message": "డబ్"
+  },
+  "searchDubAny": {
+    "message": "ఏదైనా ఆడియో"
+  },
+  "searchDubYes": {
+    "message": "$P1$లో డబ్",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchDubNo": {
+    "message": "$P1$లో డబ్ లేదు",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAge": {
+    "message": "వయస్సు రేటింగ్"
+  },
+  "searchAgeAny": {
+    "message": "అన్నీ"
+  },
+  "searchAgeUpTo": {
+    "message": "$P1$+ వరకు",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "ageFree": {
+    "message": "అన్ని వయస్సుల వారికి"
+  },
+  "ageMin": {
+    "message": "$P1$ ఏళ్లలోపు వారికి సిఫార్సు చేయబడలేదు",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchYear": {
+    "message": "విడుదల సంవత్సరం"
+  },
+  "searchAny": {
+    "message": "ఏదైనా"
+  },
+  "searchSeason": {
+    "message": "సీజన్"
+  },
+  "searchLoading": {
+    "message": "లోడ్ అవుతోంది…"
+  },
+  "searchNeedAniList": {
+    "message": "Crunchyroll శోధన జపనీస్ పేర్లను అర్థం చేసుకోదు. AniList ఆన్‌లో ఉంటే, శీర్షికను కనుగొనడానికి శోధన వచనం AniListకు పంపబడుతుంది."
+  },
+  "searchEnableAniList": {
+    "message": "AniList ఆన్ చేయండి"
+  },
+  "searchAniListError": {
+    "message": "ప్రస్తుతం AniListను సంప్రదించలేకపోయాం; ఫలితాలు Crunchyroll శోధన నుండి మాత్రమే."
+  },
+  "searchMineEmpty": {
+    "message": "మీ వాచ్‌లిస్ట్ ఇంకా చదవలేదు. రిఫ్రెష్ నొక్కి మళ్లీ ప్రయత్నించండి."
+  },
+  "searchError": {
+    "message": "శోధించలేకపోయాం: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchHint": {
+    "message": "పేరు టైప్ చేయండి లేదా ఫిల్టర్‌లు ఎంచుకోండి. పేరు లేకుండా మొత్తం Crunchyroll కేటలాగ్‌లో (లేదా ఎంచుకున్న సీజన్‌లో) వెతుకుతుంది."
+  },
+  "searchMore": {
+    "message": "మరిన్ని లోడ్ చేయండి"
+  },
+  "searchMovie": {
+    "message": "సినిమా"
+  },
+  "searchInList": {
+    "message": "మీ జాబితాల్లో"
+  },
+  "setAniListLabel": {
+    "message": "జపనీస్, రోమాజీ పేర్లతో కూడా వెతకండి (శోధన వచనాన్ని AniListకు పంపుతుంది)"
+  },
+  "searchCount_one": {
+    "message": "1 ఫలితం"
+  },
+  "searchCount_other": {
+    "message": "$P1$ ఫలితాలు",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSeasons_one": {
+    "message": "1 సీజన్"
+  },
+  "searchSeasons_other": {
+    "message": "$P1$ సీజన్‌లు",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSort": {
+    "message": "క్రమం"
+  },
+  "searchSortDefault": {
+    "message": "Crunchyroll క్రమం"
+  },
+  "searchSortYear": {
+    "message": "తాజా విడుదల"
+  },
+  "searchSortTitle": {
+    "message": "శీర్షిక (A–Z)"
+  },
+  "searchLoadingCatalog": {
+    "message": "Crunchyroll కేటలాగ్ డౌన్‌లోడ్ అవుతోంది (మొదటిసారి మాత్రమే, కొన్ని సెకన్లు)…"
+  },
+  "sortWaiting": {
+    "message": "ఎక్కువగా వేచి ఉన్నవి"
+  },
+  "sortNext": {
+    "message": "తదుపరి విడుదల"
+  },
+  "sortSeason": {
+    "message": "విడుదల సీజన్"
+  },
+  "uiLangAuto": {
+    "message": "స్వయంచాలకం (బ్రౌజర్ భాష)"
+  },
+  "setUiLangLabel": {
+    "message": "ఎక్స్‌టెన్షన్ భాష"
+  },
+  "setUiLangHelp": {
+    "message": "“స్వయంచాలకం” Firefox భాషను అనుసరిస్తుంది."
+  },
+  "setListsLabel": {
+    "message": "తనిఖీ చేసే జాబితాలు"
+  },
+  "setListsHelp": {
+    "message": "వాచ్‌లిస్ట్‌తో పాటు మీ Crunchylists కూడా ఎంచుకోవచ్చు. ఒకటి కంటే ఎక్కువ జాబితాలు ఉంటే, ప్రతి అనిమే ఏ జాబితా నుండి వచ్చిందో చూపిస్తుంది."
+  },
+  "listWatchlist": {
+    "message": "వాచ్‌లిస్ట్"
+  },
+  "listsLoading": {
+    "message": "మీ Crunchylists లోడ్ అవుతున్నాయి…"
+  },
+  "listsError": {
+    "message": "మీ Crunchylists చదవలేకపోయాం: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listUnknown": {
+    "message": "జాబితా కనబడలేదు"
+  },
+  "listFilterLabel": {
+    "message": "జాబితా"
+  },
+  "listFilterAll": {
+    "message": "అన్ని జాబితాలు"
+  },
+  "listFrom": {
+    "message": "జాబితా: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listItems_one": {
+    "message": "1 అంశం"
+  },
+  "listItems_other": {
+    "message": "అంశాలు: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secCalendar": {
+    "message": "వారం"
+  },
+  "futInMinutes": {
+    "message": "$P1$ నిమిషాల్లో",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futInHours": {
+    "message": "$P1$ గంటల్లో ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "calToday": {
+    "message": "ఈరోజు"
+  },
+  "calTomorrow": {
+    "message": "రేపు"
+  },
+  "emptyCalendar": {
+    "message": "రాబోయే 7 రోజుల్లో తెలిసిన విడుదలలు లేవు."
+  },
+  "calEstimatedNote": {
+    "message": "~ = గత ఎపిసోడ్‌ల వారపు వేగం ఆధారంగా అంచనా. Crunchyroll ఎపిసోడ్ విడుదలైన తర్వాతే చూపిస్తుంది."
+  },
+  "setCompactLabel": {
+    "message": "\"చూడాల్సినవి\"ని కాంపాక్ట్‌గా చూపించు (కార్డులకు బదులు వరుసలు)"
+  },
+  "setBackupLabel": {
+    "message": "సెట్టింగ్‌ల బ్యాకప్"
+  },
+  "setBackupHelp": {
+    "message": "మీ ప్రాధాన్యతలను (ప్రతి సిరీస్ మోడ్, దాచిన సిరీస్‌లు, జాబితాలు, భాషలు) ఫైల్‌లో సేవ్ లేదా పునరుద్ధరిస్తుంది. లాగిన్, చరిత్ర ఉండవు."
+  },
+  "btnExport": {
+    "message": "ఎగుమతి"
+  },
+  "btnImport": {
+    "message": "దిగుమతి"
+  },
+  "importError": {
+    "message": "దిగుమతి చేయలేకపోయాం: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "localeAuto": {
+    "message": "ఆటోమేటిక్ (ఎక్స్‌టెన్షన్ భాష)"
+  },
+  "groupBySeason": {
+    "message": "సమూహం చేయి"
+  },
+  "sortSeasonsCount": {
+    "message": "ఎక్కువ సీజన్‌లు"
+  },
+  "sortEpisodesTotal": {
+    "message": "మొత్తం ఎక్కువ ఎపిసోడ్‌లు"
+  },
+  "linkHome": {
+    "message": "హోమ్"
+  },
+  "linksAria": {
+    "message": "Crunchyroll‌లో తెరవండి"
+  },
+  "ratingTitle": {
+    "message": "Crunchyroll రేటింగ్: 5కి $P1$ · రేటింగ్‌ల సంఖ్య: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "genreFilterLabel": {
+    "message": "వర్గం"
+  },
+  "genreFilterAll": {
+    "message": "అన్ని వర్గాలు"
+  },
+  "audioFilterLabel": {
+    "message": "ఆడియో"
+  },
+  "audioFilterAll": {
+    "message": "అన్నీ"
+  },
+  "genresTitle": {
+    "message": "Crunchyroll వర్గాలు: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "genre_action": {
+    "message": "యాక్షన్"
+  },
+  "genre_adventure": {
+    "message": "సాహసం"
+  },
+  "genre_comedy": {
+    "message": "కామెడీ"
+  },
+  "genre_drama": {
+    "message": "డ్రామా"
+  },
+  "genre_fantasy": {
+    "message": "ఫాంటసీ"
+  },
+  "genre_music": {
+    "message": "సంగీతం"
+  },
+  "genre_romance": {
+    "message": "రొమాన్స్"
+  },
+  "genre_scifi": {
+    "message": "సైన్స్ ఫిక్షన్"
+  },
+  "genre_seinen": {
+    "message": "సెయినెన్"
+  },
+  "genre_shojo": {
+    "message": "షోజో"
+  },
+  "genre_shonen": {
+    "message": "షోనెన్"
+  },
+  "genre_sliceoflife": {
+    "message": "స్లైస్ ఆఫ్ లైఫ్"
+  },
+  "genre_sports": {
+    "message": "క్రీడలు"
+  },
+  "genre_supernatural": {
+    "message": "అతీంద్రియ"
+  },
+  "genre_thriller": {
+    "message": "థ్రిల్లర్"
+  },
+  "genre_mystery": {
+    "message": "మిస్టరీ"
+  },
+  "genre_horror": {
+    "message": "హారర్"
+  },
+  "clearFilters": {
+    "message": "ఫిల్టర్‌లు తొలగించు"
+  },
+  "listFilterAny": {
+    "message": "అన్నీ"
+  },
+  "genreFilterAny": {
+    "message": "అన్నీ"
+  },
+  "setOpenAppLabel": {
+    "message": "Crunchyroll లింక్‌లను Crunchyroll యాప్‌లో తెరువు"
+  },
+  "searchMinSeasons": {
+    "message": "కనీస సీజన్‌లు"
+  },
+  "searchAtLeast": {
+    "message": "$P1$ లేదా ఎక్కువ",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoSub_one": {
+    "message": "ప్రస్తుత సీజన్‌కు $P2$ ఉపశీర్షికలు లేవు · 1 ఎపిసోడ్ వచ్చింది",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoSub_other": {
+    "message": "ప్రస్తుత సీజన్‌కు $P2$ ఉపశీర్షికలు లేవు · $P1$ ఎపిసోడ్‌లు వచ్చాయి",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeAnyAudio": {
+    "message": "ఉపశీర్షికలు లేకుండా చూడండి"
+  },
+  "btnSeeAnyAudioTitle": {
+    "message": "ఈ సిరీస్‌ను \"ఏ ఆడియో అయినా\"కు మారుస్తుంది: మీ భాషలో ఉపశీర్షికలు లేకపోయినా ఎపిసోడ్‌లు కనిపిస్తాయి"
+  }
+}

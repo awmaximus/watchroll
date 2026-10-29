@@ -1,0 +1,1114 @@
+{
+  "extName": {
+    "message": "Watchroll – Episode baru untuk Crunchyroll"
+  },
+  "extDescription": {
+    "message": "Tidak resmi. Pelacak anime untuk Crunchyroll: episode baru dari Watchlist dan Crunchylist, sub atau dub, kalender rilis, hitung mundur simulcast, dan notifikasi episode baru."
+  },
+  "actionTitle": {
+    "message": "Watchroll – Episode baru untuk Crunchyroll"
+  },
+  "pageTitle": {
+    "message": "Watchroll – Episode baru"
+  },
+  "heading": {
+    "message": "Episode baru"
+  },
+  "btnSettings": {
+    "message": "Pengaturan"
+  },
+  "btnRefresh": {
+    "message": "Perbarui"
+  },
+  "versionLabel": {
+    "message": "Versi $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "Pengaturan"
+  },
+  "setDubLabel": {
+    "message": "Bahasa dub yang kamu tonton"
+  },
+  "setDubHelp": {
+    "message": "Seri yang diatur ke “Dub” hanya muncul setelah dub dalam bahasa ini dirilis."
+  },
+  "setSubLabel": {
+    "message": "Bahasa subtitel"
+  },
+  "setSubHelp": {
+    "message": "Seri yang diatur ke “Subtitel” hanya muncul setelah subtitel dalam bahasa ini tersedia."
+  },
+  "setModeLabel": {
+    "message": "Mode bawaan seri"
+  },
+  "setModeHelp": {
+    "message": "Berlaku untuk seri yang tidak kamu atur satu per satu."
+  },
+  "setLocaleLabel": {
+    "message": "Bahasa judul dan tautan"
+  },
+  "setAutoLabel": {
+    "message": "Periksa otomatis"
+  },
+  "setAutoHelp": {
+    "message": "Di latar belakang, memperbarui angka di ikon ekstensi. Memerlukan tab crunchyroll.com yang terbuka jika akses langsung diblokir."
+  },
+  "setAutoRange": {
+    "message": "Dalam menit (bawaan: 60). 0 mematikannya. Minimal 5, maksimal 1440 (1 hari)."
+  },
+  "setNotifyLabel": {
+    "message": "Beri tahu saat episode baru keluar"
+  },
+  "setExtrasLabel": {
+    "message": "Tampilkan spesial dan rekap (tidak dihitung)"
+  },
+  "setSkippedLabel": {
+    "message": "Tampilkan episode yang terlewat (sebelum yang terakhir kamu tonton)"
+  },
+  "setMinStartedLabel": {
+    "message": "Dianggap mulai setelah (detik)"
+  },
+  "setMinStartedHelp": {
+    "message": "Crunchyroll mencatat beberapa detik hanya karena halaman episode dibuka. Catatan di bawah waktu ini diabaikan. Antara 0 dan 600."
+  },
+  "setConcurrencyLabel": {
+    "message": "Seri yang diperiksa bersamaan"
+  },
+  "setConcurrencyHelp": {
+    "message": "Lebih cepat dengan angka lebih besar. Jika muncul galat “terlalu banyak permintaan” (HTTP 429), turunkan. Antara 1 dan 32."
+  },
+  "setPlayheadBatchLabel": {
+    "message": "Ukuran batch"
+  },
+  "setPlayheadBatchHelp": {
+    "message": "Berapa episode dalam setiap permintaan progres tontonan (playheads) dan berapa item di setiap halaman Daftar Tontonan dan riwayat. Batch lebih besar berarti lebih sedikit permintaan. Jika pemeriksaan mulai gagal, turunkan. Antara 10 dan 300."
+  },
+  "searchPlaceholder": {
+    "message": "Cari seri…"
+  },
+  "searchAria": {
+    "message": "Cari seri berdasarkan judul"
+  },
+  "sortLabel": {
+    "message": "Urutkan"
+  },
+  "modeSub": {
+    "message": "Subtitel"
+  },
+  "modeDub": {
+    "message": "Dub"
+  },
+  "modeAuto": {
+    "message": "Audio apa saja"
+  },
+  "modeAutoLong": {
+    "message": "Audio apa saja (beri tahu saat rilis pertama)"
+  },
+  "modeDubLang": {
+    "message": "Dub $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeDefault": {
+    "message": "Bawaan ($P1$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortSub": {
+    "message": "subtitel"
+  },
+  "shortDub": {
+    "message": "dub $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortAuto": {
+    "message": "audio apa saja"
+  },
+  "modeAria": {
+    "message": "Audio untuk $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeTitle": {
+    "message": "Cara kamu menonton seri ini"
+  },
+  "epMovie": {
+    "message": "Film"
+  },
+  "epLabel": {
+    "message": "S$P1$ E$P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "relNow": {
+    "message": "baru saja"
+  },
+  "relHours": {
+    "message": "$P1$ jam lalu",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "relYesterday": {
+    "message": "kemarin"
+  },
+  "relDays": {
+    "message": "$P1$ hari lalu",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futToday": {
+    "message": "hari ini pukul $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futTomorrow": {
+    "message": "besok pukul $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futDays": {
+    "message": "dalam $P1$ hari ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "nextText": {
+    "message": "Berikutnya: $P1$ $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "watchedPct": {
+    "message": "$P1$% ditonton",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "watchNext": {
+    "message": "Tonton berikutnya"
+  },
+  "tagRecap": {
+    "message": "rekap"
+  },
+  "tagSpecial": {
+    "message": "spesial"
+  },
+  "tagSkipped": {
+    "message": "terlewat"
+  },
+  "badgeContinue": {
+    "message": "lanjutkan"
+  },
+  "badgeMovie": {
+    "message": "film"
+  },
+  "badgeNew_one": {
+    "message": "1 baru"
+  },
+  "badgeNew_other": {
+    "message": "$P1$ baru",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSkipped_one": {
+    "message": "1 terlewat"
+  },
+  "badgeSkipped_other": {
+    "message": "$P1$ terlewat",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSpecial_one": {
+    "message": "1 spesial"
+  },
+  "badgeSpecial_other": {
+    "message": "$P1$ spesial",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "moreEps_one": {
+    "message": "+ 1 episode"
+  },
+  "moreEps_other": {
+    "message": "+ $P1$ episode",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitDub": {
+    "message": "+$P1$ menunggu dub",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitSub": {
+    "message": "+$P1$ menunggu subtitel",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsAria": {
+    "message": "Tindakan untuk $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsTitle": {
+    "message": "Tindakan"
+  },
+  "actDiag": {
+    "message": "Ekspor diagnostik"
+  },
+  "actShow": {
+    "message": "Tampilkan lagi"
+  },
+  "actHideNew": {
+    "message": "Sembunyikan sampai ada episode baru"
+  },
+  "actHideWeek": {
+    "message": "Sembunyikan selama 1 minggu"
+  },
+  "actHideForever": {
+    "message": "Selalu sembunyikan"
+  },
+  "hiddenUntil": {
+    "message": "Disembunyikan sampai $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hiddenUntilNew": {
+    "message": "Disembunyikan sampai ada episode baru"
+  },
+  "hiddenForever": {
+    "message": "Selalu disembunyikan"
+  },
+  "epsCount_one": {
+    "message": "1 episode"
+  },
+  "epsCount_other": {
+    "message": "$P1$ episode",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "seriesCount_one": {
+    "message": "1 seri"
+  },
+  "seriesCount_other": {
+    "message": "$P1$ seri",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusEps": {
+    "message": "$P1$ di $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "statusUpdatedAt": {
+    "message": " · pembaruan terakhir: $WHEN$",
+    "placeholders": {
+      "when": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusElapsed": {
+    "message": " · diperbarui dalam $S$ dtk",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusAllCaught": {
+    "message": "Semua sudah ditonton"
+  },
+  "secToWatch": {
+    "message": "Tonton"
+  },
+  "emptySearch": {
+    "message": "Tidak ada seri di sini."
+  },
+  "emptyToWatch": {
+    "message": "Tidak ada episode baru di seri yang sudah kamu mulai."
+  },
+  "secWaitDub": {
+    "message": "Dub tertunda"
+  },
+  "noteWaitDub_one": {
+    "message": "1 sudah keluar dengan subtitel"
+  },
+  "noteWaitDub_other": {
+    "message": "$P1$ sudah keluar dengan subtitel",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secWaitSub": {
+    "message": "Subtitle tertunda"
+  },
+  "noteWaitSub_one": {
+    "message": "1 episode sudah rilis tanpa subtitle bahasamu"
+  },
+  "noteWaitSub_other": {
+    "message": "$P1$ episode sudah rilis tanpa subtitle bahasamu",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoDub_one": {
+    "message": "Musim ini tanpa dub $P2$ · 1 episode bersubtitel untuk ditonton",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoDub_other": {
+    "message": "Musim ini tanpa dub $P2$ · $P1$ episode bersubtitel untuk ditonton",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeSubbed": {
+    "message": "Tonton dengan subtitel"
+  },
+  "btnSeeSubbedTitle": {
+    "message": "Ubah seri ini ke mode subtitel"
+  },
+  "secErrors": {
+    "message": "Galat"
+  },
+  "secUpToDate": {
+    "message": "Terkini"
+  },
+  "noteNoDubSeason": {
+    "message": "Tidak ada dub $P1$ di musim ini",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secNever": {
+    "message": "Belum mulai"
+  },
+  "secHidden": {
+    "message": "Tersembunyi"
+  },
+  "btnShow": {
+    "message": "Tampilkan"
+  },
+  "progressChecking": {
+    "message": "Memeriksa $P1$ dari $P2$ seri…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "progressReading": {
+    "message": "Membaca daftarmu…"
+  },
+  "errorQuery": {
+    "message": "Tidak dapat menghubungi Crunchyroll: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errorHint": {
+    "message": "Pastikan kamu sudah masuk di crunchyroll.com, lalu klik Perbarui."
+  },
+  "diagSaved": {
+    "message": "Diagnostik “$P1$” disimpan. Tidak berisi token, cookie, atau data akun.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagError": {
+    "message": "Tidak dapat membuat diagnostik: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagFile": {
+    "message": "diagnostik"
+  },
+  "profileLabel": {
+    "message": " · profil $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "sortReleased": {
+    "message": "Rilis terbaru"
+  },
+  "sortWatched": {
+    "message": "Terakhir ditonton"
+  },
+  "sortCount": {
+    "message": "Episode terbanyak"
+  },
+  "sortTitle": {
+    "message": "Judul (A–Z)"
+  },
+  "badgeTitleSome": {
+    "message": "Episode baru: $P1$ di $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "badgeTitleNone": {
+    "message": "Watchroll: semua sudah ditonton"
+  },
+  "notifTitle_one": {
+    "message": "1 episode baru"
+  },
+  "notifTitle_other": {
+    "message": "$P1$ episode baru",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMore": {
+    "message": "+ $P1$ seri lainnya",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMovie": {
+    "message": "film"
+  },
+  "noticeOpeningTab": {
+    "message": "Membuka crunchyroll.com di latar belakang untuk memakai sesimu…"
+  },
+  "noticeProxy": {
+    "message": "Akses langsung diblokir; memakai tab crunchyroll.com."
+  },
+  "noticeOtherProfile": {
+    "message": "Sesi yang dipakai milik profil lain di akun ini. Buka crunchyroll.com dengan profil yang kamu pakai lalu klik Perbarui."
+  },
+  "noticeSlowDown": {
+    "message": "Crunchyroll meminta untuk melambat; mencoba lagi dalam $P1$ dtk…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errTabTimeout": {
+    "message": "Tab Crunchyroll terlalu lama dimuat."
+  },
+  "errTabNoAnswer": {
+    "message": "Tab Crunchyroll tidak merespons."
+  },
+  "errNoTab": {
+    "message": "Tidak ada tab crunchyroll.com yang terbuka untuk memakai sesimu."
+  },
+  "errAuth": {
+    "message": "Tidak dapat mengautentikasi (HTTP $P1$). Pastikan kamu sudah masuk di crunchyroll.com.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errHttp": {
+    "message": "HTTP $P1$ di $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "errAccount": {
+    "message": "ID akunmu tidak ditemukan."
+  },
+  "dubYes": {
+    "message": "Ada dub $L$",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubOld": {
+    "message": "Dub $L$ hanya di musim sebelumnya",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubNo": {
+    "message": "Tanpa dub $L$",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "tabsAria": {
+    "message": "Bagian"
+  },
+  "seasonWinter": {
+    "message": "Musim Dingin"
+  },
+  "seasonSpring": {
+    "message": "Musim Semi"
+  },
+  "seasonSummer": {
+    "message": "Musim Panas"
+  },
+  "seasonFall": {
+    "message": "Musim Gugur"
+  },
+  "seasonUnknown": {
+    "message": "Musim tidak disebutkan"
+  },
+  "emptyNever": {
+    "message": "Kamu sudah memulai semua serial di daftarmu."
+  },
+  "seasonLabel": {
+    "message": "$S$ $Y$",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      },
+      "y": {
+        "content": "$2"
+      }
+    }
+  },
+  "secSearch": {
+    "message": "Cari"
+  },
+  "searchQueryPlaceholder": {
+    "message": "Nama anime (Indonesia, Inggris, romaji, atau Jepang)"
+  },
+  "searchButton": {
+    "message": "Cari"
+  },
+  "searchScope": {
+    "message": "Di mana"
+  },
+  "searchScopeAll": {
+    "message": "Seluruh katalog"
+  },
+  "searchScopeMine": {
+    "message": "Hanya daftar saya"
+  },
+  "searchDub": {
+    "message": "Dub"
+  },
+  "searchDubAny": {
+    "message": "Audio apa saja"
+  },
+  "searchDubYes": {
+    "message": "Dub $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchDubNo": {
+    "message": "Tanpa dub $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAge": {
+    "message": "Rating usia"
+  },
+  "searchAgeAny": {
+    "message": "Semua"
+  },
+  "searchAgeUpTo": {
+    "message": "Hingga $P1$+",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "ageFree": {
+    "message": "Untuk semua umur"
+  },
+  "ageMin": {
+    "message": "Tidak disarankan di bawah $P1$ tahun",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchYear": {
+    "message": "Tahun rilis"
+  },
+  "searchAny": {
+    "message": "Apa saja"
+  },
+  "searchSeason": {
+    "message": "Musim"
+  },
+  "searchLoading": {
+    "message": "Memuat…"
+  },
+  "searchNeedAniList": {
+    "message": "Pencarian Crunchyroll tidak memahami nama Jepang. Dengan AniList aktif, teks pencarian dikirim ke sana untuk menemukan judulnya."
+  },
+  "searchEnableAniList": {
+    "message": "Aktifkan AniList"
+  },
+  "searchAniListError": {
+    "message": "AniList tidak dapat dihubungi sekarang; hasil hanya dari pencarian Crunchyroll."
+  },
+  "searchMineEmpty": {
+    "message": "Daftar Tontonanmu belum dibaca. Klik Perbarui lalu coba lagi."
+  },
+  "searchError": {
+    "message": "Tidak dapat mencari: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchHint": {
+    "message": "Ketik nama atau pilih filter. Tanpa nama, pencarian menelusuri seluruh katalog Crunchyroll (atau musim yang dipilih)."
+  },
+  "searchMore": {
+    "message": "Muat lebih banyak"
+  },
+  "searchMovie": {
+    "message": "Film"
+  },
+  "searchInList": {
+    "message": "Ada di daftarmu"
+  },
+  "setAniListLabel": {
+    "message": "Cari juga nama Jepang dan romaji (mengirim teks pencarian ke AniList)"
+  },
+  "searchCount_one": {
+    "message": "1 hasil"
+  },
+  "searchCount_other": {
+    "message": "$P1$ hasil",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSeasons_one": {
+    "message": "1 musim"
+  },
+  "searchSeasons_other": {
+    "message": "$P1$ musim",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSort": {
+    "message": "Urutkan"
+  },
+  "searchSortDefault": {
+    "message": "Urutan Crunchyroll"
+  },
+  "searchSortYear": {
+    "message": "Rilis terbaru"
+  },
+  "searchSortTitle": {
+    "message": "Judul (A–Z)"
+  },
+  "searchLoadingCatalog": {
+    "message": "Mengunduh katalog Crunchyroll (hanya pertama kali, beberapa detik)…"
+  },
+  "sortWaiting": {
+    "message": "Paling banyak menunggu"
+  },
+  "sortNext": {
+    "message": "Rilis berikutnya"
+  },
+  "sortSeason": {
+    "message": "Musim rilis"
+  },
+  "uiLangAuto": {
+    "message": "Otomatis (bahasa peramban)"
+  },
+  "setUiLangLabel": {
+    "message": "Bahasa ekstensi"
+  },
+  "setUiLangHelp": {
+    "message": "“Otomatis” mengikuti bahasa Firefox."
+  },
+  "setListsLabel": {
+    "message": "Daftar yang diperiksa"
+  },
+  "setListsHelp": {
+    "message": "Selain Watchlist, kamu bisa memilih Crunchylist milikmu. Jika lebih dari satu daftar, setiap anime menunjukkan asal daftarnya."
+  },
+  "listWatchlist": {
+    "message": "Watchlist"
+  },
+  "listsLoading": {
+    "message": "Memuat Crunchylist kamu…"
+  },
+  "listsError": {
+    "message": "Tidak dapat membaca Crunchylist kamu: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listUnknown": {
+    "message": "Daftar tidak ditemukan"
+  },
+  "listFilterLabel": {
+    "message": "Daftar"
+  },
+  "listFilterAll": {
+    "message": "Semua daftar"
+  },
+  "listFrom": {
+    "message": "Daftar: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listItems_one": {
+    "message": "1 item"
+  },
+  "listItems_other": {
+    "message": "$P1$ item",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secCalendar": {
+    "message": "Minggu ini"
+  },
+  "futInMinutes": {
+    "message": "$P1$ mnt lagi",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futInHours": {
+    "message": "$P1$ jam lagi ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "calToday": {
+    "message": "Hari ini"
+  },
+  "calTomorrow": {
+    "message": "Besok"
+  },
+  "emptyCalendar": {
+    "message": "Tidak ada rilis yang diketahui dalam 7 hari ke depan."
+  },
+  "calEstimatedNote": {
+    "message": "~ = perkiraan dari ritme mingguan episode sebelumnya. Crunchyroll baru menampilkan episode saat sudah rilis."
+  },
+  "setCompactLabel": {
+    "message": "Tampilkan \"Tonton\" dalam mode ringkas (baris, bukan kartu)"
+  },
+  "setBackupLabel": {
+    "message": "Cadangan pengaturan"
+  },
+  "setBackupHelp": {
+    "message": "Menyimpan atau memulihkan preferensimu (mode per serial, serial tersembunyi, daftar, dan bahasa) ke file. Tidak termasuk login dan riwayat."
+  },
+  "btnExport": {
+    "message": "Ekspor"
+  },
+  "btnImport": {
+    "message": "Impor"
+  },
+  "importError": {
+    "message": "Tidak dapat mengimpor: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "localeAuto": {
+    "message": "Otomatis (bahasa ekstensi)"
+  },
+  "groupBySeason": {
+    "message": "Kelompokkan"
+  },
+  "sortSeasonsCount": {
+    "message": "Musim terbanyak"
+  },
+  "sortEpisodesTotal": {
+    "message": "Total episode terbanyak"
+  },
+  "linkHome": {
+    "message": "Beranda"
+  },
+  "linksAria": {
+    "message": "Buka di Crunchyroll"
+  },
+  "ratingTitle": {
+    "message": "Rating Crunchyroll: $P1$ dari 5 · jumlah rating: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "genreFilterLabel": {
+    "message": "Kategori"
+  },
+  "genreFilterAll": {
+    "message": "Semua kategori"
+  },
+  "audioFilterLabel": {
+    "message": "Audio"
+  },
+  "audioFilterAll": {
+    "message": "Semua"
+  },
+  "genresTitle": {
+    "message": "Kategori Crunchyroll: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "genre_action": {
+    "message": "Aksi"
+  },
+  "genre_adventure": {
+    "message": "Petualangan"
+  },
+  "genre_comedy": {
+    "message": "Komedi"
+  },
+  "genre_drama": {
+    "message": "Drama"
+  },
+  "genre_fantasy": {
+    "message": "Fantasi"
+  },
+  "genre_music": {
+    "message": "Musik"
+  },
+  "genre_romance": {
+    "message": "Romansa"
+  },
+  "genre_scifi": {
+    "message": "Fiksi ilmiah"
+  },
+  "genre_seinen": {
+    "message": "Seinen"
+  },
+  "genre_shojo": {
+    "message": "Shoujo"
+  },
+  "genre_shonen": {
+    "message": "Shounen"
+  },
+  "genre_sliceoflife": {
+    "message": "Slice of life"
+  },
+  "genre_sports": {
+    "message": "Olahraga"
+  },
+  "genre_supernatural": {
+    "message": "Supranatural"
+  },
+  "genre_thriller": {
+    "message": "Thriller"
+  },
+  "genre_mystery": {
+    "message": "Misteri"
+  },
+  "genre_horror": {
+    "message": "Horor"
+  },
+  "clearFilters": {
+    "message": "Hapus filter"
+  },
+  "listFilterAny": {
+    "message": "Semua"
+  },
+  "genreFilterAny": {
+    "message": "Semua"
+  },
+  "setOpenAppLabel": {
+    "message": "Buka tautan Crunchyroll di aplikasi Crunchyroll"
+  },
+  "searchMinSeasons": {
+    "message": "Musim min."
+  },
+  "searchAtLeast": {
+    "message": "$P1$ atau lebih",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoSub_one": {
+    "message": "Musim ini belum ada subtitle $P2$ · 1 episode sudah rilis",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoSub_other": {
+    "message": "Musim ini belum ada subtitle $P2$ · $P1$ episode sudah rilis",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeAnyAudio": {
+    "message": "Tonton tanpa subtitle"
+  },
+  "btnSeeAnyAudioTitle": {
+    "message": "Mengubah seri ini ke \"Audio apa saja\": episode tetap muncul walau belum ada subtitle dalam bahasamu"
+  }
+}

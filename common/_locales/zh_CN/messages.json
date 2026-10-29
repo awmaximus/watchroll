@@ -1,0 +1,1114 @@
+{
+  "extName": {
+    "message": "Watchroll – 新剧集 for Crunchyroll"
+  },
+  "extDescription": {
+    "message": "非官方。Crunchyroll 动画追番工具:追番列表和 Crunchylists 的新剧集,字幕或配音,上线日历,同步播出倒计时和新剧集通知。"
+  },
+  "actionTitle": {
+    "message": "Watchroll – 新剧集 for Crunchyroll"
+  },
+  "pageTitle": {
+    "message": "Watchroll – 新剧集"
+  },
+  "heading": {
+    "message": "新剧集"
+  },
+  "btnSettings": {
+    "message": "设置"
+  },
+  "btnRefresh": {
+    "message": "刷新"
+  },
+  "versionLabel": {
+    "message": "版本 $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "设置"
+  },
+  "setDubLabel": {
+    "message": "你看配音版时使用的语言"
+  },
+  "setDubHelp": {
+    "message": "设为“配音”的系列,只有在该语言的配音上线后才会显示。"
+  },
+  "setSubLabel": {
+    "message": "字幕语言"
+  },
+  "setSubHelp": {
+    "message": "设为“字幕”的系列,只有在该语言的字幕上线后才会显示。"
+  },
+  "setModeLabel": {
+    "message": "系列的默认模式"
+  },
+  "setModeHelp": {
+    "message": "适用于未单独设置的系列。"
+  },
+  "setLocaleLabel": {
+    "message": "标题和链接的语言"
+  },
+  "setAutoLabel": {
+    "message": "自动检查"
+  },
+  "setAutoHelp": {
+    "message": "在后台更新扩展图标上的数字。如果直接访问被阻止,需要打开一个 crunchyroll.com 标签页。"
+  },
+  "setAutoRange": {
+    "message": "单位为分钟（默认：60）。0 表示关闭。最小 5，最大 1440（1 天）。"
+  },
+  "setNotifyLabel": {
+    "message": "有新剧集时通知我"
+  },
+  "setExtrasLabel": {
+    "message": "显示特别篇和总集篇(不计入数量)"
+  },
+  "setSkippedLabel": {
+    "message": "显示跳过的剧集(在你最后看过的一集之前)"
+  },
+  "setMinStartedLabel": {
+    "message": "观看多少秒后算作已开始"
+  },
+  "setMinStartedHelp": {
+    "message": "仅打开剧集页面,Crunchyroll 就会记录几秒钟。低于这个时间的记录会被忽略。0 到 600。"
+  },
+  "setConcurrencyLabel": {
+    "message": "同时检查的系列数"
+  },
+  "setConcurrencyHelp": {
+    "message": "数字越大越快。如果出现“请求过多”(HTTP 429)错误,请调低。1 到 32。"
+  },
+  "setPlayheadBatchLabel": {
+    "message": "批量大小"
+  },
+  "setPlayheadBatchHelp": {
+    "message": "每次查询观看进度(playheads)包含多少集,以及追番列表和观看记录每页多少项。批量越大,请求越少。如果检查开始失败,请调低。10 到 300。"
+  },
+  "searchPlaceholder": {
+    "message": "搜索系列…"
+  },
+  "searchAria": {
+    "message": "按标题搜索系列"
+  },
+  "sortLabel": {
+    "message": "排序"
+  },
+  "modeSub": {
+    "message": "字幕"
+  },
+  "modeDub": {
+    "message": "配音"
+  },
+  "modeAuto": {
+    "message": "任意音轨"
+  },
+  "modeAutoLong": {
+    "message": "任意音轨(首次上线即通知)"
+  },
+  "modeDubLang": {
+    "message": "配音 $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeDefault": {
+    "message": "默认($P1$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortSub": {
+    "message": "字幕"
+  },
+  "shortDub": {
+    "message": "配音 $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortAuto": {
+    "message": "任意音轨"
+  },
+  "modeAria": {
+    "message": "$P1$ 的音轨",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeTitle": {
+    "message": "你观看这部系列的方式"
+  },
+  "epMovie": {
+    "message": "电影"
+  },
+  "epLabel": {
+    "message": "第$P1$季 第$P2$集",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "relNow": {
+    "message": "刚刚"
+  },
+  "relHours": {
+    "message": "$P1$ 小时前",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "relYesterday": {
+    "message": "昨天"
+  },
+  "relDays": {
+    "message": "$P1$ 天前",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futToday": {
+    "message": "今天 $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futTomorrow": {
+    "message": "明天 $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futDays": {
+    "message": "$P1$ 天后($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "nextText": {
+    "message": "下一集:$P1$ $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "watchedPct": {
+    "message": "已看 $P1$%",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "watchNext": {
+    "message": "观看下一集"
+  },
+  "tagRecap": {
+    "message": "总集篇"
+  },
+  "tagSpecial": {
+    "message": "特别篇"
+  },
+  "tagSkipped": {
+    "message": "已跳过"
+  },
+  "badgeContinue": {
+    "message": "继续"
+  },
+  "badgeMovie": {
+    "message": "电影"
+  },
+  "badgeNew_one": {
+    "message": "1 集新"
+  },
+  "badgeNew_other": {
+    "message": "$P1$ 集新",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSkipped_one": {
+    "message": "跳过 1 集"
+  },
+  "badgeSkipped_other": {
+    "message": "跳过 $P1$ 集",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSpecial_one": {
+    "message": "1 个特别篇"
+  },
+  "badgeSpecial_other": {
+    "message": "$P1$ 个特别篇",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "moreEps_one": {
+    "message": "+ 1 集"
+  },
+  "moreEps_other": {
+    "message": "+ $P1$ 集",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitDub": {
+    "message": "+$P1$ 集等待配音",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitSub": {
+    "message": "+$P1$ 集等待字幕",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsAria": {
+    "message": "$P1$ 的操作",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsTitle": {
+    "message": "操作"
+  },
+  "actDiag": {
+    "message": "导出诊断信息"
+  },
+  "actShow": {
+    "message": "重新显示"
+  },
+  "actHideNew": {
+    "message": "隐藏直到有新剧集"
+  },
+  "actHideWeek": {
+    "message": "隐藏 1 周"
+  },
+  "actHideForever": {
+    "message": "始终隐藏"
+  },
+  "hiddenUntil": {
+    "message": "隐藏至 $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hiddenUntilNew": {
+    "message": "隐藏直到有新剧集"
+  },
+  "hiddenForever": {
+    "message": "始终隐藏"
+  },
+  "epsCount_one": {
+    "message": "1 集"
+  },
+  "epsCount_other": {
+    "message": "$P1$ 集",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "seriesCount_one": {
+    "message": "1 部系列"
+  },
+  "seriesCount_other": {
+    "message": "$P1$ 部系列",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusEps": {
+    "message": "$P2$中有 $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "statusUpdatedAt": {
+    "message": " · 最后更新：$WHEN$",
+    "placeholders": {
+      "when": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusElapsed": {
+    "message": " · 用时 $S$ 秒",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusAllCaught": {
+    "message": "已全部追完"
+  },
+  "secToWatch": {
+    "message": "待观看"
+  },
+  "emptySearch": {
+    "message": "这里没有找到系列。"
+  },
+  "emptyToWatch": {
+    "message": "你已开始的系列中没有新剧集。"
+  },
+  "secWaitDub": {
+    "message": "待配音"
+  },
+  "noteWaitDub_one": {
+    "message": "已有 1 集字幕版"
+  },
+  "noteWaitDub_other": {
+    "message": "已有 $P1$ 集字幕版",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secWaitSub": {
+    "message": "待字幕"
+  },
+  "noteWaitSub_one": {
+    "message": "已有 1 集上线但没有你的语言的字幕"
+  },
+  "noteWaitSub_other": {
+    "message": "已有 $P1$ 集上线但没有你的语言的字幕",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoDub_one": {
+    "message": "本季无 $P2$ 配音 · 有 1 集字幕版可看",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoDub_other": {
+    "message": "本季无 $P2$ 配音 · 有 $P1$ 集字幕版可看",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeSubbed": {
+    "message": "看字幕版"
+  },
+  "btnSeeSubbedTitle": {
+    "message": "将此系列切换为字幕模式"
+  },
+  "secErrors": {
+    "message": "错误"
+  },
+  "secUpToDate": {
+    "message": "已追完"
+  },
+  "noteNoDubSeason": {
+    "message": "本季无 $P1$ 配音",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secNever": {
+    "message": "待开始"
+  },
+  "secHidden": {
+    "message": "已隐藏"
+  },
+  "btnShow": {
+    "message": "显示"
+  },
+  "progressChecking": {
+    "message": "正在检查第 $P1$ / $P2$ 部系列…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "progressReading": {
+    "message": "正在读取你的列表…"
+  },
+  "errorQuery": {
+    "message": "无法连接 Crunchyroll:$P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errorHint": {
+    "message": "请确认已在 crunchyroll.com 登录,然后点击刷新。"
+  },
+  "diagSaved": {
+    "message": "已保存“$P1$”的诊断信息。不含令牌、Cookie 或账户数据。",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagError": {
+    "message": "无法生成诊断信息:$P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagFile": {
+    "message": "diagnostics"
+  },
+  "profileLabel": {
+    "message": " · 个人资料 $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "sortReleased": {
+    "message": "最新上线"
+  },
+  "sortWatched": {
+    "message": "最近观看"
+  },
+  "sortCount": {
+    "message": "剧集最多"
+  },
+  "sortTitle": {
+    "message": "标题(A–Z)"
+  },
+  "badgeTitleSome": {
+    "message": "新剧集:$P2$中有 $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "badgeTitleNone": {
+    "message": "Watchroll: 已全部追完"
+  },
+  "notifTitle_one": {
+    "message": "1 集新剧集"
+  },
+  "notifTitle_other": {
+    "message": "$P1$ 集新剧集",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMore": {
+    "message": "+ 另外 $P1$ 部系列",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMovie": {
+    "message": "电影"
+  },
+  "noticeOpeningTab": {
+    "message": "正在后台打开 crunchyroll.com 以使用你的登录会话…"
+  },
+  "noticeProxy": {
+    "message": "直接访问被阻止,正在使用 crunchyroll.com 标签页。"
+  },
+  "noticeOtherProfile": {
+    "message": "当前会话属于账户中的另一个个人资料。请用你使用的个人资料打开 crunchyroll.com,然后点击刷新。"
+  },
+  "noticeSlowDown": {
+    "message": "Crunchyroll 要求放慢速度,$P1$ 秒后重试…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errTabTimeout": {
+    "message": "Crunchyroll 标签页加载时间过长。"
+  },
+  "errTabNoAnswer": {
+    "message": "Crunchyroll 标签页没有响应。"
+  },
+  "errNoTab": {
+    "message": "没有打开的 crunchyroll.com 标签页可用于你的会话。"
+  },
+  "errAuth": {
+    "message": "无法验证身份(HTTP $P1$)。请确认已在 crunchyroll.com 登录。",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errHttp": {
+    "message": "HTTP $P1$($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "errAccount": {
+    "message": "找不到你的账户 ID。"
+  },
+  "dubYes": {
+    "message": "有 $L$ 配音",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubOld": {
+    "message": "$L$ 配音仅在之前的季度",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubNo": {
+    "message": "无 $L$ 配音",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "tabsAria": {
+    "message": "分区"
+  },
+  "seasonWinter": {
+    "message": "冬季"
+  },
+  "seasonSpring": {
+    "message": "春季"
+  },
+  "seasonSummer": {
+    "message": "夏季"
+  },
+  "seasonFall": {
+    "message": "秋季"
+  },
+  "seasonUnknown": {
+    "message": "未标明季度"
+  },
+  "emptyNever": {
+    "message": "你的列表中的系列都已开始观看。"
+  },
+  "seasonLabel": {
+    "message": "$Y$年$S$",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      },
+      "y": {
+        "content": "$2"
+      }
+    }
+  },
+  "secSearch": {
+    "message": "搜索"
+  },
+  "searchQueryPlaceholder": {
+    "message": "动画名称(中文、英文、罗马字或日文)"
+  },
+  "searchButton": {
+    "message": "搜索"
+  },
+  "searchScope": {
+    "message": "范围"
+  },
+  "searchScopeAll": {
+    "message": "整个片库"
+  },
+  "searchScopeMine": {
+    "message": "仅我的列表"
+  },
+  "searchDub": {
+    "message": "配音"
+  },
+  "searchDubAny": {
+    "message": "任意音轨"
+  },
+  "searchDubYes": {
+    "message": "有 $P1$ 配音",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchDubNo": {
+    "message": "无 $P1$ 配音",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAge": {
+    "message": "分级"
+  },
+  "searchAgeAny": {
+    "message": "全部"
+  },
+  "searchAgeUpTo": {
+    "message": "最高 $P1$ 岁",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "ageFree": {
+    "message": "适合所有年龄"
+  },
+  "ageMin": {
+    "message": "不建议 $P1$ 岁以下观看",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchYear": {
+    "message": "首播年份"
+  },
+  "searchAny": {
+    "message": "不限"
+  },
+  "searchSeason": {
+    "message": "季度"
+  },
+  "searchLoading": {
+    "message": "加载中…"
+  },
+  "searchNeedAniList": {
+    "message": "Crunchyroll 的搜索无法识别日文名称。开启 AniList 后,搜索文字会发送到 AniList 以查找标题。"
+  },
+  "searchEnableAniList": {
+    "message": "开启 AniList"
+  },
+  "searchAniListError": {
+    "message": "暂时无法连接 AniList,结果仅来自 Crunchyroll 的搜索。"
+  },
+  "searchMineEmpty": {
+    "message": "尚未读取你的追番列表。请点击刷新后重试。"
+  },
+  "searchError": {
+    "message": "搜索失败:$P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchHint": {
+    "message": "输入名称或选择筛选条件。不输入名称时,将在整个 Crunchyroll 片库(或所选季度)中查找。"
+  },
+  "searchMore": {
+    "message": "加载更多"
+  },
+  "searchMovie": {
+    "message": "电影"
+  },
+  "searchInList": {
+    "message": "在你的列表中"
+  },
+  "setAniListLabel": {
+    "message": "也搜索日文和罗马字名称(会将搜索文字发送到 AniList)"
+  },
+  "searchCount_one": {
+    "message": "1 个结果"
+  },
+  "searchCount_other": {
+    "message": "$P1$ 个结果",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSeasons_one": {
+    "message": "1 季"
+  },
+  "searchSeasons_other": {
+    "message": "$P1$ 季",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSort": {
+    "message": "排序"
+  },
+  "searchSortDefault": {
+    "message": "Crunchyroll 默认顺序"
+  },
+  "searchSortYear": {
+    "message": "最新首播"
+  },
+  "searchSortTitle": {
+    "message": "标题(A–Z)"
+  },
+  "searchLoadingCatalog": {
+    "message": "正在下载 Crunchyroll 片库(仅首次,需要几秒钟)…"
+  },
+  "sortWaiting": {
+    "message": "等待剧集最多"
+  },
+  "sortNext": {
+    "message": "下次上线"
+  },
+  "sortSeason": {
+    "message": "首播季度"
+  },
+  "uiLangAuto": {
+    "message": "自动(浏览器语言)"
+  },
+  "setUiLangLabel": {
+    "message": "扩展语言"
+  },
+  "setUiLangHelp": {
+    "message": "“自动”会跟随 Firefox 的语言。"
+  },
+  "setListsLabel": {
+    "message": "要检查的列表"
+  },
+  "setListsHelp": {
+    "message": "除了追番列表,你还可以选择自己的 Crunchylists。选择多个列表时,每部动画会显示来自哪个列表。"
+  },
+  "listWatchlist": {
+    "message": "追番列表"
+  },
+  "listsLoading": {
+    "message": "正在加载你的 Crunchylists…"
+  },
+  "listsError": {
+    "message": "无法读取你的 Crunchylists:$P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listUnknown": {
+    "message": "找不到列表"
+  },
+  "listFilterLabel": {
+    "message": "列表"
+  },
+  "listFilterAll": {
+    "message": "全部列表"
+  },
+  "listFrom": {
+    "message": "列表:$P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listItems_one": {
+    "message": "1 项"
+  },
+  "listItems_other": {
+    "message": "$P1$ 项",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secCalendar": {
+    "message": "本周"
+  },
+  "futInMinutes": {
+    "message": "$P1$ 分钟后",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futInHours": {
+    "message": "$P1$ 小时后($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "calToday": {
+    "message": "今天"
+  },
+  "calTomorrow": {
+    "message": "明天"
+  },
+  "emptyCalendar": {
+    "message": "未来 7 天没有已知的上线。"
+  },
+  "calEstimatedNote": {
+    "message": "~ = 根据之前剧集的每周节奏估算。Crunchyroll 只在剧集上线后才会显示。"
+  },
+  "setCompactLabel": {
+    "message": "以紧凑模式显示“待观看”(行而非卡片)"
+  },
+  "setBackupLabel": {
+    "message": "备份设置"
+  },
+  "setBackupHelp": {
+    "message": "将你的偏好(每部系列的模式、隐藏的系列、列表和语言)保存到文件或从文件恢复。不含登录信息和观看记录。"
+  },
+  "btnExport": {
+    "message": "导出"
+  },
+  "btnImport": {
+    "message": "导入"
+  },
+  "importError": {
+    "message": "无法导入:$P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "localeAuto": {
+    "message": "自动(扩展语言)"
+  },
+  "groupBySeason": {
+    "message": "分组"
+  },
+  "sortSeasonsCount": {
+    "message": "季数最多"
+  },
+  "sortEpisodesTotal": {
+    "message": "总集数最多"
+  },
+  "linkHome": {
+    "message": "首页"
+  },
+  "linksAria": {
+    "message": "在 Crunchyroll 中打开"
+  },
+  "ratingTitle": {
+    "message": "Crunchyroll 评分:$P1$ / 5 · 评分人数:$P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "genreFilterLabel": {
+    "message": "类别"
+  },
+  "genreFilterAll": {
+    "message": "所有类别"
+  },
+  "audioFilterLabel": {
+    "message": "音频"
+  },
+  "audioFilterAll": {
+    "message": "全部"
+  },
+  "genresTitle": {
+    "message": "Crunchyroll 类别：$P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "genre_action": {
+    "message": "动作"
+  },
+  "genre_adventure": {
+    "message": "冒险"
+  },
+  "genre_comedy": {
+    "message": "喜剧"
+  },
+  "genre_drama": {
+    "message": "剧情"
+  },
+  "genre_fantasy": {
+    "message": "奇幻"
+  },
+  "genre_music": {
+    "message": "音乐"
+  },
+  "genre_romance": {
+    "message": "恋爱"
+  },
+  "genre_scifi": {
+    "message": "科幻"
+  },
+  "genre_seinen": {
+    "message": "青年"
+  },
+  "genre_shojo": {
+    "message": "少女"
+  },
+  "genre_shonen": {
+    "message": "少年"
+  },
+  "genre_sliceoflife": {
+    "message": "日常"
+  },
+  "genre_sports": {
+    "message": "运动"
+  },
+  "genre_supernatural": {
+    "message": "超自然"
+  },
+  "genre_thriller": {
+    "message": "惊悚"
+  },
+  "genre_mystery": {
+    "message": "悬疑"
+  },
+  "genre_horror": {
+    "message": "恐怖"
+  },
+  "clearFilters": {
+    "message": "清除筛选"
+  },
+  "listFilterAny": {
+    "message": "全部"
+  },
+  "genreFilterAny": {
+    "message": "全部"
+  },
+  "setOpenAppLabel": {
+    "message": "在 Crunchyroll 应用中打开 Crunchyroll 链接"
+  },
+  "searchMinSeasons": {
+    "message": "最少季数"
+  },
+  "searchAtLeast": {
+    "message": "$P1$ 季及以上",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoSub_one": {
+    "message": "本季没有 $P2$ 字幕 · 已上线 1 集",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoSub_other": {
+    "message": "本季没有 $P2$ 字幕 · 已上线 $P1$ 集",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeAnyAudio": {
+    "message": "无字幕观看"
+  },
+  "btnSeeAnyAudioTitle": {
+    "message": "将此剧集切换为“任意音频”：即使没有你所选语言的字幕，也会显示剧集"
+  }
+}

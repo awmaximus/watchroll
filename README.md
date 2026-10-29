@@ -247,7 +247,7 @@ Rules:
 ## Authentication and privacy
 
 - No password is asked for or stored. The extension uses your Crunchyroll session in Firefox.
-- `src/page-hook.js` runs on Crunchyroll pages and only reads the `Bearer` token the site
+- `common/src/page-hook.js` runs on Crunchyroll pages and only reads the `Bearer` token the site
   itself uses. The token is kept in the browser's session memory.
 - Without a recent site token, the extension requests one from `/auth/v1/token` with
   `grant_type=etp_rt_cookie`, as the site does on load.
@@ -255,7 +255,7 @@ Rules:
   and the last result are stored per profile. With several profiles, the profile name is shown
   at the top. If the extension ends up using another profile's session, it warns you.
 - The page calls the API directly. If Cloudflare blocks it, requests go through a
-  crunchyroll.com tab via `src/bridge.js`; if none is open, one is opened in the background and
+  crunchyroll.com tab via `common/src/bridge.js`; if none is open, one is opened in the background and
   closed afterwards (never during background checks).
 - The background only accepts a token from a normal (non-private) crunchyroll.com tab, and
   only if it is a readable JWT.
@@ -266,15 +266,16 @@ Rules:
 
 ## Installation
 
-**Temporary (for testing):** open `about:debugging#/runtime/this-firefox`, click **Load
-Temporary Add-on…** and pick `manifest.json`. It is removed when Firefox closes.
+**Temporary (for testing):** run `./build-firefox.sh`, open `about:debugging#/runtime/this-firefox`,
+click **Load Temporary Add-on…** and pick `dist/watchroll-<version>.zip`. It is removed when
+Firefox closes. (`npm start` does the same in a separate test Firefox.)
 
 **From source:**
 
 ```sh
 git clone https://github.com/awmaximus/watchroll.git
 cd watchroll
-./build.sh            # dist/watchroll-<version>.zip
+./build-firefox.sh    # dist/watchroll-<version>.zip
 ```
 
 **Permanent:** install the version published on addons.mozilla.org, or a signed `.xpi` (see
@@ -289,17 +290,18 @@ Requires Node 22 or later. No dependencies to install.
 ```sh
 npm test        # unit tests (node:test)
 npm run lint    # web-ext lint only
-npm start       # opens a test Firefox with the extension loaded
+npm start       # builds and opens a test Firefox with the extension loaded
 ```
 
 ### Build
 
 ```sh
-./build.sh                  # tests + lint + package in dist/
-./build.sh --skip-tests     # skip tests
-./build.sh --skip-lint      # skip web-ext lint
-./build.sh --sign           # also sign on AMO; the channel comes from the version (below)
-./build.sh --sign --listed  # same, but refuses an odd version (safety check for releases)
+./build-firefox.sh                  # tests + lint + package in dist/
+./build-firefox.sh --skip-tests     # skip tests
+./build-firefox.sh --skip-lint      # skip web-ext lint
+./build-firefox.sh --sign           # also sign on AMO; the channel comes from the version (below)
+./build-firefox.sh --sign --listed  # same, but refuses an odd version (safety check for releases)
+./build-firefox.sh --run            # package and open a test Firefox (no tests, no lint)
 ```
 
 **Odd versions are test builds, even versions are releases.** With `--sign`, the last number of
@@ -308,17 +310,18 @@ the version picks the AMO channel:
 | Version | Channel | Result |
 |---|---|---|
 | odd (1.0.5) | `unlisted` | Signed right away; the installable `.xpi` goes to `dist/`. Test it locally. |
-| even (1.0.6) | `listed` | Submitted to the public listing with `amo-metadata.json`. |
+| even (1.0.6) | `listed` | Submitted to the public listing with `firefox/amo-metadata.json`. |
 
-The flow: bump to the next odd version, `./build.sh --sign`, install the `.xpi` and test; if all
-is well, bump to the next even version, commit, tag and `./build.sh --sign`. If something is
+The flow: bump to the next odd version, `./build-firefox.sh --sign`, install the `.xpi` and test; if all
+is well, bump to the next even version, commit, tag and `./build-firefox.sh --sign`. If something is
 wrong, fix it and go to the next odd version.
 
 The script stops at the first failure. It:
 
-1. checks Node and that `manifest.json` and `package.json` have the same version;
+1. checks Node and that `firefox/manifest.json` and `package.json` have the same version;
 2. checks script syntax and runs the tests;
-3. copies **only** `manifest.json`, `_locales/`, `src/`, `dashboard/` and `icons/` to a temporary
+3. copies **only** `firefox/manifest.json` and `common/_locales/`, `common/src/`,
+   `common/dashboard/` and `common/icons/` to the root of a temporary
    folder, without hidden files (add other paths to `PACKAGE_FILES`);
 4. scans that folder for credentials (`user:123:45` keys, loaded key values, assignments like
    `API_SECRET="..."`) and aborts if it finds any;
@@ -339,25 +342,25 @@ CRED
 chmod 600 .amo-credentials
 ```
 
-Even versions send the store metadata in `amo-metadata.json`: summary and description in English
+Even versions send the store metadata in `firefox/amo-metadata.json`: summary and description in English
 and Portuguese, category, the `streaming` tag, license, homepage and support links, and notes for
 Mozilla's reviewers (without credentials). The script sends the version and returns right away (`--approval-timeout 0`); review takes
 hours to days, and the signed `.xpi` appears in the Developer Hub once it is approved.
-The store name and summary also come from `_locales/<code>/messages.json`, with English as the
+The store name and summary also come from `common/_locales/<code>/messages.json`, with English as the
 manifest's `default_locale`.
 
 Store search: addons.mozilla.org has no keyword field. Its search looks at the name, summary
 and description, plus a fixed list of tags (only `streaming` applies here). So the search terms
 (anime, episode tracker, new episodes, Watchlist, Crunchylists, sub/dub, release calendar,
-simulcast, notifications) are written into the localized names and summaries in `_locales/` and
-into the English and Portuguese descriptions in `amo-metadata.json`.
+simulcast, notifications) are written into the localized names and summaries in `common/_locales/`
+and into the English and Portuguese descriptions in `firefox/amo-metadata.json`.
 
-For the store listing, `store/screenshots/` has six 1280×800 screenshots (English interface,
+For the store listing, `firefox/store/screenshots/` has six 1280×800 screenshots (English interface,
 fictional titles and generated artwork): To watch, Week, the filter bar with categories, To
 start, Advanced Search and Settings and `PRIVACY.md` is the privacy policy to paste in the
-add-on's Developer Hub page. The listing icon is `icons/icon-128.png`.
+add-on's Developer Hub page. The listing icon is `common/icons/icon-128.png`.
 
-Bump `version` in both `manifest.json` and `package.json` for every build you sign (current:
+Bump `version` in both `firefox/manifest.json` and `package.json` for every build you sign (current:
 1.2.1); AMO does not accept the same version twice, not even in different channels, which is why
 test builds and releases use different numbers. The add-on ID
 (`crunchyroll-novos-eps@awmaximus.github.io`) comes from before the rename and must stay as it
@@ -365,7 +368,7 @@ is: changing it makes Firefox and AMO treat Watchroll as a different extension.
 
 ### Continuous integration
 
-`.github/workflows/ci.yml` runs `./build.sh` (tests, lint, package) on every push and pull
+`.github/workflows/ci.yml` runs `./build-firefox.sh` (tests, lint, package) on every push and pull
 request with Node 22 and keeps the `.zip` as a build artifact.
 
 ### Releases
@@ -373,13 +376,13 @@ request with Node 22 and keeps the `.zip` as a build artifact.
 Pushing a version tag publishes a GitHub release with the `.zip` attached:
 
 ```sh
-# after bumping "version" in manifest.json and package.json (e.g. to 1.0.6)
+# after bumping "version" in firefox/manifest.json and package.json (e.g. to 1.0.6)
 git commit -am "Watchroll 1.0.6"
 git tag v1.0.6
 git push && git push origin v1.0.6
 ```
 
-The release job checks that the tag matches the `manifest.json` version, then creates the
+The release job checks that the tag matches the `firefox/manifest.json` version, then creates the
 release `Watchroll v1.0.1` with notes generated from the commits (or replaces the `.zip` if the
 release already exists). For a tag pushed before this workflow existed, use **Actions → CI → Run
 workflow** with the tag name.
@@ -390,32 +393,40 @@ on addons.mozilla.org.
 
 ### Translations
 
-Each language is `_locales/<code>/messages.json` (`en_US`, `pt_BR`, `es_419`, `zh_TW`…). Keys
+Each language is `common/_locales/<code>/messages.json` (`en_US`, `pt_BR`, `es_419`, `zh_TW`…). Keys
 ending in `_one`/`_other` are singular/plural. Tests check that every file has the same keys and
-placeholders. Because `browser.i18n` only follows the browser language, `src/i18n.js` loads the
+placeholders. Because `browser.i18n` only follows the browser language, `common/src/i18n.js` loads the
 chosen file itself, with English as the fallback. To add a language, copy `en_US`, translate it,
-add it to `LANGUAGES` in `src/i18n.js` (with its name in its own language) and run `npm test`.
+add it to `LANGUAGES` in `common/src/i18n.js` (with its name in its own language) and run `npm test`.
 
 ### Project layout
 
+The code shared by every browser is in `common/`; what belongs to one browser is in a folder
+named after it. Each package is assembled from `common/` plus that browser's folder, with
+everything at the package root (so the manifest still refers to `src/`, `dashboard/`…).
+
 ```
-manifest.json       MV3 manifest (Firefox)
-amo-metadata.json   English store metadata for releases (even versions)
-PRIVACY.md          privacy policy
-store/screenshots/  store screenshots
-.github/workflows/  CI
-_locales/           interface texts, 27 languages
-build.sh            tests, lint, package and signing
-dashboard/          extension page (HTML, CSS, JS)
-src/background.js   toolbar button, session token, periodic and release-time checks
-src/checker.js      settings, icon counter, new-episode detection, notifications, release alerts
-src/analyzer.js     "what's left to watch" logic, lists and cache
-src/api.js          Crunchyroll API calls, authentication and transport
-src/search.js       Advanced Search
-src/i18n.js         translations and language selection
-src/page-hook.js    reads the token used by the site (world: MAIN)
-src/bridge.js       relays requests through a crunchyroll.com tab
-tests/              unit and integration tests with mocked browser and API
+common/                       shared by all browsers
+  _locales/                   interface texts, 27 languages
+  dashboard/                  extension page (HTML, CSS, JS)
+  icons/                      extension icons
+  src/background.js           toolbar button, session token, periodic and release-time checks
+  src/checker.js              settings, icon counter, new-episode detection, notifications, release alerts
+  src/analyzer.js             "what's left to watch" logic, lists, categories and cache
+  src/api.js                  Crunchyroll API calls, authentication and transport
+  src/search.js               Advanced Search
+  src/i18n.js                 translations and language selection
+  src/page-hook.js            reads the token used by the site (world: MAIN)
+  src/bridge.js               relays requests through a crunchyroll.com tab
+firefox/                      Firefox only (desktop and Android)
+  manifest.json               MV3 manifest for Firefox
+  amo-metadata.json           store metadata for releases (even versions)
+  store/screenshots/          addons.mozilla.org screenshots
+chrome/                       Chrome and Chromium-based browsers (planned; see chrome/README.md)
+build-firefox.sh              Firefox build: tests, lint, package and signing
+tests/                        unit and integration tests with mocked browser and API
+PRIVACY.md                    privacy policy
+.github/workflows/            CI
 ```
 
 ### Diagnostics
@@ -430,14 +441,14 @@ When something breaks, open the page's console (F12); messages start with `[Watc
 
 | Symptom | Where to look |
 |---|---|
-| HTTP 401 or 403 | authentication in `src/api.js` |
-| HTTP 404 or empty data | endpoint URLs in `src/api.js` |
-| Wrong episodes | `analyzeSeries()` in `src/analyzer.js` |
+| HTTP 401 or 403 | authentication in `common/src/api.js` |
+| HTTP 404 or empty data | endpoint URLs in `common/src/api.js` |
+| Wrong episodes | `analyzeSeries()` in `common/src/analyzer.js` |
 
 ## Contributing
 
 Bug reports and pull requests are welcome at <https://github.com/awmaximus/watchroll/issues>.
-Run `./build.sh` before sending a change; for a series that shows the wrong episodes, attach its
+Run `./build-firefox.sh` before sending a change; for a series that shows the wrong episodes, attach its
 diagnostics file (never a HAR or request copied from the developer tools, which contain your
 session).
 

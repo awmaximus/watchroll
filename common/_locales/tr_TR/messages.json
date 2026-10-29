@@ -1,0 +1,1114 @@
+{
+  "extName": {
+    "message": "Watchroll – Crunchyroll için yeni bölümler"
+  },
+  "extDescription": {
+    "message": "Resmî değildir. Crunchyroll için anime takipçisi: izleme listesi ve Crunchylist'lerdeki yeni bölümler, altyazılı veya dublajlı, yayın takvimi, simulcast geri sayımı ve yeni bölüm bildirimleri."
+  },
+  "actionTitle": {
+    "message": "Watchroll – Crunchyroll için yeni bölümler"
+  },
+  "pageTitle": {
+    "message": "Watchroll – Yeni bölümler"
+  },
+  "heading": {
+    "message": "Yeni bölümler"
+  },
+  "btnSettings": {
+    "message": "Ayarlar"
+  },
+  "btnRefresh": {
+    "message": "Yenile"
+  },
+  "versionLabel": {
+    "message": "Sürüm $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "Ayarlar"
+  },
+  "setDubLabel": {
+    "message": "Dublajlı izlediğin dil"
+  },
+  "setDubHelp": {
+    "message": "“Dublajlı” olarak ayarlanan diziler yalnızca bu dilde dublaj yayınlandığında görünür."
+  },
+  "setSubLabel": {
+    "message": "Altyazı dili"
+  },
+  "setSubHelp": {
+    "message": "“Altyazılı” olarak ayarlanan diziler yalnızca bu dilde altyazı mevcut olduğunda görünür."
+  },
+  "setModeLabel": {
+    "message": "Dizilerin varsayılan modu"
+  },
+  "setModeHelp": {
+    "message": "Tek tek ayarlamadığın dizilere uygulanır."
+  },
+  "setLocaleLabel": {
+    "message": "Başlık ve bağlantı dili"
+  },
+  "setAutoLabel": {
+    "message": "Otomatik kontrol et"
+  },
+  "setAutoHelp": {
+    "message": "Arka planda uzantı simgesindeki sayıyı günceller. Doğrudan erişim engellenirse açık bir crunchyroll.com sekmesi gerekir."
+  },
+  "setAutoRange": {
+    "message": "Dakika olarak (varsayılan: 60). 0 kapatır. En az 5, en fazla 1440 (1 gün)."
+  },
+  "setNotifyLabel": {
+    "message": "Yeni bölüm çıkınca bildir"
+  },
+  "setExtrasLabel": {
+    "message": "Özel bölümleri ve özetleri göster (sayıma dahil edilmez)"
+  },
+  "setSkippedLabel": {
+    "message": "Atlanan bölümleri göster (son izlediğinden öncekiler)"
+  },
+  "setMinStartedLabel": {
+    "message": "Başlanmış sayılma süresi (saniye)"
+  },
+  "setMinStartedHelp": {
+    "message": "Crunchyroll, bölüm sayfasını açmak bile birkaç saniye kaydeder. Bu sürenin altındaki kayıtlar yok sayılır. 0 ile 600 arası."
+  },
+  "setConcurrencyLabel": {
+    "message": "Aynı anda kontrol edilen dizi"
+  },
+  "setConcurrencyHelp": {
+    "message": "Sayı büyüdükçe hızlanır. “Çok fazla istek” (HTTP 429) hataları görürsen düşür. 1 ile 32 arası."
+  },
+  "setPlayheadBatchLabel": {
+    "message": "Toplu iş boyutu"
+  },
+  "setPlayheadBatchHelp": {
+    "message": "İzleme ilerlemesi (playheads) sorgusu başına kaç bölüm gideceği ve izleme listesi ile geçmişin her sayfasında kaç öğe geleceği. Büyük toplu işler daha az istek demektir. Kontroller başarısız olmaya başlarsa düşür. 10 ile 300 arası."
+  },
+  "searchPlaceholder": {
+    "message": "Dizi ara…"
+  },
+  "searchAria": {
+    "message": "Başlığa göre dizi ara"
+  },
+  "sortLabel": {
+    "message": "Sırala"
+  },
+  "modeSub": {
+    "message": "Altyazılı"
+  },
+  "modeDub": {
+    "message": "Dublajlı"
+  },
+  "modeAuto": {
+    "message": "Herhangi bir ses"
+  },
+  "modeAutoLong": {
+    "message": "Herhangi bir ses (ilk yayında bildir)"
+  },
+  "modeDubLang": {
+    "message": "Dublajlı $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeDefault": {
+    "message": "Varsayılan ($P1$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortSub": {
+    "message": "altyazılı"
+  },
+  "shortDub": {
+    "message": "dublajlı $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortAuto": {
+    "message": "herhangi bir ses"
+  },
+  "modeAria": {
+    "message": "$P1$ için ses",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeTitle": {
+    "message": "Bu diziyi nasıl izliyorsun"
+  },
+  "epMovie": {
+    "message": "Film"
+  },
+  "epLabel": {
+    "message": "S$P1$ B$P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "relNow": {
+    "message": "az önce"
+  },
+  "relHours": {
+    "message": "$P1$ sa önce",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "relYesterday": {
+    "message": "dün"
+  },
+  "relDays": {
+    "message": "$P1$ gün önce",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futToday": {
+    "message": "bugün $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futTomorrow": {
+    "message": "yarın $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futDays": {
+    "message": "$P1$ gün sonra ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "nextText": {
+    "message": "Sıradaki: $P1$ $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "watchedPct": {
+    "message": "%$P1$ izlendi",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "watchNext": {
+    "message": "Sıradakini izle"
+  },
+  "tagRecap": {
+    "message": "özet"
+  },
+  "tagSpecial": {
+    "message": "özel"
+  },
+  "tagSkipped": {
+    "message": "atlandı"
+  },
+  "badgeContinue": {
+    "message": "devam et"
+  },
+  "badgeMovie": {
+    "message": "film"
+  },
+  "badgeNew_one": {
+    "message": "1 yeni"
+  },
+  "badgeNew_other": {
+    "message": "$P1$ yeni",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSkipped_one": {
+    "message": "1 atlanan"
+  },
+  "badgeSkipped_other": {
+    "message": "$P1$ atlanan",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSpecial_one": {
+    "message": "1 özel"
+  },
+  "badgeSpecial_other": {
+    "message": "$P1$ özel",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "moreEps_one": {
+    "message": "+ 1 bölüm"
+  },
+  "moreEps_other": {
+    "message": "+ $P1$ bölüm",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitDub": {
+    "message": "+$P1$ dublaj bekliyor",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitSub": {
+    "message": "+$P1$ altyazı bekliyor",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsAria": {
+    "message": "$P1$ için işlemler",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsTitle": {
+    "message": "İşlemler"
+  },
+  "actDiag": {
+    "message": "Tanılamayı dışa aktar"
+  },
+  "actShow": {
+    "message": "Yeniden göster"
+  },
+  "actHideNew": {
+    "message": "Yeni bölüm çıkana kadar gizle"
+  },
+  "actHideWeek": {
+    "message": "1 hafta gizle"
+  },
+  "actHideForever": {
+    "message": "Her zaman gizle"
+  },
+  "hiddenUntil": {
+    "message": "$P1$ tarihine kadar gizli",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hiddenUntilNew": {
+    "message": "Yeni bölüm çıkana kadar gizli"
+  },
+  "hiddenForever": {
+    "message": "Her zaman gizli"
+  },
+  "epsCount_one": {
+    "message": "1 bölüm"
+  },
+  "epsCount_other": {
+    "message": "$P1$ bölüm",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "seriesCount_one": {
+    "message": "1 dizi"
+  },
+  "seriesCount_other": {
+    "message": "$P1$ dizi",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusEps": {
+    "message": "$P2$ içinde $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "statusUpdatedAt": {
+    "message": " · son güncelleme: $WHEN$",
+    "placeholders": {
+      "when": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusElapsed": {
+    "message": " · $S$ sn'de güncellendi",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusAllCaught": {
+    "message": "Hepsi izlendi"
+  },
+  "secToWatch": {
+    "message": "İzlenecek"
+  },
+  "emptySearch": {
+    "message": "Burada dizi bulunamadı."
+  },
+  "emptyToWatch": {
+    "message": "Başladığın dizilerde yeni bölüm yok."
+  },
+  "secWaitDub": {
+    "message": "Dublaj bekleniyor"
+  },
+  "noteWaitDub_one": {
+    "message": "1 bölüm altyazılı çıktı"
+  },
+  "noteWaitDub_other": {
+    "message": "$P1$ bölüm altyazılı çıktı",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secWaitSub": {
+    "message": "Altyazı bekleniyor"
+  },
+  "noteWaitSub_one": {
+    "message": "1 bölüm dilinde altyazı olmadan yayınlandı"
+  },
+  "noteWaitSub_other": {
+    "message": "$P1$ bölüm dilinde altyazı olmadan yayınlandı",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoDub_one": {
+    "message": "Bu sezonda $P2$ dublajı yok · izlenecek 1 altyazılı bölüm",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoDub_other": {
+    "message": "Bu sezonda $P2$ dublajı yok · izlenecek $P1$ altyazılı bölüm",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeSubbed": {
+    "message": "Altyazılı izle"
+  },
+  "btnSeeSubbedTitle": {
+    "message": "Bu diziyi altyazılı moda geçirir"
+  },
+  "secErrors": {
+    "message": "Hatalar"
+  },
+  "secUpToDate": {
+    "message": "Güncel"
+  },
+  "noteNoDubSeason": {
+    "message": "Bu sezonda $P1$ dublajı yok",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secNever": {
+    "message": "Başlanmadı"
+  },
+  "secHidden": {
+    "message": "Gizli"
+  },
+  "btnShow": {
+    "message": "Göster"
+  },
+  "progressChecking": {
+    "message": "$P2$ diziden $P1$. kontrol ediliyor…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "progressReading": {
+    "message": "Listelerin okunuyor…"
+  },
+  "errorQuery": {
+    "message": "Crunchyroll'a ulaşılamadı: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errorHint": {
+    "message": "crunchyroll.com'da oturum açtığından emin ol ve Yenile'ye tıkla."
+  },
+  "diagSaved": {
+    "message": "“$P1$” tanılaması kaydedildi. Belirteç, çerez veya hesap verisi içermez.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagError": {
+    "message": "Tanılama oluşturulamadı: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagFile": {
+    "message": "tanilama"
+  },
+  "profileLabel": {
+    "message": " · profil $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "sortReleased": {
+    "message": "En yeni yayın"
+  },
+  "sortWatched": {
+    "message": "En son izlenen"
+  },
+  "sortCount": {
+    "message": "En çok bölüm"
+  },
+  "sortTitle": {
+    "message": "Başlık (A–Z)"
+  },
+  "badgeTitleSome": {
+    "message": "Yeni bölümler: $P2$ içinde $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "badgeTitleNone": {
+    "message": "Watchroll: hepsi izlendi"
+  },
+  "notifTitle_one": {
+    "message": "1 yeni bölüm"
+  },
+  "notifTitle_other": {
+    "message": "$P1$ yeni bölüm",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMore": {
+    "message": "+ $P1$ dizi daha",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMovie": {
+    "message": "film"
+  },
+  "noticeOpeningTab": {
+    "message": "Oturumunu kullanmak için crunchyroll.com arka planda açılıyor…"
+  },
+  "noticeProxy": {
+    "message": "Doğrudan erişim engellendi; bir crunchyroll.com sekmesi kullanılıyor."
+  },
+  "noticeOtherProfile": {
+    "message": "Kullanılan oturum hesaptaki başka bir profile ait. crunchyroll.com'u kullandığın profille aç ve Yenile'ye tıkla."
+  },
+  "noticeSlowDown": {
+    "message": "Crunchyroll yavaşlamayı istedi; $P1$ sn sonra yeniden denenecek…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errTabTimeout": {
+    "message": "Crunchyroll sekmesinin yüklenmesi çok uzun sürdü."
+  },
+  "errTabNoAnswer": {
+    "message": "Crunchyroll sekmesi yanıt vermedi."
+  },
+  "errNoTab": {
+    "message": "Oturumunu kullanmak için açık bir crunchyroll.com sekmesi yok."
+  },
+  "errAuth": {
+    "message": "Kimlik doğrulanamadı (HTTP $P1$). crunchyroll.com'da oturum açtığından emin ol.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errHttp": {
+    "message": "HTTP $P1$ ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "errAccount": {
+    "message": "Hesap kimliğin bulunamadı."
+  },
+  "dubYes": {
+    "message": "$L$ dublajı var",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubOld": {
+    "message": "$L$ dublajı yalnızca önceki sezonlarda",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubNo": {
+    "message": "$L$ dublajı yok",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "tabsAria": {
+    "message": "Bölümler"
+  },
+  "seasonWinter": {
+    "message": "Kış"
+  },
+  "seasonSpring": {
+    "message": "İlkbahar"
+  },
+  "seasonSummer": {
+    "message": "Yaz"
+  },
+  "seasonFall": {
+    "message": "Sonbahar"
+  },
+  "seasonUnknown": {
+    "message": "Sezon belirtilmemiş"
+  },
+  "emptyNever": {
+    "message": "Listelerindeki tüm serilere başladın."
+  },
+  "seasonLabel": {
+    "message": "$S$ $Y$",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      },
+      "y": {
+        "content": "$2"
+      }
+    }
+  },
+  "secSearch": {
+    "message": "Arama"
+  },
+  "searchQueryPlaceholder": {
+    "message": "Anime adı (Türkçe, İngilizce, romaji veya Japonca)"
+  },
+  "searchButton": {
+    "message": "Ara"
+  },
+  "searchScope": {
+    "message": "Nerede"
+  },
+  "searchScopeAll": {
+    "message": "Tüm katalog"
+  },
+  "searchScopeMine": {
+    "message": "Yalnızca listelerim"
+  },
+  "searchDub": {
+    "message": "Dublaj"
+  },
+  "searchDubAny": {
+    "message": "Herhangi bir ses"
+  },
+  "searchDubYes": {
+    "message": "$P1$ dublajlı",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchDubNo": {
+    "message": "$P1$ dublajı yok",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAge": {
+    "message": "Yaş sınırı"
+  },
+  "searchAgeAny": {
+    "message": "Tümü"
+  },
+  "searchAgeUpTo": {
+    "message": "$P1$ yaşa kadar",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "ageFree": {
+    "message": "Genel izleyici"
+  },
+  "ageMin": {
+    "message": "$P1$ yaş altına önerilmez",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchYear": {
+    "message": "Yayın yılı"
+  },
+  "searchAny": {
+    "message": "Herhangi"
+  },
+  "searchSeason": {
+    "message": "Sezon"
+  },
+  "searchLoading": {
+    "message": "Yükleniyor…"
+  },
+  "searchNeedAniList": {
+    "message": "Crunchyroll araması Japonca adları anlamaz. AniList açıkken arama metni başlığı bulmak için AniList'e gönderilir."
+  },
+  "searchEnableAniList": {
+    "message": "AniList'i aç"
+  },
+  "searchAniListError": {
+    "message": "AniList'e şu anda ulaşılamıyor; sonuçlar yalnızca Crunchyroll aramasından."
+  },
+  "searchMineEmpty": {
+    "message": "İzleme listen henüz okunmadı. Yenile'ye tıkla ve tekrar dene."
+  },
+  "searchError": {
+    "message": "Arama yapılamadı: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchHint": {
+    "message": "Bir ad yaz veya filtre seç. Ad olmadan arama tüm Crunchyroll kataloğunu (veya seçilen sezonu) tarar."
+  },
+  "searchMore": {
+    "message": "Daha fazla yükle"
+  },
+  "searchMovie": {
+    "message": "Film"
+  },
+  "searchInList": {
+    "message": "Listelerinde"
+  },
+  "setAniListLabel": {
+    "message": "Japonca ve romaji adlarla da ara (arama metnini AniList'e gönderir)"
+  },
+  "searchCount_one": {
+    "message": "1 sonuç"
+  },
+  "searchCount_other": {
+    "message": "$P1$ sonuç",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSeasons_one": {
+    "message": "1 sezon"
+  },
+  "searchSeasons_other": {
+    "message": "$P1$ sezon",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSort": {
+    "message": "Sırala"
+  },
+  "searchSortDefault": {
+    "message": "Crunchyroll sırası"
+  },
+  "searchSortYear": {
+    "message": "En yeni yayın"
+  },
+  "searchSortTitle": {
+    "message": "Başlık (A–Z)"
+  },
+  "searchLoadingCatalog": {
+    "message": "Crunchyroll kataloğu indiriliyor (yalnızca ilk sefer, birkaç saniye sürer)…"
+  },
+  "sortWaiting": {
+    "message": "En çok bekleyen bölüm"
+  },
+  "sortNext": {
+    "message": "Sıradaki yayın"
+  },
+  "sortSeason": {
+    "message": "Yayın sezonu"
+  },
+  "uiLangAuto": {
+    "message": "Otomatik (tarayıcı dili)"
+  },
+  "setUiLangLabel": {
+    "message": "Uzantı dili"
+  },
+  "setUiLangHelp": {
+    "message": "“Otomatik”, Firefox'un dilini izler."
+  },
+  "setListsLabel": {
+    "message": "Kontrol edilen listeler"
+  },
+  "setListsHelp": {
+    "message": "İzleme listenin yanında Crunchylist'lerini de seçebilirsin. Birden fazla liste seçildiğinde her anime hangi listeden geldiğini gösterir."
+  },
+  "listWatchlist": {
+    "message": "İzleme listesi"
+  },
+  "listsLoading": {
+    "message": "Crunchylist'lerin yükleniyor…"
+  },
+  "listsError": {
+    "message": "Crunchylist'lerin okunamadı: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listUnknown": {
+    "message": "Liste bulunamadı"
+  },
+  "listFilterLabel": {
+    "message": "Liste"
+  },
+  "listFilterAll": {
+    "message": "Tüm listeler"
+  },
+  "listFrom": {
+    "message": "Liste: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listItems_one": {
+    "message": "1 öğe"
+  },
+  "listItems_other": {
+    "message": "$P1$ öğe",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secCalendar": {
+    "message": "Hafta"
+  },
+  "futInMinutes": {
+    "message": "$P1$ dk sonra",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futInHours": {
+    "message": "$P1$ sa sonra ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "calToday": {
+    "message": "Bugün"
+  },
+  "calTomorrow": {
+    "message": "Yarın"
+  },
+  "emptyCalendar": {
+    "message": "Önümüzdeki 7 günde bilinen yayın yok."
+  },
+  "calEstimatedNote": {
+    "message": "~ = önceki bölümlerin haftalık temposuna göre tahmin. Crunchyroll bir bölümü ancak yayınlandığında gösterir."
+  },
+  "setCompactLabel": {
+    "message": "\"İzlenecek\" sekmesini sıkı göster (kart yerine satır)"
+  },
+  "setBackupLabel": {
+    "message": "Ayar yedeği"
+  },
+  "setBackupHelp": {
+    "message": "Tercihlerini (dizi başına mod, gizli diziler, listeler ve diller) bir dosyaya kaydeder veya geri yükler. Oturum ve geçmiş dahil değildir."
+  },
+  "btnExport": {
+    "message": "Dışa aktar"
+  },
+  "btnImport": {
+    "message": "İçe aktar"
+  },
+  "importError": {
+    "message": "İçe aktarılamadı: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "localeAuto": {
+    "message": "Otomatik (eklenti dili)"
+  },
+  "groupBySeason": {
+    "message": "Grupla"
+  },
+  "sortSeasonsCount": {
+    "message": "En çok sezon"
+  },
+  "sortEpisodesTotal": {
+    "message": "Toplamda en çok bölüm"
+  },
+  "linkHome": {
+    "message": "Ana sayfa"
+  },
+  "linksAria": {
+    "message": "Crunchyroll'da aç"
+  },
+  "ratingTitle": {
+    "message": "Crunchyroll puanı: 5 üzerinden $P1$ · oy sayısı: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "genreFilterLabel": {
+    "message": "Kategori"
+  },
+  "genreFilterAll": {
+    "message": "Tüm kategoriler"
+  },
+  "audioFilterLabel": {
+    "message": "Ses"
+  },
+  "audioFilterAll": {
+    "message": "Tümü"
+  },
+  "genresTitle": {
+    "message": "Crunchyroll kategorileri: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "genre_action": {
+    "message": "Aksiyon"
+  },
+  "genre_adventure": {
+    "message": "Macera"
+  },
+  "genre_comedy": {
+    "message": "Komedi"
+  },
+  "genre_drama": {
+    "message": "Dram"
+  },
+  "genre_fantasy": {
+    "message": "Fantastik"
+  },
+  "genre_music": {
+    "message": "Müzik"
+  },
+  "genre_romance": {
+    "message": "Romantik"
+  },
+  "genre_scifi": {
+    "message": "Bilim kurgu"
+  },
+  "genre_seinen": {
+    "message": "Seinen"
+  },
+  "genre_shojo": {
+    "message": "Shojo"
+  },
+  "genre_shonen": {
+    "message": "Shonen"
+  },
+  "genre_sliceoflife": {
+    "message": "Gündelik yaşam"
+  },
+  "genre_sports": {
+    "message": "Spor"
+  },
+  "genre_supernatural": {
+    "message": "Doğaüstü"
+  },
+  "genre_thriller": {
+    "message": "Gerilim"
+  },
+  "genre_mystery": {
+    "message": "Gizem"
+  },
+  "genre_horror": {
+    "message": "Korku"
+  },
+  "clearFilters": {
+    "message": "Filtreleri temizle"
+  },
+  "listFilterAny": {
+    "message": "Tümü"
+  },
+  "genreFilterAny": {
+    "message": "Tümü"
+  },
+  "setOpenAppLabel": {
+    "message": "Crunchyroll bağlantılarını Crunchyroll uygulamasında aç"
+  },
+  "searchMinSeasons": {
+    "message": "En az sezon"
+  },
+  "searchAtLeast": {
+    "message": "$P1$ veya daha fazla",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoSub_one": {
+    "message": "Mevcut sezonda $P2$ altyazı yok · 1 bölüm çıktı",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoSub_other": {
+    "message": "Mevcut sezonda $P2$ altyazı yok · $P1$ bölüm çıktı",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeAnyAudio": {
+    "message": "Altyazısız izle"
+  },
+  "btnSeeAnyAudioTitle": {
+    "message": "Bu diziyi \"Herhangi bir ses\" moduna alır: dilinizde altyazı olmasa da bölümler görünür"
+  }
+}

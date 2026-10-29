@@ -1,16 +1,35 @@
+# Dependências e saídas de build (qualquer navegador; os padrões valem em qualquer pasta)
 node_modules/
 web-ext-artifacts/
 dist/
 *.zip
 *.xpi
+*.crx
+
+# Firefox / AMO: arquivos que o web-ext cria ao assinar
 .amo-upload-uuid
+.web-extension-id
+
+# Chrome: chave privada de empacotamento (.crx) — nunca vai para o git
+*.pem
+
+# Credenciais e variáveis locais (Mozilla, futuramente Chrome Web Store)
 .amo-credentials
+.cws-credentials
 env.sh
 .env
 .env.*
 *.env
 *credentials*
 *secret*
+
+# Rascunhos e capturas de rede (HAR guardam token e cookies da sessão)
 tmp/
-# Capturas de rede (HAR) guardam token e cookies da sessão
 *.har
+
+# Lixo de sistema operacional e editores
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/

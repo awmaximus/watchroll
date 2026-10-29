@@ -3,18 +3,19 @@ const { test, describe } = require("node:test");
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
-const { load, fakeI18n, readMessages, plain, ROOT } = require("./helpers");
+const { load, fakeI18n, readMessages, plain, ROOT, FIREFOX } = require("./helpers");
 
 const LOCALES = fs.readdirSync(path.join(ROOT, "_locales"));
 const pt = readMessages("pt_BR");
 const read = (f) => fs.readFileSync(path.join(ROOT, f), "utf8");
+const readFirefox = (f) => fs.readFileSync(path.join(FIREFOX, f), "utf8");
 const placeholders = (entry) => (entry.message.match(/\$[A-Za-z0-9_@]+\$/g) || []).sort();
 const CODE = ["src/i18n.js", "src/api.js", "src/analyzer.js", "src/checker.js", "src/background.js", "dashboard/dashboard.js"];
 
 describe("arquivos de tradução", () => {
   test("existem os idiomas obrigatórios (en_US é o padrão do manifesto)", () => {
     for (const l of ["pt_BR", "pt_PT", "en_US", "es_ES"]) assert.ok(LOCALES.includes(l), l);
-    assert.equal(JSON.parse(read("manifest.json")).default_locale, "en_US"); // metadados da loja em inglês
+    assert.equal(JSON.parse(readFirefox("manifest.json")).default_locale, "en_US"); // metadados da loja em inglês
   });
 
   for (const folder of LOCALES) {
@@ -58,7 +59,7 @@ describe("arquivos de tradução", () => {
         used.add(`${m[1]}_other`);
       }
     }
-    for (const m of read("manifest.json").matchAll(/__MSG_([A-Za-z0-9_]+)__/g)) used.add(m[1]);
+    for (const m of readFirefox("manifest.json").matchAll(/__MSG_([A-Za-z0-9_]+)__/g)) used.add(m[1]);
     for (const m of read("dashboard/dashboard.html").matchAll(/data-i18n(?:-[a-z-]+)?="([^"]+)"/g)) used.add(m[1]);
     // As ordenações guardam a chave do rótulo.
     const { CRChecker } = load(["src/checker.js"]);

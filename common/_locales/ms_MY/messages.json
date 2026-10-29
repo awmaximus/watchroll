@@ -1,0 +1,1114 @@
+{
+  "extName": {
+    "message": "Watchroll – Episod baharu untuk Crunchyroll"
+  },
+  "extDescription": {
+    "message": "Tidak rasmi. Penjejak anime untuk Crunchyroll: episod baharu daripada Senarai Tontonan dan Crunchylist, sari kata atau alih suara, kalendar tayangan, kira detik simulcast dan pemberitahuan episod baharu."
+  },
+  "actionTitle": {
+    "message": "Watchroll – Episod baharu untuk Crunchyroll"
+  },
+  "pageTitle": {
+    "message": "Watchroll – Episod baharu"
+  },
+  "heading": {
+    "message": "Episod baharu"
+  },
+  "btnSettings": {
+    "message": "Tetapan"
+  },
+  "btnRefresh": {
+    "message": "Muat semula"
+  },
+  "versionLabel": {
+    "message": "Versi $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "Tetapan"
+  },
+  "setDubLabel": {
+    "message": "Bahasa alih suara yang anda tonton"
+  },
+  "setDubHelp": {
+    "message": "Siri yang ditetapkan kepada “Alih suara” hanya muncul selepas alih suara dalam bahasa ini dikeluarkan."
+  },
+  "setSubLabel": {
+    "message": "Bahasa sari kata"
+  },
+  "setSubHelp": {
+    "message": "Siri yang ditetapkan kepada “Sari kata” hanya muncul selepas sari kata dalam bahasa ini tersedia."
+  },
+  "setModeLabel": {
+    "message": "Mod lalai siri"
+  },
+  "setModeHelp": {
+    "message": "Digunakan untuk siri yang tidak anda tetapkan secara individu."
+  },
+  "setLocaleLabel": {
+    "message": "Bahasa tajuk dan pautan"
+  },
+  "setAutoLabel": {
+    "message": "Semak secara automatik"
+  },
+  "setAutoHelp": {
+    "message": "Di latar belakang, mengemas kini nombor pada ikon sambungan. Memerlukan tab crunchyroll.com yang terbuka jika akses terus disekat."
+  },
+  "setAutoRange": {
+    "message": "Dalam minit (lalai: 60). 0 mematikannya. Minimum 5, maksimum 1440 (1 hari)."
+  },
+  "setNotifyLabel": {
+    "message": "Maklumkan apabila episod baharu keluar"
+  },
+  "setExtrasLabel": {
+    "message": "Tunjukkan istimewa dan imbas kembali (tidak dikira)"
+  },
+  "setSkippedLabel": {
+    "message": "Tunjukkan episod yang dilangkau (sebelum yang terakhir anda tonton)"
+  },
+  "setMinStartedLabel": {
+    "message": "Dikira bermula selepas (saat)"
+  },
+  "setMinStartedHelp": {
+    "message": "Crunchyroll merekodkan beberapa saat hanya kerana halaman episod dibuka. Rekod di bawah masa ini diabaikan. Antara 0 dan 600."
+  },
+  "setConcurrencyLabel": {
+    "message": "Siri yang disemak serentak"
+  },
+  "setConcurrencyHelp": {
+    "message": "Lebih pantas dengan nombor lebih besar. Jika ralat “terlalu banyak permintaan” (HTTP 429) muncul, kurangkan. Antara 1 dan 32."
+  },
+  "setPlayheadBatchLabel": {
+    "message": "Saiz kelompok"
+  },
+  "setPlayheadBatchHelp": {
+    "message": "Berapa episod dalam setiap pertanyaan kemajuan tontonan (playheads) dan berapa item dalam setiap halaman Senarai Tontonan dan sejarah. Kelompok lebih besar bermakna lebih sedikit permintaan. Jika semakan mula gagal, kurangkan. Antara 10 dan 300."
+  },
+  "searchPlaceholder": {
+    "message": "Cari siri…"
+  },
+  "searchAria": {
+    "message": "Cari siri mengikut tajuk"
+  },
+  "sortLabel": {
+    "message": "Isih"
+  },
+  "modeSub": {
+    "message": "Sari kata"
+  },
+  "modeDub": {
+    "message": "Alih suara"
+  },
+  "modeAuto": {
+    "message": "Mana-mana audio"
+  },
+  "modeAutoLong": {
+    "message": "Mana-mana audio (maklumkan pada keluaran pertama)"
+  },
+  "modeDubLang": {
+    "message": "Alih suara $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeDefault": {
+    "message": "Lalai ($P1$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortSub": {
+    "message": "sari kata"
+  },
+  "shortDub": {
+    "message": "alih suara $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortAuto": {
+    "message": "mana-mana audio"
+  },
+  "modeAria": {
+    "message": "Audio untuk $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeTitle": {
+    "message": "Cara anda menonton siri ini"
+  },
+  "epMovie": {
+    "message": "Filem"
+  },
+  "epLabel": {
+    "message": "S$P1$ E$P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "relNow": {
+    "message": "sebentar tadi"
+  },
+  "relHours": {
+    "message": "$P1$ jam lalu",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "relYesterday": {
+    "message": "semalam"
+  },
+  "relDays": {
+    "message": "$P1$ hari lalu",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futToday": {
+    "message": "hari ini pukul $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futTomorrow": {
+    "message": "esok pukul $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futDays": {
+    "message": "dalam $P1$ hari ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "nextText": {
+    "message": "Seterusnya: $P1$ $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "watchedPct": {
+    "message": "$P1$% ditonton",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "watchNext": {
+    "message": "Tonton seterusnya"
+  },
+  "tagRecap": {
+    "message": "imbas kembali"
+  },
+  "tagSpecial": {
+    "message": "istimewa"
+  },
+  "tagSkipped": {
+    "message": "dilangkau"
+  },
+  "badgeContinue": {
+    "message": "teruskan"
+  },
+  "badgeMovie": {
+    "message": "filem"
+  },
+  "badgeNew_one": {
+    "message": "1 baharu"
+  },
+  "badgeNew_other": {
+    "message": "$P1$ baharu",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSkipped_one": {
+    "message": "1 dilangkau"
+  },
+  "badgeSkipped_other": {
+    "message": "$P1$ dilangkau",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSpecial_one": {
+    "message": "1 istimewa"
+  },
+  "badgeSpecial_other": {
+    "message": "$P1$ istimewa",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "moreEps_one": {
+    "message": "+ 1 episod"
+  },
+  "moreEps_other": {
+    "message": "+ $P1$ episod",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitDub": {
+    "message": "+$P1$ menunggu alih suara",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitSub": {
+    "message": "+$P1$ menunggu sari kata",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsAria": {
+    "message": "Tindakan untuk $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsTitle": {
+    "message": "Tindakan"
+  },
+  "actDiag": {
+    "message": "Eksport diagnostik"
+  },
+  "actShow": {
+    "message": "Tunjukkan semula"
+  },
+  "actHideNew": {
+    "message": "Sembunyikan sehingga ada episod baharu"
+  },
+  "actHideWeek": {
+    "message": "Sembunyikan selama 1 minggu"
+  },
+  "actHideForever": {
+    "message": "Sentiasa sembunyikan"
+  },
+  "hiddenUntil": {
+    "message": "Disembunyikan sehingga $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hiddenUntilNew": {
+    "message": "Disembunyikan sehingga ada episod baharu"
+  },
+  "hiddenForever": {
+    "message": "Sentiasa disembunyikan"
+  },
+  "epsCount_one": {
+    "message": "1 episod"
+  },
+  "epsCount_other": {
+    "message": "$P1$ episod",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "seriesCount_one": {
+    "message": "1 siri"
+  },
+  "seriesCount_other": {
+    "message": "$P1$ siri",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusEps": {
+    "message": "$P1$ dalam $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "statusUpdatedAt": {
+    "message": " · kemas kini terakhir: $WHEN$",
+    "placeholders": {
+      "when": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusElapsed": {
+    "message": " · dikemas kini dalam $S$ saat",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusAllCaught": {
+    "message": "Semua sudah ditonton"
+  },
+  "secToWatch": {
+    "message": "Untuk ditonton"
+  },
+  "emptySearch": {
+    "message": "Tiada siri ditemui di sini."
+  },
+  "emptyToWatch": {
+    "message": "Tiada episod baharu dalam siri yang telah anda mulakan."
+  },
+  "secWaitDub": {
+    "message": "Alih suara belum"
+  },
+  "noteWaitDub_one": {
+    "message": "1 sudah keluar dengan sari kata"
+  },
+  "noteWaitDub_other": {
+    "message": "$P1$ sudah keluar dengan sari kata",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secWaitSub": {
+    "message": "Sari kata belum"
+  },
+  "noteWaitSub_one": {
+    "message": "1 episod sudah keluar tanpa sari kata bahasa anda"
+  },
+  "noteWaitSub_other": {
+    "message": "$P1$ episod sudah keluar tanpa sari kata bahasa anda",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoDub_one": {
+    "message": "Musim semasa tanpa alih suara $P2$ · 1 episod bersari kata untuk ditonton",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoDub_other": {
+    "message": "Musim semasa tanpa alih suara $P2$ · $P1$ episod bersari kata untuk ditonton",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeSubbed": {
+    "message": "Tonton dengan sari kata"
+  },
+  "btnSeeSubbedTitle": {
+    "message": "Tukar siri ini ke mod sari kata"
+  },
+  "secErrors": {
+    "message": "Ralat"
+  },
+  "secUpToDate": {
+    "message": "Terkini"
+  },
+  "noteNoDubSeason": {
+    "message": "Tiada alih suara $P1$ dalam musim semasa",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secNever": {
+    "message": "Belum mula"
+  },
+  "secHidden": {
+    "message": "Tersembunyi"
+  },
+  "btnShow": {
+    "message": "Tunjukkan"
+  },
+  "progressChecking": {
+    "message": "Menyemak $P1$ daripada $P2$ siri…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "progressReading": {
+    "message": "Membaca senarai anda…"
+  },
+  "errorQuery": {
+    "message": "Tidak dapat menghubungi Crunchyroll: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errorHint": {
+    "message": "Pastikan anda telah log masuk di crunchyroll.com, kemudian klik Muat semula."
+  },
+  "diagSaved": {
+    "message": "Diagnostik “$P1$” disimpan. Tidak mengandungi token, kuki atau data akaun.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagError": {
+    "message": "Tidak dapat mencipta diagnostik: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagFile": {
+    "message": "diagnostik"
+  },
+  "profileLabel": {
+    "message": " · profil $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "sortReleased": {
+    "message": "Keluaran terbaharu"
+  },
+  "sortWatched": {
+    "message": "Terakhir ditonton"
+  },
+  "sortCount": {
+    "message": "Episod terbanyak"
+  },
+  "sortTitle": {
+    "message": "Tajuk (A–Z)"
+  },
+  "badgeTitleSome": {
+    "message": "Episod baharu: $P1$ dalam $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "badgeTitleNone": {
+    "message": "Watchroll: semua sudah ditonton"
+  },
+  "notifTitle_one": {
+    "message": "1 episod baharu"
+  },
+  "notifTitle_other": {
+    "message": "$P1$ episod baharu",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMore": {
+    "message": "+ $P1$ siri lagi",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMovie": {
+    "message": "filem"
+  },
+  "noticeOpeningTab": {
+    "message": "Membuka crunchyroll.com di latar belakang untuk menggunakan sesi anda…"
+  },
+  "noticeProxy": {
+    "message": "Akses terus disekat; menggunakan tab crunchyroll.com."
+  },
+  "noticeOtherProfile": {
+    "message": "Sesi yang digunakan milik profil lain dalam akaun ini. Buka crunchyroll.com dengan profil yang anda gunakan dan klik Muat semula."
+  },
+  "noticeSlowDown": {
+    "message": "Crunchyroll meminta supaya diperlahankan; mencuba semula dalam $P1$ saat…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errTabTimeout": {
+    "message": "Tab Crunchyroll mengambil masa terlalu lama untuk dimuatkan."
+  },
+  "errTabNoAnswer": {
+    "message": "Tab Crunchyroll tidak memberi respons."
+  },
+  "errNoTab": {
+    "message": "Tiada tab crunchyroll.com yang terbuka untuk menggunakan sesi anda."
+  },
+  "errAuth": {
+    "message": "Tidak dapat mengesahkan (HTTP $P1$). Pastikan anda telah log masuk di crunchyroll.com.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errHttp": {
+    "message": "HTTP $P1$ di $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "errAccount": {
+    "message": "ID akaun anda tidak ditemui."
+  },
+  "dubYes": {
+    "message": "Ada alih suara $L$",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubOld": {
+    "message": "Alih suara $L$ hanya dalam musim sebelumnya",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubNo": {
+    "message": "Tiada alih suara $L$",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "tabsAria": {
+    "message": "Bahagian"
+  },
+  "seasonWinter": {
+    "message": "Musim Sejuk"
+  },
+  "seasonSpring": {
+    "message": "Musim Bunga"
+  },
+  "seasonSummer": {
+    "message": "Musim Panas"
+  },
+  "seasonFall": {
+    "message": "Musim Luruh"
+  },
+  "seasonUnknown": {
+    "message": "Musim tidak dinyatakan"
+  },
+  "emptyNever": {
+    "message": "Anda sudah memulakan semua siri dalam senarai anda."
+  },
+  "seasonLabel": {
+    "message": "$S$ $Y$",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      },
+      "y": {
+        "content": "$2"
+      }
+    }
+  },
+  "secSearch": {
+    "message": "Cari"
+  },
+  "searchQueryPlaceholder": {
+    "message": "Nama anime (Melayu, Inggeris, romaji atau Jepun)"
+  },
+  "searchButton": {
+    "message": "Cari"
+  },
+  "searchScope": {
+    "message": "Di mana"
+  },
+  "searchScopeAll": {
+    "message": "Seluruh katalog"
+  },
+  "searchScopeMine": {
+    "message": "Senarai saya sahaja"
+  },
+  "searchDub": {
+    "message": "Alih suara"
+  },
+  "searchDubAny": {
+    "message": "Mana-mana audio"
+  },
+  "searchDubYes": {
+    "message": "Alih suara $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchDubNo": {
+    "message": "Tiada alih suara $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAge": {
+    "message": "Penarafan umur"
+  },
+  "searchAgeAny": {
+    "message": "Semua"
+  },
+  "searchAgeUpTo": {
+    "message": "Sehingga $P1$+",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "ageFree": {
+    "message": "Untuk semua peringkat umur"
+  },
+  "ageMin": {
+    "message": "Tidak disyorkan bagi bawah $P1$ tahun",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchYear": {
+    "message": "Tahun keluaran"
+  },
+  "searchAny": {
+    "message": "Mana-mana"
+  },
+  "searchSeason": {
+    "message": "Musim"
+  },
+  "searchLoading": {
+    "message": "Memuatkan…"
+  },
+  "searchNeedAniList": {
+    "message": "Carian Crunchyroll tidak memahami nama Jepun. Dengan AniList dihidupkan, teks carian dihantar ke sana untuk mencari tajuk."
+  },
+  "searchEnableAniList": {
+    "message": "Hidupkan AniList"
+  },
+  "searchAniListError": {
+    "message": "AniList tidak dapat dihubungi sekarang; hasil hanya daripada carian Crunchyroll."
+  },
+  "searchMineEmpty": {
+    "message": "Senarai Tontonan anda belum dibaca. Klik Muat semula dan cuba lagi."
+  },
+  "searchError": {
+    "message": "Tidak dapat mencari: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchHint": {
+    "message": "Taip nama atau pilih penapis. Tanpa nama, carian meneliti seluruh katalog Crunchyroll (atau musim yang dipilih)."
+  },
+  "searchMore": {
+    "message": "Muat lagi"
+  },
+  "searchMovie": {
+    "message": "Filem"
+  },
+  "searchInList": {
+    "message": "Dalam senarai anda"
+  },
+  "setAniListLabel": {
+    "message": "Cari juga nama Jepun dan romaji (menghantar teks carian ke AniList)"
+  },
+  "searchCount_one": {
+    "message": "1 hasil"
+  },
+  "searchCount_other": {
+    "message": "$P1$ hasil",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSeasons_one": {
+    "message": "1 musim"
+  },
+  "searchSeasons_other": {
+    "message": "$P1$ musim",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSort": {
+    "message": "Isih"
+  },
+  "searchSortDefault": {
+    "message": "Susunan Crunchyroll"
+  },
+  "searchSortYear": {
+    "message": "Keluaran terbaharu"
+  },
+  "searchSortTitle": {
+    "message": "Tajuk (A–Z)"
+  },
+  "searchLoadingCatalog": {
+    "message": "Memuat turun katalog Crunchyroll (hanya kali pertama, beberapa saat)…"
+  },
+  "sortWaiting": {
+    "message": "Paling banyak menunggu"
+  },
+  "sortNext": {
+    "message": "Keluaran seterusnya"
+  },
+  "sortSeason": {
+    "message": "Musim keluaran"
+  },
+  "uiLangAuto": {
+    "message": "Automatik (bahasa pelayar)"
+  },
+  "setUiLangLabel": {
+    "message": "Bahasa sambungan"
+  },
+  "setUiLangHelp": {
+    "message": "“Automatik” mengikut bahasa Firefox."
+  },
+  "setListsLabel": {
+    "message": "Senarai yang disemak"
+  },
+  "setListsHelp": {
+    "message": "Selain Senarai Tontonan, anda boleh memilih Crunchylist anda. Jika lebih daripada satu senarai, setiap anime menunjukkan senarai asalnya."
+  },
+  "listWatchlist": {
+    "message": "Senarai Tontonan"
+  },
+  "listsLoading": {
+    "message": "Memuatkan Crunchylist anda…"
+  },
+  "listsError": {
+    "message": "Tidak dapat membaca Crunchylist anda: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listUnknown": {
+    "message": "Senarai tidak ditemui"
+  },
+  "listFilterLabel": {
+    "message": "Senarai"
+  },
+  "listFilterAll": {
+    "message": "Semua senarai"
+  },
+  "listFrom": {
+    "message": "Senarai: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listItems_one": {
+    "message": "1 item"
+  },
+  "listItems_other": {
+    "message": "$P1$ item",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secCalendar": {
+    "message": "Minggu ini"
+  },
+  "futInMinutes": {
+    "message": "$P1$ min lagi",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futInHours": {
+    "message": "$P1$ jam lagi ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "calToday": {
+    "message": "Hari ini"
+  },
+  "calTomorrow": {
+    "message": "Esok"
+  },
+  "emptyCalendar": {
+    "message": "Tiada tayangan diketahui dalam 7 hari akan datang."
+  },
+  "calEstimatedNote": {
+    "message": "~ = anggaran berdasarkan rentak mingguan episod sebelumnya. Crunchyroll hanya memaparkan episod apabila ia keluar."
+  },
+  "setCompactLabel": {
+    "message": "Paparkan \"Untuk ditonton\" dalam mod padat (baris, bukan kad)"
+  },
+  "setBackupLabel": {
+    "message": "Sandaran tetapan"
+  },
+  "setBackupHelp": {
+    "message": "Menyimpan atau memulihkan pilihan anda (mod setiap siri, siri tersembunyi, senarai dan bahasa) ke fail. Tidak termasuk log masuk dan sejarah."
+  },
+  "btnExport": {
+    "message": "Eksport"
+  },
+  "btnImport": {
+    "message": "Import"
+  },
+  "importError": {
+    "message": "Tidak dapat mengimport: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "localeAuto": {
+    "message": "Automatik (bahasa sambungan)"
+  },
+  "groupBySeason": {
+    "message": "Kumpulkan"
+  },
+  "sortSeasonsCount": {
+    "message": "Musim paling banyak"
+  },
+  "sortEpisodesTotal": {
+    "message": "Jumlah episod paling banyak"
+  },
+  "linkHome": {
+    "message": "Laman utama"
+  },
+  "linksAria": {
+    "message": "Buka di Crunchyroll"
+  },
+  "ratingTitle": {
+    "message": "Penarafan Crunchyroll: $P1$ daripada 5 · bilangan penarafan: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "genreFilterLabel": {
+    "message": "Kategori"
+  },
+  "genreFilterAll": {
+    "message": "Semua kategori"
+  },
+  "audioFilterLabel": {
+    "message": "Audio"
+  },
+  "audioFilterAll": {
+    "message": "Semua"
+  },
+  "genresTitle": {
+    "message": "Kategori Crunchyroll: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "genre_action": {
+    "message": "Aksi"
+  },
+  "genre_adventure": {
+    "message": "Pengembaraan"
+  },
+  "genre_comedy": {
+    "message": "Komedi"
+  },
+  "genre_drama": {
+    "message": "Drama"
+  },
+  "genre_fantasy": {
+    "message": "Fantasi"
+  },
+  "genre_music": {
+    "message": "Muzik"
+  },
+  "genre_romance": {
+    "message": "Romantik"
+  },
+  "genre_scifi": {
+    "message": "Fiksyen sains"
+  },
+  "genre_seinen": {
+    "message": "Seinen"
+  },
+  "genre_shojo": {
+    "message": "Shoujo"
+  },
+  "genre_shonen": {
+    "message": "Shounen"
+  },
+  "genre_sliceoflife": {
+    "message": "Kehidupan harian"
+  },
+  "genre_sports": {
+    "message": "Sukan"
+  },
+  "genre_supernatural": {
+    "message": "Ghaib"
+  },
+  "genre_thriller": {
+    "message": "Thriller"
+  },
+  "genre_mystery": {
+    "message": "Misteri"
+  },
+  "genre_horror": {
+    "message": "Seram"
+  },
+  "clearFilters": {
+    "message": "Kosongkan penapis"
+  },
+  "listFilterAny": {
+    "message": "Semua"
+  },
+  "genreFilterAny": {
+    "message": "Semua"
+  },
+  "setOpenAppLabel": {
+    "message": "Buka pautan Crunchyroll dalam aplikasi Crunchyroll"
+  },
+  "searchMinSeasons": {
+    "message": "Musim min."
+  },
+  "searchAtLeast": {
+    "message": "$P1$ atau lebih",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoSub_one": {
+    "message": "Musim semasa tiada sari kata $P2$ · 1 episod sudah keluar",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoSub_other": {
+    "message": "Musim semasa tiada sari kata $P2$ · $P1$ episod sudah keluar",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeAnyAudio": {
+    "message": "Tonton tanpa sari kata"
+  },
+  "btnSeeAnyAudioTitle": {
+    "message": "Tukar siri ini kepada \"Mana-mana audio\": episod tetap dipaparkan walaupun tiada sari kata dalam bahasa anda"
+  }
+}

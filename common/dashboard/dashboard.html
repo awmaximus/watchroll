@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-i18n="pageTitle"></title>
+    <link rel="icon" href="../icons/icon.svg" />
+    <link rel="stylesheet" href="dashboard.css" />
+  </head>
+  <body>
+    <header class="top">
+      <div class="top-inner">
+        <div class="brand">
+          <img src="../icons/icon.svg" alt="" width="32" height="32" />
+          <div>
+            <h1>Watchroll</h1>
+            <p class="status"><span id="status" aria-live="polite"></span><span id="updated"></span><span id="elapsed"></span><span id="profile"></span></p>
+          </div>
+        </div>
+        <div class="actions">
+          <nav class="cr-links" id="cr-links" data-i18n-aria-label="linksAria"></nav>
+          <button id="btn-refresh" class="btn" type="button" data-i18n="btnRefresh"></button>
+        </div>
+      </div>
+      <div class="progress" id="progress" hidden><span></span></div>
+    </header>
+
+    <main>
+      <p id="notice" class="notice" hidden></p>
+      <div id="tabbar"></div>
+      <section id="settings" class="settings" role="tabpanel" aria-labelledby="tab-settings" hidden>
+        <div class="settings-grid">
+          <div class="field" id="lists-field">
+            <span id="lists-label" data-i18n="setListsLabel"></span>
+            <div class="multi" id="set-lists"></div>
+            <small data-i18n="setListsHelp"></small>
+            <small id="lists-status" class="lists-status" hidden></small>
+          </div>
+          <label>
+            <span data-i18n="setUiLangLabel"></span>
+            <select id="set-uilang"></select>
+            <small data-i18n="setUiLangHelp"></small>
+          </label>
+          <label>
+            <span data-i18n="setDubLabel"></span>
+            <select id="set-dub"></select>
+            <small data-i18n="setDubHelp"></small>
+          </label>
+          <label>
+            <span data-i18n="setSubLabel"></span>
+            <select id="set-sub"></select>
+            <small data-i18n="setSubHelp"></small>
+          </label>
+          <label>
+            <span data-i18n="setModeLabel"></span>
+            <select id="set-mode"></select>
+            <small data-i18n="setModeHelp"></small>
+          </label>
+          <label>
+            <span data-i18n="setLocaleLabel"></span>
+            <select id="set-locale"></select>
+          </label>
+          <label>
+            <span data-i18n="setAutoLabel"></span>
+            <input id="set-auto" type="number" inputmode="numeric" step="5" />
+            <small data-i18n="setAutoRange"></small>
+            <small data-i18n="setAutoHelp"></small>
+          </label>
+          <label class="check">
+            <input id="set-notify" type="checkbox" />
+            <span data-i18n="setNotifyLabel"></span>
+          </label>
+          <label class="check" id="set-openapp-wrap" hidden>
+            <input id="set-openapp" type="checkbox" />
+            <span data-i18n="setOpenAppLabel"></span>
+          </label>
+          <label class="check">
+            <input id="set-extras" type="checkbox" />
+            <span data-i18n="setExtrasLabel"></span>
+          </label>
+          <label class="check">
+            <input id="set-skipped" type="checkbox" />
+            <span data-i18n="setSkippedLabel"></span>
+          </label>
+          <label class="check">
+            <input id="set-compact" type="checkbox" />
+            <span data-i18n="setCompactLabel"></span>
+          </label>
+          <label class="check">
+            <input id="set-anilist" type="checkbox" />
+            <span data-i18n="setAniListLabel"></span>
+          </label>
+          <label>
+            <span data-i18n="setMinStartedLabel"></span>
+            <input id="set-minstarted" type="number" inputmode="numeric" step="5" />
+            <small data-i18n="setMinStartedHelp"></small>
+          </label>
+          <label>
+            <span data-i18n="setConcurrencyLabel"></span>
+            <input id="set-concurrency" type="number" inputmode="numeric" step="1" />
+            <small data-i18n="setConcurrencyHelp"></small>
+          </label>
+          <label>
+            <span data-i18n="setPlayheadBatchLabel"></span>
+            <input id="set-phbatch" type="number" inputmode="numeric" step="10" />
+            <small data-i18n="setPlayheadBatchHelp"></small>
+          </label>
+          <div class="field">
+            <span data-i18n="setBackupLabel"></span>
+            <div class="backup">
+              <button id="btn-export" class="btn ghost small" type="button" data-i18n="btnExport"></button>
+              <button id="btn-import" class="btn ghost small" type="button" data-i18n="btnImport"></button>
+              <input id="import-file" type="file" accept="application/json,.json" hidden />
+            </div>
+            <small data-i18n="setBackupHelp"></small>
+          </div>
+        </div>
+        <p class="version" id="version"></p>
+      </section>
+
+      <div class="toolbar" id="toolbar">
+        <label class="tb-field tb-search">
+          <svg class="tb-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M10.5 17.5a7 7 0 1 0 0-14 7 7 0 0 0 0 14z" /><path d="M15.5 15.5 21 21" /></svg>
+          <input id="search" type="search" data-i18n-placeholder="searchPlaceholder" data-i18n-aria-label="searchAria" autocomplete="off" />
+        </label>
+        <label class="tb-field" id="listfilter-wrap" hidden>
+          <span class="tb-label" data-i18n="listFilterLabel"></span>
+          <select id="list-filter"></select>
+        </label>
+        <div class="tb-field" id="genrefilter-wrap" hidden>
+          <span class="tb-label" id="genre-filter-label" data-i18n="genreFilterLabel"></span>
+          <div class="multi" id="genre-filter"></div>
+        </div>
+        <label class="tb-field" id="audiofilter-wrap">
+          <span class="tb-label" data-i18n="audioFilterLabel"></span>
+          <select id="audio-filter"></select>
+        </label>
+        <label class="tb-field tb-check" id="group-wrap" hidden>
+          <input id="group-never" type="checkbox" />
+          <span data-i18n="groupBySeason"></span>
+        </label>
+        <label class="tb-field tb-sort" id="sort-wrap">
+          <svg class="tb-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M7 4v16M3 16l4 4 4-4M17 20V4M13 8l4-4 4 4" /></svg>
+          <span class="visually-hidden" data-i18n="sortLabel"></span>
+          <select id="sort"></select>
+        </label>
+        <button class="clear-filters" id="clear-filters" type="button" hidden>
+          <svg class="tb-icon" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg><span data-i18n="clearFilters"></span>
+        </button>
+      </div>
+      <div id="content"></div>
+    </main>
+
+    <script src="../src/i18n.js"></script>
+    <script src="../src/api.js"></script>
+    <script src="../src/analyzer.js"></script>
+    <script src="../src/checker.js"></script>
+    <script src="../src/search.js"></script>
+    <script src="dashboard.js"></script>
+  </body>
+</html>

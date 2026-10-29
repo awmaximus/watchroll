@@ -6,7 +6,11 @@ const fs = require("node:fs");
 const path = require("node:path");
 const vm = require("node:vm");
 
-const ROOT = path.join(__dirname, "..");
+// Raiz do repositório e a pasta do código comum aos navegadores (common/). Os
+// caminhos dos testes ("src/api.js", "_locales/…") são relativos a common/.
+const REPO = path.join(__dirname, "..");
+const ROOT = path.join(REPO, "common");
+const FIREFOX = path.join(REPO, "firefox");
 
 function memoryArea() {
   const data = {};
@@ -149,4 +153,4 @@ function apiFromDiagnostic(diag) {
   };
 }
 
-module.exports = { apiFromDiagnostic, plain, load, fakeBrowser, fakeI18n, formatMessage, readMessages, jwt, episode, playhead, DAY, iso, ROOT };
+module.exports = { apiFromDiagnostic, plain, load, fakeBrowser, fakeI18n, formatMessage, readMessages, jwt, episode, playhead, DAY, iso, ROOT, REPO, FIREFOX };

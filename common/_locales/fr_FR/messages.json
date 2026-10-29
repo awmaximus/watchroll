@@ -1,0 +1,1114 @@
+{
+  "extName": {
+    "message": "Watchroll – Nouveaux épisodes pour Crunchyroll"
+  },
+  "extDescription": {
+    "message": "Non officiel. Suivi d'anime pour Crunchyroll : nouveaux épisodes de votre Liste et de vos Crunchylists, VOSTFR ou VF, calendrier des sorties, simulcast et notifications de nouveaux épisodes."
+  },
+  "actionTitle": {
+    "message": "Watchroll – Nouveaux épisodes pour Crunchyroll"
+  },
+  "pageTitle": {
+    "message": "Watchroll – Nouveaux épisodes"
+  },
+  "heading": {
+    "message": "Nouveaux épisodes"
+  },
+  "btnSettings": {
+    "message": "Paramètres"
+  },
+  "btnRefresh": {
+    "message": "Actualiser"
+  },
+  "versionLabel": {
+    "message": "Version $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "Paramètres"
+  },
+  "setDubLabel": {
+    "message": "Langue dans laquelle vous regardez en doublé"
+  },
+  "setDubHelp": {
+    "message": "Les séries réglées sur « Doublé » n’apparaissent qu’une fois le doublage dans cette langue sorti."
+  },
+  "setSubLabel": {
+    "message": "Langue des sous-titres"
+  },
+  "setSubHelp": {
+    "message": "Les séries réglées sur « Sous-titré » n’apparaissent qu’une fois les sous-titres dans cette langue disponibles."
+  },
+  "setModeLabel": {
+    "message": "Mode par défaut des séries"
+  },
+  "setModeHelp": {
+    "message": "S’applique aux séries que vous n’avez pas réglées individuellement."
+  },
+  "setLocaleLabel": {
+    "message": "Langue des titres et des liens"
+  },
+  "setAutoLabel": {
+    "message": "Vérifier automatiquement"
+  },
+  "setAutoHelp": {
+    "message": "En arrière-plan, met à jour le nombre sur l’icône de l’extension. Nécessite un onglet crunchyroll.com ouvert si l’accès direct est bloqué."
+  },
+  "setAutoRange": {
+    "message": "En minutes (par défaut : 60). 0 la désactive. Minimum 5, maximum 1440 (1 jour)."
+  },
+  "setNotifyLabel": {
+    "message": "Me prévenir à la sortie d’un nouvel épisode"
+  },
+  "setExtrasLabel": {
+    "message": "Afficher les spéciaux et récapitulatifs (non comptés)"
+  },
+  "setSkippedLabel": {
+    "message": "Afficher les épisodes sautés (avant le dernier que vous avez vu)"
+  },
+  "setMinStartedLabel": {
+    "message": "Compter comme commencé après (secondes)"
+  },
+  "setMinStartedHelp": {
+    "message": "Crunchyroll enregistre quelques secondes rien qu’en ouvrant la page d’un épisode. En dessous de cette durée, l’enregistrement est ignoré. Entre 0 et 600."
+  },
+  "setConcurrencyLabel": {
+    "message": "Séries vérifiées en même temps"
+  },
+  "setConcurrencyHelp": {
+    "message": "Plus rapide avec des nombres plus élevés. En cas d’erreurs « trop de requêtes » (HTTP 429), réduisez-le. Entre 1 et 32."
+  },
+  "setPlayheadBatchLabel": {
+    "message": "Taille des lots"
+  },
+  "setPlayheadBatchHelp": {
+    "message": "Nombre d’épisodes par requête sur ce que vous avez déjà vu (playheads), et d’éléments par page de la Liste et de l’historique. Des lots plus grands font moins de requêtes. Si les vérifications commencent à échouer, réduisez-le. Entre 10 et 300."
+  },
+  "searchPlaceholder": {
+    "message": "Rechercher une série…"
+  },
+  "searchAria": {
+    "message": "Rechercher une série par titre"
+  },
+  "sortLabel": {
+    "message": "Trier"
+  },
+  "modeSub": {
+    "message": "Sous-titré"
+  },
+  "modeDub": {
+    "message": "Doublé"
+  },
+  "modeAuto": {
+    "message": "N’importe quel audio"
+  },
+  "modeAutoLong": {
+    "message": "N’importe quel audio (prévient à la première sortie)"
+  },
+  "modeDubLang": {
+    "message": "Doublé $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeDefault": {
+    "message": "Par défaut ($P1$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortSub": {
+    "message": "sous-titré"
+  },
+  "shortDub": {
+    "message": "doublé $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortAuto": {
+    "message": "tout audio"
+  },
+  "modeAria": {
+    "message": "Audio de $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeTitle": {
+    "message": "Comment vous regardez cette série"
+  },
+  "epMovie": {
+    "message": "Film"
+  },
+  "epLabel": {
+    "message": "S$P1$ É$P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "relNow": {
+    "message": "à l’instant"
+  },
+  "relHours": {
+    "message": "il y a $P1$ h",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "relYesterday": {
+    "message": "hier"
+  },
+  "relDays": {
+    "message": "il y a $P1$ jours",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futToday": {
+    "message": "aujourd’hui à $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futTomorrow": {
+    "message": "demain à $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futDays": {
+    "message": "dans $P1$ jours ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "nextText": {
+    "message": "Prochain : $P1$ $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "watchedPct": {
+    "message": "$P1$ % vu",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "watchNext": {
+    "message": "Regarder le suivant"
+  },
+  "tagRecap": {
+    "message": "récap"
+  },
+  "tagSpecial": {
+    "message": "spécial"
+  },
+  "tagSkipped": {
+    "message": "sauté"
+  },
+  "badgeContinue": {
+    "message": "reprendre"
+  },
+  "badgeMovie": {
+    "message": "film"
+  },
+  "badgeNew_one": {
+    "message": "1 nouveau"
+  },
+  "badgeNew_other": {
+    "message": "$P1$ nouveaux",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSkipped_one": {
+    "message": "1 sauté"
+  },
+  "badgeSkipped_other": {
+    "message": "$P1$ sautés",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSpecial_one": {
+    "message": "1 spécial"
+  },
+  "badgeSpecial_other": {
+    "message": "$P1$ spéciaux",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "moreEps_one": {
+    "message": "+ 1 épisode"
+  },
+  "moreEps_other": {
+    "message": "+ $P1$ épisodes",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitDub": {
+    "message": "+$P1$ en attente de doublage",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitSub": {
+    "message": "+$P1$ en attente de sous-titres",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsAria": {
+    "message": "Actions pour $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsTitle": {
+    "message": "Actions"
+  },
+  "actDiag": {
+    "message": "Exporter le diagnostic"
+  },
+  "actShow": {
+    "message": "Afficher à nouveau"
+  },
+  "actHideNew": {
+    "message": "Masquer jusqu’au prochain épisode"
+  },
+  "actHideWeek": {
+    "message": "Masquer pendant 1 semaine"
+  },
+  "actHideForever": {
+    "message": "Toujours masquer"
+  },
+  "hiddenUntil": {
+    "message": "Masquée jusqu’au $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hiddenUntilNew": {
+    "message": "Masquée jusqu’au prochain épisode"
+  },
+  "hiddenForever": {
+    "message": "Toujours masquée"
+  },
+  "epsCount_one": {
+    "message": "1 épisode"
+  },
+  "epsCount_other": {
+    "message": "$P1$ épisodes",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "seriesCount_one": {
+    "message": "1 série"
+  },
+  "seriesCount_other": {
+    "message": "$P1$ séries",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusEps": {
+    "message": "$P1$ dans $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "statusUpdatedAt": {
+    "message": " · dernière mise à jour : $WHEN$",
+    "placeholders": {
+      "when": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusElapsed": {
+    "message": " · actualisé en $S$ s",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusAllCaught": {
+    "message": "Tout est à jour"
+  },
+  "secToWatch": {
+    "message": "À voir"
+  },
+  "emptySearch": {
+    "message": "Aucune série trouvée ici."
+  },
+  "emptyToWatch": {
+    "message": "Aucun nouvel épisode dans les séries que vous avez commencées."
+  },
+  "secWaitDub": {
+    "message": "VF en attente"
+  },
+  "noteWaitDub_one": {
+    "message": "1 déjà sorti en sous-titré"
+  },
+  "noteWaitDub_other": {
+    "message": "$P1$ déjà sortis en sous-titré",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secWaitSub": {
+    "message": "Sous-titres en attente"
+  },
+  "noteWaitSub_one": {
+    "message": "1 épisode déjà sorti sans sous-titres dans votre langue"
+  },
+  "noteWaitSub_other": {
+    "message": "$P1$ épisodes déjà sortis sans sous-titres dans votre langue",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoDub_one": {
+    "message": "Saison actuelle sans doublage $P2$ · 1 épisode sous-titré à voir",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoDub_other": {
+    "message": "Saison actuelle sans doublage $P2$ · $P1$ épisodes sous-titrés à voir",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeSubbed": {
+    "message": "Voir en sous-titré"
+  },
+  "btnSeeSubbedTitle": {
+    "message": "Passe cette série en mode sous-titré"
+  },
+  "secErrors": {
+    "message": "Erreurs"
+  },
+  "secUpToDate": {
+    "message": "À jour"
+  },
+  "noteNoDubSeason": {
+    "message": "Pas de doublage $P1$ dans la saison actuelle",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secNever": {
+    "message": "À commencer"
+  },
+  "secHidden": {
+    "message": "Masquées"
+  },
+  "btnShow": {
+    "message": "Afficher"
+  },
+  "progressChecking": {
+    "message": "Vérification de $P1$ séries sur $P2$…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "progressReading": {
+    "message": "Lecture de vos listes…"
+  },
+  "errorQuery": {
+    "message": "Impossible de contacter Crunchyroll : $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errorHint": {
+    "message": "Vérifiez que vous êtes connecté sur crunchyroll.com, puis cliquez sur Actualiser."
+  },
+  "diagSaved": {
+    "message": "Diagnostic de « $P1$ » enregistré. Il ne contient ni jeton, ni cookie, ni données de compte.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagError": {
+    "message": "Impossible de créer le diagnostic : $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagFile": {
+    "message": "diagnostic"
+  },
+  "profileLabel": {
+    "message": " · profil $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "sortReleased": {
+    "message": "Sortie la plus récente"
+  },
+  "sortWatched": {
+    "message": "Vu le plus récemment"
+  },
+  "sortCount": {
+    "message": "Le plus d’épisodes"
+  },
+  "sortTitle": {
+    "message": "Titre (A–Z)"
+  },
+  "badgeTitleSome": {
+    "message": "Nouveaux épisodes : $P1$ dans $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "badgeTitleNone": {
+    "message": "Watchroll: tout est à jour"
+  },
+  "notifTitle_one": {
+    "message": "1 nouvel épisode"
+  },
+  "notifTitle_other": {
+    "message": "$P1$ nouveaux épisodes",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMore": {
+    "message": "+ $P1$ autres séries",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMovie": {
+    "message": "film"
+  },
+  "noticeOpeningTab": {
+    "message": "Ouverture de crunchyroll.com en arrière-plan pour utiliser votre session…"
+  },
+  "noticeProxy": {
+    "message": "Accès direct bloqué ; utilisation d’un onglet crunchyroll.com."
+  },
+  "noticeOtherProfile": {
+    "message": "La session utilisée appartient à un autre profil du compte. Ouvrez crunchyroll.com avec le profil que vous utilisez et cliquez sur Actualiser."
+  },
+  "noticeSlowDown": {
+    "message": "Crunchyroll a demandé de ralentir ; nouvel essai dans $P1$ s…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errTabTimeout": {
+    "message": "L’onglet Crunchyroll a mis trop de temps à charger."
+  },
+  "errTabNoAnswer": {
+    "message": "L’onglet Crunchyroll n’a pas répondu."
+  },
+  "errNoTab": {
+    "message": "Aucun onglet crunchyroll.com ouvert pour utiliser votre session."
+  },
+  "errAuth": {
+    "message": "Authentification impossible (HTTP $P1$). Vérifiez que vous êtes connecté sur crunchyroll.com.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errHttp": {
+    "message": "HTTP $P1$ sur $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "errAccount": {
+    "message": "Impossible de trouver l’identifiant de votre compte."
+  },
+  "dubYes": {
+    "message": "Doublé en $L$",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubOld": {
+    "message": "Doublage $L$ seulement dans les saisons précédentes",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubNo": {
+    "message": "Pas de doublage $L$",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "tabsAria": {
+    "message": "Sections"
+  },
+  "seasonWinter": {
+    "message": "Hiver"
+  },
+  "seasonSpring": {
+    "message": "Printemps"
+  },
+  "seasonSummer": {
+    "message": "Été"
+  },
+  "seasonFall": {
+    "message": "Automne"
+  },
+  "seasonUnknown": {
+    "message": "Saison non indiquée"
+  },
+  "emptyNever": {
+    "message": "Vous avez commencé toutes les séries de vos listes."
+  },
+  "seasonLabel": {
+    "message": "$S$ $Y$",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      },
+      "y": {
+        "content": "$2"
+      }
+    }
+  },
+  "secSearch": {
+    "message": "Recherche"
+  },
+  "searchQueryPlaceholder": {
+    "message": "Nom de l’anime (français, anglais, romaji ou japonais)"
+  },
+  "searchButton": {
+    "message": "Rechercher"
+  },
+  "searchScope": {
+    "message": "Où"
+  },
+  "searchScopeAll": {
+    "message": "Tout le catalogue"
+  },
+  "searchScopeMine": {
+    "message": "Mes listes seulement"
+  },
+  "searchDub": {
+    "message": "Doublage"
+  },
+  "searchDubAny": {
+    "message": "N’importe quel audio"
+  },
+  "searchDubYes": {
+    "message": "Doublé en $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchDubNo": {
+    "message": "Sans doublage en $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAge": {
+    "message": "Classification"
+  },
+  "searchAgeAny": {
+    "message": "Toutes"
+  },
+  "searchAgeUpTo": {
+    "message": "Jusqu’à $P1$ ans",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "ageFree": {
+    "message": "Tous publics"
+  },
+  "ageMin": {
+    "message": "Déconseillé aux moins de $P1$ ans",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchYear": {
+    "message": "Année de sortie"
+  },
+  "searchAny": {
+    "message": "Toutes"
+  },
+  "searchSeason": {
+    "message": "Saison"
+  },
+  "searchLoading": {
+    "message": "Chargement…"
+  },
+  "searchNeedAniList": {
+    "message": "La recherche de Crunchyroll ne comprend pas les noms japonais. Avec AniList activé, le texte de la recherche y est envoyé pour trouver le titre."
+  },
+  "searchEnableAniList": {
+    "message": "Activer AniList"
+  },
+  "searchAniListError": {
+    "message": "Impossible de contacter AniList pour le moment ; les résultats viennent seulement de la recherche Crunchyroll."
+  },
+  "searchMineEmpty": {
+    "message": "Votre Liste n’a pas encore été lue. Cliquez sur Actualiser et réessayez."
+  },
+  "searchError": {
+    "message": "Recherche impossible : $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchHint": {
+    "message": "Saisissez un nom ou choisissez des filtres. Sans nom, la recherche parcourt tout le catalogue Crunchyroll (ou la saison choisie)."
+  },
+  "searchMore": {
+    "message": "Charger plus"
+  },
+  "searchMovie": {
+    "message": "Film"
+  },
+  "searchInList": {
+    "message": "Dans vos listes"
+  },
+  "setAniListLabel": {
+    "message": "Rechercher aussi les noms japonais et en romaji (envoie le texte de la recherche à AniList)"
+  },
+  "searchCount_one": {
+    "message": "1 résultat"
+  },
+  "searchCount_other": {
+    "message": "$P1$ résultats",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSeasons_one": {
+    "message": "1 saison"
+  },
+  "searchSeasons_other": {
+    "message": "$P1$ saisons",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSort": {
+    "message": "Trier"
+  },
+  "searchSortDefault": {
+    "message": "Ordre de Crunchyroll"
+  },
+  "searchSortYear": {
+    "message": "Sortie la plus récente"
+  },
+  "searchSortTitle": {
+    "message": "Titre (A–Z)"
+  },
+  "searchLoadingCatalog": {
+    "message": "Téléchargement du catalogue Crunchyroll (la première fois seulement, quelques secondes)…"
+  },
+  "sortWaiting": {
+    "message": "Le plus d’épisodes en attente"
+  },
+  "sortNext": {
+    "message": "Prochaine sortie"
+  },
+  "sortSeason": {
+    "message": "Saison de sortie"
+  },
+  "uiLangAuto": {
+    "message": "Automatique (langue du navigateur)"
+  },
+  "setUiLangLabel": {
+    "message": "Langue de l’extension"
+  },
+  "setUiLangHelp": {
+    "message": "« Automatique » suit la langue de Firefox."
+  },
+  "setListsLabel": {
+    "message": "Listes vérifiées"
+  },
+  "setListsHelp": {
+    "message": "En plus de votre Liste, vous pouvez choisir vos Crunchylists. Avec plusieurs listes, chaque anime indique de quelle liste il vient."
+  },
+  "listWatchlist": {
+    "message": "Liste"
+  },
+  "listsLoading": {
+    "message": "Chargement de vos Crunchylists…"
+  },
+  "listsError": {
+    "message": "Impossible de lire vos Crunchylists : $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listUnknown": {
+    "message": "Liste introuvable"
+  },
+  "listFilterLabel": {
+    "message": "Liste"
+  },
+  "listFilterAll": {
+    "message": "Toutes les listes"
+  },
+  "listFrom": {
+    "message": "Liste : $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listItems_one": {
+    "message": "1 élément"
+  },
+  "listItems_other": {
+    "message": "$P1$ éléments",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secCalendar": {
+    "message": "Semaine"
+  },
+  "futInMinutes": {
+    "message": "dans $P1$ min",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futInHours": {
+    "message": "dans $P1$ h ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "calToday": {
+    "message": "Aujourd'hui"
+  },
+  "calTomorrow": {
+    "message": "Demain"
+  },
+  "emptyCalendar": {
+    "message": "Aucune sortie connue dans les 7 prochains jours."
+  },
+  "calEstimatedNote": {
+    "message": "~ = estimation d'après le rythme hebdomadaire des épisodes précédents. Crunchyroll n'affiche un épisode qu'à sa sortie."
+  },
+  "setCompactLabel": {
+    "message": "Afficher « À voir » en mode compact (lignes au lieu de cartes)"
+  },
+  "setBackupLabel": {
+    "message": "Sauvegarde des paramètres"
+  },
+  "setBackupHelp": {
+    "message": "Enregistre ou restaure vos préférences (modes par série, séries masquées, listes et langues) dans un fichier. Ni connexion ni historique."
+  },
+  "btnExport": {
+    "message": "Exporter"
+  },
+  "btnImport": {
+    "message": "Importer"
+  },
+  "importError": {
+    "message": "Importation impossible : $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "localeAuto": {
+    "message": "Automatique (langue de l'extension)"
+  },
+  "groupBySeason": {
+    "message": "Regrouper"
+  },
+  "sortSeasonsCount": {
+    "message": "Plus de saisons"
+  },
+  "sortEpisodesTotal": {
+    "message": "Plus d'épisodes au total"
+  },
+  "linkHome": {
+    "message": "Accueil"
+  },
+  "linksAria": {
+    "message": "Ouvrir sur Crunchyroll"
+  },
+  "ratingTitle": {
+    "message": "Note sur Crunchyroll : $P1$ sur 5 · avis : $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "genreFilterLabel": {
+    "message": "Catégorie"
+  },
+  "genreFilterAll": {
+    "message": "Toutes les catégories"
+  },
+  "audioFilterLabel": {
+    "message": "Audio"
+  },
+  "audioFilterAll": {
+    "message": "Tous"
+  },
+  "genresTitle": {
+    "message": "Catégories sur Crunchyroll : $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "genre_action": {
+    "message": "Action"
+  },
+  "genre_adventure": {
+    "message": "Aventure"
+  },
+  "genre_comedy": {
+    "message": "Comédie"
+  },
+  "genre_drama": {
+    "message": "Drame"
+  },
+  "genre_fantasy": {
+    "message": "Fantastique"
+  },
+  "genre_music": {
+    "message": "Musique"
+  },
+  "genre_romance": {
+    "message": "Romance"
+  },
+  "genre_scifi": {
+    "message": "Science-fiction"
+  },
+  "genre_seinen": {
+    "message": "Seinen"
+  },
+  "genre_shojo": {
+    "message": "Shôjo"
+  },
+  "genre_shonen": {
+    "message": "Shônen"
+  },
+  "genre_sliceoflife": {
+    "message": "Tranche de vie"
+  },
+  "genre_sports": {
+    "message": "Sport"
+  },
+  "genre_supernatural": {
+    "message": "Surnaturel"
+  },
+  "genre_thriller": {
+    "message": "Thriller"
+  },
+  "genre_mystery": {
+    "message": "Mystère"
+  },
+  "genre_horror": {
+    "message": "Horreur"
+  },
+  "clearFilters": {
+    "message": "Effacer les filtres"
+  },
+  "listFilterAny": {
+    "message": "Toutes"
+  },
+  "genreFilterAny": {
+    "message": "Toutes"
+  },
+  "setOpenAppLabel": {
+    "message": "Ouvrir les liens Crunchyroll dans l'appli Crunchyroll"
+  },
+  "searchMinSeasons": {
+    "message": "Saisons min."
+  },
+  "searchAtLeast": {
+    "message": "$P1$ ou plus",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoSub_one": {
+    "message": "Saison actuelle sans sous-titres $P2$ · 1 épisode sorti",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoSub_other": {
+    "message": "Saison actuelle sans sous-titres $P2$ · $P1$ épisodes sortis",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeAnyAudio": {
+    "message": "Voir sans sous-titres"
+  },
+  "btnSeeAnyAudioTitle": {
+    "message": "Passe cette série en « N'importe quel audio » : les épisodes apparaissent même sans sous-titres dans votre langue"
+  }
+}

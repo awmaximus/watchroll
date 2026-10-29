@@ -1,0 +1,1114 @@
+{
+  "extName": {
+    "message": "Watchroll – ตอนใหม่สำหรับ Crunchyroll"
+  },
+  "extDescription": {
+    "message": "ไม่เป็นทางการ ตัวติดตามอนิเมะสำหรับ Crunchyroll: ตอนใหม่จากรายการที่จะดูและ Crunchylist ซับหรือพากย์ ปฏิทินออกอากาศ นับถอยหลังซิมัลคาสต์ และแจ้งเตือนตอนใหม่"
+  },
+  "actionTitle": {
+    "message": "Watchroll – ตอนใหม่สำหรับ Crunchyroll"
+  },
+  "pageTitle": {
+    "message": "Watchroll – ตอนใหม่"
+  },
+  "heading": {
+    "message": "ตอนใหม่"
+  },
+  "btnSettings": {
+    "message": "การตั้งค่า"
+  },
+  "btnRefresh": {
+    "message": "รีเฟรช"
+  },
+  "versionLabel": {
+    "message": "เวอร์ชัน $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "settingsTitle": {
+    "message": "การตั้งค่า"
+  },
+  "setDubLabel": {
+    "message": "ภาษาพากย์ที่คุณดู"
+  },
+  "setDubHelp": {
+    "message": "ซีรีส์ที่ตั้งเป็น “พากย์” จะแสดงเมื่อเสียงพากย์ภาษานี้ออกแล้วเท่านั้น"
+  },
+  "setSubLabel": {
+    "message": "ภาษาซับไตเติล"
+  },
+  "setSubHelp": {
+    "message": "ซีรีส์ที่ตั้งเป็น “ซับ” จะแสดงเมื่อมีซับไตเติลภาษานี้แล้วเท่านั้น"
+  },
+  "setModeLabel": {
+    "message": "โหมดเริ่มต้นของซีรีส์"
+  },
+  "setModeHelp": {
+    "message": "ใช้กับซีรีส์ที่คุณไม่ได้ตั้งค่าแยก"
+  },
+  "setLocaleLabel": {
+    "message": "ภาษาของชื่อเรื่องและลิงก์"
+  },
+  "setAutoLabel": {
+    "message": "ตรวจสอบอัตโนมัติ"
+  },
+  "setAutoHelp": {
+    "message": "อัปเดตตัวเลขบนไอคอนส่วนขยายในเบื้องหลัง ต้องเปิดแท็บ crunchyroll.com ไว้หากการเข้าถึงโดยตรงถูกบล็อก"
+  },
+  "setAutoRange": {
+    "message": "หน่วยเป็นนาที (ค่าเริ่มต้น: 60) ใส่ 0 เพื่อปิด ต่ำสุด 5 สูงสุด 1440 (1 วัน)"
+  },
+  "setNotifyLabel": {
+    "message": "แจ้งเตือนเมื่อมีตอนใหม่"
+  },
+  "setExtrasLabel": {
+    "message": "แสดงตอนพิเศษและตอนสรุป (ไม่นับรวม)"
+  },
+  "setSkippedLabel": {
+    "message": "แสดงตอนที่ข้ามไป (ก่อนตอนล่าสุดที่คุณดู)"
+  },
+  "setMinStartedLabel": {
+    "message": "นับว่าเริ่มดูหลังจาก (วินาที)"
+  },
+  "setMinStartedHelp": {
+    "message": "Crunchyroll บันทึกไม่กี่วินาทีแค่เพราะเปิดหน้าตอน บันทึกที่น้อยกว่านี้จะถูกละเว้น ระหว่าง 0 ถึง 600"
+  },
+  "setConcurrencyLabel": {
+    "message": "จำนวนซีรีส์ที่ตรวจพร้อมกัน"
+  },
+  "setConcurrencyHelp": {
+    "message": "ตัวเลขมากยิ่งเร็ว หากเกิดข้อผิดพลาด “คำขอมากเกินไป” (HTTP 429) ให้ลดลง ระหว่าง 1 ถึง 32"
+  },
+  "setPlayheadBatchLabel": {
+    "message": "ขนาดชุด"
+  },
+  "setPlayheadBatchHelp": {
+    "message": "จำนวนตอนในแต่ละคำขอความคืบหน้าการดู (playheads) และจำนวนรายการในแต่ละหน้าของรายการที่จะดูและประวัติ ชุดใหญ่ขึ้นแปลว่าคำขอน้อยลง หากการตรวจเริ่มล้มเหลว ให้ลดลง ระหว่าง 10 ถึง 300"
+  },
+  "searchPlaceholder": {
+    "message": "ค้นหาซีรีส์…"
+  },
+  "searchAria": {
+    "message": "ค้นหาซีรีส์ตามชื่อ"
+  },
+  "sortLabel": {
+    "message": "เรียงตาม"
+  },
+  "modeSub": {
+    "message": "ซับ"
+  },
+  "modeDub": {
+    "message": "พากย์"
+  },
+  "modeAuto": {
+    "message": "เสียงใดก็ได้"
+  },
+  "modeAutoLong": {
+    "message": "เสียงใดก็ได้ (แจ้งเมื่อออกครั้งแรก)"
+  },
+  "modeDubLang": {
+    "message": "พากย์ $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeDefault": {
+    "message": "ค่าเริ่มต้น ($P1$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortSub": {
+    "message": "ซับ"
+  },
+  "shortDub": {
+    "message": "พากย์ $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "shortAuto": {
+    "message": "เสียงใดก็ได้"
+  },
+  "modeAria": {
+    "message": "เสียงของ $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modeTitle": {
+    "message": "วิธีที่คุณดูซีรีส์นี้"
+  },
+  "epMovie": {
+    "message": "ภาพยนตร์"
+  },
+  "epLabel": {
+    "message": "S$P1$ E$P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "relNow": {
+    "message": "เมื่อสักครู่"
+  },
+  "relHours": {
+    "message": "$P1$ ชม. ที่แล้ว",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "relYesterday": {
+    "message": "เมื่อวาน"
+  },
+  "relDays": {
+    "message": "$P1$ วันที่แล้ว",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futToday": {
+    "message": "วันนี้ $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futTomorrow": {
+    "message": "พรุ่งนี้ $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futDays": {
+    "message": "อีก $P1$ วัน ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "nextText": {
+    "message": "ถัดไป: $P1$ $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "watchedPct": {
+    "message": "ดูแล้ว $P1$%",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "watchNext": {
+    "message": "ดูตอนถัดไป"
+  },
+  "tagRecap": {
+    "message": "สรุป"
+  },
+  "tagSpecial": {
+    "message": "พิเศษ"
+  },
+  "tagSkipped": {
+    "message": "ข้ามไป"
+  },
+  "badgeContinue": {
+    "message": "ดูต่อ"
+  },
+  "badgeMovie": {
+    "message": "ภาพยนตร์"
+  },
+  "badgeNew_one": {
+    "message": "ใหม่ 1"
+  },
+  "badgeNew_other": {
+    "message": "ใหม่ $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSkipped_one": {
+    "message": "ข้าม 1"
+  },
+  "badgeSkipped_other": {
+    "message": "ข้าม $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "badgeSpecial_one": {
+    "message": "พิเศษ 1"
+  },
+  "badgeSpecial_other": {
+    "message": "พิเศษ $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "moreEps_one": {
+    "message": "+ อีก 1 ตอน"
+  },
+  "moreEps_other": {
+    "message": "+ อีก $P1$ ตอน",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitDub": {
+    "message": "+$P1$ รอพากย์",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hintWaitSub": {
+    "message": "+$P1$ รอซับ",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsAria": {
+    "message": "การดำเนินการสำหรับ $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "actionsTitle": {
+    "message": "การดำเนินการ"
+  },
+  "actDiag": {
+    "message": "ส่งออกข้อมูลวินิจฉัย"
+  },
+  "actShow": {
+    "message": "แสดงอีกครั้ง"
+  },
+  "actHideNew": {
+    "message": "ซ่อนจนกว่าจะมีตอนใหม่"
+  },
+  "actHideWeek": {
+    "message": "ซ่อน 1 สัปดาห์"
+  },
+  "actHideForever": {
+    "message": "ซ่อนเสมอ"
+  },
+  "hiddenUntil": {
+    "message": "ซ่อนถึง $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hiddenUntilNew": {
+    "message": "ซ่อนจนกว่าจะมีตอนใหม่"
+  },
+  "hiddenForever": {
+    "message": "ซ่อนเสมอ"
+  },
+  "epsCount_one": {
+    "message": "1 ตอน"
+  },
+  "epsCount_other": {
+    "message": "$P1$ ตอน",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "seriesCount_one": {
+    "message": "1 ซีรีส์"
+  },
+  "seriesCount_other": {
+    "message": "$P1$ ซีรีส์",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusEps": {
+    "message": "$P1$ ใน $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "statusUpdatedAt": {
+    "message": " · อัปเดตล่าสุด: $WHEN$",
+    "placeholders": {
+      "when": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusElapsed": {
+    "message": " · อัปเดตใน $S$ วิ",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusAllCaught": {
+    "message": "ดูครบแล้ว"
+  },
+  "secToWatch": {
+    "message": "รอดู"
+  },
+  "emptySearch": {
+    "message": "ไม่พบซีรีส์ที่นี่"
+  },
+  "emptyToWatch": {
+    "message": "ไม่มีตอนใหม่ในซีรีส์ที่คุณเริ่มดู"
+  },
+  "secWaitDub": {
+    "message": "รอพากย์"
+  },
+  "noteWaitDub_one": {
+    "message": "ออกแบบซับแล้ว 1 ตอน"
+  },
+  "noteWaitDub_other": {
+    "message": "ออกแบบซับแล้ว $P1$ ตอน",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secWaitSub": {
+    "message": "รอซับ"
+  },
+  "noteWaitSub_one": {
+    "message": "ออกแล้ว 1 ตอนโดยไม่มีซับภาษาของคุณ"
+  },
+  "noteWaitSub_other": {
+    "message": "ออกแล้ว $P1$ ตอนโดยไม่มีซับภาษาของคุณ",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoDub_one": {
+    "message": "ซีซันนี้ไม่มีพากย์ $P2$ · มีตอนซับให้ดู 1 ตอน",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoDub_other": {
+    "message": "ซีซันนี้ไม่มีพากย์ $P2$ · มีตอนซับให้ดู $P1$ ตอน",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeSubbed": {
+    "message": "ดูแบบซับ"
+  },
+  "btnSeeSubbedTitle": {
+    "message": "เปลี่ยนซีรีส์นี้เป็นโหมดซับ"
+  },
+  "secErrors": {
+    "message": "ข้อผิดพลาด"
+  },
+  "secUpToDate": {
+    "message": "ดูครบแล้ว"
+  },
+  "noteNoDubSeason": {
+    "message": "ซีซันนี้ไม่มีพากย์ $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secNever": {
+    "message": "ยังไม่เริ่ม"
+  },
+  "secHidden": {
+    "message": "ซ่อนอยู่"
+  },
+  "btnShow": {
+    "message": "แสดง"
+  },
+  "progressChecking": {
+    "message": "กำลังตรวจ $P1$ จาก $P2$ ซีรีส์…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "progressReading": {
+    "message": "กำลังอ่านรายการของคุณ…"
+  },
+  "errorQuery": {
+    "message": "ติดต่อ Crunchyroll ไม่ได้: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errorHint": {
+    "message": "ตรวจสอบว่าคุณเข้าสู่ระบบ crunchyroll.com แล้ว จากนั้นคลิกรีเฟรช"
+  },
+  "diagSaved": {
+    "message": "บันทึกข้อมูลวินิจฉัยของ “$P1$” แล้ว ไม่มีโทเคน คุกกี้ หรือข้อมูลบัญชี",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagError": {
+    "message": "สร้างข้อมูลวินิจฉัยไม่ได้: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "diagFile": {
+    "message": "diagnostics"
+  },
+  "profileLabel": {
+    "message": " · โปรไฟล์ $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "sortReleased": {
+    "message": "ออกล่าสุด"
+  },
+  "sortWatched": {
+    "message": "ดูล่าสุด"
+  },
+  "sortCount": {
+    "message": "ตอนมากที่สุด"
+  },
+  "sortTitle": {
+    "message": "ชื่อเรื่อง (A–Z)"
+  },
+  "badgeTitleSome": {
+    "message": "ตอนใหม่: $P1$ ใน $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "badgeTitleNone": {
+    "message": "Watchroll: ดูครบแล้ว"
+  },
+  "notifTitle_one": {
+    "message": "ตอนใหม่ 1 ตอน"
+  },
+  "notifTitle_other": {
+    "message": "ตอนใหม่ $P1$ ตอน",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMore": {
+    "message": "+ อีก $P1$ ซีรีส์",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "notifMovie": {
+    "message": "ภาพยนตร์"
+  },
+  "noticeOpeningTab": {
+    "message": "กำลังเปิด crunchyroll.com ในเบื้องหลังเพื่อใช้เซสชันของคุณ…"
+  },
+  "noticeProxy": {
+    "message": "การเข้าถึงโดยตรงถูกบล็อก กำลังใช้แท็บ crunchyroll.com"
+  },
+  "noticeOtherProfile": {
+    "message": "เซสชันที่ใช้อยู่เป็นของโปรไฟล์อื่นในบัญชี เปิด crunchyroll.com ด้วยโปรไฟล์ที่คุณใช้แล้วคลิกรีเฟรช"
+  },
+  "noticeSlowDown": {
+    "message": "Crunchyroll ขอให้ช้าลง จะลองใหม่ใน $P1$ วิ…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errTabTimeout": {
+    "message": "แท็บ Crunchyroll โหลดนานเกินไป"
+  },
+  "errTabNoAnswer": {
+    "message": "แท็บ Crunchyroll ไม่ตอบสนอง"
+  },
+  "errNoTab": {
+    "message": "ไม่มีแท็บ crunchyroll.com ที่เปิดอยู่เพื่อใช้เซสชันของคุณ"
+  },
+  "errAuth": {
+    "message": "ยืนยันตัวตนไม่ได้ (HTTP $P1$) ตรวจสอบว่าคุณเข้าสู่ระบบ crunchyroll.com แล้ว",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errHttp": {
+    "message": "HTTP $P1$ ที่ $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "errAccount": {
+    "message": "ไม่พบ ID บัญชีของคุณ"
+  },
+  "dubYes": {
+    "message": "มีพากย์ $L$",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubOld": {
+    "message": "พากย์ $L$ มีเฉพาะซีซันก่อน ๆ",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "dubNo": {
+    "message": "ไม่มีพากย์ $L$",
+    "placeholders": {
+      "l": {
+        "content": "$1"
+      }
+    }
+  },
+  "tabsAria": {
+    "message": "ส่วนต่าง ๆ"
+  },
+  "seasonWinter": {
+    "message": "ฤดูหนาว"
+  },
+  "seasonSpring": {
+    "message": "ฤดูใบไม้ผลิ"
+  },
+  "seasonSummer": {
+    "message": "ฤดูร้อน"
+  },
+  "seasonFall": {
+    "message": "ฤดูใบไม้ร่วง"
+  },
+  "seasonUnknown": {
+    "message": "ไม่ระบุซีซัน"
+  },
+  "emptyNever": {
+    "message": "คุณเริ่มดูทุกซีรีส์ในรายการของคุณแล้ว"
+  },
+  "seasonLabel": {
+    "message": "$S$ $Y$",
+    "placeholders": {
+      "s": {
+        "content": "$1"
+      },
+      "y": {
+        "content": "$2"
+      }
+    }
+  },
+  "secSearch": {
+    "message": "ค้นหา"
+  },
+  "searchQueryPlaceholder": {
+    "message": "ชื่ออนิเมะ (ไทย อังกฤษ โรมาจิ หรือญี่ปุ่น)"
+  },
+  "searchButton": {
+    "message": "ค้นหา"
+  },
+  "searchScope": {
+    "message": "ค้นหาใน"
+  },
+  "searchScopeAll": {
+    "message": "แคตตาล็อกทั้งหมด"
+  },
+  "searchScopeMine": {
+    "message": "เฉพาะรายการของฉัน"
+  },
+  "searchDub": {
+    "message": "พากย์"
+  },
+  "searchDubAny": {
+    "message": "เสียงใดก็ได้"
+  },
+  "searchDubYes": {
+    "message": "มีพากย์ $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchDubNo": {
+    "message": "ไม่มีพากย์ $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAge": {
+    "message": "เรตอายุ"
+  },
+  "searchAgeAny": {
+    "message": "ทั้งหมด"
+  },
+  "searchAgeUpTo": {
+    "message": "ไม่เกิน $P1$+",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "ageFree": {
+    "message": "เหมาะสำหรับทุกวัย"
+  },
+  "ageMin": {
+    "message": "ไม่แนะนำสำหรับผู้ที่อายุต่ำกว่า $P1$ ปี",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchYear": {
+    "message": "ปีที่ออกฉาย"
+  },
+  "searchAny": {
+    "message": "ใดก็ได้"
+  },
+  "searchSeason": {
+    "message": "ซีซัน"
+  },
+  "searchLoading": {
+    "message": "กำลังโหลด…"
+  },
+  "searchNeedAniList": {
+    "message": "การค้นหาของ Crunchyroll ไม่เข้าใจชื่อภาษาญี่ปุ่น เมื่อเปิด AniList ข้อความค้นหาจะถูกส่งไปที่ AniList เพื่อหาชื่อเรื่อง"
+  },
+  "searchEnableAniList": {
+    "message": "เปิด AniList"
+  },
+  "searchAniListError": {
+    "message": "ตอนนี้ติดต่อ AniList ไม่ได้ ผลลัพธ์มาจากการค้นหาของ Crunchyroll เท่านั้น"
+  },
+  "searchMineEmpty": {
+    "message": "ยังไม่ได้อ่านรายการที่จะดู คลิกรีเฟรชแล้วลองอีกครั้ง"
+  },
+  "searchError": {
+    "message": "ค้นหาไม่ได้: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchHint": {
+    "message": "พิมพ์ชื่อหรือเลือกตัวกรอง หากไม่มีชื่อ จะค้นหาทั่วแคตตาล็อกของ Crunchyroll (หรือซีซันที่เลือก)"
+  },
+  "searchMore": {
+    "message": "โหลดเพิ่ม"
+  },
+  "searchMovie": {
+    "message": "ภาพยนตร์"
+  },
+  "searchInList": {
+    "message": "อยู่ในรายการของคุณ"
+  },
+  "setAniListLabel": {
+    "message": "ค้นหาชื่อภาษาญี่ปุ่นและโรมาจิด้วย (ส่งข้อความค้นหาไปที่ AniList)"
+  },
+  "searchCount_one": {
+    "message": "1 ผลลัพธ์"
+  },
+  "searchCount_other": {
+    "message": "$P1$ ผลลัพธ์",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSeasons_one": {
+    "message": "1 ซีซัน"
+  },
+  "searchSeasons_other": {
+    "message": "$P1$ ซีซัน",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchSort": {
+    "message": "เรียงตาม"
+  },
+  "searchSortDefault": {
+    "message": "ลำดับของ Crunchyroll"
+  },
+  "searchSortYear": {
+    "message": "ออกล่าสุด"
+  },
+  "searchSortTitle": {
+    "message": "ชื่อเรื่อง (A–Z)"
+  },
+  "searchLoadingCatalog": {
+    "message": "กำลังดาวน์โหลดแคตตาล็อก Crunchyroll (เฉพาะครั้งแรก ใช้เวลาไม่กี่วินาที)…"
+  },
+  "sortWaiting": {
+    "message": "รอมากที่สุด"
+  },
+  "sortNext": {
+    "message": "ออกครั้งถัดไป"
+  },
+  "sortSeason": {
+    "message": "ซีซันที่ออก"
+  },
+  "uiLangAuto": {
+    "message": "อัตโนมัติ (ภาษาของเบราว์เซอร์)"
+  },
+  "setUiLangLabel": {
+    "message": "ภาษาของส่วนขยาย"
+  },
+  "setUiLangHelp": {
+    "message": "“อัตโนมัติ” จะใช้ภาษาเดียวกับ Firefox"
+  },
+  "setListsLabel": {
+    "message": "รายการที่ตรวจสอบ"
+  },
+  "setListsHelp": {
+    "message": "นอกจากรายการที่จะดู คุณเลือก Crunchylist ของคุณได้ด้วย เมื่อเลือกมากกว่าหนึ่งรายการ อนิเมะแต่ละเรื่องจะแสดงว่ามาจากรายการใด"
+  },
+  "listWatchlist": {
+    "message": "รายการที่จะดู"
+  },
+  "listsLoading": {
+    "message": "กำลังโหลด Crunchylist ของคุณ…"
+  },
+  "listsError": {
+    "message": "อ่าน Crunchylist ของคุณไม่ได้: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listUnknown": {
+    "message": "ไม่พบรายการ"
+  },
+  "listFilterLabel": {
+    "message": "รายการ"
+  },
+  "listFilterAll": {
+    "message": "ทุกรายการ"
+  },
+  "listFrom": {
+    "message": "รายการ: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "listItems_one": {
+    "message": "1 รายการ"
+  },
+  "listItems_other": {
+    "message": "$P1$ รายการ",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "secCalendar": {
+    "message": "สัปดาห์นี้"
+  },
+  "futInMinutes": {
+    "message": "อีก $P1$ นาที",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "futInHours": {
+    "message": "อีก $P1$ ชม. ($P2$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "calToday": {
+    "message": "วันนี้"
+  },
+  "calTomorrow": {
+    "message": "พรุ่งนี้"
+  },
+  "emptyCalendar": {
+    "message": "ไม่มีกำหนดออกที่ทราบใน 7 วันข้างหน้า"
+  },
+  "calEstimatedNote": {
+    "message": "~ = คาดการณ์จากจังหวะรายสัปดาห์ของตอนก่อนหน้า Crunchyroll จะแสดงตอนใหม่ก็ต่อเมื่อออกฉายแล้วเท่านั้น"
+  },
+  "setCompactLabel": {
+    "message": "แสดง \"รอดู\" แบบกะทัดรัด (เป็นแถวแทนการ์ด)"
+  },
+  "setBackupLabel": {
+    "message": "สำรองการตั้งค่า"
+  },
+  "setBackupHelp": {
+    "message": "บันทึกหรือกู้คืนการตั้งค่าของคุณ (โหมดของแต่ละซีรีส์ ซีรีส์ที่ซ่อน รายการ และภาษา) เป็นไฟล์ ไม่รวมการเข้าสู่ระบบและประวัติ"
+  },
+  "btnExport": {
+    "message": "ส่งออก"
+  },
+  "btnImport": {
+    "message": "นำเข้า"
+  },
+  "importError": {
+    "message": "นำเข้าไม่ได้: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "localeAuto": {
+    "message": "อัตโนมัติ (ภาษาของส่วนขยาย)"
+  },
+  "groupBySeason": {
+    "message": "จัดกลุ่ม"
+  },
+  "sortSeasonsCount": {
+    "message": "จำนวนซีซันมากที่สุด"
+  },
+  "sortEpisodesTotal": {
+    "message": "จำนวนตอนรวมมากที่สุด"
+  },
+  "linkHome": {
+    "message": "หน้าแรก"
+  },
+  "linksAria": {
+    "message": "เปิดใน Crunchyroll"
+  },
+  "ratingTitle": {
+    "message": "คะแนนบน Crunchyroll: $P1$ จาก 5 · จำนวนผู้ให้คะแนน: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "genreFilterLabel": {
+    "message": "หมวดหมู่"
+  },
+  "genreFilterAll": {
+    "message": "ทุกหมวดหมู่"
+  },
+  "audioFilterLabel": {
+    "message": "เสียง"
+  },
+  "audioFilterAll": {
+    "message": "ทั้งหมด"
+  },
+  "genresTitle": {
+    "message": "หมวดหมู่ใน Crunchyroll: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "genre_action": {
+    "message": "แอ็กชัน"
+  },
+  "genre_adventure": {
+    "message": "ผจญภัย"
+  },
+  "genre_comedy": {
+    "message": "ตลก"
+  },
+  "genre_drama": {
+    "message": "ดราม่า"
+  },
+  "genre_fantasy": {
+    "message": "แฟนตาซี"
+  },
+  "genre_music": {
+    "message": "ดนตรี"
+  },
+  "genre_romance": {
+    "message": "โรแมนติก"
+  },
+  "genre_scifi": {
+    "message": "ไซไฟ"
+  },
+  "genre_seinen": {
+    "message": "เซเน็น"
+  },
+  "genre_shojo": {
+    "message": "โชโจ"
+  },
+  "genre_shonen": {
+    "message": "โชเน็น"
+  },
+  "genre_sliceoflife": {
+    "message": "ชีวิตประจำวัน"
+  },
+  "genre_sports": {
+    "message": "กีฬา"
+  },
+  "genre_supernatural": {
+    "message": "เหนือธรรมชาติ"
+  },
+  "genre_thriller": {
+    "message": "ระทึกขวัญ"
+  },
+  "genre_mystery": {
+    "message": "ลึกลับ"
+  },
+  "genre_horror": {
+    "message": "สยองขวัญ"
+  },
+  "clearFilters": {
+    "message": "ล้างตัวกรอง"
+  },
+  "listFilterAny": {
+    "message": "ทั้งหมด"
+  },
+  "genreFilterAny": {
+    "message": "ทั้งหมด"
+  },
+  "setOpenAppLabel": {
+    "message": "เปิดลิงก์ Crunchyroll ในแอป Crunchyroll"
+  },
+  "searchMinSeasons": {
+    "message": "ซีซันขั้นต่ำ"
+  },
+  "searchAtLeast": {
+    "message": "$P1$ ขึ้นไป",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noteNoSub_one": {
+    "message": "ซีซันปัจจุบันไม่มีซับ $P2$ · ออกแล้ว 1 ตอน",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoSub_other": {
+    "message": "ซีซันปัจจุบันไม่มีซับ $P2$ · ออกแล้ว $P1$ ตอน",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeAnyAudio": {
+    "message": "ดูแบบไม่มีซับ"
+  },
+  "btnSeeAnyAudioTitle": {
+    "message": "เปลี่ยนซีรีส์นี้เป็น \"เสียงใดก็ได้\": ตอนต่าง ๆ จะแสดงแม้ไม่มีซับภาษาของคุณ"
+  }
+}
