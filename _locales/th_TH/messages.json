@@ -1074,5 +1074,8 @@
   },
   "genreFilterAny": {
     "message": "ทั้งหมด"
+  },
+  "setOpenAppLabel": {
+    "message": "เปิดลิงก์ Crunchyroll ในแอป Crunchyroll"
   }
 }

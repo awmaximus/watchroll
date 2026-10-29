@@ -24,7 +24,7 @@ only reads data from your own account.
   started, errors, hidden), each with its own sorting, plus a **Week** calendar of upcoming
   releases.
 - **Advanced Search** over the whole Crunchyroll catalog or your lists, with dub, age rating,
-  year and season filters, and optional Japanese/romaji title lookup through AniList.
+  category, year and season filters, and optional Japanese/romaji title lookup through AniList.
 - **Crunchyroll rating** (★ 4.9) on every series, in every tab and in Advanced Search.
 - **Categories** (Action, Fantasy, Romance…) from Crunchyroll on every series, with a category
   filter and a subbed/dubbed filter on every tab.
@@ -33,7 +33,8 @@ only reads data from your own account.
 - **Compact mode** (rows instead of cards) and **settings export/import**.
 - **27 interface languages**, including right-to-left Arabic and Urdu.
 
-Requires Firefox 142 or later and a Crunchyroll account signed in in Firefox.
+Works in Firefox for desktop and Firefox for Android, version 142 or later, with a Crunchyroll
+account signed in in Firefox. See [Firefox for Android](#firefox-for-android).
 
 ## Using the extension
 
@@ -138,8 +139,27 @@ filters at once:
 - **Search in:** whole catalog or only your lists.
 - **Filters:** dub in your dub language (not just "has some dub"), age rating (the Brazilian
   ratings Crunchyroll provides: L, 10, 12, 14, 16, 18; "up to 14" includes L to 14; unrated
-  series are excluded when the filter is on), release year and release season.
+  series are excluded when the filter is on), category (several at once: a title shows up if
+  it has any of them), release year and release season. When a result does not carry its
+  categories, the extension asks Crunchyroll for the titles of each chosen category (one request
+  per category, kept for 6 hours).
 - **Sort:** Crunchyroll default, newest release or title. Results load 60 at a time.
+
+### Firefox for Android
+
+The same extension runs in Firefox for Android (it is marked compatible with
+`browser_specific_settings.gecko_android`). Open it from Firefox's menu → **Extensions** →
+**Watchroll**. Differences from the desktop:
+
+- **Links open in the Crunchyroll app.** Series, episode, Watchlist and Crunchylist links are
+  opened as Android `intent://` links for the official app (`com.crunchyroll.crunchyroid`),
+  without the language prefix in the path. Without the app installed, Firefox opens the normal
+  Crunchyroll page instead. The **Open Crunchyroll links in the Crunchyroll app** setting
+  (shown only on Android, on by default) turns this off.
+- The toolbar counter appears in Firefox's menu instead of the toolbar, and its colors may be
+  ignored.
+- The filter bar and the tabs wrap to fit a phone screen.
+- Firefox for Android has no window API: opening the page only switches to its tab.
 
 ### Settings
 
@@ -336,7 +356,7 @@ fictional titles and generated artwork) and `PRIVACY.md` is the privacy policy t
 add-on's Developer Hub page. The listing icon is `icons/icon-128.png`.
 
 Bump `version` in both `manifest.json` and `package.json` for every build you sign (current:
-1.0.7); AMO does not accept the same version twice, not even in different channels, which is why
+1.0.9); AMO does not accept the same version twice, not even in different channels, which is why
 test builds and releases use different numbers. The add-on ID
 (`crunchyroll-novos-eps@awmaximus.github.io`) comes from before the rename and must stay as it
 is: changing it makes Firefox and AMO treat Watchroll as a different extension.

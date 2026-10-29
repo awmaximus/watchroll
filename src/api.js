@@ -582,6 +582,10 @@ var CRApi = (() => {
       total: typeof r.total === "number" ? r.total : null,
     }));
 
+  // Categorias (gêneros) do catálogo: [{ id: "action", localization: { title } }].
+  const categories = (locale) =>
+    get("/content/v2/discover/categories", { locale }).then((r) => r.data || r.items || []);
+
   // Temporadas de lançamento oficiais ("fall-2026" → "Outono 2026"), da mais nova.
   const seasonList = (locale) =>
     get("/content/v1/season_list", { locale }).then((r) => r.items || r.data || []);
@@ -679,6 +683,7 @@ var CRApi = (() => {
     search,
     browse,
     seasonList,
+    categories,
     objects,
     playheads,
     setPlayheadBatchSize,

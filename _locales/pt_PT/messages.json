@@ -1074,5 +1074,8 @@
   },
   "genreFilterAny": {
     "message": "Todas"
+  },
+  "setOpenAppLabel": {
+    "message": "Abrir as ligações da Crunchyroll na app da Crunchyroll"
   }
 }

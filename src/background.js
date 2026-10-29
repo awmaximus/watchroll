@@ -11,11 +11,24 @@ const PAGE = browser.runtime.getURL("dashboard/dashboard.html");
 const ALARM = "crnovos-verificacao";
 const RELEASE_ALARM = "crnovos-lancamento"; // verificação extra logo após um lançamento
 
+// No Firefox para Android não existe a API de janelas (browser.windows): lá só a
+// aba é ativada.
 async function openPage() {
-  const [tab] = await browser.tabs.query({ url: PAGE });
+  let tab = null;
+  try {
+    [tab] = await browser.tabs.query({ url: PAGE });
+  } catch (_) {
+    tab = null;
+  }
   if (tab) {
     await browser.tabs.update(tab.id, { active: true });
-    await browser.windows.update(tab.windowId, { focused: true });
+    if (browser.windows && tab.windowId != null) {
+      try {
+        await browser.windows.update(tab.windowId, { focused: true });
+      } catch (_) {
+        // a aba já está ativa
+      }
+    }
   } else {
     await browser.tabs.create({ url: PAGE });
   }

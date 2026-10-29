@@ -830,6 +830,28 @@ body.busy select.actions {
   min-width: 0;
   text-overflow: ellipsis;
 }
+.search-field-multi {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.search-field-multi .multi-button {
+  padding: 6px 8px;
+  font-size: 0.9rem;
+}
+.search-field-multi .multi-panel {
+  min-width: 100%;
+  max-height: 340px;
+}
+.search-filters .multi-option {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--text);
+}
 .notice-inline {
   display: flex;
   flex-wrap: wrap;

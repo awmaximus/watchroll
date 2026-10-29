@@ -1074,5 +1074,8 @@
   },
   "genreFilterAny": {
     "message": "Tümü"
+  },
+  "setOpenAppLabel": {
+    "message": "Crunchyroll bağlantılarını Crunchyroll uygulamasında aç"
   }
 }

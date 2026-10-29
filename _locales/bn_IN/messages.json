@@ -1074,5 +1074,8 @@
   },
   "genreFilterAny": {
     "message": "সব"
+  },
+  "setOpenAppLabel": {
+    "message": "Crunchyroll লিংক Crunchyroll অ্যাপে খুলুন"
   }
 }

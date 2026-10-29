@@ -1074,5 +1074,8 @@
   },
   "genreFilterAny": {
     "message": "அனைத்தும்"
+  },
+  "setOpenAppLabel": {
+    "message": "Crunchyroll இணைப்புகளை Crunchyroll செயலியில் திற"
   }
 }

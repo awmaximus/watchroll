@@ -1074,5 +1074,8 @@
   },
   "genreFilterAny": {
     "message": "Semua"
+  },
+  "setOpenAppLabel": {
+    "message": "Buka tautan Crunchyroll di aplikasi Crunchyroll"
   }
 }

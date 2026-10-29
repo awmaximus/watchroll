@@ -38,6 +38,7 @@ var CRChecker = (() => {
     listFilter: "", // filtro das abas: "" = todas as listas
     genreFilters: [], // filtro das abas por categorias (qualquer uma delas); vazio = todas
     audioFilter: "", // filtro das abas por modo de áudio (sub/dub/auto): "" = todos
+    openInApp: true, // Firefox para Android: links da Crunchyroll abrem no app
     compact: false, // "Para assistir" em linhas em vez de cards
     groupNever: true, // "A iniciar" agrupado pela temporada de lançamento
   };
@@ -214,9 +215,15 @@ var CRChecker = (() => {
 
   async function updateBadge(results, b = browser) {
     const { episodes, series } = summarize(results);
+    if (!b.action) return;
     await b.action.setBadgeText({ text: badgeText(episodes) });
-    await b.action.setBadgeBackgroundColor({ color: "#ff640a" });
-    if (b.action.setBadgeTextColor) await b.action.setBadgeTextColor({ color: "#000000" });
+    // Cores do contador: no Firefox para Android podem não existir.
+    try {
+      if (b.action.setBadgeBackgroundColor) await b.action.setBadgeBackgroundColor({ color: "#ff640a" });
+      if (b.action.setBadgeTextColor) await b.action.setBadgeTextColor({ color: "#000000" });
+    } catch (_) {
+      // sem cores: o número continua aparecendo
+    }
     await b.action.setTitle({
       title: episodes
         ? t("badgeTitleSome", episodes, tn("seriesCount", series))

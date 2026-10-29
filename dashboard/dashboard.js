@@ -21,7 +21,7 @@
   // Estado da aba Pesquisar (sobrevive às re-renderizações da página).
   const searchState = {
     q: "",
-    filters: { scope: "all", dub: "any", maxAge: "", year: "", season: "", sort: "default" },
+    filters: { scope: "all", dub: "any", maxAge: "", year: "", season: "", sort: "default", categories: [] },
     items: null,
     shown: 60, // resultados visíveis; "Carregar mais" mostra mais 60
     loading: false,
@@ -89,6 +89,8 @@
     auto.max = CRChecker.AUTO_CHECK.max;
     auto.value = CRChecker.autoCheckMinutes(settings);
     $("set-notify").checked = settings.notify !== false;
+    $("set-openapp-wrap").hidden = !onAndroid;
+    $("set-openapp").checked = settings.openInApp !== false;
     $("set-extras").checked = settings.showExtras !== false;
     $("set-skipped").checked = !!settings.showSkipped;
     $("set-anilist").checked = !!settings.anilist;
@@ -272,68 +274,91 @@
     render();
   }
 
-  // Combo de várias escolhas (mesmo componente das listas nas Configurações).
-  function renderGenreFilter(genres) {
-    const box = $("genre-filter");
-    const old = box.querySelector(".multi-panel");
-    const wasOpen = !!old && !old.hidden;
-    const focused = document.activeElement && box.contains(document.activeElement) ? document.activeElement.value : null;
-    const chosen = chosenGenres();
-    const count = (k) => results.filter((r) => !hiddenEntry(r) && (r.genres || []).includes(k)).length;
-    const summary = chosen.length ? chosen.map(genreLabel).join(", ") : t("genreFilterAny");
+  // ---------- combo de várias escolhas ----------
+  // Usado pelos filtros de categoria (abas e Pesquisa). A página é redesenhada a
+  // cada mudança: o estado "aberto" fica guardado por id, e o foco volta à opção.
+  const openCombos = new Set();
+  function multiCombo({ id, labelledBy, options, chosen, allLabel, anyLabel, onChange }) {
+    const box = el("div", { class: "multi", id, "data-combo": id });
+    const prev = document.getElementById(id);
+    const focused =
+      prev && document.activeElement && prev.contains(document.activeElement) ? document.activeElement.value : null;
+    const open = openCombos.has(id);
+    const names = options.filter(([v]) => chosen.includes(v)).map(([, label]) => label);
+    const summary = names.length ? names.join(", ") : anyLabel;
     const button = el(
       "button",
       {
         type: "button",
         class: "multi-button",
         "aria-haspopup": "true",
-        "aria-expanded": String(wasOpen),
-        "aria-controls": "genre-filter-panel",
-        "aria-labelledby": "genre-filter-label",
+        "aria-expanded": String(open),
+        "aria-controls": `${id}-panel`,
+        "aria-labelledby": labelledBy,
         title: summary,
       },
       el("span", { class: "multi-summary", text: summary }),
       el("span", { class: "multi-caret", "aria-hidden": "true", text: "▾" })
     );
-    const option = (value, label, checked, onchange, extra = null) =>
+    const option = (value, label, checked, change, extra = null) =>
       el(
         "label",
         { class: "multi-option" },
-        el("input", { type: "checkbox", value, checked, onchange }),
+        el("input", { type: "checkbox", value, checked, onchange: change }),
         el("span", { class: "multi-name", text: label }),
         extra
       );
     const panel = el(
       "div",
-      { class: "multi-panel", id: "genre-filter-panel", role: "group", "aria-labelledby": "genre-filter-label", hidden: !wasOpen },
-      option("", t("genreFilterAll"), !chosen.length, () => setGenres([])),
-      genres.map(([k, label]) =>
+      { class: "multi-panel", id: `${id}-panel`, role: "group", "aria-labelledby": labelledBy, hidden: !open },
+      option("", allLabel, !chosen.length, () => onChange([])),
+      options.map(([v, label, count]) =>
         option(
-          k,
+          v,
           label,
-          chosen.includes(k),
-          (e) => setGenres(e.target.checked ? [...chosen, k] : chosen.filter((g) => g !== k)),
-          el("small", { text: String(count(k)) })
+          chosen.includes(v),
+          (e) => onChange(e.target.checked ? [...chosen, v] : chosen.filter((x) => x !== v)),
+          count == null ? null : el("small", { text: String(count) })
         )
       )
     );
-    const toggle = (open) => {
-      panel.hidden = !open;
-      button.setAttribute("aria-expanded", String(open));
+    const toggle = (on) => {
+      panel.hidden = !on;
+      button.setAttribute("aria-expanded", String(on));
+      if (on) openCombos.add(id);
+      else openCombos.delete(id);
     };
     button.addEventListener("click", () => toggle(panel.hidden));
-    box.onkeydown = (e) => {
+    box.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && !panel.hidden) {
         toggle(false);
         button.focus();
       }
-    };
-    box.replaceChildren(button, panel);
-    // O combo é refeito a cada mudança: devolve o foco à mesma opção.
-    if (focused !== null && focused !== undefined) {
-      const again = [...panel.querySelectorAll("input")].find((i) => i.value === focused);
-      if (again) again.focus();
+    });
+    box.append(button, panel);
+    if (focused !== null) {
+      queueMicrotask(() => {
+        const again = [...panel.querySelectorAll("input")].find((i) => i.value === focused);
+        if (again) again.focus();
+      });
     }
+    return box;
+  }
+
+  function renderGenreFilter(genres) {
+    const chosen = chosenGenres();
+    const count = (k) => results.filter((r) => !hiddenEntry(r) && (r.genres || []).includes(k)).length;
+    $("genre-filter").replaceWith(
+      multiCombo({
+        id: "genre-filter",
+        labelledBy: "genre-filter-label",
+        options: genres.map(([k, label]) => [k, label, count(k)]),
+        chosen,
+        allLabel: t("genreFilterAll"),
+        anyLabel: t("genreFilterAny"),
+        onChange: setGenres,
+      })
+    );
   }
 
   function renderFilters() {
@@ -969,6 +994,19 @@
       });
   }
 
+  // Categorias para o filtro da Pesquisa (da Crunchyroll; se falhar, a lista fixa).
+  function loadCategories() {
+    if (searchState.categories || searchState.categoriesLoading) return;
+    searchState.categoriesLoading = true;
+    CRSearch.categories(contentLocale())
+      .then((list) => (searchState.categories = list))
+      .finally(() => {
+        searchState.categoriesLoading = false;
+        if (settings.tab === "search") render();
+      });
+  }
+  const categoryLabel = (c) => (c.key && !c.key.startsWith("x:") ? genreLabel(c.key) : c.title);
+
   async function runSearch() {
     if (searchState.loading) return;
     searchState.loading = true;
@@ -1023,13 +1061,15 @@
           dubBadge(s),
           r.inWatchlist ? el("span", { class: "in-list", text: t("searchInList") }) : null
         ),
-        meta.length ? el("small", { class: "result-meta", text: meta.join(" · ") }) : null
+        meta.length ? el("small", { class: "result-meta", text: meta.join(" · ") }) : null,
+        genreLine(r)
       )
     );
   }
 
   function searchPanel() {
     loadSeasons();
+    loadCategories();
     const st = searchState;
     const f = st.filters;
     const name = langName(settings.dubLang);
@@ -1113,6 +1153,25 @@
             opt("year", t("searchSortYear"), f.sort),
             opt("title", t("searchSortTitle"), f.sort)
           )
+        ),
+        el(
+          "div",
+          { class: "search-field-multi" },
+          el("span", { id: "sf-cat-label", text: t("genreFilterLabel") }),
+          multiCombo({
+            id: "sf-cat",
+            labelledBy: "sf-cat-label",
+            options: (searchState.categories || [])
+              .map((c) => [c.id, categoryLabel(c)])
+              .sort((a, b) => a[1].localeCompare(b[1], UI)),
+            chosen: f.categories || [],
+            allLabel: t("genreFilterAll"),
+            anyLabel: searchState.categories ? t("genreFilterAny") : t("searchLoading"),
+            onChange: (list) => {
+              f.categories = list;
+              runSearch();
+            },
+          })
         ),
         el(
           "label",
@@ -1494,8 +1553,41 @@
   }
 
   // ---------- início ----------
+  // ---------- Firefox para Android: abrir no app da Crunchyroll ----------
+  // Um link "intent://" com o pacote do app faz o Android abrir o app oficial; sem o
+  // app instalado, o Firefox segue para o endereço normal (browser_fallback_url).
+  // O app usa o idioma dele: o prefixo de idioma (/pt-br, /es…) sai do caminho.
+  const CR_APP = "com.crunchyroll.crunchyroid";
+  let onAndroid = false;
+  function appIntent(href) {
+    const u = new URL(href);
+    const path = u.pathname.replace(/^\/[a-z]{2}(?:-[a-z]{2})?(?=\/|$)/i, "") || "/";
+    return `intent://${u.host}${path}${u.search}#Intent;scheme=https;package=${CR_APP};S.browser_fallback_url=${encodeURIComponent(href)};end`;
+  }
+  function openInAppHandler(e) {
+    if (!onAndroid || settings.openInApp === false || e.defaultPrevented || e.button) return;
+    const a = e.target.closest && e.target.closest("a[href]");
+    if (!a) return;
+    let u;
+    try {
+      u = new URL(a.href);
+    } catch (_) {
+      return;
+    }
+    if (u.protocol !== "https:" || u.hostname !== "www.crunchyroll.com") return;
+    e.preventDefault();
+    location.href = appIntent(a.href);
+  }
+
   async function init() {
     await loadSettings();
+    try {
+      onAndroid = (await browser.runtime.getPlatformInfo()).os === "android";
+    } catch (_) {
+      onAndroid = /Android/i.test(navigator.userAgent);
+    }
+    document.documentElement.classList.toggle("android", onAndroid);
+    document.addEventListener("click", openInAppHandler, true);
     await loadRatings();
     // Idioma da interface: o escolhido nas Configurações, ou o do navegador.
     await CRI18n.init(settings.uiLang || "auto");
@@ -1534,6 +1626,10 @@
       settings.autoCheckMinutes = CRChecker.autoCheckMinutes({ autoCheckMinutes: e.target.value });
       e.target.value = settings.autoCheckMinutes;
       await saveSettings(); // o segundo plano reagenda ao ver a mudança
+    });
+    $("set-openapp").addEventListener("change", async (e) => {
+      settings.openInApp = e.target.checked;
+      await saveSettings();
     });
     $("set-notify").addEventListener("change", async (e) => {
       settings.notify = e.target.checked;
@@ -1627,13 +1723,16 @@
       await saveSettings();
       render();
     });
-    // Fecha o combo de categorias ao clicar fora dele.
+    // Fecha os combos de categorias ao tocar/clicar fora deles.
     document.addEventListener("click", (e) => {
-      const box = $("genre-filter");
-      const panel = box && box.querySelector(".multi-panel");
-      if (panel && !panel.hidden && !box.contains(e.target) && document.contains(e.target)) {
-        panel.hidden = true;
-        box.querySelector(".multi-button").setAttribute("aria-expanded", "false");
+      if (!document.contains(e.target)) return; // elemento já redesenhado
+      for (const box of document.querySelectorAll(".multi[data-combo]")) {
+        const panel = box.querySelector(".multi-panel");
+        if (panel && !panel.hidden && !box.contains(e.target)) {
+          panel.hidden = true;
+          box.querySelector(".multi-button").setAttribute("aria-expanded", "false");
+          openCombos.delete(box.dataset.combo);
+        }
       }
     });
     // Fecha o combo de listas ao clicar fora dele.

@@ -257,3 +257,42 @@ describe("pesquisa", () => {
     ]);
   });
 });
+
+describe("filtro por categoria na Pesquisa", () => {
+  const withCats = (id, cats) => {
+    const x = item(id);
+    x.series_metadata.tenant_categories = cats;
+    return x;
+  };
+
+  test("resultados com categorias: filtra aqui, sem consulta extra; várias = basta uma", async () => {
+    const calls = [];
+    const CRApi = {
+      search: async () => [withCats("A", ["Ação"]), withCats("B", ["Romance"]), withCats("C", ["Comedy"])],
+      browse: async (p) => (calls.push(["browse", p]), { items: [], total: 0 }),
+    };
+    // Com o analisador carregado (como na página): "Ação" e "Comedy" viram as chaves fixas.
+    const S = load(["src/analyzer.js", "src/search.js"], { CRApi, browser: {} }).CRSearch;
+    const r = await S.run({ q: "a", filters: { categories: ["action", "comedy"] }, settings });
+    assert.deepEqual(titles(r), ["A", "C"]);
+    assert.equal(calls.filter((c) => c[0] === "browse").length, 0);
+  });
+
+  test("resultados sem categorias: usa o filtro de categoria do servidor", async () => {
+    const { S, calls } = setup({
+      search: { a: [item("A"), item("B")] },
+      browse: (p) => (p.categories === "drama" ? [item("B")] : []),
+    });
+    const r = await S.run({ q: "a", filters: { categories: ["drama"] }, settings });
+    assert.deepEqual(titles(r), ["B"]);
+    assert.ok(calls.some((c) => c[0] === "browse" && c[1].categories === "drama"));
+  });
+
+  test("lista de categorias: da API; se falhar, a lista fixa", async () => {
+    const { S } = setup();
+    const ctx = load(["src/search.js"], { CRApi: { categories: async () => [{ id: "action", localization: { title: "Ação" } }] } });
+    assert.deepEqual(plain(await ctx.CRSearch.categories("pt-BR")), [{ id: "action", key: "action", title: "Ação" }]);
+    const bad = load(["src/search.js"], { CRApi: { categories: async () => { throw new Error("404"); } } });
+    assert.equal((await bad.CRSearch.categories("pt-BR")).length, S.CATEGORY_IDS.length);
+  });
+});

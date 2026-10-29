@@ -1074,5 +1074,8 @@
   },
   "genreFilterAny": {
     "message": "सभी"
+  },
+  "setOpenAppLabel": {
+    "message": "Crunchyroll लिंक Crunchyroll ऐप में खोलें"
   }
 }

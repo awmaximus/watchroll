@@ -1079,5 +1079,8 @@
   },
   "genreFilterAny": {
     "message": "All"
+  },
+  "setOpenAppLabel": {
+    "message": "Open Crunchyroll links in the Crunchyroll app"
   }
 }

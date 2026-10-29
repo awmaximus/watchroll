@@ -1074,5 +1074,8 @@
   },
   "genreFilterAny": {
     "message": "Totes"
+  },
+  "setOpenAppLabel": {
+    "message": "Obre els enllaços de Crunchyroll a l'app de Crunchyroll"
   }
 }

@@ -137,8 +137,9 @@ describe("o que é novo e notificação", () => {
 });
 
 describe("segundo plano", () => {
-  function background({ settings = {}, run } = {}) {
+  function background({ settings = {}, run, tweak } = {}) {
     const b = richBrowser();
+    if (tweak) tweak(b);
     b.storage.local.data["crnovos:settings"] = settings;
     const calls = { run: 0, release: 0, allowOpenTab: [] };
     const CRAnalyzer = {
@@ -207,6 +208,31 @@ describe("segundo plano", () => {
     assert.equal(calls.run, 1);
     assert.equal(b.badge.text, null);
     assert.equal(calls.release, 1);
+  });
+
+  test("Firefox para Android (sem browser.windows): ativa a página já aberta", async () => {
+    const updated = [];
+    const { b } = background({
+      tweak: (x) => {
+        delete x.windows;
+        x.tabs.query = async () => [{ id: 7, windowId: 1 }];
+        x.tabs.update = async (id, o) => updated.push([id, o.active]);
+      },
+    });
+    await b.action.onClicked.fire();
+    assert.deepEqual(updated, [[7, true]]);
+    assert.deepEqual(b.opened, []);
+  });
+
+  test("ícone sem cores de contador (Android): o número continua", async () => {
+    const b = richBrowser();
+    delete b.action.setBadgeBackgroundColor;
+    b.action.setBadgeTextColor = async () => {
+      throw new Error("not supported");
+    };
+    const { CRChecker } = load(["src/checker.js"], { browser: b });
+    await CRChecker.updateBadge([pending("A", "A", [ep("a1", 1)])], b);
+    assert.equal(b.badge.text, "1");
   });
 
   test("clicar na notificação abre a página da extensão", async () => {

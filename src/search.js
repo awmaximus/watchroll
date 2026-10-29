@@ -14,7 +14,7 @@
 //    pt-BR, não está entre os 871 "dublados"). Conferido em out/2026.
 // Dublagem, classificação e ano são conferidos aqui, com os dados de cada resultado.
 
-/* global CRApi */
+/* global CRApi, CRAnalyzer */
 var CRSearch = (() => {
   const PAGE = 60;
   const ANILIST = "https://graphql.anilist.co";
@@ -57,7 +57,51 @@ var CRSearch = (() => {
       seasons: meta.season_count || null,
       inWatchlist: !!(watchIds && watchIds.has(item.id)),
       rating: itemRating(item.rating),
+      genres: genreKeys(meta.tenant_categories),
     };
+  }
+
+  // ---------- categorias ----------
+  // Mesmas chaves da verificação (CRAnalyzer): "Fantasia"/"Fantasy"/"fantasy" → "fantasy".
+  const genreKey = (label) =>
+    typeof CRAnalyzer !== "undefined" && CRAnalyzer.genreKey
+      ? CRAnalyzer.genreKey(label)
+      : String(label || "").trim().toLowerCase() || null;
+  const genreKeys = (labels) => {
+    const out = [];
+    for (const l of Array.isArray(labels) ? labels : []) {
+      const k = genreKey(l);
+      if (k && !out.includes(k)) out.push(k);
+    }
+    return out;
+  };
+  // Categorias oficiais da Crunchyroll (IDs da API), usadas se a lista não vier.
+  const CATEGORY_IDS = [
+    "action", "adventure", "comedy", "drama", "fantasy", "music", "romance", "sci-fi",
+    "seinen", "shojo", "shonen", "slice-of-life", "sports", "supernatural", "thriller",
+  ];
+  async function categories(locale, api = CRApi) {
+    try {
+      const list = (await api.categories(locale))
+        .filter((c) => c && c.id)
+        .map((c) => ({ id: c.id, key: genreKey(c.id), title: (c.localization && c.localization.title) || c.id }));
+      if (list.length) return list;
+    } catch (_) {
+      // segue com a lista fixa
+    }
+    return CATEGORY_IDS.map((id) => ({ id, key: genreKey(id), title: id }));
+  }
+
+  // IDs das séries de uma categoria, pelo filtro do servidor (guardado por 6 h).
+  // Só é usado para resultados que vieram sem a lista de categorias.
+  const categoryCache = new Map();
+  async function categoryMembers(catId, locale, api) {
+    const k = `${locale}:${catId}`;
+    const hit = categoryCache.get(k);
+    if (hit && Date.now() - hit.at < CATALOG_TTL) return hit.ids;
+    const ids = new Set((await browseAll({ categories: catId, sort_by: "popularity" }, locale, api, 5000)).map((x) => x.id));
+    categoryCache.set(k, { at: Date.now(), ids });
+    return ids;
   }
 
   function itemRating(r) {
@@ -144,6 +188,7 @@ var CRSearch = (() => {
         subtitle_locales: m.subtitle_locales,
         episode_count: m.episode_count,
         season_count: m.season_count,
+        tenant_categories: m.tenant_categories,
       };
     const img = (x.images && (x.images.poster_wide || x.images.poster_tall)) || null;
     return {
@@ -272,7 +317,24 @@ var CRSearch = (() => {
       const r = normalize(it, watchIds);
       if (matches(r, filters, dubLang)) items.push(r);
     }
-    return { items: sortItems(items, filters.sort, uiLang), anilist };
+    const filtered = await byCategories(items, filters.categories, locale, api);
+    return { items: sortItems(filtered, filters.sort, uiLang), anilist };
+  }
+
+  // Filtro por categorias (várias: basta uma). O resultado que já traz as
+  // categorias é conferido aqui; os que vêm sem elas são conferidos pelo filtro de
+  // categoria do servidor (uma consulta por categoria escolhida, guardada).
+  async function byCategories(items, catIds, locale, api) {
+    const ids = (Array.isArray(catIds) ? catIds : []).filter(Boolean);
+    if (!ids.length) return items;
+    const wanted = new Set(ids.map(genreKey));
+    const unknown = items.filter((r) => !r.genres.length);
+    let members = null;
+    if (unknown.length) {
+      members = new Set();
+      for (const id of ids) for (const x of await categoryMembers(id, locale, api)) members.add(x);
+    }
+    return items.filter((r) => (r.genres.length ? r.genres.some((g) => wanted.has(g)) : members.has(r.id)));
   }
 
   // Temporadas para o filtro, com o nome traduzido pela própria Crunchyroll.
@@ -286,6 +348,8 @@ var CRSearch = (() => {
   return {
     run,
     seasons,
+    categories,
+    CATEGORY_IDS,
     catalog,
     sortItems,
     normalize,
