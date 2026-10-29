@@ -5,6 +5,10 @@
   "extDescription": {
     "message": "Não oficial. Rastreador de anime para Crunchyroll: novos episódios da sua Fila e Crunchylists, legendado ou dublado, calendário de lançamentos, simulcast e notificações de episódio novo."
   },
+  "extDescriptionShort": {
+    "message": "Episódios novos da sua Fila e Crunchylists da Crunchyroll, legendados ou dublados, com calendário e alertas. Não oficial.",
+    "description": "Descrição curta (até 132 caracteres) para o Chrome Web Store"
+  },
   "actionTitle": {
     "message": "Watchroll – Novos episódios para Crunchyroll"
   },

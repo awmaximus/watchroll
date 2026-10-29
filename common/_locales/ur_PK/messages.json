@@ -5,6 +5,9 @@
   "extDescription": {
     "message": "غیر سرکاری۔ Crunchyroll کے لیے اینیمے ٹریکر: واچ لسٹ اور Crunchylists کی نئی اقساط، سب یا ڈب، ریلیز کیلنڈر، سیمل کاسٹ کاؤنٹ ڈاؤن اور نئی قسط کی اطلاعات۔"
   },
+  "extDescriptionShort": {
+    "message": "آپ کی Crunchyroll واچ لسٹ اور Crunchylists کی نئی اقساط، سب یا ڈب، ریلیز کیلنڈر اور الرٹس کے ساتھ۔ غیر سرکاری۔"
+  },
   "actionTitle": {
     "message": "Watchroll – Crunchyroll کے لیے نئی اقساط"
   },

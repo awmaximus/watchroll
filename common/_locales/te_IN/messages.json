@@ -5,6 +5,9 @@
   "extDescription": {
     "message": "అనధికారికం. Crunchyroll కోసం అనిమే ట్రాకర్: వాచ్‌లిస్ట్, Crunchylists లోని కొత్త ఎపిసోడ్‌లు, సబ్ లేదా డబ్, విడుదల క్యాలెండర్, సిమల్‌కాస్ట్ కౌంట్‌డౌన్, కొత్త ఎపిసోడ్ నోటిఫికేషన్‌లు."
   },
+  "extDescriptionShort": {
+    "message": "మీ Crunchyroll వాచ్‌లిస్ట్, Crunchylists‌లోని కొత్త ఎపిసోడ్‌లు, సబ్ లేదా డబ్, క్యాలెండర్, హెచ్చరికలతో. అనధికారికం."
+  },
   "actionTitle": {
     "message": "Watchroll – Crunchyroll కోసం కొత్త ఎపిసోడ్‌లు"
   },

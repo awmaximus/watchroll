@@ -5,6 +5,9 @@
   "extDescription": {
     "message": "Nieoficjalne. Tracker anime dla Crunchyroll: nowe odcinki z listy obserwowanych i Crunchylist, z napisami lub dubbingiem, kalendarz premier, simulcast i powiadomienia o nowych odcinkach."
   },
+  "extDescriptionShort": {
+    "message": "Nowe odcinki z listy i Crunchylist w Crunchyroll, z napisami lub dubbingiem, z kalendarzem i powiadomieniami. Nieoficjalne."
+  },
   "actionTitle": {
     "message": "Watchroll – Nowe odcinki dla Crunchyroll"
   },

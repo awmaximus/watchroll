@@ -5,6 +5,9 @@
   "extDescription": {
     "message": "No oficial. Seguiment d'anime per a Crunchyroll: episodis nous de la teva llista i Crunchylists, subtitulats o doblats, calendari d'estrenes, simulcast i avisos d'episodis nous."
   },
+  "extDescriptionShort": {
+    "message": "Episodis nous de la teva llista i Crunchylists de Crunchyroll, subtitulats o doblats, amb calendari i avisos. No oficial."
+  },
   "actionTitle": {
     "message": "Watchroll – Episodis nous per a Crunchyroll"
   },

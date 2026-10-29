@@ -5,6 +5,9 @@
   "extDescription": {
     "message": "Resmî değildir. Crunchyroll için anime takipçisi: izleme listesi ve Crunchylist'lerdeki yeni bölümler, altyazılı veya dublajlı, yayın takvimi, simulcast geri sayımı ve yeni bölüm bildirimleri."
   },
+  "extDescriptionShort": {
+    "message": "Crunchyroll izleme listeniz ve Crunchylists'teki yeni bölümler, altyazılı veya dublajlı, takvim ve uyarılarla. Resmî değildir."
+  },
   "actionTitle": {
     "message": "Watchroll – Crunchyroll için yeni bölümler"
   },

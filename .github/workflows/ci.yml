@@ -1,6 +1,6 @@
 # CI do Watchroll.
-#  - Todo push e pull request: testes, lint e pacote (o .zip fica como artefato).
-#  - Tag "v<versão>" (ex.: v1.0.0): além disso, cria a release no GitHub com o .zip.
+#  - Todo push e pull request: testes, lint e pacotes do Firefox e do Chrome (os .zip ficam como artefato).
+#  - Tag "v<versão>" (ex.: v1.0.0): além disso, cria a release no GitHub com os dois .zip.
 #  - "Run workflow" (manual) com uma tag já existente: cria ou atualiza a release dela.
 name: CI
 
@@ -28,12 +28,16 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: 22
-      - name: Tests, lint and package
+      - name: Firefox — tests, lint and package
         run: bash ./firefox/build-firefox.sh
+      - name: Chrome — manifest checks and package (tests already ran)
+        run: bash ./chrome/build-chrome.sh --skip-tests
+      - name: Collect packages
+        run: mkdir -p packages && cp firefox/dist/*.zip chrome/dist/*.zip packages/
       - uses: actions/upload-artifact@v7
         with:
           name: extension-zip
-          path: firefox/dist/*.zip
+          path: packages/*.zip
           if-no-files-found: error
 
   release:
@@ -52,18 +56,20 @@ jobs:
       - uses: actions/download-artifact@v8
         with:
           name: extension-zip
-          path: firefox/dist
-      - name: Tag must match the manifest version
+          path: packages
+      - name: Tag must match the manifest versions
         run: |
-          version="$(node -p 'require("./firefox/manifest.json").version')"
-          if [ "v$version" != "$TAG" ]; then
-            echo "::error::Tag $TAG does not match firefox/manifest.json version $version"
-            exit 1
-          fi
+          for m in firefox chrome; do
+            version="$(node -p "require('./$m/manifest.json').version")"
+            if [ "v$version" != "$TAG" ]; then
+              echo "::error::Tag $TAG does not match $m/manifest.json version $version"
+              exit 1
+            fi
+          done
       - name: Publish release
         run: |
           if gh release view "$TAG" >/dev/null 2>&1; then
-            gh release upload "$TAG" firefox/dist/*.zip --clobber
+            gh release upload "$TAG" packages/*.zip --clobber
           else
-            gh release create "$TAG" firefox/dist/*.zip --verify-tag --title "Watchroll $TAG" --generate-notes
+            gh release create "$TAG" packages/*.zip --verify-tag --title "Watchroll $TAG" --generate-notes
           fi

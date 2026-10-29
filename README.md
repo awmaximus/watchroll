@@ -1,13 +1,14 @@
-# Watchroll – New Episodes for Crunchyroll (Firefox)
+# Watchroll – New Episodes for Crunchyroll (Firefox and Chrome)
 
-Watchroll is an anime episode tracker for Firefox. Its own page lists the episodes you haven't
+Watchroll is an anime episode tracker for Firefox and for Chrome and Chromium-based browsers
+(Edge, Brave, Opera, Vivaldi). Its own page lists the episodes you haven't
 watched yet from the series in your Crunchyroll **Watchlist** and, optionally, your
 **Crunchylists**, and it tells you when new ones come out.
 
 Source code and issues: <https://github.com/awmaximus/watchroll>
 
 Unofficial. Not affiliated with or endorsed by Crunchyroll. It uses Crunchyroll's undocumented
-API with the session you already have open in Firefox, does not change the Crunchyroll site and
+API with the session you already have open in your browser, does not change the Crunchyroll site and
 only reads data from your own account.
 
 ## Features
@@ -33,8 +34,10 @@ only reads data from your own account.
 - **Compact mode** (rows instead of cards) and **settings export/import**.
 - **27 interface languages**, including right-to-left Arabic and Urdu.
 
-Works in Firefox for desktop and Firefox for Android, version 142 or later, with a Crunchyroll
-account signed in in Firefox. See [Firefox for Android](#firefox-for-android).
+Works in Firefox for desktop and Firefox for Android, version 142 or later, and in Chrome 120 or
+later (and Chromium-based browsers), with a Crunchyroll account signed in in the browser. See
+[Firefox for Android](#firefox-for-android) and [chrome/README.md](chrome/README.md) for the
+Chrome build.
 
 ## Using the extension
 
@@ -420,6 +423,7 @@ common/                       shared by all browsers
   src/i18n.js                 translations and language selection
   src/page-hook.js            reads the token used by the site (world: MAIN)
   src/bridge.js               relays requests through a crunchyroll.com tab
+  src/compat.js               Chrome compatibility: browser = chrome, promise replies in onMessage
   tests/                      unit and integration tests with mocked browser and API (not packaged)
 firefox/                      Firefox only (desktop and Android)
   manifest.json               MV3 manifest for Firefox
@@ -428,7 +432,13 @@ firefox/                      Firefox only (desktop and Android)
   build-firefox.sh            Firefox build: tests, lint, package and signing
   package.json                npm scripts (test, lint, build, start) and version
   dist/                       generated packages (.zip, .xpi), not in git
-chrome/                       Chrome and Chromium-based browsers (planned; see chrome/README.md)
+chrome/                       Chrome and Chromium-based browsers (see chrome/README.md)
+  manifest.json               MV3 manifest for Chrome (service worker)
+  service-worker.js           background: loads common/src/ with importScripts()
+  build-chrome.sh             Chrome build: tests, manifest checks, package (and --check in Chromium)
+  package.json                npm scripts and version
+  store/listing.md            Chrome Web Store texts and permission justifications
+  dist/                       generated packages, not in git
 PRIVACY.md                    privacy policy
 .github/workflows/            CI
 ```

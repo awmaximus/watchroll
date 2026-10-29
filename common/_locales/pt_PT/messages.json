@@ -5,6 +5,9 @@
   "extDescription": {
     "message": "Não oficial. Rastreador de anime para Crunchyroll: novos episódios da sua Lista de interesses e Crunchylists, legendado ou dobrado, calendário de estreias, simulcast e notificações de episódio novo."
   },
+  "extDescriptionShort": {
+    "message": "Episódios novos da sua Lista e Crunchylists da Crunchyroll, legendados ou dobrados, com calendário e alertas. Não oficial."
+  },
   "actionTitle": {
     "message": "Watchroll – Novos episódios para Crunchyroll"
   },

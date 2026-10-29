@@ -1,24 +1,65 @@
-# Chrome and Chromium-based browsers (planned)
+# Watchroll for Chrome and Chromium-based browsers
 
-This folder will hold what is specific to Google Chrome and Chromium-based browsers (Edge,
-Brave, Opera, Vivaldi…), next to `../firefox/` for Firefox. The extension code itself lives in
-`../common/` and is shared by every browser.
+Build for Google Chrome, Microsoft Edge, Brave, Opera, Vivaldi and other Chromium browsers
+(Chrome 120 or later). The extension code is the same as the Firefox one, in `../common/`;
+this folder only has what is specific to Chrome:
 
-What a Chrome build still needs (not done yet):
+```
+manifest.json       MV3 manifest for Chrome (service worker, PNG toolbar icons, short description)
+service-worker.js   background: loads the shared scripts from common/src/ with importScripts()
+package.json        npm scripts and the Chrome version
+build-chrome.sh     tests, manifest checks, package in chrome/dist/
+store/listing.md    Chrome Web Store texts and the answers the store asks for
+dist/               generated packages (not in git)
+```
 
-- `manifest.json` for Chrome (MV3): `background.service_worker` instead of `background.scripts`
-  (a small `background.js` here that `importScripts()` the files from `common/src/`), no
-  `browser_specific_settings`, `"incognito": "not_allowed"` kept, the same permissions and
-  content scripts (`world: "MAIN"` is supported).
-- The `browser.*` API: the code in `common/` uses Firefox's promise-based `browser` namespace.
-  Chrome exposes `chrome.*` (promise-based in MV3); a tiny shim (`globalThis.browser ??= chrome`)
-  loaded first is enough for the APIs Watchroll uses. `browser.storage.session`,
-  `scripting`, `alarms` and `notifications` exist in Chrome MV3.
-- `runtime.getPlatformInfo().os` is never `"android"` in Chrome, so the "open in the
-  Crunchyroll app" option stays hidden there.
-- `build-chrome.sh` and `package.json` in this folder, like `../firefox/build-firefox.sh`: copy
-  `common/` plus this folder's `manifest.json` into a clean folder and zip it for the Chrome
-  Web Store (output in `chrome/dist/`, already ignored by git).
-- The tests in `../common/tests/` already cover the shared code; a Chrome build only needs
-  them to pass.
-- Chrome Web Store listing text, screenshots (1280×800) and icons in `chrome/store/`.
+## How the shared code runs in Chrome
+
+- `common/src/compat.js` is loaded first everywhere. In Firefox it does nothing. In Chrome it
+  makes `browser` point to `chrome` (promise-based in MV3) and lets `runtime.onMessage`
+  listeners answer with a Promise, as in Firefox.
+- The background runs as a service worker (`service-worker.js`) instead of Firefox's
+  background scripts. Everything it keeps between checks is already in `storage`, so being
+  stopped and restarted by Chrome is fine.
+- Without the `tabs` permission Chrome ignores the URL filter of `tabs.query`, so the code
+  checks the URL itself before reusing the extension's tab.
+- The store description must be 132 characters or less, so the Chrome manifest uses
+  `extDescriptionShort` (27 languages) instead of Firefox's longer `extDescription`.
+- Firefox-only features fall back silently: there is no "share search terms" permission (the
+  AniList option just turns on), and the "open in the Crunchyroll app" option (Firefox for
+  Android) never shows.
+
+## Build
+
+```sh
+chrome/build-chrome.sh                 # tests + manifest checks + chrome/dist/watchroll-chrome-<version>.zip
+chrome/build-chrome.sh --skip-tests    # skip tests
+chrome/build-chrome.sh --check         # also load it in a test Chromium and fail on errors
+```
+
+`--check` needs Playwright (`npm i -g playwright && npx playwright install chromium`; set
+`NODE_PATH="$(npm root -g)"` if it is installed globally). It starts the service worker, opens
+the extension page and fails if either throws an error. Errors the extension handles itself
+(no Crunchyroll session or network in the test browser) are ignored.
+
+Keep `version` the same in `manifest.json` and `package.json`. The Chrome Web Store has its
+own version history, separate from addons.mozilla.org; using the same number as the Firefox
+release keeps things simple. Chrome accepts only numbers (`1.2.3`, up to four parts).
+
+## Install for testing
+
+1. Run `chrome/build-chrome.sh` and unzip `chrome/dist/watchroll-chrome-<version>.zip` into a
+   folder.
+2. Open `chrome://extensions` (Edge: `edge://extensions`), turn on **Developer mode**.
+3. **Load unpacked** and pick that folder.
+
+## Publish
+
+1. Create a developer account at <https://chrome.google.com/webstore/devconsole> (one-time fee).
+2. **New item** → upload `chrome/dist/watchroll-chrome-<version>.zip`.
+3. Fill the listing and the privacy tab with the texts in [store/listing.md](store/listing.md).
+   Screenshots: the 1280×800 images in `../firefox/store/screenshots/` work as they are.
+4. For a new version: bump `version` in `manifest.json` and `package.json`, build and upload
+   the new `.zip` in the same item.
+
+Edge has its own store (Microsoft Partner Center) and accepts the same `.zip`.

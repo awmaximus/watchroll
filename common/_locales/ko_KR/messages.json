@@ -5,6 +5,9 @@
   "extDescription": {
     "message": "비공식. Crunchyroll 애니메이션 트래커: 관심 목록과 크런치리스트의 새 에피소드, 자막 또는 더빙, 공개 일정, 동시 방영 카운트다운, 새 에피소드 알림."
   },
+  "extDescriptionShort": {
+    "message": "Crunchyroll 워치리스트와 Crunchylist의 새 에피소드를 자막·더빙별로 표시. 공개 캘린더와 알림 제공. 비공식."
+  },
   "actionTitle": {
     "message": "Watchroll – Crunchyroll용 새 에피소드"
   },

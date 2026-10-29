@@ -5,6 +5,9 @@
   "extDescription": {
     "message": "অনানুষ্ঠানিক। Crunchyroll-এর জন্য অ্যানিমে ট্র্যাকার: ওয়াচলিস্ট ও Crunchylists-এর নতুন এপিসোড, সাব বা ডাব, রিলিজ ক্যালেন্ডার, সিমুলকাস্ট কাউন্টডাউন ও নতুন এপিসোডের বিজ্ঞপ্তি।"
   },
+  "extDescriptionShort": {
+    "message": "আপনার Crunchyroll ওয়াচলিস্ট ও Crunchylists-এর নতুন পর্ব, সাব বা ডাব, রিলিজ ক্যালেন্ডার ও অ্যালার্টসহ। অনানুষ্ঠানিক।"
+  },
   "actionTitle": {
     "message": "Watchroll – Crunchyroll-এর জন্য নতুন এপিসোড"
   },

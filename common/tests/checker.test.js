@@ -215,13 +215,26 @@ describe("segundo plano", () => {
     const { b } = background({
       tweak: (x) => {
         delete x.windows;
-        x.tabs.query = async () => [{ id: 7, windowId: 1 }];
+        x.tabs.query = async () => [{ id: 7, windowId: 1, url: "moz-extension://x/dashboard/dashboard.html" }];
         x.tabs.update = async (id, o) => updated.push([id, o.active]);
       },
     });
     await b.action.onClicked.fire();
     assert.deepEqual(updated, [[7, true]]);
     assert.deepEqual(b.opened, []);
+  });
+
+  test("Chrome sem a permissão tabs (filtro por url ignorado): não ativa outra aba", async () => {
+    const updated = [];
+    const { b } = background({
+      tweak: (x) => {
+        x.tabs.query = async () => [{ id: 3, windowId: 1, url: "https://example.com/" }, { id: 4, windowId: 1 }];
+        x.tabs.update = async (id) => updated.push(id);
+      },
+    });
+    await b.action.onClicked.fire();
+    assert.deepEqual(updated, []);
+    assert.deepEqual(b.opened, ["moz-extension://x/dashboard/dashboard.html"]);
   });
 
   test("ícone sem cores de contador (Android): o número continua", async () => {

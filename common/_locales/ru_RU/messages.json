@@ -5,6 +5,9 @@
   "extDescription": {
     "message": "Неофициальное. Трекер аниме для Crunchyroll: новые серии из списка «Смотреть позже» и Crunchylists, субтитры или озвучка, календарь выхода, симулкаст и уведомления о новых сериях."
   },
+  "extDescriptionShort": {
+    "message": "Новые серии из вашего списка и Crunchylists на Crunchyroll, с субтитрами или озвучкой, с календарём и уведомлениями. Неофициально."
+  },
   "actionTitle": {
     "message": "Watchroll – Новые серии для Crunchyroll"
   },

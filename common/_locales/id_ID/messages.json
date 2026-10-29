@@ -5,6 +5,9 @@
   "extDescription": {
     "message": "Tidak resmi. Pelacak anime untuk Crunchyroll: episode baru dari Watchlist dan Crunchylist, sub atau dub, kalender rilis, hitung mundur simulcast, dan notifikasi episode baru."
   },
+  "extDescriptionShort": {
+    "message": "Episode baru dari daftar tonton dan Crunchylist Crunchyroll, sub atau dub, dengan kalender rilis dan notifikasi. Tidak resmi."
+  },
   "actionTitle": {
     "message": "Watchroll – Episode baru untuk Crunchyroll"
   },

@@ -5,6 +5,10 @@
   "extDescription": {
     "message": "Unofficial anime episode tracker for Crunchyroll: new episodes from your Watchlist and Crunchylists, sub or dub, release calendar, simulcast countdown and new episode notifications."
   },
+  "extDescriptionShort": {
+    "message": "New episodes from your Crunchyroll Watchlist and Crunchylists, sub or dub, with a release calendar and alerts. Unofficial.",
+    "description": "Short description (max. 132 characters) for the Chrome Web Store"
+  },
   "actionTitle": {
     "message": "Watchroll – New episodes for Crunchyroll"
   },

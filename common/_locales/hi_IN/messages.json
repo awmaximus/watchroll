@@ -5,6 +5,9 @@
   "extDescription": {
     "message": "अनौपचारिक। Crunchyroll के लिए एनीमे ट्रैकर: वॉचलिस्ट और Crunchylists के नए एपिसोड, सब या डब, रिलीज़ कैलेंडर, सिमुलकास्ट काउंटडाउन और नए एपिसोड की सूचनाएँ।"
   },
+  "extDescriptionShort": {
+    "message": "आपकी Crunchyroll वॉचलिस्ट और Crunchylists के नए एपिसोड, सबटाइटल या डब, रिलीज़ कैलेंडर और अलर्ट के साथ। अनौपचारिक।"
+  },
   "actionTitle": {
     "message": "Watchroll – Crunchyroll के लिए नए एपिसोड"
   },

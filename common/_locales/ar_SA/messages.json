@@ -5,6 +5,9 @@
   "extDescription": {
     "message": "غير رسمي. متتبّع أنمي لـ Crunchyroll: الحلقات الجديدة من قائمة المشاهدة وقوائم Crunchylists، مترجمة أو مدبلجة، تقويم الإصدارات، عدّ تنازلي للبث المتزامن وإشعارات الحلقات الجديدة."
   },
+  "extDescriptionShort": {
+    "message": "الحلقات الجديدة من قائمة المشاهدة وقوائم Crunchylists في Crunchyroll، مترجمة أو مدبلجة، مع تقويم وتنبيهات. غير رسمي."
+  },
   "actionTitle": {
     "message": "Watchroll – حلقات جديدة لـ Crunchyroll"
   },

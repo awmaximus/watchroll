@@ -5,6 +5,9 @@
   "extDescription": {
     "message": "Non officiel. Suivi d'anime pour Crunchyroll : nouveaux épisodes de votre Liste et de vos Crunchylists, VOSTFR ou VF, calendrier des sorties, simulcast et notifications de nouveaux épisodes."
   },
+  "extDescriptionShort": {
+    "message": "Nouveaux épisodes de votre liste et Crunchylists Crunchyroll, VOSTFR ou VF, avec calendrier et alertes. Non officiel."
+  },
   "actionTitle": {
     "message": "Watchroll – Nouveaux épisodes pour Crunchyroll"
   },

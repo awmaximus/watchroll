@@ -5,6 +5,9 @@
   "extDescription": {
     "message": "Non ufficiale. Tracker di anime per Crunchyroll: nuovi episodi della tua Watchlist e Crunchylist, sottotitolati o doppiati, calendario delle uscite, simulcast e notifiche dei nuovi episodi."
   },
+  "extDescriptionShort": {
+    "message": "Nuovi episodi dalla tua lista e Crunchylist di Crunchyroll, sottotitolati o doppiati, con calendario e avvisi. Non ufficiale."
+  },
   "actionTitle": {
     "message": "Watchroll – Nuovi episodi per Crunchyroll"
   },

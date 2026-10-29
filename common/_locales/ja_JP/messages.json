@@ -5,6 +5,9 @@
   "extDescription": {
     "message": "非公式。Crunchyroll 用アニメトラッカー:ウォッチリストとクランチリストの新着エピソード、字幕・吹き替え、配信カレンダー、同時配信のカウントダウン、新着通知。"
   },
+  "extDescriptionShort": {
+    "message": "Crunchyroll のウォッチリストと Crunchylist の新着エピソードを字幕・吹き替え別に表示。配信カレンダーと通知付き。非公式。"
+  },
   "actionTitle": {
     "message": "Watchroll – 新着エピソード for Crunchyroll"
   },

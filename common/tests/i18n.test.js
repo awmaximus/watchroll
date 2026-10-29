@@ -9,6 +9,7 @@ const LOCALES = fs.readdirSync(path.join(ROOT, "_locales"));
 const pt = readMessages("pt_BR");
 const read = (f) => fs.readFileSync(path.join(ROOT, f), "utf8");
 const readFirefox = (f) => fs.readFileSync(path.join(FIREFOX, f), "utf8");
+const readChrome = (f) => fs.readFileSync(path.join(FIREFOX, "..", "chrome", f), "utf8");
 const placeholders = (entry) => (entry.message.match(/\$[A-Za-z0-9_@]+\$/g) || []).sort();
 const CODE = ["src/i18n.js", "src/api.js", "src/analyzer.js", "src/checker.js", "src/background.js", "dashboard/dashboard.js"];
 
@@ -60,6 +61,7 @@ describe("arquivos de tradução", () => {
       }
     }
     for (const m of readFirefox("manifest.json").matchAll(/__MSG_([A-Za-z0-9_]+)__/g)) used.add(m[1]);
+    for (const m of readChrome("manifest.json").matchAll(/__MSG_([A-Za-z0-9_]+)__/g)) used.add(m[1]);
     for (const m of read("dashboard/dashboard.html").matchAll(/data-i18n(?:-[a-z-]+)?="([^"]+)"/g)) used.add(m[1]);
     // As ordenações guardam a chave do rótulo.
     const { CRChecker } = load(["src/checker.js"]);

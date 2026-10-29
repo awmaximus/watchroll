@@ -5,6 +5,9 @@
   "extDescription": {
     "message": "Inoffiziell. Anime-Tracker für Crunchyroll: neue Folgen deiner Watchlist und Crunchylists, OmU oder Synchro, Veröffentlichungskalender, Simulcast und Benachrichtigungen bei neuen Folgen."
   },
+  "extDescriptionShort": {
+    "message": "Neue Folgen aus deiner Crunchyroll-Watchlist und Crunchylists, OmU oder Synchro, mit Kalender und Hinweisen. Inoffiziell."
+  },
   "actionTitle": {
     "message": "Watchroll – Neue Folgen für Crunchyroll"
   },

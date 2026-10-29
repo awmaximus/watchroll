@@ -183,7 +183,7 @@ describe("transporte", () => {
       sessionToken: validSession(),
     });
     await api.watchlist("pt-BR");
-    assert.deepEqual(plain(injected), { target: { tabId: 3 }, files: ["src/bridge.js"] });
+    assert.deepEqual(plain(injected), { target: { tabId: 3 }, files: ["src/compat.js", "src/bridge.js"] });
   });
 });
 

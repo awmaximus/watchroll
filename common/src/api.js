@@ -117,7 +117,7 @@ var CRApi = (() => {
       // Aba aberta antes de instalar a extensão: injeta a ponte agora.
       await browser.scripting.executeScript({
         target: { tabId: tab.id },
-        files: ["src/bridge.js"],
+        files: ["src/compat.js", "src/bridge.js"], // compat: Chrome (no Firefox não faz nada)
       });
     }
     proxyTabId = tab.id;

@@ -5,6 +5,9 @@
   "extDescription": {
     "message": "非官方。Crunchyroll 動畫追番工具:追番清單和 Crunchylists 的新劇集,字幕或配音,上線日曆,同步播出倒數和新劇集通知。"
   },
+  "extDescriptionShort": {
+    "message": "顯示 Crunchyroll 觀看清單與 Crunchylist 的新集數，區分字幕與配音，附上線日曆與通知。非官方。"
+  },
   "actionTitle": {
     "message": "Watchroll – 新劇集 for Crunchyroll"
   },

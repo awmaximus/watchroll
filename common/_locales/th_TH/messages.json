@@ -5,6 +5,9 @@
   "extDescription": {
     "message": "ไม่เป็นทางการ ตัวติดตามอนิเมะสำหรับ Crunchyroll: ตอนใหม่จากรายการที่จะดูและ Crunchylist ซับหรือพากย์ ปฏิทินออกอากาศ นับถอยหลังซิมัลคาสต์ และแจ้งเตือนตอนใหม่"
   },
+  "extDescriptionShort": {
+    "message": "ตอนใหม่จากรายการดูและ Crunchylist ของ Crunchyroll แบบซับหรือพากย์ พร้อมปฏิทินออกฉายและการแจ้งเตือน ไม่เป็นทางการ"
+  },
   "actionTitle": {
     "message": "Watchroll – ตอนใหม่สำหรับ Crunchyroll"
   },

@@ -5,6 +5,9 @@
   "extDescription": {
     "message": "Tidak rasmi. Penjejak anime untuk Crunchyroll: episod baharu daripada Senarai Tontonan dan Crunchylist, sari kata atau alih suara, kalendar tayangan, kira detik simulcast dan pemberitahuan episod baharu."
   },
+  "extDescriptionShort": {
+    "message": "Episod baharu daripada senarai dan Crunchylist Crunchyroll, sari kata atau alih suara, dengan kalendar dan amaran. Tidak rasmi."
+  },
   "actionTitle": {
     "message": "Watchroll – Episod baharu untuk Crunchyroll"
   },

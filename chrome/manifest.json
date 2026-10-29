@@ -1,0 +1,57 @@
+{
+  "manifest_version": 3,
+  "name": "__MSG_extName__",
+  "default_locale": "en_US",
+  "version": "1.2.3",
+  "description": "__MSG_extDescriptionShort__",
+  "homepage_url": "https://github.com/awmaximus/watchroll",
+  "minimum_chrome_version": "120",
+  "icons": {
+    "48": "icons/icon-48.png",
+    "96": "icons/icon-96.png",
+    "128": "icons/icon-128.png"
+  },
+  "action": {
+    "default_title": "__MSG_actionTitle__",
+    "default_icon": {
+      "48": "icons/icon-48.png",
+      "96": "icons/icon-96.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "background": {
+    "service_worker": "service-worker.js"
+  },
+  "incognito": "not_allowed",
+  "permissions": [
+    "storage",
+    "scripting",
+    "alarms",
+    "notifications"
+  ],
+  "host_permissions": [
+    "https://www.crunchyroll.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.crunchyroll.com/*"
+      ],
+      "js": [
+        "src/page-hook.js"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "https://www.crunchyroll.com/*"
+      ],
+      "js": [
+        "src/compat.js",
+        "src/bridge.js"
+      ],
+      "run_at": "document_start"
+    }
+  ]
+}

@@ -5,6 +5,9 @@
   "extDescription": {
     "message": "Không chính thức. Trình theo dõi anime cho Crunchyroll: tập mới từ Danh sách theo dõi và Crunchylist, phụ đề hoặc lồng tiếng, lịch phát hành, đếm ngược simulcast và thông báo tập mới."
   },
+  "extDescriptionShort": {
+    "message": "Tập mới từ danh sách xem và Crunchylist của Crunchyroll, phụ đề hoặc lồng tiếng, kèm lịch phát hành và thông báo. Không chính thức."
+  },
   "actionTitle": {
     "message": "Watchroll – Tập mới cho Crunchyroll"
   },

@@ -16,7 +16,9 @@ const RELEASE_ALARM = "crnovos-lancamento"; // verificação extra logo após um
 async function openPage() {
   let tab = null;
   try {
-    [tab] = await browser.tabs.query({ url: PAGE });
+    // No Chrome, sem a permissão "tabs" o filtro por url é ignorado e a consulta
+    // devolve todas as abas: por isso a conferência do endereço aqui.
+    tab = (await browser.tabs.query({ url: PAGE })).find((t) => t.url && t.url.startsWith(PAGE)) || null;
   } catch (_) {
     tab = null;
   }

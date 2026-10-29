@@ -5,6 +5,9 @@
   "extDescription": {
     "message": "अनधिकृत. Crunchyroll साठी ॲनिमे ट्रॅकर: वॉचलिस्ट आणि Crunchylists मधील नवीन भाग, सब किंवा डब, प्रकाशन दिनदर्शिका, सिमुलकास्ट काउंटडाउन आणि नवीन भागांच्या सूचना."
   },
+  "extDescriptionShort": {
+    "message": "तुमच्या Crunchyroll वॉचलिस्ट आणि Crunchylists मधील नवे भाग, सब किंवा डब, कॅलेंडर आणि सूचनांसह. अनधिकृत."
+  },
   "actionTitle": {
     "message": "Watchroll – Crunchyroll साठी नवीन भाग"
   },

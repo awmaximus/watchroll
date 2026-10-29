@@ -1,0 +1,23 @@
+{
+  "name": "watchroll",
+  "version": "1.2.3",
+  "private": true,
+  "description": "Watchroll for Chrome and Chromium-based browsers (Edge, Brave, Opera, Vivaldi): tracks new anime episodes from your Crunchyroll Watchlist and Crunchylists, sub or dub.",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test \"../common/tests/*.test.js\"",
+    "build": "./build-chrome.sh",
+    "check": "./build-chrome.sh --check"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "homepage": "https://github.com/awmaximus/watchroll#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/awmaximus/watchroll.git"
+  },
+  "bugs": {
+    "url": "https://github.com/awmaximus/watchroll/issues"
+  }
+}
