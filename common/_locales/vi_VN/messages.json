@@ -952,6 +952,9 @@
   "setBackupHelp": {
     "message": "Lưu hoặc khôi phục tùy chọn (chế độ từng bộ, bộ đã ẩn, danh sách và ngôn ngữ) vào tệp. Không gồm đăng nhập và lịch sử."
   },
+  "setSyncHelp": {
+    "message": "Cài đặt của bạn cũng được đồng bộ sang các máy tính khác mà bạn dùng Watchroll, qua tính năng đồng bộ của trình duyệt (tài khoản Firefox hoặc Google). Thẻ đang mở và bộ lọc chỉ lưu trên thiết bị này."
+  },
   "btnExport": {
     "message": "Xuất"
   },

@@ -958,6 +958,9 @@
   "setBackupHelp": {
     "message": "Saves or restores your preferences (per-series modes, hidden series, lists and languages) to a file. No login or history is included."
   },
+  "setSyncHelp": {
+    "message": "Your settings are also synced to the other computers where you use Watchroll, through your browser's sync (Firefox or Google account). The open tab and filters stay on this device only."
+  },
   "btnExport": {
     "message": "Export"
   },

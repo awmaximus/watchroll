@@ -859,7 +859,7 @@
     "message": "擴充功能語言"
   },
   "setUiLangHelp": {
-    "message": "「自動」會跟隨瀏覽器的語言。"
+    "message": "「自動」會跟隨 Firefox 的語言。"
   },
   "setListsLabel": {
     "message": "要檢查的清單"
@@ -951,6 +951,9 @@
   },
   "setBackupHelp": {
     "message": "將你的偏好(每部系列的模式、隱藏的系列、清單和語言)儲存到檔案或從檔案還原。不含登入資訊和觀看記錄。"
+  },
+  "setSyncHelp": {
+    "message": "你的設定也會透過瀏覽器同步（Firefox 帳戶或 Google 帳戶）同步到你使用 Watchroll 的其他電腦。目前開啟的分頁和篩選條件只保留在這台裝置上。"
   },
   "btnExport": {
     "message": "匯出"

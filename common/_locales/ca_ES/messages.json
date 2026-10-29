@@ -952,6 +952,9 @@
   "setBackupHelp": {
     "message": "Desa o restaura les teves preferències (modes per sèrie, sèries amagades, llistes i idiomes) en un fitxer. No inclou la sessió ni l'historial."
   },
+  "setSyncHelp": {
+    "message": "Les teves preferències també se sincronitzen amb els altres ordinadors on fas servir el Watchroll, mitjançant la sincronització del navegador (compte del Firefox o de Google). La pestanya oberta i els filtres es queden només en aquest dispositiu."
+  },
   "btnExport": {
     "message": "Exporta"
   },

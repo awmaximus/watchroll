@@ -952,6 +952,9 @@
   "setBackupHelp": {
     "message": "환경설정(시리즈별 모드, 숨긴 시리즈, 목록, 언어)을 파일로 저장하거나 복원합니다. 로그인 정보와 기록은 포함되지 않습니다."
   },
+  "setSyncHelp": {
+    "message": "설정은 브라우저 동기화(Firefox 계정 또는 Google 계정)를 통해 Watchroll을 쓰는 다른 컴퓨터에도 동기화됩니다. 열려 있는 탭과 필터는 이 기기에만 남습니다."
+  },
   "btnExport": {
     "message": "내보내기"
   },

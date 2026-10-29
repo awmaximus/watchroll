@@ -32,6 +32,7 @@
   };
 
   const $ = (id) => document.getElementById(id);
+  const pick = (obj, keys) => Object.fromEntries(keys.filter((k) => k in (obj || {})).map((k) => [k, obj[k]]));
 
   function el(tag, attrs = {}, ...children) {
     const node = document.createElement(tag);
@@ -1813,6 +1814,23 @@
         query = e.target.value;
         render();
       }, 120);
+    });
+
+    // Preferências mudadas em outro computador (chegaram pelo storage.sync e o
+    // segundo plano atualizou a cópia local): a página passa a usar as novas. As
+    // gravações da própria página chegam aqui também, mas são iguais e são ignoradas.
+    browser.storage.onChanged.addListener(async (changes, area) => {
+      const c = area === "local" && changes[CRChecker.SETTINGS_KEY];
+      if (!c || !c.newValue) return;
+      const same = (a, b) => JSON.stringify(CRChecker.syncedPart(a)) === JSON.stringify(CRChecker.syncedPart(b));
+      if (same(c.newValue, settings)) return;
+      const before = settings;
+      settings = { ...(await CRChecker.loadSettings()), ...pick(before, ["tab", "listFilter", "genreFilters", "audioFilter"]) };
+      if ((before.uiLang || "auto") !== (settings.uiLang || "auto")) return location.reload(); // abre já traduzida
+      renderSettingsForm();
+      renderListsField();
+      if (busy) render();
+      else refresh(false); // modos, listas e idiomas mudam o resultado; o cache é reaproveitado
     });
 
     // A verificação em segundo plano achou algo com a página aberta: mostra na hora

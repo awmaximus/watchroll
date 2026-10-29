@@ -952,6 +952,9 @@
   "setBackupHelp": {
     "message": "Speichert oder stellt deine Einstellungen (Modus je Serie, ausgeblendete Serien, Listen und Sprachen) aus einer Datei wieder her. Ohne Anmeldung und Verlauf."
   },
+  "setSyncHelp": {
+    "message": "Deine Einstellungen werden über die Synchronisierung des Browsers (Firefox- oder Google-Konto) auch mit deinen anderen Computern mit Watchroll abgeglichen. Geöffneter Tab und Filter bleiben nur auf diesem Gerät."
+  },
   "btnExport": {
     "message": "Exportieren"
   },

@@ -952,6 +952,9 @@
   "setBackupHelp": {
     "message": "Tercihlerini (dizi başına mod, gizli diziler, listeler ve diller) bir dosyaya kaydeder veya geri yükler. Oturum ve geçmiş dahil değildir."
   },
+  "setSyncHelp": {
+    "message": "Ayarlarınız, tarayıcı eşitlemesiyle (Firefox veya Google hesabı) Watchroll kullandığınız diğer bilgisayarlarla da eşitlenir. Açık sekme ve filtreler yalnızca bu cihazda kalır."
+  },
   "btnExport": {
     "message": "Dışa aktar"
   },

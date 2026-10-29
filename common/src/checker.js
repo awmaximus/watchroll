@@ -43,8 +43,203 @@ var CRChecker = (() => {
     groupNever: true, // "A iniciar" agrupado pela temporada de lançamento
   };
 
+  // ---------- preferências: locais + sincronizadas (storage.sync) ----------
+  // As preferências ficam no storage.local (leitura rápida, e o resto da extensão
+  // reage às mudanças ali) e também no storage.sync, que o navegador leva para os
+  // outros computadores da mesma conta (Firefox Sync, sincronização do Chrome).
+  //
+  //  - O storage.sync aceita no máximo 8 KB por item e ~100 KB no total: o JSON das
+  //    preferências é dividido em pedaços (crnovos:sync:0, :1…) e o item
+  //    crnovos:sync:meta diz quantos são, o tamanho e um checksum. Pedaços que ainda
+  //    não chegaram todos (ou de versões diferentes) não batem com o checksum e são
+  //    ignorados até completar.
+  //  - O que é estado da tela de um aparelho (aba aberta, filtros, nomes das listas
+  //    lidos da API) não é sincronizado.
+  //  - Vale a versão mais nova (data da gravação). Na primeira vez que um aparelho
+  //    encontra preferências no sync, os modos por série e as séries ocultas dos dois
+  //    lados são somados, para não perder nada do que já existia.
+  //  - Sem storage.sync (ou com erro), tudo continua funcionando só com o local.
+  const SETTINGS_AT_KEY = "crnovos:settingsAt"; // quando as preferências locais mudaram
+  const SYNCED_AT_KEY = "crnovos:syncedAt"; // versão do sync que este aparelho já tem
+  const SYNC_PREFIX = "crnovos:sync:";
+  const SYNC_META = SYNC_PREFIX + "meta";
+  const LOCAL_ONLY = ["tab", "listFilter", "genreFilters", "audioFilter", "listNames"];
+  const SYNC_ITEM_BYTES = 8192 - 64; // margem para o nome da chave
+  const SYNC_TOTAL_BYTES = 102400 - 2048;
+
+  function syncArea(b) {
+    try {
+      const area = b && b.storage && b.storage.sync;
+      return area && typeof area.get === "function" && typeof area.set === "function" ? area : null;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  const syncedPart = (settings) =>
+    Object.fromEntries(Object.entries(settings || {}).filter(([k]) => !LOCAL_ONLY.includes(k)));
+  const localPart = (settings) =>
+    Object.fromEntries(Object.entries(settings || {}).filter(([k]) => LOCAL_ONLY.includes(k)));
+
+  // Bytes de um caractere dentro de uma string JSON (UTF-8, com os escapes).
+  function jsonCharBytes(ch) {
+    if (ch === '"' || ch === "\\") return 2;
+    const c = ch.codePointAt(0);
+    if (c < 0x20) return 6;
+    if (c < 0x80) return 1;
+    if (c < 0x800) return 2;
+    if (c < 0x10000) return 3;
+    return 4;
+  }
+  const jsonBytes = (text) => {
+    let n = 2; // aspas
+    for (const ch of text) n += jsonCharBytes(ch);
+    return n;
+  };
+
+  /** Divide o texto em pedaços que, gravados como string JSON, cabem em um item. */
+  function chunkText(text, limit = SYNC_ITEM_BYTES) {
+    const chunks = [];
+    let cur = "";
+    let size = 2;
+    for (const ch of text) {
+      const cost = jsonCharBytes(ch);
+      if (cur && size + cost > limit) {
+        chunks.push(cur);
+        cur = "";
+        size = 2;
+      }
+      cur += ch;
+      size += cost;
+    }
+    chunks.push(cur);
+    return chunks;
+  }
+
+  // FNV-1a de 32 bits: só para saber se os pedaços formam o texto certo.
+  function checksum(text) {
+    let h = 0x811c9dc5;
+    for (let i = 0; i < text.length; i++) {
+      h ^= text.charCodeAt(i);
+      h = Math.imul(h, 0x01000193) >>> 0;
+    }
+    return h.toString(16);
+  }
+
+  /** Preferências guardadas no sync: { data, at, text }; null se vazio; { incomplete: true }
+   *  se os pedaços ainda estão chegando de outro aparelho (ou não deu para ler). */
+  async function readSync(b = browser) {
+    const area = syncArea(b);
+    if (!area) return null;
+    try {
+      const all = (await area.get(null)) || {};
+      const meta = all[SYNC_META];
+      if (!meta || !Number.isInteger(meta.n) || meta.n < 1) return null;
+      let text = "";
+      for (let i = 0; i < meta.n; i++) {
+        const part = all[SYNC_PREFIX + i];
+        if (typeof part !== "string") return { incomplete: true }; // ainda chegando
+        text += part;
+      }
+      if (text.length !== meta.len || checksum(text) !== meta.sum) return { incomplete: true };
+      const data = JSON.parse(text);
+      if (!data || typeof data !== "object" || Array.isArray(data)) return { incomplete: true };
+      return { data, at: Number(meta.at) || 0, text };
+    } catch (err) {
+      console.warn("[Watchroll] não deu para ler as preferências sincronizadas:", err);
+      return { incomplete: true };
+    }
+  }
+
+  // Último texto gravado/lido no sync por este contexto: evita regravar o mesmo.
+  let syncedText = null;
+
+  /** Grava a parte sincronizável das preferências no sync. Devolve true se gravou. */
+  async function pushSync(settings, at, b = browser) {
+    const area = syncArea(b);
+    if (!area) return false;
+    const text = JSON.stringify(syncedPart(settings));
+    if (text === syncedText) return true;
+    const chunks = chunkText(text);
+    const meta = { n: chunks.length, len: text.length, sum: checksum(text), at };
+    const total =
+      chunks.reduce((sum, c, i) => sum + jsonBytes(c) + (SYNC_PREFIX + i).length, 0) +
+      JSON.stringify(meta).length +
+      SYNC_META.length;
+    if (total > SYNC_TOTAL_BYTES) {
+      console.warn(`[Watchroll] preferências grandes demais para sincronizar (${total} bytes); ficam só neste aparelho.`);
+      return false;
+    }
+    try {
+      const old = ((await area.get(SYNC_META)) || {})[SYNC_META];
+      const items = { [SYNC_META]: meta };
+      chunks.forEach((c, i) => (items[SYNC_PREFIX + i] = c));
+      await area.set(items);
+      const stale = [];
+      for (let i = chunks.length; old && i < old.n; i++) stale.push(SYNC_PREFIX + i);
+      if (stale.length) await area.remove(stale);
+      syncedText = text;
+      await b.storage.local.set({ [SYNCED_AT_KEY]: at });
+      return true;
+    } catch (err) {
+      // Sem conta/sincronização, cota, limite de gravações…: fica só no local.
+      console.warn("[Watchroll] não deu para sincronizar as preferências:", err);
+      return false;
+    }
+  }
+
+  // Primeira vez neste aparelho: soma os modos por série e as ocultas dos dois lados
+  // (o sync vence quando os dois têm a mesma série).
+  const mergeFirst = (local, remote) => ({
+    ...local,
+    ...remote,
+    seriesModes: { ...(local.seriesModes || {}), ...(remote.seriesModes || {}) },
+    hidden: { ...(local.hidden || {}), ...(remote.hidden || {}) },
+  });
+
+  /** Lê as preferências guardadas (local + sync), sem os valores padrão. */
+  async function loadStored(b = browser) {
+    const local = (await b.storage.local.get(SETTINGS_KEY))[SETTINGS_KEY] || {};
+    const remote = await readSync(b);
+    // Chegando de outro aparelho: usa o local por enquanto, sem gravar por cima.
+    if (remote && remote.incomplete) return local;
+    if (!remote) {
+      // Nada (completo) no sync: este aparelho é a fonte; leva para lá.
+      if (syncArea(b) && Object.keys(local).length) {
+        const at = (await b.storage.local.get(SETTINGS_AT_KEY))[SETTINGS_AT_KEY] || Date.now();
+        await pushSync(local, at, b);
+      }
+      return local;
+    }
+    syncedText = remote.text;
+    const localAt = Number((await b.storage.local.get(SETTINGS_AT_KEY))[SETTINGS_AT_KEY]) || 0;
+    const syncedAt = Number((await b.storage.local.get(SYNCED_AT_KEY))[SYNCED_AT_KEY]) || 0;
+
+    let chosen;
+    let push = false;
+    if (!syncedAt && Object.keys(local).length) {
+      chosen = mergeFirst(local, remote.data);
+      push = true;
+    } else if (localAt > remote.at) {
+      chosen = local; // mudou aqui depois da última sincronização (ex.: sem rede)
+      push = true;
+    } else {
+      chosen = { ...localPart(local), ...remote.data };
+    }
+
+    if (push) {
+      const at = Date.now();
+      await b.storage.local.set({ [SETTINGS_KEY]: chosen, [SETTINGS_AT_KEY]: at });
+      await pushSync(chosen, at, b);
+    } else if (JSON.stringify(syncedPart(local)) !== remote.text || syncedAt !== remote.at) {
+      // Veio de outro aparelho: atualiza a cópia local (o resto reage a ela).
+      await b.storage.local.set({ [SETTINGS_KEY]: chosen, [SETTINGS_AT_KEY]: remote.at, [SYNCED_AT_KEY]: remote.at });
+    }
+    return chosen;
+  }
+
   async function loadSettings(b = browser) {
-    const saved = (await b.storage.local.get(SETTINGS_KEY))[SETTINGS_KEY] || {};
+    const saved = await loadStored(b);
     const ui = saved.uiLang || DEFAULT_SETTINGS.uiLang;
     const media = CRI18n.mediaLocale ? CRI18n.mediaLocale(ui) : "en-US";
     return {
@@ -58,7 +253,16 @@ var CRChecker = (() => {
       listNames: { ...(saved.listNames || {}) },
     };
   }
-  const saveSettings = (settings, b = browser) => b.storage.local.set({ [SETTINGS_KEY]: settings });
+
+  async function saveSettings(settings, b = browser) {
+    const at = Date.now();
+    await b.storage.local.set({ [SETTINGS_KEY]: settings, [SETTINGS_AT_KEY]: at });
+    await pushSync(settings, at, b);
+  }
+
+  // Mudança no storage.sync vinda de outro aparelho?
+  const isSyncChange = (changes, area) =>
+    area === "sync" && Object.keys(changes || {}).some((k) => k.startsWith(SYNC_PREFIX));
 
   function autoCheckMinutes(settings) {
     const raw = settings ? settings.autoCheckMinutes : undefined;
@@ -374,6 +578,11 @@ var CRChecker = (() => {
     DEFAULT_SETTINGS,
     loadSettings,
     saveSettings,
+    syncedPart,
+    isSyncChange,
+    chunkText,
+    SYNC_META,
+    SYNC_PREFIX,
     autoCheckMinutes,
     pendingItems,
     summarize,

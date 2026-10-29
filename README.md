@@ -45,6 +45,7 @@ and never changes anything on Crunchyroll.
   seasons, age rating, year and season filters, and optional Japanese/romaji title lookup
   through AniList.
 - **Hide or snooze** a series, **compact mode**, **settings export/import**.
+- **Settings synced** across your computers through the browser's own sync.
 - **27 interface languages**, including right-to-left Arabic and Urdu.
 
 ## Installation
@@ -182,7 +183,8 @@ background, no "share search terms" permission for AniList); see
 
 ## Settings
 
-Changes are saved immediately.
+Changes are saved immediately and synced to your other computers (see
+[Settings sync](#settings-sync)).
 
 | Setting | What it does |
 |---|---|
@@ -203,6 +205,26 @@ Changes are saved immediately.
 | Series checked at the same time | Parallel requests (default 4, 1–32). Lower it if you get HTTP 429 errors. |
 | Batch size | Episodes per progress request and items per list/history page (default 100, 10–300). Lower it if checks start failing. |
 | Settings backup | **Export** saves your settings to a JSON file; **Import** restores them. No login, token or history is included. |
+
+### Settings sync
+
+Settings are also saved in the browser's `storage.sync`, which the browser carries to your other
+computers signed in to the same account (Firefox Sync, or Chrome sync with your Google account).
+Sync is always on; without an account, or if sync fails, everything keeps working with the local
+copy. Firefox and Chrome don't sync with each other.
+
+- **Synced:** languages, lists to check, default and per-series modes, hidden series, sorting
+  and the other options.
+- **Not synced:** the open tab, the filters, Crunchylist names read from Crunchyroll, the last
+  result, the cache and the session token.
+- The browser allows about 100 KB in total and 8 KB per item, so the settings JSON is split into
+  pieces (`crnovos:sync:0`, `:1`…) with a `crnovos:sync:meta` item holding the count, length and
+  a checksum. Pieces still arriving from another computer don't match the checksum and are
+  ignored until complete.
+- The newest change wins. The first time a computer that already had settings finds some in
+  sync, per-series modes and hidden series from both sides are merged.
+- A change from another computer is applied by the background and shows up on an open page
+  right away.
 
 ## How episodes are determined
 
@@ -262,6 +284,8 @@ Lists come from `/content/v2/discover/{account}/watchlist` and
 - The background only accepts a token from a normal (non-private) crunchyroll.com tab, and only
   if it is a readable JWT.
 - Watchroll does not run in private windows, so nothing from private browsing is stored.
+- Settings (not the token, history or results) go through the browser's own sync, to your
+  other computers signed in to the same account.
 - Nothing is sent to third parties, except Advanced Search text to AniList when you turn that on.
   See [PRIVACY.md](PRIVACY.md).
 
@@ -282,7 +306,7 @@ common/                       shared by all browsers
   dashboard/                  extension page (HTML, CSS, JS)
   icons/                      extension icons
   src/background.js           toolbar button, session token, periodic and release-time checks
-  src/checker.js              settings, icon counter, new-episode detection, notifications
+  src/checker.js              settings (local + sync), icon counter, new-episode detection, notifications
   src/analyzer.js             "what's left to watch" logic, lists, categories and cache
   src/api.js                  Crunchyroll API calls, authentication and transport
   src/search.js               Advanced Search

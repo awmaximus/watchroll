@@ -10,7 +10,8 @@ affiliated with or endorsed by Crunchyroll.
 
 - The extension has no servers of its own and collects no analytics or telemetry.
 - It only talks to Crunchyroll, using your own session, to read your lists and watch progress.
-- Everything it stores stays in your browser profile.
+- Everything it stores stays in your browser profile; your settings are also synced to your
+  other computers through the browser's own sync, if you use it.
 - The only optional third party is AniList, and only if you turn that option on.
 - It does not run in private windows, so nothing from private browsing is read or stored.
 
@@ -37,7 +38,13 @@ The extension stores the following in the browser's extension storage, on your d
 - the access token the Crunchyroll website itself uses, kept in session memory only and
   discarded when the browser closes.
 
-This data is never sent anywhere else. Removing the extension deletes it. **Settings → Export**
+Your **settings** (the first item above, except the open tab and filters) are also saved in the
+browser's sync storage. If you are signed in to Firefox Sync or to Chrome with sync on, the
+browser carries them to your other computers, through Mozilla's or Google's sync service and
+under their privacy policies (Firefox Sync encrypts this data). The token, watch history, results
+and cache are never synced. Without a browser account, sync storage stays on your device.
+
+Apart from that, this data is never sent anywhere else. Removing the extension deletes it. **Settings → Export**
 creates a file with your settings only (no login data, tokens or history); the file stays
 wherever you save it.
 

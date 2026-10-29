@@ -958,6 +958,9 @@
   "setBackupHelp": {
     "message": "Salva ou restaura suas preferências (modos por série, séries ocultas, listas e idiomas) num arquivo. Não inclui login nem histórico."
   },
+  "setSyncHelp": {
+    "message": "Suas preferências também são sincronizadas com os outros computadores em que você usa o Watchroll, pela sincronização do navegador (conta do Firefox ou do Google). Aba aberta e filtros ficam só neste aparelho."
+  },
   "btnExport": {
     "message": "Exportar"
   },

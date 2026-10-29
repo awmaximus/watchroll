@@ -74,7 +74,7 @@ Shows which episodes of the anime in your Crunchyroll Watchlist and Crunchylists
 
 | Permission | Justification |
 |---|---|
-| `storage` | Saves the user's settings, the last check result and a short-lived cache on the device; the Crunchyroll access token is kept only in session storage. |
+| `storage` | Saves the user's settings, the last check result and a short-lived cache on the device; the settings are also kept in chrome.storage.sync so they follow the user to their other computers through Chrome sync. The Crunchyroll access token is kept only in session storage and is never synced. |
 | `scripting` | When Crunchyroll blocks direct API access, injects the extension's own relay script into the user's crunchyroll.com tab so requests use the site's session. |
 | `alarms` | Schedules the periodic background check and an extra check right after each known release time. |
 | `notifications` | Shows a desktop notification when a new episode of a series in the user's lists is out. |

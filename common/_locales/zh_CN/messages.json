@@ -952,6 +952,9 @@
   "setBackupHelp": {
     "message": "将你的偏好(每部系列的模式、隐藏的系列、列表和语言)保存到文件或从文件恢复。不含登录信息和观看记录。"
   },
+  "setSyncHelp": {
+    "message": "你的设置还会通过浏览器同步（Firefox 账户或 Google 账户）同步到你使用 Watchroll 的其他电脑。当前打开的标签页和筛选条件只保留在本设备上。"
+  },
   "btnExport": {
     "message": "导出"
   },

@@ -952,6 +952,9 @@
   "setBackupHelp": {
     "message": "Menyimpan atau memulihkan preferensimu (mode per serial, serial tersembunyi, daftar, dan bahasa) ke file. Tidak termasuk login dan riwayat."
   },
+  "setSyncHelp": {
+    "message": "Pengaturan Anda juga disinkronkan ke komputer lain tempat Anda memakai Watchroll, melalui sinkronisasi browser (akun Firefox atau Google). Tab yang terbuka dan filter hanya tersimpan di perangkat ini."
+  },
   "btnExport": {
     "message": "Ekspor"
   },

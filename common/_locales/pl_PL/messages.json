@@ -952,6 +952,9 @@
   "setBackupHelp": {
     "message": "Zapisuje lub przywraca Twoje ustawienia (tryby serii, ukryte serie, listy i języki) z pliku. Bez logowania i historii."
   },
+  "setSyncHelp": {
+    "message": "Twoje ustawienia są też synchronizowane z innymi komputerami, na których używasz Watchroll, przez synchronizację przeglądarki (konto Firefox lub Google). Otwarta karta i filtry zostają tylko na tym urządzeniu."
+  },
   "btnExport": {
     "message": "Eksportuj"
   },

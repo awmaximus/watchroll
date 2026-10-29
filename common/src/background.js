@@ -130,6 +130,12 @@ browser.runtime.onStartup.addListener(async () => {
 });
 
 browser.storage.onChanged.addListener((changes, area) => {
+  // Preferências vindas de outro aparelho: loadSettings atualiza a cópia local, e as
+  // mudanças nela (abaixo, e na página aberta) fazem o resto.
+  if (CRChecker.isSyncChange(changes, area)) {
+    CRChecker.loadSettings().catch((err) => console.warn("[Watchroll]", err));
+    return;
+  }
   if (area !== "local") return;
   if (changes[CRChecker.LAST_KEY]) {
     const v = changes[CRChecker.LAST_KEY].newValue;

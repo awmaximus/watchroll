@@ -952,6 +952,9 @@
   "setBackupHelp": {
     "message": "Menyimpan atau memulihkan pilihan anda (mod setiap siri, siri tersembunyi, senarai dan bahasa) ke fail. Tidak termasuk log masuk dan sejarah."
   },
+  "setSyncHelp": {
+    "message": "Tetapan anda juga disegerakkan ke komputer lain tempat anda menggunakan Watchroll, melalui penyegerakan pelayar (akaun Firefox atau Google). Tab yang dibuka dan penapis kekal pada peranti ini sahaja."
+  },
   "btnExport": {
     "message": "Eksport"
   },
