@@ -358,7 +358,7 @@ start, Advanced Search and Settings and `PRIVACY.md` is the privacy policy to pa
 add-on's Developer Hub page. The listing icon is `icons/icon-128.png`.
 
 Bump `version` in both `manifest.json` and `package.json` for every build you sign (current:
-1.2.0); AMO does not accept the same version twice, not even in different channels, which is why
+1.2.1); AMO does not accept the same version twice, not even in different channels, which is why
 test builds and releases use different numbers. The add-on ID
 (`crunchyroll-novos-eps@awmaximus.github.io`) comes from before the rename and must stay as it
 is: changing it makes Firefox and AMO treat Watchroll as a different extension.
