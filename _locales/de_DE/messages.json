@@ -1088,5 +1088,33 @@
         "content": "$1"
       }
     }
+  },
+  "secNoSub": {
+    "message": "Ohne Untertitel"
+  },
+  "noteNoSub_one": {
+    "message": "Aktuelle Staffel ohne Untertitel ($P2$) · 1 Folge erschienen",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoSub_other": {
+    "message": "Aktuelle Staffel ohne Untertitel ($P2$) · $P1$ Folgen erschienen",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeAnyAudio": {
+    "message": "Ohne Untertitel ansehen"
+  },
+  "btnSeeAnyAudioTitle": {
+    "message": "Stellt diese Serie auf „Beliebiges Audio“: Folgen erscheinen auch ohne Untertitel in deiner Sprache"
   }
 }

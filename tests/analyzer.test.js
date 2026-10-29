@@ -1347,7 +1347,7 @@ describe("revalidar só o que mudou", () => {
     const ctx = load(["src/analyzer.js"], { browser, CRApi });
     // Envelhece a análise guardada no cache.
     const age = (ms) => {
-      const all = browser.storage.local.data["crnovos:v9:cache"];
+      const all = browser.storage.local.data["crnovos:v10:cache"];
       for (const scope of Object.values(all)) {
         for (const r of Object.values(scope)) {
           r.checkedAt -= ms;
@@ -1990,5 +1990,42 @@ describe("categorias da Crunchyroll", () => {
       { id: "L1", items: [ep(["Action", "Romance"])] },
     ]);
     assert.deepEqual(plain(merged[0].genres), ["action", "comedy", "romance"]);
+  });
+});
+
+describe("aba Sem legenda", () => {
+  const withSubs = (ep, subs) => ({ ...ep, subtitle_locales: subs });
+  const db = (eps, ph) => ({
+    watchlist: [series("L")],
+    seasons: { L: [{ id: "T", season_sequence_number: 1 }] },
+    episodes: { T: eps },
+    playheads: ph,
+  });
+
+  test("nenhum episódio da temporada atual com legenda no idioma: noSub", async () => {
+    const { analyzer } = setup(
+      db([withSubs(episode("e1", 1), ["en-US"]), withSubs(episode("e2", 2), ["en-US"])], { e1: playhead("e1", FULL, true) })
+    );
+    const [r] = await analyzer.run({ settings: settings({ defaultMode: "sub" }) });
+    assert.equal(r.status, "uptodate");
+    assert.equal(r.waitingSub, 1);
+    assert.equal(r.noSub, true);
+  });
+
+  test("a legenda existe e só está atrasada: continua em Legenda pendente", async () => {
+    const { analyzer } = setup(
+      db([withSubs(episode("e1", 1), ["pt-BR"]), withSubs(episode("e2", 2), ["en-US"])], { e1: playhead("e1", FULL, true) })
+    );
+    const [r] = await analyzer.run({ settings: settings({ defaultMode: "sub" }) });
+    assert.equal(r.waitingSub, 1);
+    assert.equal(r.noSub, false);
+  });
+
+  test("fora do modo legendado nunca é noSub", async () => {
+    const { analyzer } = setup(
+      db([withSubs(episode("e1", 1), ["en-US"]), withSubs(episode("e2", 2), ["en-US"])], { e1: playhead("e1", FULL, true) })
+    );
+    const [r] = await analyzer.run({ settings: settings({ defaultMode: "auto" }) });
+    assert.equal(r.noSub, false);
   });
 });

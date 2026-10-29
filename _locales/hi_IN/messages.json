@@ -1088,5 +1088,33 @@
         "content": "$1"
       }
     }
+  },
+  "secNoSub": {
+    "message": "उपशीर्षक नहीं"
+  },
+  "noteNoSub_one": {
+    "message": "मौजूदा सीज़न में $P2$ उपशीर्षक नहीं · 1 एपिसोड आ चुका है",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoSub_other": {
+    "message": "मौजूदा सीज़न में $P2$ उपशीर्षक नहीं · $P1$ एपिसोड आ चुके हैं",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeAnyAudio": {
+    "message": "बिना उपशीर्षक देखें"
+  },
+  "btnSeeAnyAudioTitle": {
+    "message": "इस सीरीज़ को \"कोई भी ऑडियो\" पर करता है: आपकी भाषा में उपशीर्षक न होने पर भी एपिसोड दिखेंगे"
   }
 }

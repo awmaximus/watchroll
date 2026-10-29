@@ -1088,5 +1088,33 @@
         "content": "$1"
       }
     }
+  },
+  "secNoSub": {
+    "message": "Không có phụ đề"
+  },
+  "noteNoSub_one": {
+    "message": "Mùa hiện tại chưa có phụ đề $P2$ · đã ra 1 tập",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoSub_other": {
+    "message": "Mùa hiện tại chưa có phụ đề $P2$ · đã ra $P1$ tập",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeAnyAudio": {
+    "message": "Xem không phụ đề"
+  },
+  "btnSeeAnyAudioTitle": {
+    "message": "Chuyển phim này sang \"Âm thanh bất kỳ\": các tập vẫn hiện dù chưa có phụ đề ngôn ngữ của bạn"
   }
 }

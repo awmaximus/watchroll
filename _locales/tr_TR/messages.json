@@ -1088,5 +1088,33 @@
         "content": "$1"
       }
     }
+  },
+  "secNoSub": {
+    "message": "Altyazısız"
+  },
+  "noteNoSub_one": {
+    "message": "Mevcut sezonda $P2$ altyazı yok · 1 bölüm çıktı",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoSub_other": {
+    "message": "Mevcut sezonda $P2$ altyazı yok · $P1$ bölüm çıktı",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeAnyAudio": {
+    "message": "Altyazısız izle"
+  },
+  "btnSeeAnyAudioTitle": {
+    "message": "Bu diziyi \"Herhangi bir ses\" moduna alır: dilinizde altyazı olmasa da bölümler görünür"
   }
 }

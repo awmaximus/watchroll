@@ -1088,5 +1088,33 @@
         "content": "$1"
       }
     }
+  },
+  "secNoSub": {
+    "message": "Senza sottotitoli"
+  },
+  "noteNoSub_one": {
+    "message": "Stagione attuale senza sottotitoli in $P2$ · 1 episodio uscito",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoSub_other": {
+    "message": "Stagione attuale senza sottotitoli in $P2$ · $P1$ episodi usciti",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeAnyAudio": {
+    "message": "Guarda senza sottotitoli"
+  },
+  "btnSeeAnyAudioTitle": {
+    "message": "Imposta questa serie su \"Qualsiasi audio\": gli episodi compaiono anche senza sottotitoli nella tua lingua"
   }
 }

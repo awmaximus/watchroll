@@ -1354,7 +1354,10 @@
     // (a dublagem pode nunca sair). Aguardando: a dublagem existe e está atrasada.
     const noDub = sorted("noDub", results.filter((r) => r.status === "uptodate" && r.noDub && r.waitingDub));
     const waiting = sorted("waitDub", results.filter((r) => r.status === "uptodate" && !r.noDub && r.waitingDub));
-    const waitingSub = sorted("waitSub", results.filter((r) => r.status === "uptodate" && !r.waitingDub && r.waitingSub));
+    // Sem legenda: nenhum episódio lançado da temporada atual tem legenda no seu idioma
+    // (pode nunca sair). Legenda pendente: a legenda existe e está atrasada.
+    const noSub = sorted("noSub", results.filter((r) => r.status === "uptodate" && !r.waitingDub && r.noSub && r.waitingSub));
+    const waitingSub = sorted("waitSub", results.filter((r) => r.status === "uptodate" && !r.waitingDub && !r.noSub && r.waitingSub));
     const upToDate = sorted("upToDate", results.filter((r) => r.status === "uptodate" && !r.waitingDub && !r.waitingSub));
     const never = sorted("never", results.filter((r) => r.status === "never"));
     const errors = sorted("errors", results.filter((r) => r.status === "error"));
@@ -1408,6 +1411,29 @@
                   text: t("btnSeeSubbed"),
                   title: t("btnSeeSubbedTitle"),
                   onclick: () => changeMode(s, "sub"),
+                })
+              )
+            )
+          ),
+      },
+      {
+        id: "noSub",
+        label: t("secNoSub"),
+        count: noSub.length,
+        content: () =>
+          el(
+            "ul",
+            { class: "rows" },
+            noSub.map((s) =>
+              row(
+                s,
+                tn("noteNoSub", s.waitingSub, langName(settings.subLang || settings.dubLang)),
+                el("button", {
+                  class: "btn ghost small",
+                  type: "button",
+                  text: t("btnSeeAnyAudio"),
+                  title: t("btnSeeAnyAudioTitle"),
+                  onclick: () => changeMode(s, "auto"),
                 })
               )
             )

@@ -1088,5 +1088,33 @@
         "content": "$1"
       }
     }
+  },
+  "secNoSub": {
+    "message": "Tiada sari kata"
+  },
+  "noteNoSub_one": {
+    "message": "Musim semasa tiada sari kata $P2$ · 1 episod sudah keluar",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoSub_other": {
+    "message": "Musim semasa tiada sari kata $P2$ · $P1$ episod sudah keluar",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeAnyAudio": {
+    "message": "Tonton tanpa sari kata"
+  },
+  "btnSeeAnyAudioTitle": {
+    "message": "Tukar siri ini kepada \"Mana-mana audio\": episod tetap dipaparkan walaupun tiada sari kata dalam bahasa anda"
   }
 }

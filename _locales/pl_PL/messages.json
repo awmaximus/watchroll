@@ -1088,5 +1088,33 @@
         "content": "$1"
       }
     }
+  },
+  "secNoSub": {
+    "message": "Bez napisów"
+  },
+  "noteNoSub_one": {
+    "message": "Obecny sezon bez napisów $P2$ · wyszedł 1 odcinek",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoSub_other": {
+    "message": "Obecny sezon bez napisów $P2$ · wyszło odcinków: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeAnyAudio": {
+    "message": "Oglądaj bez napisów"
+  },
+  "btnSeeAnyAudioTitle": {
+    "message": "Przełącza ten serial na „Dowolny dźwięk”: odcinki są widoczne nawet bez napisów w Twoim języku"
   }
 }

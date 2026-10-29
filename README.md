@@ -20,7 +20,7 @@ only reads data from your own account.
   extra check right after each known release time.
 - **Watchlist + Crunchylists**, with a label showing which list each series came from and a
   list filter on every tab.
-- **Tabs** for every state (to watch, dub or subtitles pending, no dub, caught up, not
+- **Tabs** for every state (to watch, dub or subtitles pending, no dub, no subtitles, caught up, not
   started, errors, hidden), each with its own sorting, plus a **Week** calendar of upcoming
   releases.
 - **Advanced Search** over the whole Crunchyroll catalog or your lists, with dub, age rating,
@@ -55,8 +55,9 @@ is the magnifier icon and Settings the gear icon. Empty tabs are hidden, except 
 |---|---|
 | To watch | Episodes released after the last one you watched, as cards (or rows in compact mode, with a ▶ button for the next episode). Half-watched episodes show a progress bar. |
 | Dub pending | Dubbed-mode series with episodes that are out but not yet dubbed in your language (the season already has that dub). |
-| Subs pending | Subbed-mode series with episodes released without subtitles in your language. |
+| Subs pending | Subbed-mode series with episodes released without subtitles in your language yet, while the current season already has them for earlier episodes. |
 | No dub | Dubbed-mode series whose current season has no episode at all in your language. **Watch subbed** switches the series to subbed mode. |
+| No subtitles | Subbed-mode series whose current season has no released episode with subtitles in your language (they may never come). **Watch without subtitles** switches the series to *Any audio*. |
 | Caught up | Series with nothing pending. |
 | Week | The next episode of each series releasing in the next 7 days, grouped by day (Today, Tomorrow, Wednesday, October 21…), with the time. Crunchyroll only lists an episode once it is out, so for simulcasts the date is estimated from the weekly pace (7 days after the last episode, same time) and marked with `~`; a date Crunchyroll does publish takes precedence. No estimate when episodes aren't weekly or the expected one is already late (break or season end). For series you haven't started, only seasons from the current or previous anime season are checked (one extra request each). |
 | To start | Series you never watched, with their number of seasons and episodes ("3 seasons · 36 episodes", counting regular seasons only: dub copies and specials are left out). By default grouped by release season (Fall 2026, Summer 2026…), newest first; **Group** turns the groups off. |
@@ -85,7 +86,7 @@ filters at once:
 | Tab | Sort options |
 |---|---|
 | To watch | Most recent release, Most recently watched, Most episodes, Title |
-| Dub pending, Subs pending, No dub | Most episodes waiting, Most recently watched, Title |
+| Dub pending, Subs pending, No dub, No subtitles | Most episodes waiting, Most recently watched, Title |
 | Caught up | Most recently watched, Next release, Title |
 | To start | Release season, Title, Most seasons, Most episodes in total (inside each group when grouping is on) |
 | Hidden | Title, Most recently watched |
@@ -358,7 +359,7 @@ fictional titles and generated artwork) and `PRIVACY.md` is the privacy policy t
 add-on's Developer Hub page. The listing icon is `icons/icon-128.png`.
 
 Bump `version` in both `manifest.json` and `package.json` for every build you sign (current:
-1.1.0); AMO does not accept the same version twice, not even in different channels, which is why
+1.1.1); AMO does not accept the same version twice, not even in different channels, which is why
 test builds and releases use different numbers. The add-on ID
 (`crunchyroll-novos-eps@awmaximus.github.io`) comes from before the rename and must stay as it
 is: changing it makes Firefox and AMO treat Watchroll as a different extension.

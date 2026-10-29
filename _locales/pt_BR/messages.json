@@ -1093,5 +1093,33 @@
         "content": "$1"
       }
     }
+  },
+  "secNoSub": {
+    "message": "Sem legenda"
+  },
+  "noteNoSub_one": {
+    "message": "Temporada atual sem legenda em $P2$ · 1 episódio já saiu",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoSub_other": {
+    "message": "Temporada atual sem legenda em $P2$ · $P1$ episódios já saíram",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeAnyAudio": {
+    "message": "Ver sem legenda"
+  },
+  "btnSeeAnyAudioTitle": {
+    "message": "Muda esta série para \"Qualquer áudio\": os episódios aparecem mesmo sem legenda no seu idioma"
   }
 }

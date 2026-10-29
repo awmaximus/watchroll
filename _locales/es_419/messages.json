@@ -1088,5 +1088,33 @@
         "content": "$1"
       }
     }
+  },
+  "secNoSub": {
+    "message": "Sin subtítulos"
+  },
+  "noteNoSub_one": {
+    "message": "Temporada actual sin subtítulos en $P2$ · 1 episodio ya salió",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoSub_other": {
+    "message": "Temporada actual sin subtítulos en $P2$ · $P1$ episodios ya salieron",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeAnyAudio": {
+    "message": "Ver sin subtítulos"
+  },
+  "btnSeeAnyAudioTitle": {
+    "message": "Cambia esta serie a \"Cualquier audio\": los episodios aparecen aunque no tengan subtítulos en tu idioma"
   }
 }

@@ -1088,5 +1088,33 @@
         "content": "$1"
       }
     }
+  },
+  "secNoSub": {
+    "message": "Sense subtítols"
+  },
+  "noteNoSub_one": {
+    "message": "Temporada actual sense subtítols en $P2$ · 1 episodi ja ha sortit",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoSub_other": {
+    "message": "Temporada actual sense subtítols en $P2$ · $P1$ episodis ja han sortit",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeAnyAudio": {
+    "message": "Mira sense subtítols"
+  },
+  "btnSeeAnyAudioTitle": {
+    "message": "Canvia aquesta sèrie a \"Qualsevol àudio\": els episodis apareixen encara que no tinguin subtítols en el teu idioma"
   }
 }

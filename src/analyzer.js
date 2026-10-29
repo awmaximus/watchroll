@@ -12,7 +12,7 @@
 
 /* global browser, CRApi */
 var CRAnalyzer = (() => {
-  const CACHE_KEY = "crnovos:v9:cache"; // v9: previsão do próximo episódio pelo ritmo semanal
+  const CACHE_KEY = "crnovos:v10:cache"; // v10: "sem legenda" na temporada atual
   const CACHE_TTL = 5 * 60 * 1000; // dentro disso: reaproveita sem nenhuma consulta
   const REVALIDATE_TTL = 6 * 60 * 60 * 1000; // até isso: reaproveita se nada mudou
   // Quantas séries são consultadas ao mesmo tempo (configurável na página).
@@ -409,6 +409,9 @@ var CRAnalyzer = (() => {
     // null = ainda não examinada. false = não tem nenhum ("sem dublagem", não
     // "aguardando": a dublagem pode nunca sair).
     let latestHasDub = null;
+    // Modo legendado: algum episódio já lançado da temporada mais recente tem legenda
+    // no idioma escolhido? false = nenhum ("sem legenda", não "aguardando").
+    let latestHasSub = null;
     // Listas de episódios usadas na temporada mais recente e a impressão digital
     // de cada uma, para a revalidação perceber episódio/dublagem/legenda nova.
     let latestFp = null;
@@ -452,6 +455,10 @@ var CRAnalyzer = (() => {
       if (!eps.length) continue;
       if (back === 0) latest = { eps, season, eligible };
 
+      if (mode === "sub" && back === 0) {
+        const out = eps.filter((e) => isAvailable(e, now));
+        latestHasSub = out.length ? out.some((e) => hasSubtitle(e, subLang)) : null;
+      }
       if (mode === "dub" && latestHasDub === null) {
         latestHasDub = eligible && eps.some((e) => isInAudio(e, dubLang));
       }
@@ -623,6 +630,7 @@ var CRAnalyzer = (() => {
       waitingSub,
       dubMissing: mode === "dub" && dubMissingSomewhere,
       noDub: mode === "dub" && latestHasDub === false,
+      noSub: mode === "sub" && latestHasSub === false && waitingSub > 0,
       lastWatchedAt: last.lastMod || 0,
     };
   }

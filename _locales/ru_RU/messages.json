@@ -1088,5 +1088,33 @@
         "content": "$1"
       }
     }
+  },
+  "secNoSub": {
+    "message": "Без субтитров"
+  },
+  "noteNoSub_one": {
+    "message": "В текущем сезоне нет субтитров $P2$ · вышла 1 серия",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoSub_other": {
+    "message": "В текущем сезоне нет субтитров $P2$ · вышло серий: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeAnyAudio": {
+    "message": "Смотреть без субтитров"
+  },
+  "btnSeeAnyAudioTitle": {
+    "message": "Переключает этот сериал на «Любое аудио»: серии показываются даже без субтитров на вашем языке"
   }
 }

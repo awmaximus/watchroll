@@ -1088,5 +1088,33 @@
         "content": "$1"
       }
     }
+  },
+  "secNoSub": {
+    "message": "ไม่มีซับ"
+  },
+  "noteNoSub_one": {
+    "message": "ซีซันปัจจุบันไม่มีซับ $P2$ · ออกแล้ว 1 ตอน",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoSub_other": {
+    "message": "ซีซันปัจจุบันไม่มีซับ $P2$ · ออกแล้ว $P1$ ตอน",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeAnyAudio": {
+    "message": "ดูแบบไม่มีซับ"
+  },
+  "btnSeeAnyAudioTitle": {
+    "message": "เปลี่ยนซีรีส์นี้เป็น \"เสียงใดก็ได้\": ตอนต่าง ๆ จะแสดงแม้ไม่มีซับภาษาของคุณ"
   }
 }

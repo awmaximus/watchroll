@@ -1088,5 +1088,33 @@
         "content": "$1"
       }
     }
+  },
+  "secNoSub": {
+    "message": "उपशीर्षक नाही"
+  },
+  "noteNoSub_one": {
+    "message": "सध्याच्या सीझनला $P2$ उपशीर्षक नाही · 1 भाग आला आहे",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoSub_other": {
+    "message": "सध्याच्या सीझनला $P2$ उपशीर्षक नाही · $P1$ भाग आले आहेत",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeAnyAudio": {
+    "message": "उपशीर्षकाशिवाय पाहा"
+  },
+  "btnSeeAnyAudioTitle": {
+    "message": "ही मालिका \"कोणताही ऑडिओ\" वर बदलते: तुमच्या भाषेत उपशीर्षक नसले तरी भाग दिसतील"
   }
 }

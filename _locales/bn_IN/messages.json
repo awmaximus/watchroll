@@ -1088,5 +1088,33 @@
         "content": "$1"
       }
     }
+  },
+  "secNoSub": {
+    "message": "সাবটাইটেল নেই"
+  },
+  "noteNoSub_one": {
+    "message": "বর্তমান সিজনে $P2$ সাবটাইটেল নেই · 1টি পর্ব এসেছে",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoSub_other": {
+    "message": "বর্তমান সিজনে $P2$ সাবটাইটেল নেই · $P1$টি পর্ব এসেছে",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeAnyAudio": {
+    "message": "সাবটাইটেল ছাড়া দেখুন"
+  },
+  "btnSeeAnyAudioTitle": {
+    "message": "এই সিরিজকে \"যেকোনো অডিও\"-তে বদলায়: আপনার ভাষায় সাবটাইটেল না থাকলেও পর্ব দেখাবে"
   }
 }

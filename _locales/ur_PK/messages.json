@@ -1088,5 +1088,33 @@
         "content": "$1"
       }
     }
+  },
+  "secNoSub": {
+    "message": "سب ٹائٹل نہیں"
+  },
+  "noteNoSub_one": {
+    "message": "موجودہ سیزن میں $P2$ سب ٹائٹل نہیں · 1 قسط آ چکی ہے",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoSub_other": {
+    "message": "موجودہ سیزن میں $P2$ سب ٹائٹل نہیں · $P1$ اقساط آ چکی ہیں",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeAnyAudio": {
+    "message": "سب ٹائٹل کے بغیر دیکھیں"
+  },
+  "btnSeeAnyAudioTitle": {
+    "message": "اس سیریز کو \"کوئی بھی آڈیو\" پر کر دیتا ہے: آپ کی زبان میں سب ٹائٹل نہ ہونے پر بھی اقساط نظر آئیں گی"
   }
 }

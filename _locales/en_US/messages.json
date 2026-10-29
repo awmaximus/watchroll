@@ -1093,5 +1093,33 @@
         "content": "$1"
       }
     }
+  },
+  "secNoSub": {
+    "message": "No subtitles"
+  },
+  "noteNoSub_one": {
+    "message": "Current season has no $P2$ subtitles · 1 episode out",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoSub_other": {
+    "message": "Current season has no $P2$ subtitles · $P1$ episodes out",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeAnyAudio": {
+    "message": "Watch without subtitles"
+  },
+  "btnSeeAnyAudioTitle": {
+    "message": "Switches this series to \"Any audio\": episodes show up even without subtitles in your language"
   }
 }

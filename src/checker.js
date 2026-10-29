@@ -159,6 +159,7 @@ var CRChecker = (() => {
     waitDub: ["waiting", "watched", "title"],
     waitSub: ["waiting", "watched", "title"],
     noDub: ["waiting", "watched", "title"],
+    noSub: ["waiting", "watched", "title"],
     upToDate: ["watched", "next", "title"],
     never: ["season", "title", "seasons", "episodes"],
     errors: ["title"],

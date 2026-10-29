@@ -1088,5 +1088,33 @@
         "content": "$1"
       }
     }
+  },
+  "secNoSub": {
+    "message": "字幕なし"
+  },
+  "noteNoSub_one": {
+    "message": "今シーズンは $P2$ 字幕なし · 1 話配信済み",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoSub_other": {
+    "message": "今シーズンは $P2$ 字幕なし · $P1$ 話配信済み",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeAnyAudio": {
+    "message": "字幕なしで見る"
+  },
+  "btnSeeAnyAudioTitle": {
+    "message": "このシリーズを「音声指定なし」に切り替えます: 選んだ言語の字幕がなくてもエピソードを表示します"
   }
 }

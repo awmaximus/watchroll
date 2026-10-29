@@ -1088,5 +1088,33 @@
         "content": "$1"
       }
     }
+  },
+  "secNoSub": {
+    "message": "بلا ترجمة"
+  },
+  "noteNoSub_one": {
+    "message": "الموسم الحالي بلا ترجمة $P2$ · صدرت حلقة واحدة",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoSub_other": {
+    "message": "الموسم الحالي بلا ترجمة $P2$ · صدرت $P1$ حلقات",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeAnyAudio": {
+    "message": "المشاهدة بلا ترجمة"
+  },
+  "btnSeeAnyAudioTitle": {
+    "message": "يحوّل هذا المسلسل إلى \"أي صوت\": تظهر الحلقات حتى بدون ترجمة بلغتك"
   }
 }

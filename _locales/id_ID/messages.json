@@ -1088,5 +1088,33 @@
         "content": "$1"
       }
     }
+  },
+  "secNoSub": {
+    "message": "Tanpa subtitle"
+  },
+  "noteNoSub_one": {
+    "message": "Musim ini belum ada subtitle $P2$ · 1 episode sudah rilis",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoSub_other": {
+    "message": "Musim ini belum ada subtitle $P2$ · $P1$ episode sudah rilis",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeAnyAudio": {
+    "message": "Tonton tanpa subtitle"
+  },
+  "btnSeeAnyAudioTitle": {
+    "message": "Mengubah seri ini ke \"Audio apa saja\": episode tetap muncul walau belum ada subtitle dalam bahasamu"
   }
 }

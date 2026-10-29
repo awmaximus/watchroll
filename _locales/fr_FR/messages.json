@@ -1088,5 +1088,33 @@
         "content": "$1"
       }
     }
+  },
+  "secNoSub": {
+    "message": "Sans sous-titres"
+  },
+  "noteNoSub_one": {
+    "message": "Saison actuelle sans sous-titres $P2$ · 1 épisode sorti",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoSub_other": {
+    "message": "Saison actuelle sans sous-titres $P2$ · $P1$ épisodes sortis",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeAnyAudio": {
+    "message": "Voir sans sous-titres"
+  },
+  "btnSeeAnyAudioTitle": {
+    "message": "Passe cette série en « N'importe quel audio » : les épisodes apparaissent même sans sous-titres dans votre langue"
   }
 }

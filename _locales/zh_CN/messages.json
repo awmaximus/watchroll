@@ -1088,5 +1088,33 @@
         "content": "$1"
       }
     }
+  },
+  "secNoSub": {
+    "message": "无字幕"
+  },
+  "noteNoSub_one": {
+    "message": "本季没有 $P2$ 字幕 · 已上线 1 集",
+    "placeholders": {
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "noteNoSub_other": {
+    "message": "本季没有 $P2$ 字幕 · 已上线 $P1$ 集",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "btnSeeAnyAudio": {
+    "message": "无字幕观看"
+  },
+  "btnSeeAnyAudioTitle": {
+    "message": "将此剧集切换为“任意音频”：即使没有你所选语言的字幕，也会显示剧集"
   }
 }
