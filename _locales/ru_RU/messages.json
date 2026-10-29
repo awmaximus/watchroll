@@ -383,6 +383,14 @@
       }
     }
   },
+  "statusUpdatedAt": {
+    "message": " · последнее обновление: $WHEN$",
+    "placeholders": {
+      "when": {
+        "content": "$1"
+      }
+    }
+  },
   "statusElapsed": {
     "message": " · обновлено за $S$ с",
     "placeholders": {
@@ -962,7 +970,7 @@
     "message": "Автоматически (язык расширения)"
   },
   "groupBySeason": {
-    "message": "Группировать по сезону"
+    "message": "Группировать"
   },
   "sortSeasonsCount": {
     "message": "Больше сезонов"
@@ -986,5 +994,85 @@
         "content": "$2"
       }
     }
+  },
+  "genreFilterLabel": {
+    "message": "Категория"
+  },
+  "genreFilterAll": {
+    "message": "Все категории"
+  },
+  "audioFilterLabel": {
+    "message": "Аудио"
+  },
+  "audioFilterAll": {
+    "message": "Все"
+  },
+  "genresTitle": {
+    "message": "Категории Crunchyroll: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "genre_action": {
+    "message": "Экшен"
+  },
+  "genre_adventure": {
+    "message": "Приключения"
+  },
+  "genre_comedy": {
+    "message": "Комедия"
+  },
+  "genre_drama": {
+    "message": "Драма"
+  },
+  "genre_fantasy": {
+    "message": "Фэнтези"
+  },
+  "genre_music": {
+    "message": "Музыка"
+  },
+  "genre_romance": {
+    "message": "Романтика"
+  },
+  "genre_scifi": {
+    "message": "Научная фантастика"
+  },
+  "genre_seinen": {
+    "message": "Сэйнэн"
+  },
+  "genre_shojo": {
+    "message": "Сёдзё"
+  },
+  "genre_shonen": {
+    "message": "Сёнэн"
+  },
+  "genre_sliceoflife": {
+    "message": "Повседневность"
+  },
+  "genre_sports": {
+    "message": "Спорт"
+  },
+  "genre_supernatural": {
+    "message": "Сверхъестественное"
+  },
+  "genre_thriller": {
+    "message": "Триллер"
+  },
+  "genre_mystery": {
+    "message": "Детектив"
+  },
+  "genre_horror": {
+    "message": "Ужасы"
+  },
+  "clearFilters": {
+    "message": "Сбросить фильтры"
+  },
+  "listFilterAny": {
+    "message": "Все"
+  },
+  "genreFilterAny": {
+    "message": "Все"
   }
 }

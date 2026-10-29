@@ -383,6 +383,15 @@
       }
     }
   },
+  "statusUpdatedAt": {
+    "message": " · last updated: $WHEN$",
+    "description": "Date/time of the last update, e.g. 11:59 or 10/28/2026 1:20 PM",
+    "placeholders": {
+      "when": {
+        "content": "$1"
+      }
+    }
+  },
   "statusElapsed": {
     "message": " · updated in $S$ s",
     "description": "Tempo que a última atualização levou; ex.: 4,7",
@@ -966,7 +975,7 @@
     "message": "Automatic (extension language)"
   },
   "groupBySeason": {
-    "message": "Group by release season"
+    "message": "Group"
   },
   "sortSeasonsCount": {
     "message": "Most seasons"
@@ -990,5 +999,85 @@
         "content": "$2"
       }
     }
+  },
+  "genreFilterLabel": {
+    "message": "Category"
+  },
+  "genreFilterAll": {
+    "message": "All categories"
+  },
+  "audioFilterLabel": {
+    "message": "Audio"
+  },
+  "audioFilterAll": {
+    "message": "All"
+  },
+  "genresTitle": {
+    "message": "Crunchyroll categories: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "genre_action": {
+    "message": "Action"
+  },
+  "genre_adventure": {
+    "message": "Adventure"
+  },
+  "genre_comedy": {
+    "message": "Comedy"
+  },
+  "genre_drama": {
+    "message": "Drama"
+  },
+  "genre_fantasy": {
+    "message": "Fantasy"
+  },
+  "genre_music": {
+    "message": "Music"
+  },
+  "genre_romance": {
+    "message": "Romance"
+  },
+  "genre_scifi": {
+    "message": "Sci-Fi"
+  },
+  "genre_seinen": {
+    "message": "Seinen"
+  },
+  "genre_shojo": {
+    "message": "Shojo"
+  },
+  "genre_shonen": {
+    "message": "Shonen"
+  },
+  "genre_sliceoflife": {
+    "message": "Slice of Life"
+  },
+  "genre_sports": {
+    "message": "Sports"
+  },
+  "genre_supernatural": {
+    "message": "Supernatural"
+  },
+  "genre_thriller": {
+    "message": "Thriller"
+  },
+  "genre_mystery": {
+    "message": "Mystery"
+  },
+  "genre_horror": {
+    "message": "Horror"
+  },
+  "clearFilters": {
+    "message": "Clear filters"
+  },
+  "listFilterAny": {
+    "message": "All"
+  },
+  "genreFilterAny": {
+    "message": "All"
   }
 }

@@ -383,6 +383,14 @@
       }
     }
   },
+  "statusUpdatedAt": {
+    "message": " · 마지막 업데이트: $WHEN$",
+    "placeholders": {
+      "when": {
+        "content": "$1"
+      }
+    }
+  },
   "statusElapsed": {
     "message": " · $S$초 만에 업데이트",
     "placeholders": {
@@ -962,7 +970,7 @@
     "message": "자동(확장 프로그램 언어)"
   },
   "groupBySeason": {
-    "message": "분기별로 묶기"
+    "message": "그룹"
   },
   "sortSeasonsCount": {
     "message": "시즌 많은 순"
@@ -986,5 +994,85 @@
         "content": "$2"
       }
     }
+  },
+  "genreFilterLabel": {
+    "message": "카테고리"
+  },
+  "genreFilterAll": {
+    "message": "모든 카테고리"
+  },
+  "audioFilterLabel": {
+    "message": "오디오"
+  },
+  "audioFilterAll": {
+    "message": "전체"
+  },
+  "genresTitle": {
+    "message": "Crunchyroll 카테고리: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "genre_action": {
+    "message": "액션"
+  },
+  "genre_adventure": {
+    "message": "모험"
+  },
+  "genre_comedy": {
+    "message": "코미디"
+  },
+  "genre_drama": {
+    "message": "드라마"
+  },
+  "genre_fantasy": {
+    "message": "판타지"
+  },
+  "genre_music": {
+    "message": "음악"
+  },
+  "genre_romance": {
+    "message": "로맨스"
+  },
+  "genre_scifi": {
+    "message": "SF"
+  },
+  "genre_seinen": {
+    "message": "세이넨"
+  },
+  "genre_shojo": {
+    "message": "쇼죠"
+  },
+  "genre_shonen": {
+    "message": "소년"
+  },
+  "genre_sliceoflife": {
+    "message": "일상"
+  },
+  "genre_sports": {
+    "message": "스포츠"
+  },
+  "genre_supernatural": {
+    "message": "초자연"
+  },
+  "genre_thriller": {
+    "message": "스릴러"
+  },
+  "genre_mystery": {
+    "message": "미스터리"
+  },
+  "genre_horror": {
+    "message": "호러"
+  },
+  "clearFilters": {
+    "message": "필터 지우기"
+  },
+  "listFilterAny": {
+    "message": "전체"
+  },
+  "genreFilterAny": {
+    "message": "전체"
   }
 }

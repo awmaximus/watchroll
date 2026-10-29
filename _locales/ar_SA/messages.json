@@ -383,6 +383,14 @@
       }
     }
   },
+  "statusUpdatedAt": {
+    "message": " · آخر تحديث: $WHEN$",
+    "placeholders": {
+      "when": {
+        "content": "$1"
+      }
+    }
+  },
   "statusElapsed": {
     "message": " · حُدّث في $S$ ث",
     "placeholders": {
@@ -962,7 +970,7 @@
     "message": "تلقائي (لغة الإضافة)"
   },
   "groupBySeason": {
-    "message": "التجميع حسب الموسم"
+    "message": "تجميع"
   },
   "sortSeasonsCount": {
     "message": "الأكثر مواسم"
@@ -986,5 +994,85 @@
         "content": "$2"
       }
     }
+  },
+  "genreFilterLabel": {
+    "message": "الفئة"
+  },
+  "genreFilterAll": {
+    "message": "كل الفئات"
+  },
+  "audioFilterLabel": {
+    "message": "الصوت"
+  },
+  "audioFilterAll": {
+    "message": "الكل"
+  },
+  "genresTitle": {
+    "message": "فئات Crunchyroll: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "genre_action": {
+    "message": "أكشن"
+  },
+  "genre_adventure": {
+    "message": "مغامرة"
+  },
+  "genre_comedy": {
+    "message": "كوميديا"
+  },
+  "genre_drama": {
+    "message": "دراما"
+  },
+  "genre_fantasy": {
+    "message": "فانتازيا"
+  },
+  "genre_music": {
+    "message": "موسيقى"
+  },
+  "genre_romance": {
+    "message": "رومانسية"
+  },
+  "genre_scifi": {
+    "message": "خيال علمي"
+  },
+  "genre_seinen": {
+    "message": "سينين"
+  },
+  "genre_shojo": {
+    "message": "شوجو"
+  },
+  "genre_shonen": {
+    "message": "شونين"
+  },
+  "genre_sliceoflife": {
+    "message": "شريحة من الحياة"
+  },
+  "genre_sports": {
+    "message": "رياضة"
+  },
+  "genre_supernatural": {
+    "message": "خارق للطبيعة"
+  },
+  "genre_thriller": {
+    "message": "إثارة"
+  },
+  "genre_mystery": {
+    "message": "غموض"
+  },
+  "genre_horror": {
+    "message": "رعب"
+  },
+  "clearFilters": {
+    "message": "مسح عوامل التصفية"
+  },
+  "listFilterAny": {
+    "message": "الكل"
+  },
+  "genreFilterAny": {
+    "message": "الكل"
   }
 }

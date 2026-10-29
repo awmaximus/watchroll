@@ -383,6 +383,14 @@
       }
     }
   },
+  "statusUpdatedAt": {
+    "message": " · son güncelleme: $WHEN$",
+    "placeholders": {
+      "when": {
+        "content": "$1"
+      }
+    }
+  },
   "statusElapsed": {
     "message": " · $S$ sn'de güncellendi",
     "placeholders": {
@@ -962,7 +970,7 @@
     "message": "Otomatik (eklenti dili)"
   },
   "groupBySeason": {
-    "message": "Sezona göre grupla"
+    "message": "Grupla"
   },
   "sortSeasonsCount": {
     "message": "En çok sezon"
@@ -986,5 +994,85 @@
         "content": "$2"
       }
     }
+  },
+  "genreFilterLabel": {
+    "message": "Kategori"
+  },
+  "genreFilterAll": {
+    "message": "Tüm kategoriler"
+  },
+  "audioFilterLabel": {
+    "message": "Ses"
+  },
+  "audioFilterAll": {
+    "message": "Tümü"
+  },
+  "genresTitle": {
+    "message": "Crunchyroll kategorileri: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "genre_action": {
+    "message": "Aksiyon"
+  },
+  "genre_adventure": {
+    "message": "Macera"
+  },
+  "genre_comedy": {
+    "message": "Komedi"
+  },
+  "genre_drama": {
+    "message": "Dram"
+  },
+  "genre_fantasy": {
+    "message": "Fantastik"
+  },
+  "genre_music": {
+    "message": "Müzik"
+  },
+  "genre_romance": {
+    "message": "Romantik"
+  },
+  "genre_scifi": {
+    "message": "Bilim kurgu"
+  },
+  "genre_seinen": {
+    "message": "Seinen"
+  },
+  "genre_shojo": {
+    "message": "Shojo"
+  },
+  "genre_shonen": {
+    "message": "Shonen"
+  },
+  "genre_sliceoflife": {
+    "message": "Gündelik yaşam"
+  },
+  "genre_sports": {
+    "message": "Spor"
+  },
+  "genre_supernatural": {
+    "message": "Doğaüstü"
+  },
+  "genre_thriller": {
+    "message": "Gerilim"
+  },
+  "genre_mystery": {
+    "message": "Gizem"
+  },
+  "genre_horror": {
+    "message": "Korku"
+  },
+  "clearFilters": {
+    "message": "Filtreleri temizle"
+  },
+  "listFilterAny": {
+    "message": "Tümü"
+  },
+  "genreFilterAny": {
+    "message": "Tümü"
   }
 }

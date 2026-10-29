@@ -5,9 +5,12 @@
 #   ./build.sh                 testes + lint + pacote .zip em dist/
 #   ./build.sh --skip-tests    pula os testes unitários
 #   ./build.sh --skip-lint     pula o web-ext lint
-#   ./build.sh --sign          também assina na Mozilla e gera o .xpi instalável
-#   ./build.sh --sign --listed envia para a loja pública (addons.mozilla.org), com os
-#                              metadados em inglês de amo-metadata.json
+#   ./build.sh --sign          também assina na Mozilla. O canal sai da versão:
+#                                - último número ÍMPAR (1.0.5): "unlisted", para testar.
+#                                  Assina na hora e gera o .xpi instalável em dist/.
+#                                - último número PAR (1.0.6): "listed", a loja pública
+#                                  (addons.mozilla.org), com os metadados de amo-metadata.json.
+#   ./build.sh --sign --listed igual a --sign, mas só aceita versão par (confirmação)
 #   ./build.sh --help
 #
 # Assinatura (--sign): use a "JWT issuer" (API key) e o "JWT secret" (API secret) de
@@ -20,7 +23,8 @@
 #   b) arquivo .amo-credentials na raiz do projeto (fica fora do git):
 #        API_KEY="user:12345:67"
 #        API_SECRET="..."
-# Sem --listed, o canal é "unlisted": a extensão é assinada mas não fica pública na loja.
+# Fluxo: teste uma versão ímpar (unlisted) e, se estiver tudo certo, suba para a par
+# seguinte e publique. A Mozilla não aceita repetir um número, nem em outro canal.
 
 set -euo pipefail
 
@@ -32,7 +36,7 @@ MIN_NODE=22
 RUN_TESTS=1
 RUN_LINT=1
 SIGN=0
-CHANNEL=unlisted
+WANT_LISTED=0
 
 # ---------- saída ----------
 if [[ -t 1 ]]; then
@@ -53,7 +57,7 @@ while [[ $# -gt 0 ]]; do
     --skip-tests) RUN_TESTS=0 ;;
     --skip-lint)  RUN_LINT=0 ;;
     --sign)       SIGN=1 ;;
-    --listed)     CHANNEL=listed ;;
+    --listed)     WANT_LISTED=1 ;;
     -h|--help)    usage; exit 0 ;;
     *) usage >&2; die "Opção desconhecida: $1" ;;
   esac
@@ -84,8 +88,21 @@ PKG_VERSION="$(node -p 'require("./package.json").version')"
   die "Versões diferentes: manifest.json=$VERSION, package.json=$PKG_VERSION. Ajuste antes do build."
 ok "Versão $VERSION"
 
-if [[ "$CHANNEL" == listed ]]; then
+# Canal pela paridade do último número da versão: ímpar = unlisted, par = listed.
+LAST="${VERSION##*.}"
+[[ "$LAST" =~ ^[0-9]+$ ]] || die "Versão $VERSION: o último número precisa ser só dígitos."
+if (( 10#$LAST % 2 == 0 )); then CHANNEL=listed; else CHANNEL=unlisted; fi
+if (( WANT_LISTED )); then
   (( SIGN )) || die "--listed só vale junto com --sign."
+  [[ "$CHANNEL" == listed ]] ||
+    die "Versão $VERSION é ímpar (teste, canal unlisted). Para publicar na loja, suba para a par seguinte."
+fi
+if (( SIGN )); then
+  if [[ "$CHANNEL" == listed ]]; then ok "Versão par: canal listed (loja pública)"
+  else ok "Versão ímpar: canal unlisted (teste local)"; fi
+fi
+
+if [[ "$CHANNEL" == listed ]] && (( SIGN )); then
   [[ -f amo-metadata.json ]] || die "amo-metadata.json não encontrado (metadados da loja)."
   node -e 'JSON.parse(require("fs").readFileSync("amo-metadata.json","utf8"))' || die "amo-metadata.json inválido."
 fi
@@ -200,7 +217,7 @@ if (( SIGN )); then
   WEB_EXT_API_KEY="$SIGN_KEY" WEB_EXT_API_SECRET="$SIGN_SECRET" \
     npx --yes "$WEB_EXT" sign --no-config-discovery --source-dir "$STAGE" \
     --artifacts-dir "$ARTIFACTS" --channel "$CHANNEL" ${META_ARGS[@]+"${META_ARGS[@]}"} ||
-    die "Falha ao assinar. Confira as credenciais. Se a Mozilla disse que a versão $VERSION já existe: ela não aceita repetir versão nem em outro canal (--sign e --sign --listed gastam um número cada); suba a versão no manifest.json e no package.json."
+    die "Falha ao assinar. Confira as credenciais. Se a Mozilla disse que a versão $VERSION já existe: ela não aceita repetir versão nem em outro canal; suba para o próximo número $( [[ "$CHANNEL" == listed ]] && echo par || echo ímpar ) no manifest.json e no package.json."
   signed="$(find "$ARTIFACTS" -maxdepth 1 -name '*.xpi' | head -n1)"
   if [[ -z "$signed" && "$CHANNEL" == listed ]]; then
     # Na loja pública a versão passa pela revisão da Mozilla antes de ser assinada.

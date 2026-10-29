@@ -383,6 +383,14 @@
       }
     }
   },
+  "statusUpdatedAt": {
+    "message": " · darrera actualització: $WHEN$",
+    "placeholders": {
+      "when": {
+        "content": "$1"
+      }
+    }
+  },
   "statusElapsed": {
     "message": " · actualitzat en $S$ s",
     "placeholders": {
@@ -962,7 +970,7 @@
     "message": "Automàtic (idioma de l'extensió)"
   },
   "groupBySeason": {
-    "message": "Agrupa per temporada d'estrena"
+    "message": "Agrupa"
   },
   "sortSeasonsCount": {
     "message": "Més temporades"
@@ -986,5 +994,85 @@
         "content": "$2"
       }
     }
+  },
+  "genreFilterLabel": {
+    "message": "Categoria"
+  },
+  "genreFilterAll": {
+    "message": "Totes les categories"
+  },
+  "audioFilterLabel": {
+    "message": "Àudio"
+  },
+  "audioFilterAll": {
+    "message": "Tots"
+  },
+  "genresTitle": {
+    "message": "Categories a Crunchyroll: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "genre_action": {
+    "message": "Acció"
+  },
+  "genre_adventure": {
+    "message": "Aventura"
+  },
+  "genre_comedy": {
+    "message": "Comèdia"
+  },
+  "genre_drama": {
+    "message": "Drama"
+  },
+  "genre_fantasy": {
+    "message": "Fantasia"
+  },
+  "genre_music": {
+    "message": "Música"
+  },
+  "genre_romance": {
+    "message": "Romanç"
+  },
+  "genre_scifi": {
+    "message": "Ciència-ficció"
+  },
+  "genre_seinen": {
+    "message": "Seinen"
+  },
+  "genre_shojo": {
+    "message": "Shojo"
+  },
+  "genre_shonen": {
+    "message": "Shonen"
+  },
+  "genre_sliceoflife": {
+    "message": "Vida quotidiana"
+  },
+  "genre_sports": {
+    "message": "Esports"
+  },
+  "genre_supernatural": {
+    "message": "Sobrenatural"
+  },
+  "genre_thriller": {
+    "message": "Thriller"
+  },
+  "genre_mystery": {
+    "message": "Misteri"
+  },
+  "genre_horror": {
+    "message": "Terror"
+  },
+  "clearFilters": {
+    "message": "Esborra els filtres"
+  },
+  "listFilterAny": {
+    "message": "Totes"
+  },
+  "genreFilterAny": {
+    "message": "Totes"
   }
 }

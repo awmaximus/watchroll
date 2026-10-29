@@ -383,6 +383,14 @@
       }
     }
   },
+  "statusUpdatedAt": {
+    "message": " · อัปเดตล่าสุด: $WHEN$",
+    "placeholders": {
+      "when": {
+        "content": "$1"
+      }
+    }
+  },
   "statusElapsed": {
     "message": " · อัปเดตใน $S$ วิ",
     "placeholders": {
@@ -962,7 +970,7 @@
     "message": "อัตโนมัติ (ภาษาของส่วนขยาย)"
   },
   "groupBySeason": {
-    "message": "จัดกลุ่มตามฤดูกาล"
+    "message": "จัดกลุ่ม"
   },
   "sortSeasonsCount": {
     "message": "จำนวนซีซันมากที่สุด"
@@ -986,5 +994,85 @@
         "content": "$2"
       }
     }
+  },
+  "genreFilterLabel": {
+    "message": "หมวดหมู่"
+  },
+  "genreFilterAll": {
+    "message": "ทุกหมวดหมู่"
+  },
+  "audioFilterLabel": {
+    "message": "เสียง"
+  },
+  "audioFilterAll": {
+    "message": "ทั้งหมด"
+  },
+  "genresTitle": {
+    "message": "หมวดหมู่ใน Crunchyroll: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "genre_action": {
+    "message": "แอ็กชัน"
+  },
+  "genre_adventure": {
+    "message": "ผจญภัย"
+  },
+  "genre_comedy": {
+    "message": "ตลก"
+  },
+  "genre_drama": {
+    "message": "ดราม่า"
+  },
+  "genre_fantasy": {
+    "message": "แฟนตาซี"
+  },
+  "genre_music": {
+    "message": "ดนตรี"
+  },
+  "genre_romance": {
+    "message": "โรแมนติก"
+  },
+  "genre_scifi": {
+    "message": "ไซไฟ"
+  },
+  "genre_seinen": {
+    "message": "เซเน็น"
+  },
+  "genre_shojo": {
+    "message": "โชโจ"
+  },
+  "genre_shonen": {
+    "message": "โชเน็น"
+  },
+  "genre_sliceoflife": {
+    "message": "ชีวิตประจำวัน"
+  },
+  "genre_sports": {
+    "message": "กีฬา"
+  },
+  "genre_supernatural": {
+    "message": "เหนือธรรมชาติ"
+  },
+  "genre_thriller": {
+    "message": "ระทึกขวัญ"
+  },
+  "genre_mystery": {
+    "message": "ลึกลับ"
+  },
+  "genre_horror": {
+    "message": "สยองขวัญ"
+  },
+  "clearFilters": {
+    "message": "ล้างตัวกรอง"
+  },
+  "listFilterAny": {
+    "message": "ทั้งหมด"
+  },
+  "genreFilterAny": {
+    "message": "ทั้งหมด"
   }
 }

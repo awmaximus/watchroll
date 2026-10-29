@@ -383,6 +383,14 @@
       }
     }
   },
+  "statusUpdatedAt": {
+    "message": " · cập nhật lần cuối: $WHEN$",
+    "placeholders": {
+      "when": {
+        "content": "$1"
+      }
+    }
+  },
   "statusElapsed": {
     "message": " · cập nhật trong $S$ giây",
     "placeholders": {
@@ -962,7 +970,7 @@
     "message": "Tự động (ngôn ngữ của tiện ích)"
   },
   "groupBySeason": {
-    "message": "Nhóm theo mùa"
+    "message": "Nhóm"
   },
   "sortSeasonsCount": {
     "message": "Nhiều mùa nhất"
@@ -986,5 +994,85 @@
         "content": "$2"
       }
     }
+  },
+  "genreFilterLabel": {
+    "message": "Thể loại"
+  },
+  "genreFilterAll": {
+    "message": "Tất cả thể loại"
+  },
+  "audioFilterLabel": {
+    "message": "Âm thanh"
+  },
+  "audioFilterAll": {
+    "message": "Tất cả"
+  },
+  "genresTitle": {
+    "message": "Thể loại trên Crunchyroll: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "genre_action": {
+    "message": "Hành động"
+  },
+  "genre_adventure": {
+    "message": "Phiêu lưu"
+  },
+  "genre_comedy": {
+    "message": "Hài"
+  },
+  "genre_drama": {
+    "message": "Chính kịch"
+  },
+  "genre_fantasy": {
+    "message": "Giả tưởng"
+  },
+  "genre_music": {
+    "message": "Âm nhạc"
+  },
+  "genre_romance": {
+    "message": "Lãng mạn"
+  },
+  "genre_scifi": {
+    "message": "Khoa học viễn tưởng"
+  },
+  "genre_seinen": {
+    "message": "Seinen"
+  },
+  "genre_shojo": {
+    "message": "Shoujo"
+  },
+  "genre_shonen": {
+    "message": "Shounen"
+  },
+  "genre_sliceoflife": {
+    "message": "Đời thường"
+  },
+  "genre_sports": {
+    "message": "Thể thao"
+  },
+  "genre_supernatural": {
+    "message": "Siêu nhiên"
+  },
+  "genre_thriller": {
+    "message": "Giật gân"
+  },
+  "genre_mystery": {
+    "message": "Bí ẩn"
+  },
+  "genre_horror": {
+    "message": "Kinh dị"
+  },
+  "clearFilters": {
+    "message": "Xóa bộ lọc"
+  },
+  "listFilterAny": {
+    "message": "Tất cả"
+  },
+  "genreFilterAny": {
+    "message": "Tất cả"
   }
 }

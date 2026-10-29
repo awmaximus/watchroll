@@ -21,7 +21,7 @@ To show which episodes you haven't watched, the extension reads from Crunchyroll
 - your Watchlist and, if you select them, your Crunchylists (names and series);
 - your watch history and playback progress;
 - public catalog data: series, seasons, episodes, release dates, audio and subtitle languages,
-  age ratings and the average user rating of each title.
+  age ratings, categories and the average user rating of each title.
 
 These requests go directly from your browser to Crunchyroll, the same way the Crunchyroll
 website does. The extension never asks for, reads or stores your password.

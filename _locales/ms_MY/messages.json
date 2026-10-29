@@ -383,6 +383,14 @@
       }
     }
   },
+  "statusUpdatedAt": {
+    "message": " · kemas kini terakhir: $WHEN$",
+    "placeholders": {
+      "when": {
+        "content": "$1"
+      }
+    }
+  },
   "statusElapsed": {
     "message": " · dikemas kini dalam $S$ saat",
     "placeholders": {
@@ -962,7 +970,7 @@
     "message": "Automatik (bahasa sambungan)"
   },
   "groupBySeason": {
-    "message": "Kumpulkan mengikut musim"
+    "message": "Kumpulkan"
   },
   "sortSeasonsCount": {
     "message": "Musim paling banyak"
@@ -986,5 +994,85 @@
         "content": "$2"
       }
     }
+  },
+  "genreFilterLabel": {
+    "message": "Kategori"
+  },
+  "genreFilterAll": {
+    "message": "Semua kategori"
+  },
+  "audioFilterLabel": {
+    "message": "Audio"
+  },
+  "audioFilterAll": {
+    "message": "Semua"
+  },
+  "genresTitle": {
+    "message": "Kategori Crunchyroll: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "genre_action": {
+    "message": "Aksi"
+  },
+  "genre_adventure": {
+    "message": "Pengembaraan"
+  },
+  "genre_comedy": {
+    "message": "Komedi"
+  },
+  "genre_drama": {
+    "message": "Drama"
+  },
+  "genre_fantasy": {
+    "message": "Fantasi"
+  },
+  "genre_music": {
+    "message": "Muzik"
+  },
+  "genre_romance": {
+    "message": "Romantik"
+  },
+  "genre_scifi": {
+    "message": "Fiksyen sains"
+  },
+  "genre_seinen": {
+    "message": "Seinen"
+  },
+  "genre_shojo": {
+    "message": "Shoujo"
+  },
+  "genre_shonen": {
+    "message": "Shounen"
+  },
+  "genre_sliceoflife": {
+    "message": "Kehidupan harian"
+  },
+  "genre_sports": {
+    "message": "Sukan"
+  },
+  "genre_supernatural": {
+    "message": "Ghaib"
+  },
+  "genre_thriller": {
+    "message": "Thriller"
+  },
+  "genre_mystery": {
+    "message": "Misteri"
+  },
+  "genre_horror": {
+    "message": "Seram"
+  },
+  "clearFilters": {
+    "message": "Kosongkan penapis"
+  },
+  "listFilterAny": {
+    "message": "Semua"
+  },
+  "genreFilterAny": {
+    "message": "Semua"
   }
 }

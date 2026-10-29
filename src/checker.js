@@ -36,6 +36,8 @@ var CRChecker = (() => {
     sources: ["watchlist"], // "watchlist" (a Fila) e/ou IDs de Crunchylists
     listNames: {}, // ID da Crunchylist -> nome (o último lido da API)
     listFilter: "", // filtro das abas: "" = todas as listas
+    genreFilters: [], // filtro das abas por categorias (qualquer uma delas); vazio = todas
+    audioFilter: "", // filtro das abas por modo de áudio (sub/dub/auto): "" = todos
     compact: false, // "Para assistir" em linhas em vez de cards
     groupNever: true, // "A iniciar" agrupado pela temporada de lançamento
   };
@@ -108,6 +110,16 @@ var CRChecker = (() => {
     const sources = (settings && settings.sources) || [];
     return f && sources.length > 1 && sources.includes(f) ? f : "";
   }
+  // Filtros por categoria e por modo de áudio da série (legendado/dublado/qualquer).
+  const AUDIO_FILTERS = ["sub", "dub", "auto"];
+  const activeAudioFilter = (settings) =>
+    AUDIO_FILTERS.includes(settings && settings.audioFilter) ? settings.audioFilter : "";
+  // Várias categorias escolhidas: basta a série ter uma delas.
+  const hasGenre = (r, keys) => {
+    const list = Array.isArray(keys) ? keys : keys ? [keys] : [];
+    return !list.length || (Array.isArray(r.genres) && list.some((k) => r.genres.includes(k)));
+  };
+  const hasAudio = (r, mode) => !mode || r.mode === mode;
   const inList = (r, listId) => !listId || (Array.isArray(r.lists) ? r.lists.includes(listId) : listId === "watchlist");
 
   const visibleResults = (results, settings, now = Date.now()) =>
@@ -362,6 +374,10 @@ var CRChecker = (() => {
     matchesSearch,
     activeListFilter,
     inList,
+    AUDIO_FILTERS,
+    activeAudioFilter,
+    hasGenre,
+    hasAudio,
     SORTS,
     TAB_SORTS,
     sortFor,

@@ -383,6 +383,14 @@
       }
     }
   },
+  "statusUpdatedAt": {
+    "message": " · 最后更新：$WHEN$",
+    "placeholders": {
+      "when": {
+        "content": "$1"
+      }
+    }
+  },
   "statusElapsed": {
     "message": " · 用时 $S$ 秒",
     "placeholders": {
@@ -962,7 +970,7 @@
     "message": "自动(扩展语言)"
   },
   "groupBySeason": {
-    "message": "按季度分组"
+    "message": "分组"
   },
   "sortSeasonsCount": {
     "message": "季数最多"
@@ -986,5 +994,85 @@
         "content": "$2"
       }
     }
+  },
+  "genreFilterLabel": {
+    "message": "类别"
+  },
+  "genreFilterAll": {
+    "message": "所有类别"
+  },
+  "audioFilterLabel": {
+    "message": "音频"
+  },
+  "audioFilterAll": {
+    "message": "全部"
+  },
+  "genresTitle": {
+    "message": "Crunchyroll 类别：$P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "genre_action": {
+    "message": "动作"
+  },
+  "genre_adventure": {
+    "message": "冒险"
+  },
+  "genre_comedy": {
+    "message": "喜剧"
+  },
+  "genre_drama": {
+    "message": "剧情"
+  },
+  "genre_fantasy": {
+    "message": "奇幻"
+  },
+  "genre_music": {
+    "message": "音乐"
+  },
+  "genre_romance": {
+    "message": "恋爱"
+  },
+  "genre_scifi": {
+    "message": "科幻"
+  },
+  "genre_seinen": {
+    "message": "青年"
+  },
+  "genre_shojo": {
+    "message": "少女"
+  },
+  "genre_shonen": {
+    "message": "少年"
+  },
+  "genre_sliceoflife": {
+    "message": "日常"
+  },
+  "genre_sports": {
+    "message": "运动"
+  },
+  "genre_supernatural": {
+    "message": "超自然"
+  },
+  "genre_thriller": {
+    "message": "惊悚"
+  },
+  "genre_mystery": {
+    "message": "悬疑"
+  },
+  "genre_horror": {
+    "message": "恐怖"
+  },
+  "clearFilters": {
+    "message": "清除筛选"
+  },
+  "listFilterAny": {
+    "message": "全部"
+  },
+  "genreFilterAny": {
+    "message": "全部"
   }
 }

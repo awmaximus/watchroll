@@ -26,6 +26,8 @@ only reads data from your own account.
 - **Advanced Search** over the whole Crunchyroll catalog or your lists, with dub, age rating,
   year and season filters, and optional Japanese/romaji title lookup through AniList.
 - **Crunchyroll rating** (★ 4.9) on every series, in every tab and in Advanced Search.
+- **Categories** (Action, Fantasy, Romance…) from Crunchyroll on every series, with a category
+  filter and a subbed/dubbed filter on every tab.
 - **Hide or snooze** a series, **next release** dates with a countdown when it's close,
   **dub indicator** on every series.
 - **Compact mode** (rows instead of cards) and **settings export/import**.
@@ -37,7 +39,9 @@ Requires Firefox 142 or later and a Crunchyroll account signed in in Firefox.
 
 Click the Watchroll icon in the toolbar to open its page. The header has links that open
 Crunchyroll in a new tab: the home page, your Watchlist and each Crunchylist selected in
-Settings (in the language chosen for titles and links). The last known result
+Settings (in the language chosen for titles and links). Below the name it shows the episode
+count and when the results were last updated (time only for today, date and time otherwise;
+hover for the full date), including updates made by the background check. The last known result
 appears immediately and is refreshed in the background. **Refresh** forces a full check.
 
 ### Tabs
@@ -54,18 +58,27 @@ is the magnifier icon and Settings the gear icon. Empty tabs are hidden, except 
 | No dub | Dubbed-mode series whose current season has no episode at all in your language. **Watch subbed** switches the series to subbed mode. |
 | Caught up | Series with nothing pending. |
 | Week | The next episode of each series releasing in the next 7 days, grouped by day (Today, Tomorrow, Wednesday, October 21…), with the time. Crunchyroll only lists an episode once it is out, so for simulcasts the date is estimated from the weekly pace (7 days after the last episode, same time) and marked with `~`; a date Crunchyroll does publish takes precedence. No estimate when episodes aren't weekly or the expected one is already late (break or season end). For series you haven't started, only seasons from the current or previous anime season are checked (one extra request each). |
-| To start | Series you never watched, with their number of seasons and episodes ("3 seasons · 36 episodes", counting regular seasons only: dub copies and specials are left out). By default grouped by release season (Fall 2026, Summer 2026…), newest first; **Group by release season** turns the groups off. |
+| To start | Series you never watched, with their number of seasons and episodes ("3 seasons · 36 episodes", counting regular seasons only: dub copies and specials are left out). By default grouped by release season (Fall 2026, Summer 2026…), newest first; **Group** turns the groups off. |
 | Errors | Series whose check failed, with the error. |
 | Search | See [Advanced Search](#advanced-search). |
 | Hidden | Series you hid. **Show** brings one back. |
 | ⚙ | See [Settings](#settings). |
 
-Above the list tabs:
+Above the list tabs, a filter bar that fits on one line on wide screens (it wraps on narrow
+ones). A filter in use is outlined in orange, and **Clear filters** resets the search and all
+filters at once:
 
 - **Search** filters by title, ignoring accents and case. If the current tab has no match, the
   first tab with one is shown.
 - **List** (only with more than one list selected) filters by Watchlist or Crunchylist. Tab
   counts follow the filter; the status line and the icon count all lists.
+- **Category** filters by Crunchyroll category. You can tick several: a series shows up if it has
+  any of them. It lists only categories your series have, with how many series have each one.
+  Crunchyroll sends category names in the title language, sometimes mixed with English
+  ("Fantasia" and "Fantasy" in the same list), so known names are merged and shown in the
+  extension language; unknown ones are shown as Crunchyroll sends them.
+- **Audio** filters by how you watch each series: Subbed, Dubbed or Any audio (the per-series
+  setting, or the default).
 - **Sort**, saved per tab:
 
 | Tab | Sort options |
@@ -264,9 +277,21 @@ npm start       # opens a test Firefox with the extension loaded
 ./build.sh                  # tests + lint + package in dist/
 ./build.sh --skip-tests     # skip tests
 ./build.sh --skip-lint      # skip web-ext lint
-./build.sh --sign           # also sign on AMO (unlisted channel) and save the .xpi
-./build.sh --sign --listed  # submit to the public listing on addons.mozilla.org
+./build.sh --sign           # also sign on AMO; the channel comes from the version (below)
+./build.sh --sign --listed  # same, but refuses an odd version (safety check for releases)
 ```
+
+**Odd versions are test builds, even versions are releases.** With `--sign`, the last number of
+the version picks the AMO channel:
+
+| Version | Channel | Result |
+|---|---|---|
+| odd (1.0.5) | `unlisted` | Signed right away; the installable `.xpi` goes to `dist/`. Test it locally. |
+| even (1.0.6) | `listed` | Submitted to the public listing with `amo-metadata.json`. |
+
+The flow: bump to the next odd version, `./build.sh --sign`, install the `.xpi` and test; if all
+is well, bump to the next even version, commit, tag and `./build.sh --sign`. If something is
+wrong, fix it and go to the next odd version.
 
 The script stops at the first failure. It:
 
@@ -293,7 +318,7 @@ CRED
 chmod 600 .amo-credentials
 ```
 
-`--listed` sends the store metadata in `amo-metadata.json`: summary and description in English
+Even versions send the store metadata in `amo-metadata.json`: summary and description in English
 and Portuguese, category, the `streaming` tag, license, homepage and support links, and notes for
 Mozilla's reviewers (without credentials). The script sends the version and returns right away (`--approval-timeout 0`); review takes
 hours to days, and the signed `.xpi` appears in the Developer Hub once it is approved.
@@ -310,9 +335,9 @@ For the store listing, `store/screenshots/` has 1280×800 screenshots (English i
 fictional titles and generated artwork) and `PRIVACY.md` is the privacy policy to paste in the
 add-on's Developer Hub page. The listing icon is `icons/icon-128.png`.
 
-Bump `version` in both `manifest.json` and `package.json` for every release (current: 1.0.4);
-AMO does not accept the same version twice, not even in different channels: `--sign` (unlisted)
-and `--sign --listed` each use up a version number, so run only the one you need. The add-on ID
+Bump `version` in both `manifest.json` and `package.json` for every build you sign (current:
+1.0.7); AMO does not accept the same version twice, not even in different channels, which is why
+test builds and releases use different numbers. The add-on ID
 (`crunchyroll-novos-eps@awmaximus.github.io`) comes from before the rename and must stay as it
 is: changing it makes Firefox and AMO treat Watchroll as a different extension.
 
@@ -326,10 +351,10 @@ request with Node 22 and keeps the `.zip` as a build artifact.
 Pushing a version tag publishes a GitHub release with the `.zip` attached:
 
 ```sh
-# after bumping "version" in manifest.json and package.json (e.g. to 1.0.1)
-git commit -am "Watchroll 1.0.1"
-git tag v1.0.1
-git push && git push origin v1.0.1
+# after bumping "version" in manifest.json and package.json (e.g. to 1.0.6)
+git commit -am "Watchroll 1.0.6"
+git tag v1.0.6
+git push && git push origin v1.0.6
 ```
 
 The release job checks that the tag matches the `manifest.json` version, then creates the
@@ -353,7 +378,7 @@ add it to `LANGUAGES` in `src/i18n.js` (with its name in its own language) and r
 
 ```
 manifest.json       MV3 manifest (Firefox)
-amo-metadata.json   English store metadata for --listed
+amo-metadata.json   English store metadata for releases (even versions)
 PRIVACY.md          privacy policy
 store/screenshots/  store screenshots
 .github/workflows/  CI

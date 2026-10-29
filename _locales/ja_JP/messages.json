@@ -383,6 +383,14 @@
       }
     }
   },
+  "statusUpdatedAt": {
+    "message": " · 最終更新: $WHEN$",
+    "placeholders": {
+      "when": {
+        "content": "$1"
+      }
+    }
+  },
   "statusElapsed": {
     "message": " · 更新 $S$ 秒",
     "placeholders": {
@@ -962,7 +970,7 @@
     "message": "自動(拡張機能の言語)"
   },
   "groupBySeason": {
-    "message": "放送シーズンでまとめる"
+    "message": "グループ化"
   },
   "sortSeasonsCount": {
     "message": "シーズン数が多い順"
@@ -986,5 +994,85 @@
         "content": "$2"
       }
     }
+  },
+  "genreFilterLabel": {
+    "message": "カテゴリー"
+  },
+  "genreFilterAll": {
+    "message": "すべてのカテゴリー"
+  },
+  "audioFilterLabel": {
+    "message": "音声"
+  },
+  "audioFilterAll": {
+    "message": "すべて"
+  },
+  "genresTitle": {
+    "message": "Crunchyroll のカテゴリー: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "genre_action": {
+    "message": "アクション"
+  },
+  "genre_adventure": {
+    "message": "アドベンチャー"
+  },
+  "genre_comedy": {
+    "message": "コメディ"
+  },
+  "genre_drama": {
+    "message": "ドラマ"
+  },
+  "genre_fantasy": {
+    "message": "ファンタジー"
+  },
+  "genre_music": {
+    "message": "音楽"
+  },
+  "genre_romance": {
+    "message": "恋愛"
+  },
+  "genre_scifi": {
+    "message": "SF"
+  },
+  "genre_seinen": {
+    "message": "青年"
+  },
+  "genre_shojo": {
+    "message": "少女"
+  },
+  "genre_shonen": {
+    "message": "少年"
+  },
+  "genre_sliceoflife": {
+    "message": "日常"
+  },
+  "genre_sports": {
+    "message": "スポーツ"
+  },
+  "genre_supernatural": {
+    "message": "超常現象"
+  },
+  "genre_thriller": {
+    "message": "スリラー"
+  },
+  "genre_mystery": {
+    "message": "ミステリー"
+  },
+  "genre_horror": {
+    "message": "ホラー"
+  },
+  "clearFilters": {
+    "message": "フィルターをクリア"
+  },
+  "listFilterAny": {
+    "message": "すべて"
+  },
+  "genreFilterAny": {
+    "message": "すべて"
   }
 }

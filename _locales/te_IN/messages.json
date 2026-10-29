@@ -383,6 +383,14 @@
       }
     }
   },
+  "statusUpdatedAt": {
+    "message": " · చివరి అప్‌డేట్: $WHEN$",
+    "placeholders": {
+      "when": {
+        "content": "$1"
+      }
+    }
+  },
   "statusElapsed": {
     "message": " · $S$ సెకన్లలో అప్‌డేట్",
     "placeholders": {
@@ -962,7 +970,7 @@
     "message": "ఆటోమేటిక్ (ఎక్స్‌టెన్షన్ భాష)"
   },
   "groupBySeason": {
-    "message": "సీజన్ వారీగా గుంపు చేయి"
+    "message": "సమూహం చేయి"
   },
   "sortSeasonsCount": {
     "message": "ఎక్కువ సీజన్‌లు"
@@ -986,5 +994,85 @@
         "content": "$2"
       }
     }
+  },
+  "genreFilterLabel": {
+    "message": "వర్గం"
+  },
+  "genreFilterAll": {
+    "message": "అన్ని వర్గాలు"
+  },
+  "audioFilterLabel": {
+    "message": "ఆడియో"
+  },
+  "audioFilterAll": {
+    "message": "అన్నీ"
+  },
+  "genresTitle": {
+    "message": "Crunchyroll వర్గాలు: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "genre_action": {
+    "message": "యాక్షన్"
+  },
+  "genre_adventure": {
+    "message": "సాహసం"
+  },
+  "genre_comedy": {
+    "message": "కామెడీ"
+  },
+  "genre_drama": {
+    "message": "డ్రామా"
+  },
+  "genre_fantasy": {
+    "message": "ఫాంటసీ"
+  },
+  "genre_music": {
+    "message": "సంగీతం"
+  },
+  "genre_romance": {
+    "message": "రొమాన్స్"
+  },
+  "genre_scifi": {
+    "message": "సైన్స్ ఫిక్షన్"
+  },
+  "genre_seinen": {
+    "message": "సెయినెన్"
+  },
+  "genre_shojo": {
+    "message": "షోజో"
+  },
+  "genre_shonen": {
+    "message": "షోనెన్"
+  },
+  "genre_sliceoflife": {
+    "message": "స్లైస్ ఆఫ్ లైఫ్"
+  },
+  "genre_sports": {
+    "message": "క్రీడలు"
+  },
+  "genre_supernatural": {
+    "message": "అతీంద్రియ"
+  },
+  "genre_thriller": {
+    "message": "థ్రిల్లర్"
+  },
+  "genre_mystery": {
+    "message": "మిస్టరీ"
+  },
+  "genre_horror": {
+    "message": "హారర్"
+  },
+  "clearFilters": {
+    "message": "ఫిల్టర్‌లు తొలగించు"
+  },
+  "listFilterAny": {
+    "message": "అన్నీ"
+  },
+  "genreFilterAny": {
+    "message": "అన్నీ"
   }
 }

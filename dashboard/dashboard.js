@@ -57,6 +57,9 @@
   function fillSelect(select, options, value) {
     select.replaceChildren(...options.map(([v, label]) => el("option", { value: v, text: label })));
     select.value = value;
+    // Na barra de filtros o texto pode ser cortado: o nome inteiro fica na dica.
+    const cur = select.selectedOptions[0];
+    select.title = cur ? cur.textContent : "";
   }
 
   function renderSettingsForm() {
@@ -228,13 +231,134 @@
     );
   }
 
+  // ---------- categorias ----------
+  // Chave fixa ("action") → nome traduzido; categoria desconhecida ("x:Nome") → o nome
+  // que a Crunchyroll mandou.
+  const genreLabel = (key) =>
+    key.startsWith("x:") ? key.slice(2) : t(`genre_${key}`) || key;
+  function genreLine(s, { compact = false } = {}) {
+    const keys = Array.isArray(s.genres) ? s.genres : [];
+    if (!keys.length) return null;
+    const names = keys.map(genreLabel);
+    const tip = t("genresTitle", names.join(", "));
+    return el("span", { class: `genres${compact ? " compact" : ""}`, title: tip, text: names.join(" · ") });
+  }
+
+  // Filtro por categoria: só as categorias das séries que existem (sem as ocultas).
+  // Um filtro salvo cuja categoria sumiu vale como "todas".
+  function availableGenres() {
+    const set = new Set();
+    for (const r of results) if (!hiddenEntry(r)) for (const g of r.genres || []) set.add(g);
+    return [...set].map((k) => [k, genreLabel(k)]).sort((a, b) => a[1].localeCompare(b[1], UI));
+  }
+  // Categorias escolhidas que ainda existem nas séries (as que sumiram não filtram).
+  // Aceita o formato antigo (uma categoria só, em genreFilter).
+  const chosenGenres = () => {
+    const saved = Array.isArray(settings.genreFilters)
+      ? settings.genreFilters
+      : settings.genreFilter
+        ? [settings.genreFilter]
+        : [];
+    return saved.filter((g) => results.some((r) => (r.genres || []).includes(g)));
+  };
+  const activeGenreFilter = chosenGenres;
+  const filtersActive = () =>
+    !!(CRChecker.activeListFilter(settings) || chosenGenres().length || CRChecker.activeAudioFilter(settings));
+
+  async function setGenres(list) {
+    settings.genreFilters = list;
+    delete settings.genreFilter;
+    await saveSettings();
+    render();
+  }
+
+  // Combo de várias escolhas (mesmo componente das listas nas Configurações).
+  function renderGenreFilter(genres) {
+    const box = $("genre-filter");
+    const old = box.querySelector(".multi-panel");
+    const wasOpen = !!old && !old.hidden;
+    const focused = document.activeElement && box.contains(document.activeElement) ? document.activeElement.value : null;
+    const chosen = chosenGenres();
+    const count = (k) => results.filter((r) => !hiddenEntry(r) && (r.genres || []).includes(k)).length;
+    const summary = chosen.length ? chosen.map(genreLabel).join(", ") : t("genreFilterAny");
+    const button = el(
+      "button",
+      {
+        type: "button",
+        class: "multi-button",
+        "aria-haspopup": "true",
+        "aria-expanded": String(wasOpen),
+        "aria-controls": "genre-filter-panel",
+        "aria-labelledby": "genre-filter-label",
+        title: summary,
+      },
+      el("span", { class: "multi-summary", text: summary }),
+      el("span", { class: "multi-caret", "aria-hidden": "true", text: "▾" })
+    );
+    const option = (value, label, checked, onchange, extra = null) =>
+      el(
+        "label",
+        { class: "multi-option" },
+        el("input", { type: "checkbox", value, checked, onchange }),
+        el("span", { class: "multi-name", text: label }),
+        extra
+      );
+    const panel = el(
+      "div",
+      { class: "multi-panel", id: "genre-filter-panel", role: "group", "aria-labelledby": "genre-filter-label", hidden: !wasOpen },
+      option("", t("genreFilterAll"), !chosen.length, () => setGenres([])),
+      genres.map(([k, label]) =>
+        option(
+          k,
+          label,
+          chosen.includes(k),
+          (e) => setGenres(e.target.checked ? [...chosen, k] : chosen.filter((g) => g !== k)),
+          el("small", { text: String(count(k)) })
+        )
+      )
+    );
+    const toggle = (open) => {
+      panel.hidden = !open;
+      button.setAttribute("aria-expanded", String(open));
+    };
+    button.addEventListener("click", () => toggle(panel.hidden));
+    box.onkeydown = (e) => {
+      if (e.key === "Escape" && !panel.hidden) {
+        toggle(false);
+        button.focus();
+      }
+    };
+    box.replaceChildren(button, panel);
+    // O combo é refeito a cada mudança: devolve o foco à mesma opção.
+    if (focused !== null && focused !== undefined) {
+      const again = [...panel.querySelectorAll("input")].find((i) => i.value === focused);
+      if (again) again.focus();
+    }
+  }
+
+  function renderFilters() {
+    const genres = availableGenres();
+    $("genrefilter-wrap").hidden = !genres.length;
+    if (genres.length) renderGenreFilter(genres);
+    // Filtro em uso fica destacado; "Limpar filtros" só aparece com algum em uso.
+    $("listfilter-wrap").classList.toggle("active", !!CRChecker.activeListFilter(settings));
+    $("genrefilter-wrap").classList.toggle("active", chosenGenres().length > 0);
+    $("audiofilter-wrap").classList.toggle("active", !!CRChecker.activeAudioFilter(settings));
+    $("clear-filters").hidden = !(filtersActive() || query.trim());
+    fillSelect(
+      $("audio-filter"),
+      [["", t("audioFilterAll")], ["sub", t("modeSub")], ["dub", t("modeDub")], ["auto", t("modeAuto")]],
+      CRChecker.activeAudioFilter(settings)
+    );
+  }
+
   function renderListFilter() {
     const wrap = $("listfilter-wrap");
     wrap.hidden = !multiList();
     if (wrap.hidden) return;
     fillSelect(
       $("list-filter"),
-      [["", t("listFilterAll")], ...sources().map((id) => [id, listName(id)])],
+      [["", t("listFilterAny")], ...sources().map((id) => [id, listName(id)])],
       CRChecker.activeListFilter(settings)
     );
   }
@@ -608,6 +732,7 @@
         { class: "info" },
         el("a", { class: "series", href: seriesUrl(s), target: "_blank", rel: "noopener", text: s.title, title: s.title }),
         el("div", { class: "badges" }, ratingBadge(s), dubBadge(s), listChips(s)),
+        genreLine(s),
         el(
           "ul",
           { class: "eps" },
@@ -642,7 +767,7 @@
       el(
         "div",
         { class: "row-text" },
-        el("span", { class: "row-title" }, el("a", { href: seriesUrl(s), target: "_blank", rel: "noopener", text: s.title }), ratingBadge(s, { compact: true }), dubBadge(s, { compact: true }), listChips(s, { compact: true })),
+        el("span", { class: "row-title" }, el("a", { href: seriesUrl(s), target: "_blank", rel: "noopener", text: s.title }), ratingBadge(s, { compact: true }), dubBadge(s, { compact: true }), listChips(s, { compact: true }), genreLine(s, { compact: true })),
         note ? el("small", { text: note, title: note }) : null
       ),
       el("div", { class: "row-actions" }, extraButton, modeSelect(s), actionsSelect(s))
@@ -713,7 +838,7 @@
   // se a aba atual não tiver resultado, mostra a primeira que tiver (sem salvar).
   function renderTabs(tabs) {
     const shown = tabs.filter((tb) => tb.always || tb.count > 0);
-    const searching = query.trim() !== "" || !!CRChecker.activeListFilter(settings);
+    const searching = query.trim() !== "" || filtersActive();
     let active = shown.find((tb) => tb.id === settings.tab) || shown[0];
     if (searching && active.count === 0) active = shown.find((tb) => tb.count > 0) || active;
     const sorts = CRChecker.TAB_SORTS[active.id];
@@ -1112,9 +1237,16 @@
   // listado; o status do topo continua contando tudo.
   function renderSections(visible, hiddenAll) {
     const listFilter = CRChecker.activeListFilter(settings);
-    const match = (r) => CRChecker.matchesSearch(r.title, query) && CRChecker.inList(r, listFilter);
-    const searching = query.trim() !== "" || !!listFilter;
+    const genreFilter = activeGenreFilter();
+    const audioFilter = CRChecker.activeAudioFilter(settings);
+    const match = (r) =>
+      CRChecker.matchesSearch(r.title, query) &&
+      CRChecker.inList(r, listFilter) &&
+      CRChecker.hasGenre(r, genreFilter) &&
+      CRChecker.hasAudio(r, audioFilter);
+    const searching = query.trim() !== "" || filtersActive();
     renderListFilter();
+    renderFilters();
     const results = visible.filter(match);
     const hidden = hiddenAll.filter(match);
     const by = (tab) => CRChecker.sortFor(settings, tab);
@@ -1257,6 +1389,7 @@
       const t0 = performance.now();
       results = await CRAnalyzer.run({ settings, force, onProgress: setProgress });
       render();
+      showUpdated(Date.now());
       showElapsed(performance.now() - t0);
       // O que está na tela conta como visto: não vira notificação depois.
       await CRChecker.record(results, { scope: await CRAnalyzer.cacheScope(), settings });
@@ -1304,6 +1437,22 @@
       nodes.forEach((n) => n.classList.remove("loading"));
       await CRApi.release();
     }
+  }
+
+  // Data e hora da última atualização (desta página ou da verificação em segundo plano).
+  function showUpdated(at) {
+    const n = $("updated");
+    if (!at) {
+      n.textContent = "";
+      return;
+    }
+    const d = new Date(at);
+    const sameDay = d.toDateString() === new Date().toDateString();
+    const when = sameDay
+      ? d.toLocaleTimeString(UI, { hour: "2-digit", minute: "2-digit" })
+      : d.toLocaleString(UI, { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
+    n.textContent = t("statusUpdatedAt", when);
+    n.title = d.toLocaleString(UI, { dateStyle: "full", timeStyle: "medium" });
   }
 
   // Nome do perfil no topo, só se a conta tiver mais de um perfil.
@@ -1462,6 +1611,31 @@
       await saveSettings();
       render();
     });
+    $("clear-filters").addEventListener("click", async () => {
+      settings.listFilter = "";
+      settings.genreFilters = [];
+      delete settings.genreFilter;
+      settings.audioFilter = "";
+      query = "";
+      $("search").value = "";
+      await saveSettings();
+      render();
+      $("search").focus();
+    });
+    $("audio-filter").addEventListener("change", async (e) => {
+      settings.audioFilter = e.target.value;
+      await saveSettings();
+      render();
+    });
+    // Fecha o combo de categorias ao clicar fora dele.
+    document.addEventListener("click", (e) => {
+      const box = $("genre-filter");
+      const panel = box && box.querySelector(".multi-panel");
+      if (panel && !panel.hidden && !box.contains(e.target) && document.contains(e.target)) {
+        panel.hidden = true;
+        box.querySelector(".multi-button").setAttribute("aria-expanded", "false");
+      }
+    });
     // Fecha o combo de listas ao clicar fora dele.
     document.addEventListener("click", (e) => {
       const box = $("set-lists");
@@ -1490,12 +1664,17 @@
       const fresh = [...keys(c.newValue.results)].filter((k) => !before.has(k)).length;
       results = c.newValue.results;
       render();
+      showUpdated(c.newValue.at);
+      $("elapsed").textContent = ""; // a duração mostrada era a da atualização anterior
       if (fresh) notice(tn("notifTitle", fresh));
     });
 
     // Mostra na hora o último resultado conhecido enquanto atualiza.
     const last = await CRChecker.lastResults();
-    if (last && Array.isArray(last.results)) results = last.results;
+    if (last && Array.isArray(last.results)) {
+      results = last.results;
+      showUpdated(last.at);
+    }
     // Sempre desenha as abas: mesmo sem resultado (ou se a verificação falhar), as
     // Configurações e a Pesquisar ficam acessíveis.
     render();

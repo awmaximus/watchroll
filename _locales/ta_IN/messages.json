@@ -383,6 +383,14 @@
       }
     }
   },
+  "statusUpdatedAt": {
+    "message": " · கடைசி புதுப்பிப்பு: $WHEN$",
+    "placeholders": {
+      "when": {
+        "content": "$1"
+      }
+    }
+  },
   "statusElapsed": {
     "message": " · $S$ வினாடியில் புதுப்பிக்கப்பட்டது",
     "placeholders": {
@@ -962,7 +970,7 @@
     "message": "தானியங்கு (நீட்டிப்பின் மொழி)"
   },
   "groupBySeason": {
-    "message": "பருவப்படி குழுவாக்கு"
+    "message": "குழுவாக்கு"
   },
   "sortSeasonsCount": {
     "message": "அதிக சீசன்கள்"
@@ -986,5 +994,85 @@
         "content": "$2"
       }
     }
+  },
+  "genreFilterLabel": {
+    "message": "வகை"
+  },
+  "genreFilterAll": {
+    "message": "அனைத்து வகைகளும்"
+  },
+  "audioFilterLabel": {
+    "message": "ஆடியோ"
+  },
+  "audioFilterAll": {
+    "message": "அனைத்தும்"
+  },
+  "genresTitle": {
+    "message": "Crunchyroll வகைகள்: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "genre_action": {
+    "message": "ஆக்‌ஷன்"
+  },
+  "genre_adventure": {
+    "message": "சாகசம்"
+  },
+  "genre_comedy": {
+    "message": "நகைச்சுவை"
+  },
+  "genre_drama": {
+    "message": "நாடகம்"
+  },
+  "genre_fantasy": {
+    "message": "ஃபேன்டஸி"
+  },
+  "genre_music": {
+    "message": "இசை"
+  },
+  "genre_romance": {
+    "message": "காதல்"
+  },
+  "genre_scifi": {
+    "message": "அறிவியல் புனைவு"
+  },
+  "genre_seinen": {
+    "message": "சேனென்"
+  },
+  "genre_shojo": {
+    "message": "ஷோஜோ"
+  },
+  "genre_shonen": {
+    "message": "ஷோனென்"
+  },
+  "genre_sliceoflife": {
+    "message": "அன்றாட வாழ்க்கை"
+  },
+  "genre_sports": {
+    "message": "விளையாட்டு"
+  },
+  "genre_supernatural": {
+    "message": "அமானுஷ்யம்"
+  },
+  "genre_thriller": {
+    "message": "த்ரில்லர்"
+  },
+  "genre_mystery": {
+    "message": "மர்மம்"
+  },
+  "genre_horror": {
+    "message": "திகில்"
+  },
+  "clearFilters": {
+    "message": "வடிப்பான்களை அழி"
+  },
+  "listFilterAny": {
+    "message": "அனைத்தும்"
+  },
+  "genreFilterAny": {
+    "message": "அனைத்தும்"
   }
 }

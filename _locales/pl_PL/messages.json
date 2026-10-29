@@ -383,6 +383,14 @@
       }
     }
   },
+  "statusUpdatedAt": {
+    "message": " · ostatnia aktualizacja: $WHEN$",
+    "placeholders": {
+      "when": {
+        "content": "$1"
+      }
+    }
+  },
   "statusElapsed": {
     "message": " · zaktualizowano w $S$ s",
     "placeholders": {
@@ -962,7 +970,7 @@
     "message": "Automatycznie (język rozszerzenia)"
   },
   "groupBySeason": {
-    "message": "Grupuj według sezonu"
+    "message": "Grupuj"
   },
   "sortSeasonsCount": {
     "message": "Najwięcej sezonów"
@@ -986,5 +994,85 @@
         "content": "$2"
       }
     }
+  },
+  "genreFilterLabel": {
+    "message": "Kategoria"
+  },
+  "genreFilterAll": {
+    "message": "Wszystkie kategorie"
+  },
+  "audioFilterLabel": {
+    "message": "Dźwięk"
+  },
+  "audioFilterAll": {
+    "message": "Wszystkie"
+  },
+  "genresTitle": {
+    "message": "Kategorie w Crunchyroll: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "genre_action": {
+    "message": "Akcja"
+  },
+  "genre_adventure": {
+    "message": "Przygoda"
+  },
+  "genre_comedy": {
+    "message": "Komedia"
+  },
+  "genre_drama": {
+    "message": "Dramat"
+  },
+  "genre_fantasy": {
+    "message": "Fantasy"
+  },
+  "genre_music": {
+    "message": "Muzyka"
+  },
+  "genre_romance": {
+    "message": "Romans"
+  },
+  "genre_scifi": {
+    "message": "Science fiction"
+  },
+  "genre_seinen": {
+    "message": "Seinen"
+  },
+  "genre_shojo": {
+    "message": "Shojo"
+  },
+  "genre_shonen": {
+    "message": "Shonen"
+  },
+  "genre_sliceoflife": {
+    "message": "Okruchy życia"
+  },
+  "genre_sports": {
+    "message": "Sport"
+  },
+  "genre_supernatural": {
+    "message": "Nadprzyrodzone"
+  },
+  "genre_thriller": {
+    "message": "Thriller"
+  },
+  "genre_mystery": {
+    "message": "Tajemnica"
+  },
+  "genre_horror": {
+    "message": "Horror"
+  },
+  "clearFilters": {
+    "message": "Wyczyść filtry"
+  },
+  "listFilterAny": {
+    "message": "Wszystkie"
+  },
+  "genreFilterAny": {
+    "message": "Wszystkie"
   }
 }

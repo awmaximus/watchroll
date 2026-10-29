@@ -383,6 +383,14 @@
       }
     }
   },
+  "statusUpdatedAt": {
+    "message": " · última actualización: $WHEN$",
+    "placeholders": {
+      "when": {
+        "content": "$1"
+      }
+    }
+  },
   "statusElapsed": {
     "message": " · actualizado en $S$ s",
     "placeholders": {
@@ -962,7 +970,7 @@
     "message": "Automático (idioma de la extensión)"
   },
   "groupBySeason": {
-    "message": "Agrupar por temporada de estreno"
+    "message": "Agrupar"
   },
   "sortSeasonsCount": {
     "message": "Más temporadas"
@@ -986,5 +994,85 @@
         "content": "$2"
       }
     }
+  },
+  "genreFilterLabel": {
+    "message": "Categoría"
+  },
+  "genreFilterAll": {
+    "message": "Todas las categorías"
+  },
+  "audioFilterLabel": {
+    "message": "Audio"
+  },
+  "audioFilterAll": {
+    "message": "Todos"
+  },
+  "genresTitle": {
+    "message": "Categorías en Crunchyroll: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "genre_action": {
+    "message": "Acción"
+  },
+  "genre_adventure": {
+    "message": "Aventura"
+  },
+  "genre_comedy": {
+    "message": "Comedia"
+  },
+  "genre_drama": {
+    "message": "Drama"
+  },
+  "genre_fantasy": {
+    "message": "Fantasía"
+  },
+  "genre_music": {
+    "message": "Música"
+  },
+  "genre_romance": {
+    "message": "Romance"
+  },
+  "genre_scifi": {
+    "message": "Ciencia ficción"
+  },
+  "genre_seinen": {
+    "message": "Seinen"
+  },
+  "genre_shojo": {
+    "message": "Shojo"
+  },
+  "genre_shonen": {
+    "message": "Shonen"
+  },
+  "genre_sliceoflife": {
+    "message": "Recuentos de la vida"
+  },
+  "genre_sports": {
+    "message": "Deportes"
+  },
+  "genre_supernatural": {
+    "message": "Sobrenatural"
+  },
+  "genre_thriller": {
+    "message": "Suspenso"
+  },
+  "genre_mystery": {
+    "message": "Misterio"
+  },
+  "genre_horror": {
+    "message": "Terror"
+  },
+  "clearFilters": {
+    "message": "Borrar filtros"
+  },
+  "listFilterAny": {
+    "message": "Todas"
+  },
+  "genreFilterAny": {
+    "message": "Todas"
   }
 }

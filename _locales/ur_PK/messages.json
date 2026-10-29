@@ -383,6 +383,14 @@
       }
     }
   },
+  "statusUpdatedAt": {
+    "message": " · آخری اپ ڈیٹ: $WHEN$",
+    "placeholders": {
+      "when": {
+        "content": "$1"
+      }
+    }
+  },
   "statusElapsed": {
     "message": " · $S$ سیکنڈ میں تازہ",
     "placeholders": {
@@ -962,7 +970,7 @@
     "message": "خودکار (ایکسٹینشن کی زبان)"
   },
   "groupBySeason": {
-    "message": "سیزن کے لحاظ سے گروپ کریں"
+    "message": "گروپ کریں"
   },
   "sortSeasonsCount": {
     "message": "سب سے زیادہ سیزن"
@@ -986,5 +994,85 @@
         "content": "$2"
       }
     }
+  },
+  "genreFilterLabel": {
+    "message": "زمرہ"
+  },
+  "genreFilterAll": {
+    "message": "تمام زمرے"
+  },
+  "audioFilterLabel": {
+    "message": "آڈیو"
+  },
+  "audioFilterAll": {
+    "message": "سب"
+  },
+  "genresTitle": {
+    "message": "Crunchyroll زمرے: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "genre_action": {
+    "message": "ایکشن"
+  },
+  "genre_adventure": {
+    "message": "مہم جوئی"
+  },
+  "genre_comedy": {
+    "message": "کامیڈی"
+  },
+  "genre_drama": {
+    "message": "ڈراما"
+  },
+  "genre_fantasy": {
+    "message": "فینٹسی"
+  },
+  "genre_music": {
+    "message": "موسیقی"
+  },
+  "genre_romance": {
+    "message": "رومانس"
+  },
+  "genre_scifi": {
+    "message": "سائنس فکشن"
+  },
+  "genre_seinen": {
+    "message": "سینین"
+  },
+  "genre_shojo": {
+    "message": "شوجو"
+  },
+  "genre_shonen": {
+    "message": "شونین"
+  },
+  "genre_sliceoflife": {
+    "message": "روزمرہ زندگی"
+  },
+  "genre_sports": {
+    "message": "کھیل"
+  },
+  "genre_supernatural": {
+    "message": "مافوق الفطرت"
+  },
+  "genre_thriller": {
+    "message": "تھرلر"
+  },
+  "genre_mystery": {
+    "message": "پراسرار"
+  },
+  "genre_horror": {
+    "message": "ہارر"
+  },
+  "clearFilters": {
+    "message": "فلٹر صاف کریں"
+  },
+  "listFilterAny": {
+    "message": "سب"
+  },
+  "genreFilterAny": {
+    "message": "سب"
   }
 }

@@ -383,6 +383,15 @@
       }
     }
   },
+  "statusUpdatedAt": {
+    "message": " · última atualização: $WHEN$",
+    "description": "Data/hora da última atualização; ex.: 11:59 ou 28/10/2026 13:20",
+    "placeholders": {
+      "when": {
+        "content": "$1"
+      }
+    }
+  },
   "statusElapsed": {
     "message": " · atualizado em $S$ s",
     "description": "Tempo que a última atualização levou; ex.: 4,7",
@@ -966,7 +975,7 @@
     "message": "Automático (idioma da extensão)"
   },
   "groupBySeason": {
-    "message": "Agrupar por temporada de lançamento"
+    "message": "Agrupar"
   },
   "sortSeasonsCount": {
     "message": "Mais temporadas"
@@ -990,5 +999,85 @@
         "content": "$2"
       }
     }
+  },
+  "genreFilterLabel": {
+    "message": "Categoria"
+  },
+  "genreFilterAll": {
+    "message": "Todas as categorias"
+  },
+  "audioFilterLabel": {
+    "message": "Áudio"
+  },
+  "audioFilterAll": {
+    "message": "Todos"
+  },
+  "genresTitle": {
+    "message": "Categorias na Crunchyroll: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "genre_action": {
+    "message": "Ação"
+  },
+  "genre_adventure": {
+    "message": "Aventura"
+  },
+  "genre_comedy": {
+    "message": "Comédia"
+  },
+  "genre_drama": {
+    "message": "Drama"
+  },
+  "genre_fantasy": {
+    "message": "Fantasia"
+  },
+  "genre_music": {
+    "message": "Música"
+  },
+  "genre_romance": {
+    "message": "Romance"
+  },
+  "genre_scifi": {
+    "message": "Ficção científica"
+  },
+  "genre_seinen": {
+    "message": "Seinen"
+  },
+  "genre_shojo": {
+    "message": "Shoujo"
+  },
+  "genre_shonen": {
+    "message": "Shounen"
+  },
+  "genre_sliceoflife": {
+    "message": "Slice of life"
+  },
+  "genre_sports": {
+    "message": "Esportes"
+  },
+  "genre_supernatural": {
+    "message": "Sobrenatural"
+  },
+  "genre_thriller": {
+    "message": "Suspense"
+  },
+  "genre_mystery": {
+    "message": "Mistério"
+  },
+  "genre_horror": {
+    "message": "Terror"
+  },
+  "clearFilters": {
+    "message": "Limpar filtros"
+  },
+  "listFilterAny": {
+    "message": "Todas"
+  },
+  "genreFilterAny": {
+    "message": "Todas"
   }
 }

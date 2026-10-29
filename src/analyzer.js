@@ -282,6 +282,59 @@ var CRAnalyzer = (() => {
     ].join("|");
 
   // ---------- Fila ----------
+  // ---------- categorias (gêneros) ----------
+  // A Crunchyroll manda as categorias em "tenant_categories", já traduzidas, mas
+  // nem sempre no idioma pedido (a mesma lista mistura "Fantasia" e "Fantasy").
+  // Os nomes conhecidos viram uma chave fixa (traduzida pela extensão); os outros
+  // ficam como vieram, com a chave "x:<nome>".
+  const GENRES = {
+    action: ["action", "acao", "accion", "aktion", "azione", "aksi", "boevik", "экшен", "боевик"],
+    adventure: ["adventure", "aventura", "aventure", "abenteuer", "avventura", "petualangan", "приключения"],
+    comedy: ["comedy", "comedia", "comedie", "komodie", "commedia", "komedi", "комедия"],
+    drama: ["drama", "drame", "драма"],
+    fantasy: ["fantasy", "fantasia", "fantastique", "fantasi", "фэнтези"],
+    music: ["music", "musica", "musique", "musik", "musikal", "музыка"],
+    romance: ["romance", "romantik", "romantico", "romantique", "romantisch", "романтика"],
+    scifi: ["scifi", "sciencefiction", "ficcaocientifica", "cienciaficcion", "fantascienza", "fiksiilmiah", "научнаяфантастика"],
+    seinen: ["seinen", "сэйнэн"],
+    shojo: ["shojo", "shoujo", "сёдзё"],
+    shonen: ["shonen", "shounen", "сёнэн"],
+    sliceoflife: ["sliceoflife", "cotidiano", "recuentosdelavida", "tranchedevie", "повседневность"],
+    sports: ["sports", "sport", "esportes", "deportes", "olahraga", "спорт"],
+    supernatural: ["supernatural", "sobrenatural", "surnaturel", "ubernaturlich", "soprannaturale", "supranatural", "сверхъестественное"],
+    thriller: ["thriller", "suspense", "suspenso", "триллер"],
+    mystery: ["mystery", "misterio", "mystere", "mysterium", "mistero", "misteri", "детектив", "мистика"],
+    horror: ["horror", "terror", "horreur", "ужасы"],
+  };
+  const GENRE_KEYS = Object.keys(GENRES);
+  const genreFold = (label) =>
+    String(label || "")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[^\p{L}\p{N}]+/gu, "");
+  const GENRE_BY_NAME = new Map();
+  for (const [key, names] of Object.entries(GENRES)) for (const n of names) GENRE_BY_NAME.set(genreFold(n), key);
+  function genreKey(label) {
+    const f = genreFold(label);
+    if (!f) return null;
+    return GENRE_BY_NAME.get(f) || `x:${String(label).trim()}`;
+  }
+  // Lista sem repetição, na ordem em que vieram.
+  function genreKeys(labels) {
+    const out = [];
+    for (const l of Array.isArray(labels) ? labels : []) {
+      const k = genreKey(l);
+      if (k && !out.includes(k)) out.push(k);
+    }
+    return out;
+  }
+  const itemGenres = (p) =>
+    genreKeys(
+      ((p.series_metadata || p.movie_listing_metadata || p.episode_metadata || p.movie_metadata || {}).tenant_categories) ||
+        p.tenant_categories
+    );
+
   function normalizeItem(item) {
     const p = item.panel || {};
     const meta = p.episode_metadata || {};
@@ -297,6 +350,7 @@ var CRAnalyzer = (() => {
         image: pickImage(p.images, 320),
         neverWatchedFlag: !!item.never_watched,
         rating: itemRating(p),
+        genres: itemGenres(p),
       };
     }
     const seriesId = p.type === "series" ? p.id : meta.series_id || p.series_id;
@@ -308,6 +362,7 @@ var CRAnalyzer = (() => {
       image: pickImage(p.images, 320),
       neverWatchedFlag: !!item.never_watched,
       rating: itemRating(p),
+      genres: itemGenres(p),
     };
   }
 
@@ -870,6 +925,7 @@ var CRAnalyzer = (() => {
           prev.neverWatchedFlag = prev.neverWatchedFlag || e.neverWatchedFlag;
           if (!prev.image) prev.image = e.image;
           if (!prev.rating) prev.rating = e.rating;
+          for (const g of e.genres || []) if (!prev.genres.includes(g)) prev.genres.push(g);
         }
       }
     }
@@ -963,7 +1019,12 @@ var CRAnalyzer = (() => {
       }
       onProgress(++done, unique.length);
       // De quais listas a série veio (não vai para o cache: muda sem mudar a série).
-      return { ...result, lists: entry.lists, rating: entry.rating || result.rating || null };
+      return {
+        ...result,
+        lists: entry.lists,
+        rating: entry.rating || result.rating || null,
+        genres: entry.genres && entry.genres.length ? entry.genres : result.genres || [],
+      };
     });
 
     // Remove do cache séries que saíram da Fila.
@@ -1068,5 +1129,5 @@ var CRAnalyzer = (() => {
     return entry.lists ? { ...result, lists: entry.lists } : result;
   }
 
-  return { run, runOne, cacheScope, withLocale, WATCHLIST, listSources, readSources, mergeSources, historyActivity, dubStatus, seriesAudios, parseSeasonTag, seriesLaunch, seriesStats, estimateNext, nextForNever, diagnose, sanitize, extraKind, CONCURRENCY, concurrencyFrom, PLAYHEAD_BATCH, playheadBatchFrom, MIN_STARTED, MIN_STARTED_SECONDS, minStartedFrom };
+  return { run, runOne, cacheScope, withLocale, WATCHLIST, listSources, readSources, mergeSources, historyActivity, dubStatus, seriesAudios, parseSeasonTag, seriesLaunch, seriesStats, estimateNext, genreKey, genreKeys, GENRE_KEYS, nextForNever, diagnose, sanitize, extraKind, CONCURRENCY, concurrencyFrom, PLAYHEAD_BATCH, playheadBatchFrom, MIN_STARTED, MIN_STARTED_SECONDS, minStartedFrom };
 })();

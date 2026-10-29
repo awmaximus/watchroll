@@ -466,3 +466,23 @@ describe("alerta na hora do lançamento", () => {
     assert.equal(await C2.nextReleaseCheck(res, { hidden: {}, notify: true, autoCheckMinutes: 0 }, { b, now: NOW }), null);
   });
 });
+
+describe("filtros por categoria e por áudio", () => {
+  const { CRChecker: C } = load(["src/checker.js"], { browser: fakeBrowser() });
+  test("categoria", () => {
+    assert.equal(C.hasGenre({ genres: ["action"] }, "action"), true);
+    assert.equal(C.hasGenre({ genres: ["drama"] }, "action"), false);
+    assert.equal(C.hasGenre({}, "action"), false);
+    assert.equal(C.hasGenre({}, ""), true);
+    assert.equal(C.hasGenre({ genres: ["drama"] }, ["action", "drama"]), true, "várias: basta uma");
+    assert.equal(C.hasGenre({ genres: ["comedy"] }, ["action", "drama"]), false);
+    assert.equal(C.hasGenre({ genres: ["comedy"] }, []), true, "nenhuma escolhida = todas");
+  });
+  test("áudio: modo da série; filtro inválido vale como todos", () => {
+    assert.equal(C.hasAudio({ mode: "dub" }, "dub"), true);
+    assert.equal(C.hasAudio({ mode: "sub" }, "dub"), false);
+    assert.equal(C.activeAudioFilter({ audioFilter: "dub" }), "dub");
+    assert.equal(C.activeAudioFilter({ audioFilter: "xyz" }), "");
+    assert.equal(C.activeAudioFilter({}), "");
+  });
+});

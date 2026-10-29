@@ -383,6 +383,14 @@
       }
     }
   },
+  "statusUpdatedAt": {
+    "message": " · अंतिम अपडेट: $WHEN$",
+    "placeholders": {
+      "when": {
+        "content": "$1"
+      }
+    }
+  },
   "statusElapsed": {
     "message": " · $S$ सेकंड में अपडेट",
     "placeholders": {
@@ -962,7 +970,7 @@
     "message": "स्वचालित (एक्सटेंशन की भाषा)"
   },
   "groupBySeason": {
-    "message": "सीज़न के अनुसार समूह बनाएँ"
+    "message": "समूह बनाएँ"
   },
   "sortSeasonsCount": {
     "message": "सबसे ज़्यादा सीज़न"
@@ -986,5 +994,85 @@
         "content": "$2"
       }
     }
+  },
+  "genreFilterLabel": {
+    "message": "श्रेणी"
+  },
+  "genreFilterAll": {
+    "message": "सभी श्रेणियाँ"
+  },
+  "audioFilterLabel": {
+    "message": "ऑडियो"
+  },
+  "audioFilterAll": {
+    "message": "सभी"
+  },
+  "genresTitle": {
+    "message": "Crunchyroll श्रेणियाँ: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "genre_action": {
+    "message": "एक्शन"
+  },
+  "genre_adventure": {
+    "message": "एडवेंचर"
+  },
+  "genre_comedy": {
+    "message": "कॉमेडी"
+  },
+  "genre_drama": {
+    "message": "ड्रामा"
+  },
+  "genre_fantasy": {
+    "message": "फ़ैंटेसी"
+  },
+  "genre_music": {
+    "message": "संगीत"
+  },
+  "genre_romance": {
+    "message": "रोमांस"
+  },
+  "genre_scifi": {
+    "message": "साइंस फ़िक्शन"
+  },
+  "genre_seinen": {
+    "message": "सेनेन"
+  },
+  "genre_shojo": {
+    "message": "शोजो"
+  },
+  "genre_shonen": {
+    "message": "शोनेन"
+  },
+  "genre_sliceoflife": {
+    "message": "स्लाइस ऑफ़ लाइफ़"
+  },
+  "genre_sports": {
+    "message": "खेल"
+  },
+  "genre_supernatural": {
+    "message": "अलौकिक"
+  },
+  "genre_thriller": {
+    "message": "थ्रिलर"
+  },
+  "genre_mystery": {
+    "message": "रहस्य"
+  },
+  "genre_horror": {
+    "message": "हॉरर"
+  },
+  "clearFilters": {
+    "message": "फ़िल्टर हटाएँ"
+  },
+  "listFilterAny": {
+    "message": "सभी"
+  },
+  "genreFilterAny": {
+    "message": "सभी"
   }
 }

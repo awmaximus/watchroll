@@ -1959,3 +1959,36 @@ describe("previsão do próximo episódio pelo ritmo semanal (aba Semana)", () =
     assert.ok(!r.next.estimated);
   });
 });
+
+describe("categorias da Crunchyroll", () => {
+  const real = require("./fixtures/crunchylist-items.json");
+  const { analyzer } = setup({ watchlist: [], seasons: {}, episodes: {}, playheads: {} });
+
+  test("nomes em português e inglês viram a mesma chave; desconhecidos ficam como vieram", () => {
+    assert.equal(analyzer.genreKey("Fantasia"), "fantasy");
+    assert.equal(analyzer.genreKey("Fantasy"), "fantasy");
+    assert.equal(analyzer.genreKey("Ficção Científica"), "scifi");
+    assert.equal(analyzer.genreKey("Sci-Fi"), "scifi");
+    assert.equal(analyzer.genreKey("Slice-of-Life"), "sliceoflife");
+    assert.equal(analyzer.genreKey("Slice of Life"), "sliceoflife");
+    assert.equal(analyzer.genreKey("Suspense"), "thriller");
+    assert.equal(analyzer.genreKey("Isekai"), "x:Isekai");
+    assert.equal(analyzer.genreKey(""), null);
+    assert.deepEqual(plain(analyzer.genreKeys(["Ação", "Action", "Fantasia"])), ["action", "fantasy"]);
+  });
+
+  test("item real de Crunchylist: categorias chegam ao resultado", async () => {
+    const { analyzer: a } = setup({ watchlist: [], lists: { LIST: real.data }, seasons: {}, episodes: {}, playheads: {} });
+    const [r] = await a.run({ settings: settings({ sources: ["LIST"] }) });
+    assert.deepEqual(plain(r.genres), ["fantasy", "adventure", "drama", "seinen"]);
+  });
+
+  test("Fila com episódio (episode_metadata) e junção de listas sem repetir", () => {
+    const ep = (cats) => ({ panel: { type: "episode", id: "e1", episode_metadata: { series_id: "S", series_title: "S", tenant_categories: cats } } });
+    const merged = analyzer.mergeSources([
+      { id: "watchlist", items: [ep(["Ação", "Comédia"])] },
+      { id: "L1", items: [ep(["Action", "Romance"])] },
+    ]);
+    assert.deepEqual(plain(merged[0].genres), ["action", "comedy", "romance"]);
+  });
+});

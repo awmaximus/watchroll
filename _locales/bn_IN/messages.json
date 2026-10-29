@@ -383,6 +383,14 @@
       }
     }
   },
+  "statusUpdatedAt": {
+    "message": " · শেষ আপডেট: $WHEN$",
+    "placeholders": {
+      "when": {
+        "content": "$1"
+      }
+    }
+  },
   "statusElapsed": {
     "message": " · $S$ সেকেন্ডে হালনাগাদ",
     "placeholders": {
@@ -962,7 +970,7 @@
     "message": "স্বয়ংক্রিয় (এক্সটেনশনের ভাষা)"
   },
   "groupBySeason": {
-    "message": "মৌসুম অনুযায়ী সাজান"
+    "message": "গ্রুপ করুন"
   },
   "sortSeasonsCount": {
     "message": "সবচেয়ে বেশি সিজন"
@@ -986,5 +994,85 @@
         "content": "$2"
       }
     }
+  },
+  "genreFilterLabel": {
+    "message": "বিভাগ"
+  },
+  "genreFilterAll": {
+    "message": "সব বিভাগ"
+  },
+  "audioFilterLabel": {
+    "message": "অডিও"
+  },
+  "audioFilterAll": {
+    "message": "সব"
+  },
+  "genresTitle": {
+    "message": "Crunchyroll বিভাগ: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "genre_action": {
+    "message": "অ্যাকশন"
+  },
+  "genre_adventure": {
+    "message": "অ্যাডভেঞ্চার"
+  },
+  "genre_comedy": {
+    "message": "কমেডি"
+  },
+  "genre_drama": {
+    "message": "ড্রামা"
+  },
+  "genre_fantasy": {
+    "message": "ফ্যান্টাসি"
+  },
+  "genre_music": {
+    "message": "সংগীত"
+  },
+  "genre_romance": {
+    "message": "রোমান্স"
+  },
+  "genre_scifi": {
+    "message": "বৈজ্ঞানিক কল্পকাহিনি"
+  },
+  "genre_seinen": {
+    "message": "সেইনেন"
+  },
+  "genre_shojo": {
+    "message": "শোজো"
+  },
+  "genre_shonen": {
+    "message": "শোনেন"
+  },
+  "genre_sliceoflife": {
+    "message": "স্লাইস অফ লাইফ"
+  },
+  "genre_sports": {
+    "message": "খেলাধুলা"
+  },
+  "genre_supernatural": {
+    "message": "অতিপ্রাকৃত"
+  },
+  "genre_thriller": {
+    "message": "থ্রিলার"
+  },
+  "genre_mystery": {
+    "message": "রহস্য"
+  },
+  "genre_horror": {
+    "message": "হরর"
+  },
+  "clearFilters": {
+    "message": "ফিল্টার মুছুন"
+  },
+  "listFilterAny": {
+    "message": "সব"
+  },
+  "genreFilterAny": {
+    "message": "সব"
   }
 }

@@ -383,6 +383,14 @@
       }
     }
   },
+  "statusUpdatedAt": {
+    "message": " · pembaruan terakhir: $WHEN$",
+    "placeholders": {
+      "when": {
+        "content": "$1"
+      }
+    }
+  },
   "statusElapsed": {
     "message": " · diperbarui dalam $S$ dtk",
     "placeholders": {
@@ -962,7 +970,7 @@
     "message": "Otomatis (bahasa ekstensi)"
   },
   "groupBySeason": {
-    "message": "Kelompokkan per musim"
+    "message": "Kelompokkan"
   },
   "sortSeasonsCount": {
     "message": "Musim terbanyak"
@@ -986,5 +994,85 @@
         "content": "$2"
       }
     }
+  },
+  "genreFilterLabel": {
+    "message": "Kategori"
+  },
+  "genreFilterAll": {
+    "message": "Semua kategori"
+  },
+  "audioFilterLabel": {
+    "message": "Audio"
+  },
+  "audioFilterAll": {
+    "message": "Semua"
+  },
+  "genresTitle": {
+    "message": "Kategori Crunchyroll: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "genre_action": {
+    "message": "Aksi"
+  },
+  "genre_adventure": {
+    "message": "Petualangan"
+  },
+  "genre_comedy": {
+    "message": "Komedi"
+  },
+  "genre_drama": {
+    "message": "Drama"
+  },
+  "genre_fantasy": {
+    "message": "Fantasi"
+  },
+  "genre_music": {
+    "message": "Musik"
+  },
+  "genre_romance": {
+    "message": "Romansa"
+  },
+  "genre_scifi": {
+    "message": "Fiksi ilmiah"
+  },
+  "genre_seinen": {
+    "message": "Seinen"
+  },
+  "genre_shojo": {
+    "message": "Shoujo"
+  },
+  "genre_shonen": {
+    "message": "Shounen"
+  },
+  "genre_sliceoflife": {
+    "message": "Slice of life"
+  },
+  "genre_sports": {
+    "message": "Olahraga"
+  },
+  "genre_supernatural": {
+    "message": "Supranatural"
+  },
+  "genre_thriller": {
+    "message": "Thriller"
+  },
+  "genre_mystery": {
+    "message": "Misteri"
+  },
+  "genre_horror": {
+    "message": "Horor"
+  },
+  "clearFilters": {
+    "message": "Hapus filter"
+  },
+  "listFilterAny": {
+    "message": "Semua"
+  },
+  "genreFilterAny": {
+    "message": "Semua"
   }
 }

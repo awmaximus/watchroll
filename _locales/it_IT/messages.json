@@ -383,6 +383,14 @@
       }
     }
   },
+  "statusUpdatedAt": {
+    "message": " · ultimo aggiornamento: $WHEN$",
+    "placeholders": {
+      "when": {
+        "content": "$1"
+      }
+    }
+  },
   "statusElapsed": {
     "message": " · aggiornato in $S$ s",
     "placeholders": {
@@ -962,7 +970,7 @@
     "message": "Automatico (lingua dell'estensione)"
   },
   "groupBySeason": {
-    "message": "Raggruppa per stagione di uscita"
+    "message": "Raggruppa"
   },
   "sortSeasonsCount": {
     "message": "Più stagioni"
@@ -986,5 +994,85 @@
         "content": "$2"
       }
     }
+  },
+  "genreFilterLabel": {
+    "message": "Categoria"
+  },
+  "genreFilterAll": {
+    "message": "Tutte le categorie"
+  },
+  "audioFilterLabel": {
+    "message": "Audio"
+  },
+  "audioFilterAll": {
+    "message": "Tutti"
+  },
+  "genresTitle": {
+    "message": "Categorie su Crunchyroll: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "genre_action": {
+    "message": "Azione"
+  },
+  "genre_adventure": {
+    "message": "Avventura"
+  },
+  "genre_comedy": {
+    "message": "Commedia"
+  },
+  "genre_drama": {
+    "message": "Drammatico"
+  },
+  "genre_fantasy": {
+    "message": "Fantasy"
+  },
+  "genre_music": {
+    "message": "Musica"
+  },
+  "genre_romance": {
+    "message": "Romantico"
+  },
+  "genre_scifi": {
+    "message": "Fantascienza"
+  },
+  "genre_seinen": {
+    "message": "Seinen"
+  },
+  "genre_shojo": {
+    "message": "Shojo"
+  },
+  "genre_shonen": {
+    "message": "Shonen"
+  },
+  "genre_sliceoflife": {
+    "message": "Slice of life"
+  },
+  "genre_sports": {
+    "message": "Sport"
+  },
+  "genre_supernatural": {
+    "message": "Soprannaturale"
+  },
+  "genre_thriller": {
+    "message": "Thriller"
+  },
+  "genre_mystery": {
+    "message": "Mistero"
+  },
+  "genre_horror": {
+    "message": "Horror"
+  },
+  "clearFilters": {
+    "message": "Azzera filtri"
+  },
+  "listFilterAny": {
+    "message": "Tutte"
+  },
+  "genreFilterAny": {
+    "message": "Tutte"
   }
 }

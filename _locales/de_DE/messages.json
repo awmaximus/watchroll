@@ -383,6 +383,14 @@
       }
     }
   },
+  "statusUpdatedAt": {
+    "message": " · zuletzt aktualisiert: $WHEN$",
+    "placeholders": {
+      "when": {
+        "content": "$1"
+      }
+    }
+  },
   "statusElapsed": {
     "message": " · aktualisiert in $S$ s",
     "placeholders": {
@@ -962,7 +970,7 @@
     "message": "Automatisch (Sprache der Erweiterung)"
   },
   "groupBySeason": {
-    "message": "Nach Saison gruppieren"
+    "message": "Gruppieren"
   },
   "sortSeasonsCount": {
     "message": "Meiste Staffeln"
@@ -986,5 +994,85 @@
         "content": "$2"
       }
     }
+  },
+  "genreFilterLabel": {
+    "message": "Kategorie"
+  },
+  "genreFilterAll": {
+    "message": "Alle Kategorien"
+  },
+  "audioFilterLabel": {
+    "message": "Audio"
+  },
+  "audioFilterAll": {
+    "message": "Alle"
+  },
+  "genresTitle": {
+    "message": "Kategorien auf Crunchyroll: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "genre_action": {
+    "message": "Action"
+  },
+  "genre_adventure": {
+    "message": "Abenteuer"
+  },
+  "genre_comedy": {
+    "message": "Komödie"
+  },
+  "genre_drama": {
+    "message": "Drama"
+  },
+  "genre_fantasy": {
+    "message": "Fantasy"
+  },
+  "genre_music": {
+    "message": "Musik"
+  },
+  "genre_romance": {
+    "message": "Romantik"
+  },
+  "genre_scifi": {
+    "message": "Science-Fiction"
+  },
+  "genre_seinen": {
+    "message": "Seinen"
+  },
+  "genre_shojo": {
+    "message": "Shojo"
+  },
+  "genre_shonen": {
+    "message": "Shonen"
+  },
+  "genre_sliceoflife": {
+    "message": "Slice of Life"
+  },
+  "genre_sports": {
+    "message": "Sport"
+  },
+  "genre_supernatural": {
+    "message": "Übernatürlich"
+  },
+  "genre_thriller": {
+    "message": "Thriller"
+  },
+  "genre_mystery": {
+    "message": "Mystery"
+  },
+  "genre_horror": {
+    "message": "Horror"
+  },
+  "clearFilters": {
+    "message": "Filter zurücksetzen"
+  },
+  "listFilterAny": {
+    "message": "Alle"
+  },
+  "genreFilterAny": {
+    "message": "Alle"
   }
 }
