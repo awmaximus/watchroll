@@ -441,9 +441,6 @@
       }
     }
   },
-  "secNoDub": {
-    "message": "Awaiting dub"
-  },
   "noteNoDub_one": {
     "message": "Current season has no $P2$ dub · 1 subbed episode to watch",
     "placeholders": {
@@ -1093,9 +1090,6 @@
         "content": "$1"
       }
     }
-  },
-  "secNoSub": {
-    "message": "Awaiting subtitles"
   },
   "noteNoSub_one": {
     "message": "Current season has no $P2$ subtitles · 1 episode out",

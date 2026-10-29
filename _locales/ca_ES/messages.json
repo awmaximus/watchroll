@@ -439,9 +439,6 @@
       }
     }
   },
-  "secNoDub": {
-    "message": "Esperant doblatge"
-  },
   "noteNoDub_one": {
     "message": "aquesta temporada no té doblatge en $P2$ · 1 episodi disponible subtitulat",
     "placeholders": {
@@ -1088,9 +1085,6 @@
         "content": "$1"
       }
     }
-  },
-  "secNoSub": {
-    "message": "Esperant subtítols"
   },
   "noteNoSub_one": {
     "message": "Temporada actual sense subtítols en $P2$ · 1 episodi ja ha sortit",

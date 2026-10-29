@@ -439,9 +439,6 @@
       }
     }
   },
-  "secNoDub": {
-    "message": "لا دبلجة بعد"
-  },
   "noteNoDub_one": {
     "message": "الموسم الحالي بلا دبلجة $P2$ · حلقات مترجمة للمشاهدة: 1",
     "placeholders": {
@@ -1088,9 +1085,6 @@
         "content": "$1"
       }
     }
-  },
-  "secNoSub": {
-    "message": "لا ترجمة بعد"
   },
   "noteNoSub_one": {
     "message": "الموسم الحالي بلا ترجمة $P2$ · صدرت حلقة واحدة",

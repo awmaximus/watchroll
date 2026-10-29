@@ -439,9 +439,6 @@
       }
     }
   },
-  "secNoDub": {
-    "message": "Warten auf Synchro"
-  },
   "noteNoDub_one": {
     "message": "Aktuelle Staffel ohne $P2$-Synchro · 1 untertitelte Folge zum Anschauen",
     "placeholders": {
@@ -1088,9 +1085,6 @@
         "content": "$1"
       }
     }
-  },
-  "secNoSub": {
-    "message": "Warten auf Untertitel"
   },
   "noteNoSub_one": {
     "message": "Aktuelle Staffel ohne Untertitel ($P2$) · 1 Folge erschienen",

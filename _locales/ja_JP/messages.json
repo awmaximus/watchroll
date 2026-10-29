@@ -439,9 +439,6 @@
       }
     }
   },
-  "secNoDub": {
-    "message": "吹き替え待機中"
-  },
   "noteNoDub_one": {
     "message": "今シーズンは $P2$ 吹き替えなし · 字幕で見られるエピソード 1 話",
     "placeholders": {
@@ -1088,9 +1085,6 @@
         "content": "$1"
       }
     }
-  },
-  "secNoSub": {
-    "message": "字幕待機中"
   },
   "noteNoSub_one": {
     "message": "今シーズンは $P2$ 字幕なし · 1 話配信済み",

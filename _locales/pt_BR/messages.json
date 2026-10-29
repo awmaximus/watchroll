@@ -441,9 +441,6 @@
       }
     }
   },
-  "secNoDub": {
-    "message": "Aguardando dublagem"
-  },
   "noteNoDub_one": {
     "message": "Temporada atual sem dublagem $P2$ · 1 episódio legendado para ver",
     "placeholders": {
@@ -1093,9 +1090,6 @@
         "content": "$1"
       }
     }
-  },
-  "secNoSub": {
-    "message": "Aguardando legenda"
   },
   "noteNoSub_one": {
     "message": "Temporada atual sem legenda em $P2$ · 1 episódio já saiu",

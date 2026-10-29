@@ -439,9 +439,6 @@
       }
     }
   },
-  "secNoDub": {
-    "message": "Menunggu dub"
-  },
   "noteNoDub_one": {
     "message": "Musim ini tanpa dub $P2$ · 1 episode bersubtitel untuk ditonton",
     "placeholders": {
@@ -1088,9 +1085,6 @@
         "content": "$1"
       }
     }
-  },
-  "secNoSub": {
-    "message": "Menunggu subtitle"
   },
   "noteNoSub_one": {
     "message": "Musim ini belum ada subtitle $P2$ · 1 episode sudah rilis",

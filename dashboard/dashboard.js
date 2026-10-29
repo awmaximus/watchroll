@@ -1350,14 +1350,11 @@
     const by = (tab) => CRChecker.sortFor(settings, tab);
     const sorted = (tab, list) => CRChecker.sortResults(list, by(tab));
     const pending = sorted("toWatch", results.filter((r) => r.status === "pending"));
-    // Sem dublagem: a temporada atual não tem nenhum episódio no idioma escolhido
-    // (a dublagem pode nunca sair). Aguardando: a dublagem existe e está atrasada.
-    const noDub = sorted("noDub", results.filter((r) => r.status === "uptodate" && r.noDub && r.waitingDub));
-    const waiting = sorted("waitDub", results.filter((r) => r.status === "uptodate" && !r.noDub && r.waitingDub));
-    // Sem legenda: nenhum episódio lançado da temporada atual tem legenda no seu idioma
-    // (pode nunca sair). Legenda pendente: a legenda existe e está atrasada.
-    const noSub = sorted("noSub", results.filter((r) => r.status === "uptodate" && !r.waitingDub && r.noSub && r.waitingSub));
-    const waitingSub = sorted("waitSub", results.filter((r) => r.status === "uptodate" && !r.waitingDub && !r.noSub && r.waitingSub));
+    // Aguardando dublagem: episódios que já saíram sem a dublagem no seu idioma. Se a
+    // temporada atual não tem nenhum episódio dublado (noDub), a nota avisa que a
+    // dublagem pode nunca sair e oferece ver legendado. O mesmo vale para legenda.
+    const waiting = sorted("waitDub", results.filter((r) => r.status === "uptodate" && r.waitingDub));
+    const waitingSub = sorted("waitSub", results.filter((r) => r.status === "uptodate" && !r.waitingDub && r.waitingSub));
     const upToDate = sorted("upToDate", results.filter((r) => r.status === "uptodate" && !r.waitingDub && !r.waitingSub));
     const never = sorted("never", results.filter((r) => r.status === "never"));
     const errors = sorted("errors", results.filter((r) => r.status === "error"));
@@ -1386,56 +1383,53 @@
               : el("div", { class: "grid" }, pending.map(card))
             : el("p", { class: "empty", text: searching ? t("emptySearch") : t("emptyToWatch") }),
       },
-      { id: "waitDub", label: t("secWaitDub"), count: waiting.length, content: () => rows(waiting, (s) => tn("noteWaitDub", s.waitingDub)) },
       {
-        id: "waitSub",
-        label: t("secWaitSub"),
-        count: waitingSub.length,
-        content: () => rows(waitingSub, (s) => tn("noteWaitSub", s.waitingSub)),
-      },
-      {
-        id: "noDub",
-        label: t("secNoDub"),
-        count: noDub.length,
+        id: "waitDub",
+        label: t("secWaitDub"),
+        count: waiting.length,
         content: () =>
           el(
             "ul",
             { class: "rows" },
-            noDub.map((s) =>
-              row(
-                s,
-                tn("noteNoDub", s.waitingDub, settings.dubLang),
-                el("button", {
-                  class: "btn ghost small",
-                  type: "button",
-                  text: t("btnSeeSubbed"),
-                  title: t("btnSeeSubbedTitle"),
-                  onclick: () => changeMode(s, "sub"),
-                })
-              )
+            waiting.map((s) =>
+              s.noDub
+                ? row(
+                    s,
+                    tn("noteNoDub", s.waitingDub, settings.dubLang),
+                    el("button", {
+                      class: "btn ghost small",
+                      type: "button",
+                      text: t("btnSeeSubbed"),
+                      title: t("btnSeeSubbedTitle"),
+                      onclick: () => changeMode(s, "sub"),
+                    })
+                  )
+                : row(s, tn("noteWaitDub", s.waitingDub))
             )
           ),
       },
       {
-        id: "noSub",
-        label: t("secNoSub"),
-        count: noSub.length,
+        id: "waitSub",
+        label: t("secWaitSub"),
+        count: waitingSub.length,
         content: () =>
           el(
             "ul",
             { class: "rows" },
-            noSub.map((s) =>
-              row(
-                s,
-                tn("noteNoSub", s.waitingSub, langName(settings.subLang || settings.dubLang)),
-                el("button", {
-                  class: "btn ghost small",
-                  type: "button",
-                  text: t("btnSeeAnyAudio"),
-                  title: t("btnSeeAnyAudioTitle"),
-                  onclick: () => changeMode(s, "auto"),
-                })
-              )
+            waitingSub.map((s) =>
+              s.noSub
+                ? row(
+                    s,
+                    tn("noteNoSub", s.waitingSub, langName(settings.subLang || settings.dubLang)),
+                    el("button", {
+                      class: "btn ghost small",
+                      type: "button",
+                      text: t("btnSeeAnyAudio"),
+                      title: t("btnSeeAnyAudioTitle"),
+                      onclick: () => changeMode(s, "auto"),
+                    })
+                  )
+                : row(s, tn("noteWaitSub", s.waitingSub))
             )
           ),
       },
@@ -1646,6 +1640,9 @@
 
   async function init() {
     await loadSettings();
+    // Abas antigas que foram unidas às de "aguardando".
+    if (settings.tab === "noDub") settings.tab = "waitDub";
+    if (settings.tab === "noSub") settings.tab = "waitSub";
     try {
       onAndroid = (await browser.runtime.getPlatformInfo()).os === "android";
     } catch (_) {

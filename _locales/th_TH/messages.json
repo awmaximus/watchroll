@@ -439,9 +439,6 @@
       }
     }
   },
-  "secNoDub": {
-    "message": "ยังไม่มีพากย์"
-  },
   "noteNoDub_one": {
     "message": "ซีซันนี้ไม่มีพากย์ $P2$ · มีตอนซับให้ดู 1 ตอน",
     "placeholders": {
@@ -1088,9 +1085,6 @@
         "content": "$1"
       }
     }
-  },
-  "secNoSub": {
-    "message": "ยังไม่มีซับ"
   },
   "noteNoSub_one": {
     "message": "ซีซันปัจจุบันไม่มีซับ $P2$ · ออกแล้ว 1 ตอน",

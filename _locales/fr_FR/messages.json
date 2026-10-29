@@ -439,9 +439,6 @@
       }
     }
   },
-  "secNoDub": {
-    "message": "En attente de VF"
-  },
   "noteNoDub_one": {
     "message": "Saison actuelle sans doublage $P2$ · 1 épisode sous-titré à voir",
     "placeholders": {
@@ -1088,9 +1085,6 @@
         "content": "$1"
       }
     }
-  },
-  "secNoSub": {
-    "message": "En attente de sous-titres"
   },
   "noteNoSub_one": {
     "message": "Saison actuelle sans sous-titres $P2$ · 1 épisode sorti",

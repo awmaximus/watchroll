@@ -439,9 +439,6 @@
       }
     }
   },
-  "secNoDub": {
-    "message": "等待配音"
-  },
   "noteNoDub_one": {
     "message": "本季无 $P2$ 配音 · 有 1 集字幕版可看",
     "placeholders": {
@@ -1088,9 +1085,6 @@
         "content": "$1"
       }
     }
-  },
-  "secNoSub": {
-    "message": "等待字幕"
   },
   "noteNoSub_one": {
     "message": "本季没有 $P2$ 字幕 · 已上线 1 集",
