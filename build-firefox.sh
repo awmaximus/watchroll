@@ -5,12 +5,12 @@
 # Firefox (firefox/: manifest.json, metadados e imagens da loja addons.mozilla.org).
 #
 # Uso:
-#   ./build-firefox.sh                 testes + lint + pacote .zip em dist/
+#   ./build-firefox.sh                 testes + lint + pacote .zip em firefox/dist/
 #   ./build-firefox.sh --skip-tests    pula os testes unitários
 #   ./build-firefox.sh --skip-lint     pula o web-ext lint
 #   ./build-firefox.sh --sign          também assina na Mozilla. O canal sai da versão:
 #                                - último número ÍMPAR (1.0.5): "unlisted", para testar.
-#                                  Assina na hora e gera o .xpi instalável em dist/.
+#                                  Assina na hora e gera o .xpi instalável em firefox/dist/.
 #                                - último número PAR (1.0.6): "listed", a loja pública
 #                                  (addons.mozilla.org), com os metadados de firefox/amo-metadata.json.
 #   ./build-firefox.sh --sign --listed igual a --sign, mas só aceita versão par (confirmação)
@@ -38,7 +38,7 @@ COMMON="$ROOT/common"     # código comum aos navegadores
 BROWSER="$ROOT/firefox"   # só do Firefox
 MANIFEST="$BROWSER/manifest.json"
 AMO_META="$BROWSER/amo-metadata.json"
-DIST="$ROOT/dist"
+DIST="$BROWSER/dist"     # pacotes gerados (.zip e .xpi), fora do git
 WEB_EXT="web-ext@10"
 MIN_NODE=22
 

@@ -267,7 +267,7 @@ Rules:
 ## Installation
 
 **Temporary (for testing):** run `./build-firefox.sh`, open `about:debugging#/runtime/this-firefox`,
-click **Load Temporary Add-on…** and pick `dist/watchroll-<version>.zip`. It is removed when
+click **Load Temporary Add-on…** and pick `firefox/dist/watchroll-<version>.zip`. It is removed when
 Firefox closes. (`npm start` does the same in a separate test Firefox.)
 
 **From source:**
@@ -275,7 +275,7 @@ Firefox closes. (`npm start` does the same in a separate test Firefox.)
 ```sh
 git clone https://github.com/awmaximus/watchroll.git
 cd watchroll
-./build-firefox.sh    # dist/watchroll-<version>.zip
+./build-firefox.sh    # firefox/dist/watchroll-<version>.zip
 ```
 
 **Permanent:** install the version published on addons.mozilla.org, or a signed `.xpi` (see
@@ -296,7 +296,7 @@ npm start       # builds and opens a test Firefox with the extension loaded
 ### Build
 
 ```sh
-./build-firefox.sh                  # tests + lint + package in dist/
+./build-firefox.sh                  # tests + lint + package in firefox/dist/
 ./build-firefox.sh --skip-tests     # skip tests
 ./build-firefox.sh --skip-lint      # skip web-ext lint
 ./build-firefox.sh --sign           # also sign on AMO; the channel comes from the version (below)
@@ -309,7 +309,7 @@ the version picks the AMO channel:
 
 | Version | Channel | Result |
 |---|---|---|
-| odd (1.0.5) | `unlisted` | Signed right away; the installable `.xpi` goes to `dist/`. Test it locally. |
+| odd (1.0.5) | `unlisted` | Signed right away; the installable `.xpi` goes to `firefox/dist/`. Test it locally. |
 | even (1.0.6) | `listed` | Submitted to the public listing with `firefox/amo-metadata.json`. |
 
 The flow: bump to the next odd version, `./build-firefox.sh --sign`, install the `.xpi` and test; if all
@@ -326,7 +326,7 @@ The script stops at the first failure. It:
 4. scans that folder for credentials (`user:123:45` keys, loaded key values, assignments like
    `API_SECRET="..."`) and aborts if it finds any;
 5. runs `web-ext lint` with warnings as errors;
-6. creates `dist/watchroll-<version>.zip` and, with `--sign`, uploads that same
+6. creates `firefox/dist/watchroll-<version>.zip` and, with `--sign`, uploads that same
    folder.
 
 Signing needs the **JWT issuer** and **JWT secret** from

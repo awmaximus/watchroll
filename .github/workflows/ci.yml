@@ -33,7 +33,7 @@ jobs:
       - uses: actions/upload-artifact@v7
         with:
           name: extension-zip
-          path: dist/*.zip
+          path: firefox/dist/*.zip
           if-no-files-found: error
 
   release:
@@ -52,7 +52,7 @@ jobs:
       - uses: actions/download-artifact@v8
         with:
           name: extension-zip
-          path: dist
+          path: firefox/dist
       - name: Tag must match the manifest version
         run: |
           version="$(node -p 'require("./firefox/manifest.json").version')"
@@ -63,7 +63,7 @@ jobs:
       - name: Publish release
         run: |
           if gh release view "$TAG" >/dev/null 2>&1; then
-            gh release upload "$TAG" dist/*.zip --clobber
+            gh release upload "$TAG" firefox/dist/*.zip --clobber
           else
-            gh release create "$TAG" dist/*.zip --verify-tag --title "Watchroll $TAG" --generate-notes
+            gh release create "$TAG" firefox/dist/*.zip --verify-tag --title "Watchroll $TAG" --generate-notes
           fi
