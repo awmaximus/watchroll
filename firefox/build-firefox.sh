@@ -25,7 +25,7 @@
 #        export API_KEY="user:12345:67"   API_SECRET="..."
 #        export AMO_JWT_ISSUER="..."      AMO_JWT_SECRET="..."
 #        export WEB_EXT_API_KEY="..."     WEB_EXT_API_SECRET="..."
-#   b) arquivo .amo-credentials na raiz do projeto (fica fora do git):
+#   b) arquivo firefox/.amo-credentials (ou na raiz do projeto; fica fora do git):
 #        API_KEY="user:12345:67"
 #        API_SECRET="..."
 # Fluxo: teste uma versão ímpar (unlisted) e, se estiver tudo certo, suba para a par
@@ -33,9 +33,11 @@
 
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# O script fica em firefox/; a raiz do repositório é a pasta acima dele. Funciona
+# chamado de qualquer lugar (./build-firefox.sh, firefox/build-firefox.sh…).
+BROWSER="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"   # só do Firefox
+ROOT="$(cd "$BROWSER/.." && pwd)"
 COMMON="$ROOT/common"     # código comum aos navegadores
-BROWSER="$ROOT/firefox"   # só do Firefox
 MANIFEST="$BROWSER/manifest.json"
 AMO_META="$BROWSER/amo-metadata.json"
 DIST="$BROWSER/dist"     # pacotes gerados (.zip e .xpi), fora do git
@@ -93,11 +95,11 @@ ok "Node $(node --version)"
 # shellcheck disable=SC2016  # ${...} abaixo é template literal do JavaScript
 read -r NAME VERSION < <(node -e '
   const m = require("./firefox/manifest.json");
-  process.stdout.write(`${require("./package.json").name} ${m.version}\n`);
+  process.stdout.write(`${require("./firefox/package.json").name} ${m.version}\n`);
 ')
-PKG_VERSION="$(node -p 'require("./package.json").version')"
+PKG_VERSION="$(node -p 'require("./firefox/package.json").version')"
 [[ "$VERSION" == "$PKG_VERSION" ]] ||
-  die "Versões diferentes: manifest.json=$VERSION, package.json=$PKG_VERSION. Ajuste antes do build."
+  die "Versões diferentes: firefox/manifest.json=$VERSION, firefox/package.json=$PKG_VERSION. Ajuste antes do build."
 ok "Versão $VERSION"
 
 # Canal pela paridade do último número da versão: ímpar = unlisted, par = listed.
@@ -120,7 +122,9 @@ if [[ "$CHANNEL" == listed ]] && (( SIGN )); then
 fi
 
 if (( SIGN )); then
-  CRED_FILE="$ROOT/.amo-credentials"
+  # Credenciais: firefox/.amo-credentials (ou, como antes, na raiz do repositório).
+  CRED_FILE="$BROWSER/.amo-credentials"
+  [[ -f "$CRED_FILE" ]] || CRED_FILE="$ROOT/.amo-credentials"
   if [[ -f "$CRED_FILE" ]]; then
     perms="$(stat -c '%a' "$CRED_FILE" 2>/dev/null || stat -f '%Lp' "$CRED_FILE")"
     [[ "$perms" =~ ^[0-7]00$ ]] ||
@@ -243,7 +247,7 @@ if (( SIGN )); then
   WEB_EXT_API_KEY="$SIGN_KEY" WEB_EXT_API_SECRET="$SIGN_SECRET" \
     npx --yes "$WEB_EXT" sign --no-config-discovery --source-dir "$STAGE" \
     --artifacts-dir "$ARTIFACTS" --channel "$CHANNEL" ${META_ARGS[@]+"${META_ARGS[@]}"} ||
-    die "Falha ao assinar. Confira as credenciais. Se a Mozilla disse que a versão $VERSION já existe: ela não aceita repetir versão nem em outro canal; suba para o próximo número $( [[ "$CHANNEL" == listed ]] && echo par || echo ímpar ) no firefox/manifest.json e no package.json."
+    die "Falha ao assinar. Confira as credenciais. Se a Mozilla disse que a versão $VERSION já existe: ela não aceita repetir versão nem em outro canal; suba para o próximo número $( [[ "$CHANNEL" == listed ]] && echo par || echo ímpar ) no firefox/manifest.json e no firefox/package.json."
   signed="$(find "$ARTIFACTS" -maxdepth 1 -name '*.xpi' | head -n1)"
   if [[ -z "$signed" && "$CHANNEL" == listed ]]; then
     # Na loja pública a versão passa pela revisão da Mozilla antes de ser assinada.

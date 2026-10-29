@@ -266,16 +266,16 @@ Rules:
 
 ## Installation
 
-**Temporary (for testing):** run `./build-firefox.sh`, open `about:debugging#/runtime/this-firefox`,
+**Temporary (for testing):** run `firefox/build-firefox.sh`, open `about:debugging#/runtime/this-firefox`,
 click **Load Temporary Add-on…** and pick `firefox/dist/watchroll-<version>.zip`. It is removed when
-Firefox closes. (`npm start` does the same in a separate test Firefox.)
+Firefox closes. (`npm start` in `firefox/` does the same in a separate test Firefox.)
 
 **From source:**
 
 ```sh
 git clone https://github.com/awmaximus/watchroll.git
 cd watchroll
-./build-firefox.sh    # firefox/dist/watchroll-<version>.zip
+firefox/build-firefox.sh    # firefox/dist/watchroll-<version>.zip
 ```
 
 **Permanent:** install the version published on addons.mozilla.org, or a signed `.xpi` (see
@@ -285,9 +285,11 @@ cd watchroll
 
 ## Development
 
-Requires Node 22 or later. No dependencies to install.
+Requires Node 22 or later. No dependencies to install. The build script can be run from anywhere
+(`firefox/build-firefox.sh` from the repository root, or `./build-firefox.sh` inside `firefox/`).
 
 ```sh
+cd firefox      # package.json and the build script live here
 npm test        # unit tests (node:test, in common/tests/)
 npm run lint    # web-ext lint only
 npm start       # builds and opens a test Firefox with the extension loaded
@@ -296,12 +298,12 @@ npm start       # builds and opens a test Firefox with the extension loaded
 ### Build
 
 ```sh
-./build-firefox.sh                  # tests + lint + package in firefox/dist/
-./build-firefox.sh --skip-tests     # skip tests
-./build-firefox.sh --skip-lint      # skip web-ext lint
-./build-firefox.sh --sign           # also sign on AMO; the channel comes from the version (below)
-./build-firefox.sh --sign --listed  # same, but refuses an odd version (safety check for releases)
-./build-firefox.sh --run            # package and open a test Firefox (no tests, no lint)
+firefox/build-firefox.sh                  # tests + lint + package in firefox/dist/
+firefox/build-firefox.sh --skip-tests     # skip tests
+firefox/build-firefox.sh --skip-lint      # skip web-ext lint
+firefox/build-firefox.sh --sign           # also sign on AMO; the channel comes from the version (below)
+firefox/build-firefox.sh --sign --listed  # same, but refuses an odd version (safety check for releases)
+firefox/build-firefox.sh --run            # package and open a test Firefox (no tests, no lint)
 ```
 
 **Odd versions are test builds, even versions are releases.** With `--sign`, the last number of
@@ -312,13 +314,13 @@ the version picks the AMO channel:
 | odd (1.0.5) | `unlisted` | Signed right away; the installable `.xpi` goes to `firefox/dist/`. Test it locally. |
 | even (1.0.6) | `listed` | Submitted to the public listing with `firefox/amo-metadata.json`. |
 
-The flow: bump to the next odd version, `./build-firefox.sh --sign`, install the `.xpi` and test; if all
-is well, bump to the next even version, commit, tag and `./build-firefox.sh --sign`. If something is
+The flow: bump to the next odd version, `firefox/build-firefox.sh --sign`, install the `.xpi` and test; if all
+is well, bump to the next even version, commit, tag and `firefox/build-firefox.sh --sign`. If something is
 wrong, fix it and go to the next odd version.
 
 The script stops at the first failure. It:
 
-1. checks Node and that `firefox/manifest.json` and `package.json` have the same version;
+1. checks Node and that `firefox/manifest.json` and `firefox/package.json` have the same version;
 2. checks script syntax and runs the tests;
 3. copies **only** `firefox/manifest.json` and `common/_locales/`, `common/src/`,
    `common/dashboard/` and `common/icons/` to the root of a temporary
@@ -330,16 +332,16 @@ The script stops at the first failure. It:
    folder.
 
 Signing needs the **JWT issuer** and **JWT secret** from
-<https://addons.mozilla.org/developers/addon/api/key/>, in a `.amo-credentials` file (kept out
+<https://addons.mozilla.org/developers/addon/api/key/>, in a `firefox/.amo-credentials` file (kept out
 of git, `chmod 600`) or in environment variables (`API_KEY`/`API_SECRET`,
 `AMO_JWT_ISSUER`/`AMO_JWT_SECRET` or `WEB_EXT_API_KEY`/`WEB_EXT_API_SECRET`):
 
 ```sh
-cat > .amo-credentials <<'CRED'
+cat > firefox/.amo-credentials <<'CRED'
 API_KEY="user:12345:67"
 API_SECRET="..."
 CRED
-chmod 600 .amo-credentials
+chmod 600 firefox/.amo-credentials
 ```
 
 Even versions send the store metadata in `firefox/amo-metadata.json`: summary and description in English
@@ -360,7 +362,7 @@ fictional titles and generated artwork): To watch, Week, the filter bar with cat
 start, Advanced Search and Settings and `PRIVACY.md` is the privacy policy to paste in the
 add-on's Developer Hub page. The listing icon is `common/icons/icon-128.png`.
 
-Bump `version` in both `firefox/manifest.json` and `package.json` for every build you sign (current:
+Bump `version` in both `firefox/manifest.json` and `firefox/package.json` for every build you sign (current:
 1.2.1); AMO does not accept the same version twice, not even in different channels, which is why
 test builds and releases use different numbers. The add-on ID
 (`crunchyroll-novos-eps@awmaximus.github.io`) comes from before the rename and must stay as it
@@ -368,7 +370,7 @@ is: changing it makes Firefox and AMO treat Watchroll as a different extension.
 
 ### Continuous integration
 
-`.github/workflows/ci.yml` runs `./build-firefox.sh` (tests, lint, package) on every push and pull
+`.github/workflows/ci.yml` runs `firefox/build-firefox.sh` (tests, lint, package) on every push and pull
 request with Node 22 and keeps the `.zip` as a build artifact.
 
 ### Releases
@@ -376,7 +378,7 @@ request with Node 22 and keeps the `.zip` as a build artifact.
 Pushing a version tag publishes a GitHub release with the `.zip` attached:
 
 ```sh
-# after bumping "version" in firefox/manifest.json and package.json (e.g. to 1.0.6)
+# after bumping "version" in firefox/manifest.json and firefox/package.json (e.g. to 1.0.6)
 git commit -am "Watchroll 1.0.6"
 git tag v1.0.6
 git push && git push origin v1.0.6
@@ -397,7 +399,7 @@ Each language is `common/_locales/<code>/messages.json` (`en_US`, `pt_BR`, `es_4
 ending in `_one`/`_other` are singular/plural. Tests check that every file has the same keys and
 placeholders. Because `browser.i18n` only follows the browser language, `common/src/i18n.js` loads the
 chosen file itself, with English as the fallback. To add a language, copy `en_US`, translate it,
-add it to `LANGUAGES` in `common/src/i18n.js` (with its name in its own language) and run `npm test`.
+add it to `LANGUAGES` in `common/src/i18n.js` (with its name in its own language) and run `npm test` in `firefox/`.
 
 ### Project layout
 
@@ -423,8 +425,10 @@ firefox/                      Firefox only (desktop and Android)
   manifest.json               MV3 manifest for Firefox
   amo-metadata.json           store metadata for releases (even versions)
   store/screenshots/          addons.mozilla.org screenshots
+  build-firefox.sh            Firefox build: tests, lint, package and signing
+  package.json                npm scripts (test, lint, build, start) and version
+  dist/                       generated packages (.zip, .xpi), not in git
 chrome/                       Chrome and Chromium-based browsers (planned; see chrome/README.md)
-build-firefox.sh              Firefox build: tests, lint, package and signing
 PRIVACY.md                    privacy policy
 .github/workflows/            CI
 ```
@@ -448,7 +452,7 @@ When something breaks, open the page's console (F12); messages start with `[Watc
 ## Contributing
 
 Bug reports and pull requests are welcome at <https://github.com/awmaximus/watchroll/issues>.
-Run `./build-firefox.sh` before sending a change; for a series that shows the wrong episodes, attach its
+Run `firefox/build-firefox.sh` before sending a change; for a series that shows the wrong episodes, attach its
 diagnostics file (never a HAR or request copied from the developer tools, which contain your
 session).
 
