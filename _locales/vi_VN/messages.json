@@ -440,7 +440,7 @@
     }
   },
   "secNoDub": {
-    "message": "Không lồng tiếng"
+    "message": "Chưa có lồng tiếng"
   },
   "noteNoDub_one": {
     "message": "Mùa hiện tại không có lồng tiếng $P2$ · 1 tập phụ đề để xem",
@@ -1090,7 +1090,7 @@
     }
   },
   "secNoSub": {
-    "message": "Không có phụ đề"
+    "message": "Chưa có phụ đề"
   },
   "noteNoSub_one": {
     "message": "Mùa hiện tại chưa có phụ đề $P2$ · đã ra 1 tập",

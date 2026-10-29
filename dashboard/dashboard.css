@@ -146,7 +146,7 @@ main {
   gap: 8px;
   margin-bottom: 16px;
 }
-.field {
+.tb-field {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -159,23 +159,23 @@ main {
   font-size: 0.85rem;
   flex: 0 0 auto; /* só a busca encolhe */
 }
-.field:focus-within {
+.tb-field:focus-within {
   border-color: var(--muted);
 }
-.field[hidden] {
+.tb-field[hidden] {
   display: none;
 }
-.field.active {
+.tb-field.active {
   border-color: var(--orange);
 }
-.field.active .field-label {
+.tb-field.active .tb-label {
   color: var(--orange);
 }
-.field-label {
+.tb-label {
   white-space: nowrap;
   flex-shrink: 0;
 }
-.field-icon {
+.tb-icon {
   flex-shrink: 0;
   fill: none;
   stroke: currentColor;
@@ -183,8 +183,8 @@ main {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.field select,
-.field input[type="search"] {
+.tb-field select,
+.tb-field input[type="search"] {
   min-width: 0;
   height: 100%;
   border: 0;
@@ -196,20 +196,20 @@ main {
   text-overflow: ellipsis;
   cursor: pointer;
 }
-.field select option {
+.tb-field select option {
   background: var(--surface-2);
   color: var(--text);
 }
-.field select:focus-visible,
-.field input[type="search"]:focus-visible {
+.tb-field select:focus-visible,
+.tb-field input[type="search"]:focus-visible {
   outline: none;
 }
-.search-field {
+.tb-search {
   flex: 1 1 220px;
   min-width: 130px;
   max-width: 420px;
 }
-.search-field input[type="search"] {
+.tb-search input[type="search"] {
   flex: 1;
   cursor: text;
 }
@@ -219,16 +219,16 @@ main {
 #audio-filter {
   max-width: 130px;
 }
-.sort-field select {
+.tb-sort select {
   max-width: 190px;
 }
-.check-field {
+.tb-check {
   padding-inline-end: 10px;
   cursor: pointer;
   white-space: nowrap;
   color: var(--text);
 }
-.check-field input {
+.tb-check input {
   width: 16px;
   height: 16px;
   margin: 0;
@@ -287,23 +287,23 @@ main {
   .toolbar {
     flex-wrap: wrap;
   }
-  .search-field {
+  .tb-search {
     max-width: none;
   }
 }
 /* Celular: busca e ordenação na linha toda; os filtros em duas colunas. */
 @media (max-width: 600px) {
-  .field {
+  .tb-field {
     flex: 1 1 calc(50% - 4px);
   }
-  .search-field,
-  .sort-field,
+  .tb-search,
+  .tb-sort,
   .clear-filters {
     flex: 1 1 100%;
     max-width: none;
     min-width: 0;
   }
-  .field select,
+  .tb-field select,
   #genre-filter,
   #genre-filter .multi-button {
     flex: 1;
@@ -809,8 +809,8 @@ body.busy select.actions {
   flex: 0 0 auto;
   display: inline-flex;
   align-items: baseline;
-  gap: 8px;
-  padding: 10px 11px 9px;
+  gap: 6px;
+  padding: 10px 8px 9px;
   border: 0;
   border-bottom: 3px solid transparent;
   background: none;
@@ -1059,6 +1059,10 @@ body.busy select.actions {
 }
 
 /* ---------- listas (Fila + Crunchylists) ---------- */
+/* [hidden] vale mesmo para campos com display próprio (ex.: opção só do Android). */
+.settings [hidden] {
+  display: none !important;
+}
 .settings .field {
   display: flex;
   flex-direction: column;

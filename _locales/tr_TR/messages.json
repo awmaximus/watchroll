@@ -440,7 +440,7 @@
     }
   },
   "secNoDub": {
-    "message": "Dublaj yok"
+    "message": "Henüz dublaj yok"
   },
   "noteNoDub_one": {
     "message": "Bu sezonda $P2$ dublajı yok · izlenecek 1 altyazılı bölüm",
@@ -1090,7 +1090,7 @@
     }
   },
   "secNoSub": {
-    "message": "Altyazısız"
+    "message": "Henüz altyazı yok"
   },
   "noteNoSub_one": {
     "message": "Mevcut sezonda $P2$ altyazı yok · 1 bölüm çıktı",

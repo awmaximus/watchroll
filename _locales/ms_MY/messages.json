@@ -440,7 +440,7 @@
     }
   },
   "secNoDub": {
-    "message": "Tiada alih suara"
+    "message": "Menunggu alih suara"
   },
   "noteNoDub_one": {
     "message": "Musim semasa tanpa alih suara $P2$ · 1 episod bersari kata untuk ditonton",
@@ -1090,7 +1090,7 @@
     }
   },
   "secNoSub": {
-    "message": "Tiada sari kata"
+    "message": "Menunggu sari kata"
   },
   "noteNoSub_one": {
     "message": "Musim semasa tiada sari kata $P2$ · 1 episod sudah keluar",

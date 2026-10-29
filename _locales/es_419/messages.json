@@ -440,7 +440,7 @@
     }
   },
   "secNoDub": {
-    "message": "Sin doblaje"
+    "message": "Esperando doblaje"
   },
   "noteNoDub_one": {
     "message": "Temporada actual sin doblaje $P2$ · 1 episodio subtitulado para ver",
@@ -1090,7 +1090,7 @@
     }
   },
   "secNoSub": {
-    "message": "Sin subtítulos"
+    "message": "Esperando subtítulos"
   },
   "noteNoSub_one": {
     "message": "Temporada actual sin subtítulos en $P2$ · 1 episodio ya salió",

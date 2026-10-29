@@ -440,7 +440,7 @@
     }
   },
   "secNoDub": {
-    "message": "Bez dubbingu"
+    "message": "Jeszcze bez dubbingu"
   },
   "noteNoDub_one": {
     "message": "ten sezon nie ma dubbingu $P2$ · 1 odcinek dostępny z napisami",
@@ -1090,7 +1090,7 @@
     }
   },
   "secNoSub": {
-    "message": "Bez napisów"
+    "message": "Jeszcze bez napisów"
   },
   "noteNoSub_one": {
     "message": "Obecny sezon bez napisów $P2$ · wyszedł 1 odcinek",
