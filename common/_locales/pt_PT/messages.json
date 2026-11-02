@@ -740,8 +740,8 @@
   "searchAgeAny": {
     "message": "Todas"
   },
-  "searchAgeUpTo": {
-    "message": "Até $P1$ anos",
+  "searchAgeYears": {
+    "message": "$P1$ anos",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -772,13 +772,41 @@
     "message": "A carregar…"
   },
   "searchNeedAniList": {
-    "message": "A pesquisa da Crunchyroll não entende nomes em japonês. Com o AniList ligado, o texto da pesquisa é enviado para lá para encontrar o título."
+    "message": "A pesquisa da Crunchyroll não entende nomes em japonês nem em romaji. Com o AniList ligado, o texto da pesquisa é enviado para ele para encontrar o título e o nome em inglês."
   },
   "searchEnableAniList": {
     "message": "Ativar AniList"
   },
   "searchAniListError": {
     "message": "Não foi possível consultar o AniList agora; os resultados vêm só da pesquisa da Crunchyroll."
+  },
+  "searchAniListNoPermission": {
+    "message": "A pesquisa em japonês e romaji está ligada, mas este navegador ainda não permitiu enviar o texto da pesquisa ao AniList."
+  },
+  "searchAniListAllow": {
+    "message": "Permitir"
+  },
+  "searchAniListMatch": {
+    "message": "“$P1$” em inglês é “$P2$”.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "searchAltTitle": {
+    "message": "Romaji: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAniListTooltip": {
+    "message": "Pesquisa também nomes em japonês (kanji e kana) e em romaji: o texto da pesquisa é enviado ao AniList, que devolve o nome em inglês e a ligação da Crunchyroll. É a mesma opção das Definições."
   },
   "searchMineEmpty": {
     "message": "A sua Lista ainda não foi lida. Clique em Atualizar e tente de novo."

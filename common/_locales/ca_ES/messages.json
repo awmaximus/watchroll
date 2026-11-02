@@ -740,8 +740,8 @@
   "searchAgeAny": {
     "message": "Totes"
   },
-  "searchAgeUpTo": {
-    "message": "Fins a $P1$",
+  "searchAgeYears": {
+    "message": "$P1$ anys",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -772,13 +772,41 @@
     "message": "Carregant…"
   },
   "searchNeedAniList": {
-    "message": "La cerca de Crunchyroll no entén noms en japonès. Si actives l'AniList, el text de la cerca s'envia a l'AniList per trobar el títol."
+    "message": "La cerca de Crunchyroll no entén noms en japonès ni en romaji. Amb l’AniList activat, el text de la cerca s’hi envia per trobar el títol i el nom en anglès."
   },
   "searchEnableAniList": {
     "message": "Activa l'AniList"
   },
   "searchAniListError": {
     "message": "Ara no s'ha pogut consultar l'AniList; els resultats només són de la cerca de Crunchyroll."
+  },
+  "searchAniListNoPermission": {
+    "message": "La cerca en japonès i romaji està activada, però aquest navegador encara no ha permès enviar el text de la cerca a l’AniList."
+  },
+  "searchAniListAllow": {
+    "message": "Permet"
+  },
+  "searchAniListMatch": {
+    "message": "“$P1$” en anglès és “$P2$”.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "searchAltTitle": {
+    "message": "Romaji: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAniListTooltip": {
+    "message": "Cerca també noms en japonès (kanji i kana) i en romaji: el text de la cerca s’envia a l’AniList, que retorna el nom en anglès i l’enllaç de Crunchyroll. És la mateixa opció de la Configuració."
   },
   "searchMineEmpty": {
     "message": "Encara no s'ha llegit la teva llista de seguiment. Fes clic a Actualitza i torna-ho a provar."

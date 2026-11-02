@@ -740,8 +740,8 @@
   "searchAgeAny": {
     "message": "সব"
   },
-  "searchAgeUpTo": {
-    "message": "$P1$+ পর্যন্ত",
+  "searchAgeYears": {
+    "message": "$P1$ বছর",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -772,13 +772,41 @@
     "message": "লোড হচ্ছে…"
   },
   "searchNeedAniList": {
-    "message": "Crunchyroll-এর অনুসন্ধান জাপানি নাম বোঝে না। AniList চালু থাকলে শিরোনাম খুঁজতে অনুসন্ধানের লেখা AniList-এ পাঠানো হয়।"
+    "message": "Crunchyroll-এর খোঁজ জাপানি বা রোমাজি নাম বোঝে না। AniList চালু থাকলে খোঁজের লেখা সেখানে পাঠানো হয়, যাতে শিরোনাম আর তার ইংরেজি নাম পাওয়া যায়।"
   },
   "searchEnableAniList": {
     "message": "AniList চালু করুন"
   },
   "searchAniListError": {
     "message": "এখন AniList-এর সাথে যোগাযোগ করা যাচ্ছে না; ফলাফল শুধু Crunchyroll-এর অনুসন্ধান থেকে।"
+  },
+  "searchAniListNoPermission": {
+    "message": "জাপানি ও রোমাজি খোঁজ চালু আছে, কিন্তু এই ব্রাউজার এখনও খোঁজের লেখা AniList-এ পাঠানোর অনুমতি দেয়নি।"
+  },
+  "searchAniListAllow": {
+    "message": "অনুমতি দিন"
+  },
+  "searchAniListMatch": {
+    "message": "“$P1$”-এর ইংরেজি নাম “$P2$”।",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "searchAltTitle": {
+    "message": "রোমাজি: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAniListTooltip": {
+    "message": "জাপানি (কাঞ্জি ও কানা) আর রোমাজি নামেও খোঁজে: খোঁজের লেখা AniList-এ পাঠানো হয়, যা ইংরেজি নাম আর Crunchyroll লিংক ফেরত দেয়। এটি সেটিংসের একই বিকল্প।"
   },
   "searchMineEmpty": {
     "message": "আপনার ওয়াচলিস্ট এখনও পড়া হয়নি। রিফ্রেশ করে আবার চেষ্টা করুন।"

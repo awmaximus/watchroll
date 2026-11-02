@@ -874,7 +874,7 @@ body.busy select.actions {
   display: flex;
   gap: 8px;
 }
-.search-line input {
+.search-line input[type="search"] {
   flex: 1;
   min-width: 0;
   background: var(--surface);
@@ -883,10 +883,31 @@ body.busy select.actions {
   padding: 9px 12px;
   font: inherit;
 }
-.search-line input:focus-visible,
+.search-line input[type="search"]:focus-visible,
 .search-filters select:focus-visible {
   outline: 2px solid var(--orange);
   outline-offset: 1px;
+}
+/* Caixa "AniList" ao lado do botão Pesquisar */
+.ani-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 4px;
+  color: var(--muted);
+  font-size: 0.85rem;
+  cursor: help;
+  white-space: nowrap;
+}
+.ani-toggle input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--orange);
+  cursor: pointer;
+}
+.ani-toggle:has(input:checked) {
+  color: var(--text);
 }
 /* Os 8 filtros da Pesquisa numa linha só (em telas estreitas, 4 e depois 2 por linha). */
 /* Larguras pensadas para o texto de cada um ("Todo o catálogo" > "Todas"). Os
@@ -934,7 +955,12 @@ body.busy select.actions {
   font-size: 0.8rem;
   color: var(--muted);
 }
+.search-field-multi .multi {
+  min-width: 0;
+}
 .search-field-multi .multi-button {
+  min-width: 0;
+  overflow: hidden;
   padding: 0 8px;
   font-size: 0.9rem;
 }
@@ -942,8 +968,11 @@ body.busy select.actions {
 .search-field-multi .multi-button {
   height: 34px;
 }
+/* O painel pode ser mais largo que a coluna (nomes longos, ex.: "Livre para todos
+   os públicos"), sem quebrar linha. */
 .search-field-multi .multi-panel {
-  min-width: 100%;
+  inset-inline-end: auto;
+  min-width: max(100%, 240px);
   max-height: 340px;
 }
 .search-filters .multi-option {
@@ -961,6 +990,42 @@ body.busy select.actions {
   margin: 0 0 14px;
   color: var(--muted);
   font-size: 0.85rem;
+}
+/* Pesquisa pelo AniList: "romaji → nome em inglês" */
+.ani-matches {
+  margin: 0 0 14px;
+  padding: 8px 12px;
+  border-left: 3px solid var(--orange);
+  background: var(--surface);
+  font-size: 0.85rem;
+}
+.ani-matches p {
+  margin: 0;
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+.ani-matches p + p {
+  margin-top: 4px;
+}
+.ani-label {
+  flex: none;
+  padding: 0 6px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.result-alt {
+  display: block;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-style: italic;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .result-count {
   margin: 0 0 10px;
@@ -1287,6 +1352,11 @@ body.busy select.actions {
 }
 .rating .star {
   color: #ffc83d;
+}
+.rating .rating-count {
+  margin-inline-start: 2px;
+  color: var(--muted);
+  font-weight: 500;
 }
 .rating.compact {
   flex: 0 0 auto;

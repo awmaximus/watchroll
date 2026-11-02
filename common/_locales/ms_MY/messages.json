@@ -740,8 +740,8 @@
   "searchAgeAny": {
     "message": "Semua"
   },
-  "searchAgeUpTo": {
-    "message": "Sehingga $P1$+",
+  "searchAgeYears": {
+    "message": "$P1$ tahun",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -772,13 +772,41 @@
     "message": "Memuatkan…"
   },
   "searchNeedAniList": {
-    "message": "Carian Crunchyroll tidak memahami nama Jepun. Dengan AniList dihidupkan, teks carian dihantar ke sana untuk mencari tajuk."
+    "message": "Carian Crunchyroll tidak memahami nama dalam bahasa Jepun atau romaji. Apabila AniList dihidupkan, teks carian dihantar kepadanya untuk mencari tajuk dan nama Inggerisnya."
   },
   "searchEnableAniList": {
     "message": "Hidupkan AniList"
   },
   "searchAniListError": {
     "message": "AniList tidak dapat dihubungi sekarang; hasil hanya daripada carian Crunchyroll."
+  },
+  "searchAniListNoPermission": {
+    "message": "Carian bahasa Jepun dan romaji dihidupkan, tetapi pelayar ini belum membenarkan teks carian dihantar ke AniList."
+  },
+  "searchAniListAllow": {
+    "message": "Benarkan"
+  },
+  "searchAniListMatch": {
+    "message": "“$P1$” dalam bahasa Inggeris ialah “$P2$”.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "searchAltTitle": {
+    "message": "Romaji: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAniListTooltip": {
+    "message": "Cari juga nama dalam bahasa Jepun (kanji dan kana) dan romaji: teks carian dihantar ke AniList, yang memulangkan nama Inggeris dan pautan Crunchyroll. Sama seperti pilihan dalam Tetapan."
   },
   "searchMineEmpty": {
     "message": "Senarai Tontonan anda belum dibaca. Klik Muat semula dan cuba lagi."

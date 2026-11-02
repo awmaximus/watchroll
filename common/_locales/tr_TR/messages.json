@@ -740,8 +740,8 @@
   "searchAgeAny": {
     "message": "Tümü"
   },
-  "searchAgeUpTo": {
-    "message": "$P1$ yaşa kadar",
+  "searchAgeYears": {
+    "message": "$P1$ yaş",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -772,13 +772,41 @@
     "message": "Yükleniyor…"
   },
   "searchNeedAniList": {
-    "message": "Crunchyroll araması Japonca adları anlamaz. AniList açıkken arama metni başlığı bulmak için AniList'e gönderilir."
+    "message": "Crunchyroll araması Japonca veya romaji adları anlamaz. AniList açıkken arama metni ona gönderilir ve başlık ile İngilizce adı bulunur."
   },
   "searchEnableAniList": {
     "message": "AniList'i aç"
   },
   "searchAniListError": {
     "message": "AniList'e şu anda ulaşılamıyor; sonuçlar yalnızca Crunchyroll aramasından."
+  },
+  "searchAniListNoPermission": {
+    "message": "Japonca ve romaji arama açık, ancak bu tarayıcı arama metnini AniList'e göndermeye henüz izin vermedi."
+  },
+  "searchAniListAllow": {
+    "message": "İzin ver"
+  },
+  "searchAniListMatch": {
+    "message": "“$P1$” İngilizce adı: “$P2$”.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "searchAltTitle": {
+    "message": "Romaji: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAniListTooltip": {
+    "message": "Japonca (kanji ve kana) ve romaji adlarla da arar: arama metni AniList'e gönderilir; o da İngilizce adı ve Crunchyroll bağlantısını döndürür. Ayarlar'daki seçenekle aynıdır."
   },
   "searchMineEmpty": {
     "message": "İzleme listen henüz okunmadı. Yenile'ye tıkla ve tekrar dene."

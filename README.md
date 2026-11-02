@@ -80,8 +80,8 @@ background; **Refresh** forces a full check.
 
 ### Tabs
 
-Tab names are short so the bar never scrolls sideways; on narrow screens it wraps. Search is the
-magnifier icon and Settings the gear. Empty tabs are hidden, except To watch, Caught up, Week,
+Tab names are short so the bar never scrolls sideways; on narrow screens it wraps. Search (the
+magnifier icon) and Settings (the gear) are always the last two tabs. Empty tabs are hidden, except To watch, Caught up, Week,
 To start, Search and Settings. The selected tab is remembered, and ← / → switch tabs.
 
 | Tab | Shows |
@@ -151,15 +151,27 @@ Above the list tabs, on one line on wide screens. A filter in use is outlined in
 - **Text** uses Crunchyroll's search, which understands titles in the site's languages but not
   Japanese script.
 - **Japanese and romaji names (optional):** with *Also search Japanese and romaji names* on, the
-  search text is also sent to [AniList](https://anilist.co), which returns the Crunchyroll
-  link: "薬屋のひとりごと" or "Kusuriya no Hitorigoto" finds *The Apothecary Diaries*. Off by
-  default; in Firefox, turning it on asks permission to share search terms.
+  search text is also sent to [AniList](https://anilist.co), which knows each anime's romaji,
+  English and Japanese titles and, often, its Crunchyroll link. Watchroll uses that link and
+  also searches Crunchyroll for the English title AniList gives, so the series is found even
+  without a link. A note shows the match ("“Tensei Kizoku, Kantei Skill de Nariagaru” in English
+  is “As a Reincarnated Aristocrat, I'll Use My Appraisal Skill to Rise in the World”") and each
+  result found this way shows its romaji name. Works the same for names typed in Japanese
+  (kanji and kana). Turn it on or off with the **AniList** checkbox next to the Search button
+  (hover it for an explanation), which is the same option as in Settings. Off by default; when it
+  is off and nothing matches the typed name, the search suggests turning it on.
+- **Permission (Firefox):** sending search text to AniList needs Firefox's "share search terms"
+  permission, granted per browser. The option itself is synced between computers, but the
+  permission is not: on a computer where it's missing, the search says so and offers an
+  **Allow** button, and the option in Settings shows unchecked until it's granted.
 - **No text:** with a season, lists what Crunchyroll tags for that season. Otherwise the whole
   catalog (about 1,900 titles) is downloaded in under a second, kept for 6 hours and filtered
   locally, because Crunchyroll's ranking and its server-side "dubbed" filter are unreliable.
 - **Search in:** whole catalog or only your lists.
 - **Filters:** dub in your dub language, age rating (the Brazilian ratings Crunchyroll provides:
-  L, 10, 12, 14, 16, 18), categories (several at once), year, release season and **Min.
+  L, 10, 12, 14, 16, 18; tick one or more exact ratings, e.g. only 12 and 14; titles without a
+  rating are left out while it's in use), categories, release years and release seasons (each of these lets you
+  tick several at once, e.g. 2024 and 2025, or Fall 2025 and Winter 2026) and **Min.
   seasons** (2 to 6; Crunchyroll's season count can include dubbed copies, so it may be higher
   than the real number; movies are left out).
 - **Sort:** Crunchyroll default, newest release or title. Results load 60 at a time, with a

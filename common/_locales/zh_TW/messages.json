@@ -740,8 +740,8 @@
   "searchAgeAny": {
     "message": "全部"
   },
-  "searchAgeUpTo": {
-    "message": "最高 $P1$ 歲",
+  "searchAgeYears": {
+    "message": "$P1$歲以上",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -772,13 +772,41 @@
     "message": "載入中…"
   },
   "searchNeedAniList": {
-    "message": "Crunchyroll 的搜尋無法識別日文名稱。開啟 AniList 後,搜尋文字會傳送到 AniList 以查詢標題。"
+    "message": "Crunchyroll 的搜尋無法辨識日文或羅馬字名稱。開啟 AniList 後，會把搜尋文字傳給它，以找到作品及其英文名稱。"
   },
   "searchEnableAniList": {
     "message": "開啟 AniList"
   },
   "searchAniListError": {
     "message": "暫時無法連線 AniList,結果僅來自 Crunchyroll 的搜尋。"
+  },
+  "searchAniListNoPermission": {
+    "message": "日文與羅馬字搜尋已開啟，但這個瀏覽器尚未允許將搜尋文字傳送給 AniList。"
+  },
+  "searchAniListAllow": {
+    "message": "允許"
+  },
+  "searchAniListMatch": {
+    "message": "「$P1$」的英文名稱是「$P2$」。",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "searchAltTitle": {
+    "message": "羅馬字：$P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAniListTooltip": {
+    "message": "也搜尋日文（漢字和假名）與羅馬字名稱：搜尋文字會傳送給 AniList，由它傳回英文名稱與 Crunchyroll 連結。與設定中的選項相同。"
   },
   "searchMineEmpty": {
     "message": "尚未讀取你的追番清單。請點選重新整理後重試。"

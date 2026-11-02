@@ -92,16 +92,23 @@ describe("filtros", () => {
     assert.equal(S.matches(r({ audios: ["ja-JP", "pt-BR"] }), { dub: "dub" }, "pt-BR"), true);
     assert.equal(S.matches(r({ audios: ["ja-JP", "en-US"] }), { dub: "nodub" }, "pt-BR"), true);
   });
-  test("classificação: até a idade escolhida; sem classificação fica de fora", () => {
-    assert.equal(S.matches(r({ rating: "A14" }), { maxAge: 14 }, "pt-BR"), true);
-    assert.equal(S.matches(r({ rating: "A16" }), { maxAge: 14 }, "pt-BR"), false);
-    assert.equal(S.matches(r({ rating: "L" }), { maxAge: 0 }, "pt-BR"), true);
-    assert.equal(S.matches(r({ rating: null }), { maxAge: 18 }, "pt-BR"), false);
+  test("classificação exata, uma ou várias; sem classificação fica de fora", () => {
+    assert.equal(S.matches(r({ rating: "A14" }), { ages: ["14"] }, "pt-BR"), true);
+    assert.equal(S.matches(r({ rating: "A12" }), { ages: ["14"] }, "pt-BR"), false, "não é 'até 14'");
+    assert.equal(S.matches(r({ rating: "A16" }), { ages: ["14"] }, "pt-BR"), false);
+    assert.equal(S.matches(r({ rating: "A12" }), { ages: ["12", "16"] }, "pt-BR"), true);
+    assert.equal(S.matches(r({ rating: "A16" }), { ages: [12, 16] }, "pt-BR"), true);
+    assert.equal(S.matches(r({ rating: "L" }), { ages: ["0"] }, "pt-BR"), true);
+    assert.equal(S.matches(r({ rating: null }), { ages: ["18"] }, "pt-BR"), false);
+    assert.equal(S.matches(r({ rating: null }), { ages: [] }, "pt-BR"), true);
     assert.equal(S.matches(r({ rating: null }), {}, "pt-BR"), true);
   });
   test("ano de estreia e escopo da Fila", () => {
-    assert.equal(S.matches(r({ year: 2023 }), { year: "2023" }, "pt-BR"), true);
-    assert.equal(S.matches(r({ year: 2022 }), { year: 2023 }, "pt-BR"), false);
+    assert.equal(S.matches(r({ year: 2023 }), { years: ["2023"] }, "pt-BR"), true);
+    assert.equal(S.matches(r({ year: 2022 }), { years: [2023] }, "pt-BR"), false);
+    assert.equal(S.matches(r({ year: 2022 }), { years: ["2022", "2024"] }, "pt-BR"), true, "vários anos");
+    assert.equal(S.matches(r({ year: 2021 }), { years: [] }, "pt-BR"), true);
+    assert.equal(S.matches(r({ year: 2023 }), { year: "2023" }, "pt-BR"), true, "formato antigo (um ano)");
     assert.equal(S.matches(r({}), { scope: "mine" }, "pt-BR"), false);
     assert.equal(S.matches(r({ mine: true }), { scope: "mine" }, "pt-BR"), true);
   });
@@ -163,6 +170,75 @@ describe("pesquisa", () => {
     assert.ok(!calls.some((c) => c[0] === "objects"), "não busca de novo o que já veio");
   });
 
+  // Exemplo real (AniList, nov/2026): o romaji dá o título em inglês e o link.
+  const aristocrat = (links = true) => ({
+    title: {
+      romaji: "Tensei Kizoku, Kantei Skill de Nariagaru",
+      english: "As a Reincarnated Aristocrat, I'll Use My Appraisal Skill to Rise in the World",
+      native: "転生貴族、鑑定スキルで成り上がる",
+    },
+    externalLinks: links ? [{ site: "Crunchyroll", url: "https://www.crunchyroll.com/series/GG5H5XQMD/as-a-reincarnated" }] : [],
+  });
+  const aniFetch = (media, seen = []) => async (url, init) => {
+    seen.push(JSON.parse(init.body).variables.s);
+    return { ok: true, json: async () => ({ data: { Page: { media } } }) };
+  };
+  const ROMAJI = "Tensei Kizoku, Kantei Skill de Nariagaru";
+  const ENGLISH = "As a Reincarnated Aristocrat, I'll Use My Appraisal Skill to Rise in the World";
+
+  test("romaji: busca também o nome em inglês que o AniList deu e mostra a correspondência", async () => {
+    const { S, calls } = setup({
+      search: {
+        [ROMAJI]: [item("LIXO", { title: "Tensei Shitara Slime" })],
+        [ENGLISH]: [item("GG5H5XQMD", { title: ENGLISH }), item("OUTRO", { title: "Outro aristocrata" })],
+      },
+    });
+    // AniList devolve a série e as temporadas 2 e 3 (mesmo link): uma correspondência só
+    const s2 = aristocrat();
+    s2.title = { ...s2.title, romaji: ROMAJI + " 2nd Season", english: ENGLISH + " Season 2" };
+    const r = await S.run({ q: ROMAJI, settings, useAniList: true, fetchFn: aniFetch([aristocrat(), s2]) });
+    assert.equal(r.items[0].id, "GG5H5XQMD");
+    assert.deepEqual(plain(r.aniInfo), [{ romaji: ROMAJI, english: ENGLISH, native: "転生貴族、鑑定スキルで成り上がる" }]);
+    assert.equal(r.items[0].aniList.romaji, ROMAJI);
+    assert.ok(calls.some((c) => c[0] === "search" && c[1] === ENGLISH), "buscou o nome em inglês");
+    assert.ok(!r.items.some((x) => x.id === "OUTRO"), "da busca em inglês fica só o título igual");
+    assert.ok(!calls.some((c) => c[0] === "objects"), "a série já veio pela busca em inglês");
+  });
+
+  test("romaji sem link da Crunchyroll no AniList: acha pela busca do nome em inglês", async () => {
+    const { S } = setup({
+      search: { [ROMAJI]: [], [ENGLISH]: [item("PT", { title: "Como um Aristocrata Reencarnado" })] },
+    });
+    const r = await S.run({ q: ROMAJI, settings, useAniList: true, fetchFn: aniFetch([aristocrat(false)]) });
+    // título em português (outro idioma): fica o primeiro resultado da busca em inglês
+    assert.deepEqual(titles(r), ["Como um Aristocrata Reencarnado"]);
+    assert.equal(r.items[0].aniList.english, ENGLISH);
+  });
+
+  test("romaji com link, sem a busca em inglês achar: a série vem pelo ID do link", async () => {
+    const { S, calls } = setup({ objects: { GG5H5XQMD: item("GG5H5XQMD", { title: ENGLISH }) } });
+    const r = await S.run({ q: ROMAJI, settings, useAniList: true, fetchFn: aniFetch([aristocrat()]) });
+    assert.deepEqual(titles(r), [ENGLISH]);
+    assert.deepEqual(plain(calls.find((c) => c[0] === "objects")), ["objects", ["GG5H5XQMD"]]);
+  });
+
+  test("kanji: o AniList entende, e o nome em inglês também é buscado na Crunchyroll", async () => {
+    const KANJI = "転生貴族、鑑定スキルで成り上がる";
+    const { S, calls } = setup({ search: { [KANJI]: [], [ENGLISH]: [item("GG5H5XQMD", { title: ENGLISH })] } });
+    const seen = [];
+    const r = await S.run({ q: KANJI, settings, useAniList: true, fetchFn: aniFetch([aristocrat(false)], seen) });
+    assert.deepEqual(seen, [KANJI], "o texto em kanji vai para o AniList");
+    assert.ok(calls.some((c) => c[0] === "search" && c[1] === ENGLISH));
+    assert.deepEqual(titles(r), [ENGLISH]);
+    assert.equal(r.aniInfo[0].native, KANJI);
+  });
+
+  test("texto já em inglês: não busca de novo o mesmo nome", async () => {
+    const { S, calls } = setup({ search: { [ENGLISH.toLowerCase()]: [item("GG5H5XQMD", { title: ENGLISH })] } });
+    await S.run({ q: ENGLISH.toLowerCase(), settings, useAniList: true, fetchFn: aniFetch([aristocrat()]) });
+    assert.equal(calls.filter((c) => c[0] === "search").length, 1);
+  });
+
   test("AniList fora do ar: segue com a busca da Crunchyroll e avisa", async () => {
     const { S } = setup({ search: { frieren: [item("F", { title: "Frieren" })] } });
     const r = await S.run({ q: "frieren", settings, useAniList: true, fetchFn: async () => ({ ok: false, status: 503 }) });
@@ -173,7 +249,7 @@ describe("pesquisa", () => {
   test("sem texto, com temporada: navegação filtrada pelo servidor, todas as páginas", async () => {
     const list = Array.from({ length: 130 }, (_, i) => item(`S${i}`));
     const { S, calls } = setup({ browse: (p) => (p.seasonal_tag === "fall-2026" ? list : []) });
-    const r = await S.run({ filters: { season: "fall-2026" }, settings });
+    const r = await S.run({ filters: { seasons: ["fall-2026"] }, settings });
     assert.equal(r.items.length, 130);
     assert.deepEqual(plain(calls.map((c) => c[1].start)), [0, 100]);
     assert.ok(calls.every((c) => c[1].seasonal_tag === "fall-2026"));
@@ -184,15 +260,41 @@ describe("pesquisa", () => {
       search: { diaries: [item("A", { title: "Apothecary" }), item("B", { title: "Slime Diaries" })] },
       browse: (p) => (p.seasonal_tag === "fall-2023" ? [item("A")] : []),
     });
-    const r = await S.run({ q: "diaries", filters: { season: "fall-2023" }, settings });
+    const r = await S.run({ q: "diaries", filters: { seasons: ["fall-2023"] }, settings });
     assert.deepEqual(titles(r), ["Apothecary"]);
+  });
+
+  test("várias temporadas: junta as listas de cada uma, sem repetir", async () => {
+    const { S, calls } = setup({
+      browse: (p) =>
+        p.seasonal_tag === "fall-2026" ? [item("A"), item("B")] : p.seasonal_tag === "summer-2026" ? [item("B"), item("C")] : [],
+    });
+    const r = await S.run({ filters: { seasons: ["fall-2026", "summer-2026"] }, settings });
+    assert.deepEqual(titles(r), ["A", "B", "C"]);
+    assert.deepEqual(plain([...new Set(calls.map((c) => c[1].seasonal_tag))]).sort(), ["fall-2026", "summer-2026"]);
+  });
+
+  test("texto + várias temporadas: fica o que está em qualquer uma delas", async () => {
+    const { S } = setup({
+      search: { x: [item("A"), item("B"), item("C")] },
+      browse: (p) => (p.seasonal_tag === "s1" ? [item("A")] : p.seasonal_tag === "s2" ? [item("C")] : []),
+    });
+    const r = await S.run({ q: "x", filters: { seasons: ["s1", "s2"] }, settings });
+    assert.deepEqual(titles(r), ["A", "C"]);
+  });
+
+  test("formato antigo (uma temporada só) continua valendo", async () => {
+    const { S } = setup({ browse: (p) => (p.seasonal_tag === "fall-2026" ? [item("A")] : []) });
+    assert.deepEqual(titles(await S.run({ filters: { season: "fall-2026" }, settings })), ["A"]);
   });
 
   test("sem texto, com ano: catálogo inteiro filtrado pelo ano de estreia", async () => {
     const cat = [item("NOVA", { year: 2023 }), item("ANTIGA", { year: 2019 }), item("OUTRA", { year: 2023 })];
     const { S } = setup({ browse: () => cat });
-    const r = await S.run({ filters: { year: 2023 }, settings });
+    const r = await S.run({ filters: { years: ["2023"] }, settings });
     assert.deepEqual(titles(r), ["NOVA", "OUTRA"]);
+    const both = await S.run({ filters: { years: ["2023", "2019"] }, settings });
+    assert.deepEqual(titles(both), ["NOVA", "ANTIGA", "OUTRA"], "vários anos");
   });
 
   test("sem texto, só a Fila: busca as séries da Fila pelo ID e aplica os filtros", async () => {
@@ -221,7 +323,7 @@ describe("pesquisa", () => {
     const cat = Array.from({ length: 1929 }, (_, i) => item(`X${i}`, { rating: "A16", audios: ["ja-JP"] }));
     cat[1713] = item("GT00258001", { title: "Witch Hat Atelier", year: 2026, rating: "A12", audios: ["fr-FR", "ja-JP", "pt-BR", "en-US"] });
     const { S } = setup({ browse: () => cat });
-    const r = await S.run({ filters: { dub: "dub", maxAge: "12" }, settings });
+    const r = await S.run({ filters: { dub: "dub", ages: ["12"] }, settings });
     assert.deepEqual(titles(r), ["Witch Hat Atelier"]);
   });
 
@@ -229,7 +331,7 @@ describe("pesquisa", () => {
     const { S, calls } = setup({ browse: () => [item("A"), item("B")] });
     await S.run({ filters: {}, settings });
     const n = calls.length;
-    await S.run({ filters: { maxAge: "14" }, settings });
+    await S.run({ filters: { ages: ["14"] }, settings });
     assert.equal(calls.length, n);
     await S.run({ filters: {}, settings, force: true });
     assert.ok(calls.length > n, "force: baixa de novo");

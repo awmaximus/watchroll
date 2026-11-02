@@ -3,7 +3,8 @@
 //
 // De onde vêm os candidatos (conferido na API real, out/2026):
 //  - com texto: /discover/search (títulos em português e inglês) e, se ligado, o
-//    AniList, que entende romaji e kanji e devolve o link da série na Crunchyroll;
+//    AniList, que entende romaji e kanji e devolve o link da série na Crunchyroll e
+//    o título em inglês, que também é buscado na Crunchyroll;
 //  - sem texto, com temporada: /discover/browse?seasonal_tag=… (filtro do servidor);
 //  - sem texto, só a Fila: as séries da Fila, buscadas pelo ID;
 //  - sem texto, nos demais casos: o catálogo INTEIRO (≈2.000 títulos, ~20 consultas em
@@ -124,10 +125,20 @@ var CRSearch = (() => {
   }
 
   // ---------- AniList (romaji, kanji, inglês) ----------
+  // A busca da Crunchyroll só entende os títulos do site (inglês, português…). O
+  // AniList entende romaji e kanji e diz, para cada anime, o título em romaji, em
+  // inglês e em japonês, além do link da série na Crunchyroll (quando tem).
   const ANILIST_QUERY =
-    "query($s:String){Page(perPage:10){media(search:$s,type:ANIME){externalLinks{site url}}}}";
+    "query($s:String){Page(perPage:10){media(search:$s,type:ANIME){title{romaji english native} externalLinks{site url}}}}";
 
-  async function anilistCrIds(q, fetchFn = fetch) {
+  /**
+   * Procura no AniList. Devolve { ids, matches }:
+   *  - ids: IDs de séries da Crunchyroll tirados dos links (na ordem do AniList);
+   *  - matches: os animes achados, { romaji, english, native, crIds }, um por série
+   *    da Crunchyroll (as temporadas 2, 3… do AniList apontam para a mesma série e
+   *    ficam de fora) ou por título em inglês, quando não há link.
+   */
+  async function anilistLookup(q, fetchFn = fetch) {
     const res = await fetchFn(ANILIST, {
       method: "POST",
       headers: { "Content-Type": "application/json", Accept: "application/json" },
@@ -138,23 +149,55 @@ var CRSearch = (() => {
     if (!res.ok) throw new Error(`AniList HTTP ${res.status}`);
     const j = await res.json();
     const ids = [];
+    const matches = [];
+    const seen = new Set();
     for (const m of (j && j.data && j.data.Page && j.data.Page.media) || []) {
-      for (const id of crIdsFromLinks(m.externalLinks)) if (!ids.includes(id)) ids.push(id);
+      const crIds = crIdsFromLinks(m.externalLinks);
+      for (const id of crIds) if (!ids.includes(id)) ids.push(id);
+      const title = m.title || {};
+      const key = crIds[0] || "en:" + simplify(title.english || title.romaji || "");
+      if (seen.has(key)) continue;
+      seen.add(key);
+      matches.push({ romaji: title.romaji || "", english: title.english || "", native: title.native || "", crIds });
     }
-    return ids;
+    return { ids, matches };
   }
 
+  // Compatibilidade: só os IDs.
+  const anilistCrIds = async (q, fetchFn) => (await anilistLookup(q, fetchFn)).ids;
+
+  // Para comparar títulos: minúsculas, sem acentos nem pontuação.
+  const simplify = (s) =>
+    String(s || "")
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[^\p{L}\p{N}]+/gu, " ")
+      .trim();
+
   // ---------- filtros ----------
-  // filters: { dub: "any"|"dub"|"nodub", maxAge: null|0|10|12|14|16|18,
-  //            year: null|número, season: null|"fall-2026", scope: "all"|"mine",
+  // filters: { dub: "any"|"dub"|"nodub", ages: [0|10|12|14|16|18…] (classificações
+  //            exatas, várias de uma vez; vazio = todas),
+  //            years: [números] (vários anos de estreia; vazio = todos),
+  //            seasons: ["fall-2026", …] (várias temporadas; vazio = todas),
+  //            scope: "all"|"mine",
   //            minSeasons: ""|número, categories: [IDs] }
+  // Filtro de várias opções: a lista nova (years/seasons) ou o valor único antigo.
+  function filterList(list, single) {
+    if (Array.isArray(list)) return list.filter((x) => x !== "" && x != null);
+    return single !== "" && single != null ? [single] : [];
+  }
+
   function matches(r, filters, dubLang) {
     const f = filters || {};
     if (f.scope === "mine" && !r.inWatchlist) return false;
     if (f.dub === "dub" && !r.audios.includes(dubLang)) return false;
     if (f.dub === "nodub" && r.audios.includes(dubLang)) return false;
-    if (f.maxAge != null && f.maxAge !== "" && (r.age == null || r.age > Number(f.maxAge))) return false;
-    if (f.year && Number(r.year) !== Number(f.year)) return false;
+    // Classificação indicativa exata (uma das escolhidas); sem classificação fica de fora.
+    const ages = (Array.isArray(f.ages) ? f.ages : []).map(Number);
+    if (ages.length && (r.age == null || !ages.includes(r.age))) return false;
+    const years = filterList(f.years, f.year).map(Number);
+    if (years.length && !years.includes(Number(r.year))) return false;
     // Mínimo de temporadas (o número que a Crunchyroll informa; filme não tem).
     if (f.minSeasons && !(Number(r.seasons) >= Number(f.minSeasons))) return false;
     return true;
@@ -257,10 +300,32 @@ var CRSearch = (() => {
     return out;
   }
 
+  // Títulos de uma ou mais temporadas (filtro do servidor, uma navegação por
+  // temporada, em paralelo), sem repetir.
+  async function inSeasons(seasons, locale, api) {
+    const lists = await Promise.all(
+      seasons.map((tag) => browseAll({ seasonal_tag: tag, sort_by: "popularity" }, locale, api))
+    );
+    const seen = new Set();
+    return lists.flat().filter((x) => x && x.id && !seen.has(x.id) && seen.add(x.id));
+  }
+
+  // Da busca da Crunchyroll pelo nome em inglês, fica o que tem esse título (sem
+  // "Season 2", pontuação etc.); se nada bater (a Crunchyroll mostra o título no
+  // idioma escolhido, ex.: português), o primeiro resultado.
+  function bestByTitle(list, english) {
+    const want = simplify(english);
+    const same = (list || []).filter((x) => simplify(x.title) === want);
+    if (same.length) return same.slice(0, 2);
+    return (list || []).slice(0, 1);
+  }
+
   /**
-   * Faz a pesquisa. Devolve { items, anilist }: todos os resultados, já filtrados e
-   * ordenados (a página mostra de 60 em 60). anilist: "used" | "off" | "error" |
-   * null (não se aplica).
+   * Faz a pesquisa. Devolve { items, anilist, aniInfo }: todos os resultados, já
+   * filtrados e ordenados (a página mostra de 60 em 60); anilist: "used" | "off" |
+   * "error" | null (não se aplica); aniInfo: os animes que o AniList achou, com os
+   * títulos em romaji, inglês e japonês (para a página mostrar a correspondência).
+   * Resultados que vieram do AniList trazem também r.aniList (os mesmos títulos).
    */
   async function run({ q = "", filters = {}, settings, watchIds = new Set(), useAniList = false, api = CRApi, fetchFn, uiLang, force = false }) {
     // Mesmo idioma de títulos da verificação ("auto" → idioma da interface).
@@ -269,33 +334,60 @@ var CRSearch = (() => {
     const text = q.trim();
     let raw = [];
     let anilist = null;
+    const seasons = filterList(filters.seasons, filters.season);
+    let aniInfo = []; // animes que o AniList achou: { romaji, english, native }
+    const altTitles = new Map(); // ID da Crunchyroll -> anime do AniList
 
     if (text) {
-      const tasks = [api.search(text, locale, { n: 50, preferredAudio: dubLang }).catch((e) => {
-        if (!useAniList) throw e;
-        return [];
-      })];
-      if (useAniList) {
-        tasks.push(
-          anilistCrIds(text, fetchFn)
-            .then((ids) => ((anilist = "used"), ids))
-            .catch(() => ((anilist = "error"), []))
-        );
-      } else {
-        anilist = "off";
-      }
-      const [found, aniIds = []] = await Promise.all(tasks);
+      // 1. Busca da Crunchyroll com o texto e, se ligado, o AniList (ao mesmo tempo).
+      const crSearch = (q) => api.search(q, locale, { n: 50, preferredAudio: dubLang });
+      const [found, ani] = await Promise.all([
+        crSearch(text).catch((e) => {
+          if (!useAniList) throw e;
+          return [];
+        }),
+        useAniList
+          ? anilistLookup(text, fetchFn)
+              .then((r) => ((anilist = "used"), r))
+              .catch(() => ((anilist = "error"), null))
+          : ((anilist = "off"), Promise.resolve(null)),
+      ]);
+      const aniIds = (ani && ani.ids) || [];
+
+      // 2. O nome em inglês que o AniList deu (para romaji/kanji) é buscado na
+      //    Crunchyroll: acha a série mesmo quando o AniList não tem o link dela.
+      //    Só os 2 primeiros animes, e só se o nome em inglês for outro texto.
+      const translated = ((ani && ani.matches) || [])
+        .slice(0, 2)
+        .filter((m) => m.english && simplify(m.english) !== simplify(text));
+      const byEnglish = await Promise.all(
+        translated.map((m) => crSearch(m.english).then((list) => bestByTitle(list, m.english)).catch(() => []))
+      );
+
       const byId = new Map(found.map((x) => [x.id, x]));
+      for (const list of byEnglish) for (const x of list) if (!byId.has(x.id)) byId.set(x.id, x);
       const missing = aniIds.filter((id) => !byId.has(id));
       for (const x of missing.length ? await api.objects(missing, locale) : []) byId.set(x.id, x);
+
       // O que o AniList achou vem primeiro, na ordem dele: ele acerta o título
       // (inclusive romaji/kanji), enquanto a busca da Crunchyroll devolve dezenas de
-      // resultados aproximados. Depois, o resto da busca da Crunchyroll.
-      const first = aniIds.map((id) => byId.get(id)).filter(Boolean);
+      // resultados aproximados. Depois, o que a busca pelo nome em inglês achou e,
+      // por fim, o resto da busca da Crunchyroll.
+      const first = [...aniIds.map((id) => byId.get(id)), ...byEnglish.flat().map((x) => byId.get(x.id))].filter(Boolean);
       const firstIds = new Set(first.map((x) => x.id));
       raw = [...first, ...found.filter((x) => !firstIds.has(x.id))];
-    } else if (filters.season) {
-      raw = await browseAll({ seasonal_tag: filters.season, sort_by: "popularity" }, locale, api);
+
+      // Para a página mostrar "romaji → inglês" e o nome original em cada resultado.
+      const matches = (ani && ani.matches) || [];
+      aniInfo = matches.slice(0, 3).filter((m) => m.english || m.romaji);
+      for (const m of matches) {
+        for (const id of m.crIds) if (!altTitles.has(id)) altTitles.set(id, m);
+      }
+      byEnglish.forEach((list, i) => {
+        for (const x of list) if (!altTitles.has(x.id)) altTitles.set(x.id, translated[i]);
+      });
+    } else if (seasons.length) {
+      raw = await inSeasons(seasons, locale, api);
     } else if (filters.scope === "mine") {
       raw = watchIds.size ? await api.objects([...watchIds], locale) : [];
     } else {
@@ -304,10 +396,8 @@ var CRSearch = (() => {
 
     // Texto + temporada: a busca por texto não informa a temporada; cruza com a
     // lista da temporada (filtro do servidor).
-    if (text && filters.season) {
-      const inSeason = new Set(
-        (await browseAll({ seasonal_tag: filters.season, sort_by: "popularity" }, locale, api)).map((x) => x.id)
-      );
+    if (text && seasons.length) {
+      const inSeason = new Set((await inSeasons(seasons, locale, api)).map((x) => x.id));
       raw = raw.filter((x) => inSeason.has(x.id));
     }
 
@@ -318,10 +408,16 @@ var CRSearch = (() => {
       if (it.type && it.type !== "series" && it.type !== "movie_listing") continue;
       seen.add(it.id);
       const r = normalize(it, watchIds);
+      const m = altTitles.get(r.id);
+      if (m) r.aniList = { romaji: m.romaji, english: m.english, native: m.native };
       if (matches(r, filters, dubLang)) items.push(r);
     }
     const filtered = await byCategories(items, filters.categories, locale, api);
-    return { items: sortItems(filtered, filters.sort, uiLang), anilist };
+    return {
+      items: sortItems(filtered, filters.sort, uiLang),
+      anilist,
+      aniInfo: aniInfo.map(({ romaji, english, native }) => ({ romaji, english, native })),
+    };
   }
 
   // Filtro por categorias (várias: basta uma). O resultado que já traz as
@@ -361,6 +457,8 @@ var CRSearch = (() => {
     hasCJK,
     crIdsFromLinks,
     anilistCrIds,
+    anilistLookup,
+    simplify,
     seasonTagsOfYear,
     ANILIST,
     PAGE,

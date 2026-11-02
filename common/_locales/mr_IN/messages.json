@@ -740,8 +740,8 @@
   "searchAgeAny": {
     "message": "सर्व"
   },
-  "searchAgeUpTo": {
-    "message": "$P1$+ पर्यंत",
+  "searchAgeYears": {
+    "message": "$P1$ वर्षे",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -772,13 +772,41 @@
     "message": "लोड होत आहे…"
   },
   "searchNeedAniList": {
-    "message": "Crunchyroll चा शोध जपानी नावे समजत नाही. AniList चालू असल्यास शीर्षक शोधण्यासाठी शोधाचा मजकूर AniList ला पाठवला जातो."
+    "message": "Crunchyroll चा शोध जपानी किंवा रोमाजी नावे समजत नाही. AniList चालू असल्यास शोधाचा मजकूर त्याला पाठवला जातो, म्हणजे शीर्षक आणि त्याचे इंग्रजी नाव मिळते."
   },
   "searchEnableAniList": {
     "message": "AniList चालू करा"
   },
   "searchAniListError": {
     "message": "सध्या AniList शी संपर्क होत नाही; निकाल फक्त Crunchyroll च्या शोधातून."
+  },
+  "searchAniListNoPermission": {
+    "message": "जपानी आणि रोमाजी शोध चालू आहे, पण या ब्राउझरने अजून शोधाचा मजकूर AniList ला पाठवण्याची परवानगी दिलेली नाही."
+  },
+  "searchAniListAllow": {
+    "message": "परवानगी द्या"
+  },
+  "searchAniListMatch": {
+    "message": "“$P1$” चे इंग्रजी नाव “$P2$” आहे.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "searchAltTitle": {
+    "message": "रोमाजी: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAniListTooltip": {
+    "message": "जपानी (कांजी आणि काना) आणि रोमाजी नावांनीही शोधा: शोधाचा मजकूर AniList ला पाठवला जातो, जो इंग्रजी नाव आणि Crunchyroll लिंक परत देतो. हा सेटिंग्जमधलाच पर्याय आहे."
   },
   "searchMineEmpty": {
     "message": "तुमची वॉचलिस्ट अजून वाचली नाही. रिफ्रेश करा आणि पुन्हा प्रयत्न करा."

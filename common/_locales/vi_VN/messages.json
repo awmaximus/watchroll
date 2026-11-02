@@ -740,8 +740,8 @@
   "searchAgeAny": {
     "message": "Tất cả"
   },
-  "searchAgeUpTo": {
-    "message": "Đến $P1$+",
+  "searchAgeYears": {
+    "message": "$P1$ tuổi",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -772,13 +772,41 @@
     "message": "Đang tải…"
   },
   "searchNeedAniList": {
-    "message": "Tìm kiếm của Crunchyroll không hiểu tên tiếng Nhật. Khi bật AniList, nội dung tìm kiếm được gửi tới AniList để tìm tiêu đề."
+    "message": "Tìm kiếm của Crunchyroll không hiểu tên tiếng Nhật hay romaji. Khi bật AniList, nội dung tìm kiếm được gửi đến AniList để tìm tựa phim và tên tiếng Anh của nó."
   },
   "searchEnableAniList": {
     "message": "Bật AniList"
   },
   "searchAniListError": {
     "message": "Hiện không kết nối được AniList; kết quả chỉ từ tìm kiếm của Crunchyroll."
+  },
+  "searchAniListNoPermission": {
+    "message": "Đã bật tìm kiếm tiếng Nhật và romaji, nhưng trình duyệt này chưa cho phép gửi nội dung tìm kiếm đến AniList."
+  },
+  "searchAniListAllow": {
+    "message": "Cho phép"
+  },
+  "searchAniListMatch": {
+    "message": "Tên tiếng Anh của “$P1$” là “$P2$”.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "searchAltTitle": {
+    "message": "Romaji: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAniListTooltip": {
+    "message": "Tìm cả tên tiếng Nhật (kanji và kana) và romaji: nội dung tìm kiếm được gửi đến AniList, nơi trả về tên tiếng Anh và liên kết Crunchyroll. Giống tùy chọn trong Cài đặt."
   },
   "searchMineEmpty": {
     "message": "Danh sách theo dõi chưa được đọc. Bấm Làm mới rồi thử lại."

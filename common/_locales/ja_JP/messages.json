@@ -740,8 +740,8 @@
   "searchAgeAny": {
     "message": "すべて"
   },
-  "searchAgeUpTo": {
-    "message": "$P1$ 歳以上向けまで",
+  "searchAgeYears": {
+    "message": "$P1$歳以上",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -772,13 +772,41 @@
     "message": "読み込み中…"
   },
   "searchNeedAniList": {
-    "message": "Crunchyroll の検索は日本語の名前を理解しません。AniList をオンにすると、検索テキストを AniList に送ってタイトルを探します。"
+    "message": "Crunchyroll の検索は日本語やローマ字の作品名を理解しません。AniList をオンにすると、検索テキストを AniList に送って作品と英語名を見つけます。"
   },
   "searchEnableAniList": {
     "message": "AniList をオンにする"
   },
   "searchAniListError": {
     "message": "現在 AniList に接続できません。結果は Crunchyroll の検索のみです。"
+  },
+  "searchAniListNoPermission": {
+    "message": "日本語・ローマ字検索はオンですが、このブラウザではまだ AniList への検索テキストの送信が許可されていません。"
+  },
+  "searchAniListAllow": {
+    "message": "許可"
+  },
+  "searchAniListMatch": {
+    "message": "「$P1$」の英語名は「$P2$」です。",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "searchAltTitle": {
+    "message": "ローマ字: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAniListTooltip": {
+    "message": "日本語（漢字・かな）やローマ字の作品名でも検索します。検索テキストを AniList に送り、英語名と Crunchyroll のリンクを取得します。設定の同じオプションと連動します。"
   },
   "searchMineEmpty": {
     "message": "ウォッチリストをまだ読み込んでいません。「更新」を押してからもう一度試してください。"

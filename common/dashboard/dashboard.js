@@ -21,7 +21,7 @@
   // Estado da aba Pesquisar (sobrevive às re-renderizações da página).
   const searchState = {
     q: "",
-    filters: { scope: "all", dub: "any", maxAge: "", year: "", season: "", sort: "default", categories: [], minSeasons: "" },
+    filters: { scope: "all", dub: "any", ages: [], years: [], seasons: [], sort: "default", categories: [], minSeasons: "" },
     items: null,
     shown: 60, // resultados visíveis; "Carregar mais" mostra mais 60
     loading: false,
@@ -94,7 +94,11 @@
     $("set-openapp").checked = settings.openInApp !== false;
     $("set-extras").checked = settings.showExtras !== false;
     $("set-skipped").checked = !!settings.showSkipped;
+    // Marcada só se a busca pelo AniList funciona de fato neste navegador: ligada e com
+    // a permissão de enviar o texto (a opção sincroniza entre computadores, a
+    // permissão não). Marcar de novo pede a permissão.
     $("set-anilist").checked = !!settings.anilist;
+    anilistStatus().then((st) => ($("set-anilist").checked = st === "on"));
     $("set-compact").checked = !!settings.compact;
     const ms = $("set-minstarted");
     ms.min = CRAnalyzer.MIN_STARTED.min;
@@ -510,7 +514,20 @@
     if (!r || r.none) return null;
     const avg = r.average.toLocaleString(UI, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
     const tip = t("ratingTitle", avg, r.total.toLocaleString(UI));
-    return el("span", { class: `rating${compact ? " compact" : ""}`, title: tip, "aria-label": tip, role: "img" }, el("span", { class: "star", "aria-hidden": "true", text: "★" }), avg);
+    // Quantidade de avaliações, abreviada como no site ("63,2 mil", "63.2K"…).
+    let count = "";
+    try {
+      count = new Intl.NumberFormat(UI, { notation: "compact", maximumFractionDigits: 1 }).format(r.total);
+    } catch (_) {
+      count = r.total.toLocaleString(UI);
+    }
+    return el(
+      "span",
+      { class: `rating${compact ? " compact" : ""}`, title: tip, "aria-label": tip, role: "img" },
+      el("span", { class: "star", "aria-hidden": "true", text: "★" }),
+      avg,
+      r.total > 0 ? el("span", { class: "rating-count", "aria-hidden": "true", text: `(${count})` }) : null
+    );
   }
 
   // ---------- links ----------
@@ -950,20 +967,37 @@
   }
 
   // ---------- aba Pesquisar ----------
-  const RATING_OPTIONS = ["", "0", "10", "12", "14", "16", "18"];
+  const RATING_OPTIONS = ["0", "10", "12", "14", "16", "18"]; // classificação indicativa (L = 0)
   const watchIds = () => new Set(results.map((r) => r.seriesId));
   const resultUrl = (r) =>
     r.type === "movie"
       ? `https://www.crunchyroll.com${prefix()}/search?q=${encodeURIComponent(r.title)}`
       : `https://www.crunchyroll.com${prefix()}/series/${r.id}/${r.slug || ""}`;
 
-  async function anilistAllowed() {
-    if (!settings.anilist) return false;
+  // Busca pelo AniList: "off" (opção desligada), "noperm" (ligada, mas este Firefox
+  // ainda não deu a permissão de enviar o texto da busca; a opção vem sincronizada
+  // de outro computador, a permissão não) ou "on".
+  async function anilistStatus() {
+    if (!settings.anilist) return "off";
     try {
-      return await browser.permissions.contains({ data_collection: ["searchTerms"] });
+      return (await browser.permissions.contains({ data_collection: ["searchTerms"] })) ? "on" : "noperm";
     } catch (_) {
-      return true; // Firefox sem permissões de coleta de dados: vale a opção
+      return "on"; // Chrome / Firefox sem permissões de coleta de dados: vale a opção
     }
+  }
+
+  // Estado da caixa "AniList" da Pesquisa: ligada e com a permissão (o status é
+  // conferido em segundo plano e a Pesquisa é redesenhada se mudar).
+  function aniChecked() {
+    if (!settings.anilist) return false;
+    if (searchState.aniStatus === undefined) {
+      searchState.aniStatus = null;
+      anilistStatus().then((st) => {
+        searchState.aniStatus = st;
+        if (settings.tab === "search" && st !== "on") render();
+      });
+    }
+    return searchState.aniStatus !== "noperm";
   }
 
   // Pede a permissão de enviar o texto da busca ao AniList (precisa de um clique).
@@ -1021,11 +1055,12 @@
         filters: searchState.filters,
         settings,
         watchIds: watchIds(),
-        useAniList: await anilistAllowed(),
+        useAniList: (searchState.aniStatus = await anilistStatus()) === "on",
         uiLang: CRI18n.lang(),
       });
       searchState.items = r.items;
       searchState.anilist = r.anilist;
+      searchState.aniInfo = r.aniInfo || [];
     } catch (err) {
       console.error("[Watchroll]", err);
       searchState.error = t("searchError", err.message || err);
@@ -1034,6 +1069,13 @@
       await CRApi.release();
       render();
     }
+  }
+
+  // Achado pelo AniList: o nome em romaji (e, na dica, o japonês), se for outro.
+  function altTitleLine(r) {
+    const a = r.aniList;
+    if (!a || !a.romaji || CRSearch.simplify(a.romaji) === CRSearch.simplify(r.title)) return null;
+    return el("small", { class: "result-alt", text: t("searchAltTitle", a.romaji), title: a.native || a.romaji, lang: "ja-Latn" });
   }
 
   function resultCard(r) {
@@ -1054,6 +1096,7 @@
         "div",
         { class: "result-info" },
         el("a", { class: "series", href: resultUrl(r), target: "_blank", rel: "noopener", text: r.title, title: r.title }),
+        altTitleLine(r),
         el(
           "div",
           { class: "result-tags" },
@@ -1109,6 +1152,32 @@
           { class: `btn${st.loading ? " is-loading" : ""}`, type: "submit", disabled: st.loading || null, "aria-busy": st.loading ? "true" : null },
           st.loading ? el("span", { class: "spinner small", "aria-hidden": "true" }) : null,
           el("span", { text: t("searchButton") })
+        ),
+        // Atalho para a opção das Configurações "Buscar também nomes em japonês e
+        // romaji": é a mesma preferência (e a mesma permissão do Firefox).
+        el(
+          "label",
+          { class: "ani-toggle", title: t("searchAniListTooltip") },
+          el("input", {
+            id: "sq-anilist",
+            type: "checkbox",
+            checked: aniChecked() || null,
+            "aria-describedby": "sq-anilist-tip",
+            onchange: async (e) => {
+              if (e.target.checked) {
+                if (!(await enableAniList())) e.target.checked = false; // permissão negada
+              } else {
+                settings.anilist = false;
+                await saveSettings();
+                $("set-anilist").checked = false;
+              }
+              searchState.aniStatus = await anilistStatus();
+              if (st.q.trim()) runSearch();
+              else render();
+            },
+          }),
+          el("span", { text: "AniList" }),
+          el("span", { id: "sq-anilist-tip", class: "visually-hidden", text: t("searchAniListTooltip") })
         )
       ),
       el(
@@ -1162,32 +1231,58 @@
             ["2", "3", "4", "5", "6"].map((n) => opt(n, t("searchAtLeast", n), f.minSeasons))
           )
         ),
+        // Classificação exata, várias de uma vez (ex.: só 12 e 14).
         el(
-          "label",
-          {},
-          el("span", { text: t("searchAge") }),
-          el(
-            "select",
-            { id: "sf-age", onchange: onFilter("maxAge") },
-            RATING_OPTIONS.map((v) => opt(v, v === "" ? t("searchAgeAny") : v === "0" ? t("ageFree") : t("searchAgeUpTo", v), f.maxAge))
-          )
+          "div",
+          { class: "search-field-multi" },
+          el("span", { id: "sf-age-label", text: t("searchAge") }),
+          multiCombo({
+            id: "sf-age",
+            labelledBy: "sf-age-label",
+            options: RATING_OPTIONS.map((v) => [v, v === "0" ? t("ageFree") : t("searchAgeYears", v)]),
+            chosen: (f.ages || []).map(String),
+            allLabel: t("searchAgeAny"),
+            anyLabel: t("searchAgeAny"),
+            onChange: (list) => {
+              f.ages = list;
+              runSearch();
+            },
+          })
+        ),
+        // Ano de estreia e temporada: vários de uma vez (ex.: 2024 e 2025).
+        el(
+          "div",
+          { class: "search-field-multi" },
+          el("span", { id: "sf-year-label", text: t("searchYear") }),
+          multiCombo({
+            id: "sf-year",
+            labelledBy: "sf-year-label",
+            options: years.map((y) => [y, y]),
+            chosen: (f.years || []).map(String),
+            allLabel: t("searchAny"),
+            anyLabel: t("searchAny"),
+            onChange: (list) => {
+              f.years = list;
+              runSearch();
+            },
+          })
         ),
         el(
-          "label",
-          {},
-          el("span", { text: t("searchYear") }),
-          el("select", { id: "sf-year", onchange: onFilter("year") }, opt("", t("searchAny"), f.year), years.map((y) => opt(y, y, f.year)))
-        ),
-        el(
-          "label",
-          {},
-          el("span", { text: t("searchSeason") }),
-          el(
-            "select",
-            { id: "sf-season", onchange: onFilter("season"), disabled: !st.seasons || null },
-            opt("", st.seasons ? t("searchAny") : t("searchLoading"), f.season),
-            (st.seasons || []).map((s) => opt(s.id, s.title, f.season))
-          )
+          "div",
+          { class: "search-field-multi" },
+          el("span", { id: "sf-season-label", text: t("searchSeason") }),
+          multiCombo({
+            id: "sf-season",
+            labelledBy: "sf-season-label",
+            options: (st.seasons || []).map((s) => [s.id, s.title]),
+            chosen: f.seasons || [],
+            allLabel: t("searchAny"),
+            anyLabel: st.seasons ? t("searchAny") : t("searchLoading"),
+            onChange: (list) => {
+              f.seasons = list;
+              runSearch();
+            },
+          })
         ),
         el(
           "label",
@@ -1205,30 +1300,62 @@
     );
 
     const parts = [form];
-    if (CRSearch.hasCJK(st.q) && st.anilist === "off") {
-      parts.push(
-        el(
-          "p",
-          { class: "notice-inline" },
-          el("span", { text: t("searchNeedAniList") }),
-          el("button", {
-            class: "btn ghost small",
-            type: "button",
-            text: t("searchEnableAniList"),
-            onclick: async () => {
-              if (await enableAniList()) runSearch();
-            },
-          })
-        )
+    const q = st.q.trim();
+    const askAniList = (text, label) =>
+      el(
+        "p",
+        { class: "notice-inline" },
+        el("span", { text }),
+        el("button", {
+          class: "btn ghost small",
+          type: "button",
+          text: label,
+          onclick: async () => {
+            if (await enableAniList()) runSearch();
+          },
+        })
       );
+    if (q && st.items && st.aniStatus === "noperm") {
+      // Ligado nas Configurações, mas sem a permissão neste navegador (precisa de um clique).
+      parts.push(askAniList(t("searchAniListNoPermission"), t("searchAniListAllow")));
+    } else if (q && st.items && st.anilist === "off") {
+      // Desligado: sugere ligar quando o texto parece japonês/romaji (nada com esse nome
+      // na busca da Crunchyroll).
+      const want = CRSearch.simplify(q);
+      const hit = st.items.some((r) => CRSearch.simplify(r.title).includes(want));
+      if (CRSearch.hasCJK(q) || !hit) parts.push(askAniList(t("searchNeedAniList"), t("searchEnableAniList")));
     } else if (st.anilist === "error") {
       parts.push(el("p", { class: "notice-inline", text: t("searchAniListError") }));
+    }
+    // O que o AniList entendeu do texto: "romaji/japonês" → nome em inglês.
+    const shownMatches = (st.anilist === "used" && st.aniInfo ? st.aniInfo : []).filter(
+      (m) => m.english && CRSearch.simplify(m.english) !== CRSearch.simplify(q)
+    );
+    if (q && shownMatches.length) {
+      parts.push(
+        el(
+          "div",
+          { class: "ani-matches", role: "note" },
+          shownMatches.map((m) =>
+            el(
+              "p",
+              {},
+              el("span", { class: "ani-label", text: "AniList" }),
+              el("span", {
+                // Texto em japonês (kanji/kana): mostra o título em japonês; senão, o romaji.
+                text: t("searchAniListMatch", CRSearch.hasCJK(q) ? m.native || m.romaji : m.romaji || m.native, m.english),
+                title: [m.native, m.romaji].filter(Boolean).join(" · ") || null,
+              })
+            )
+          )
+        )
+      );
     }
     if (f.scope === "mine" && !results.length) parts.push(el("p", { class: "empty", text: t("searchMineEmpty") }));
 
     if (st.error) parts.push(el("div", { class: "error-box" }, el("p", { text: st.error })));
     else if (st.items === null) {
-      const catalogMode = !st.q.trim() && !f.season && f.scope !== "mine";
+      const catalogMode = !st.q.trim() && !(f.seasons || []).length && f.scope !== "mine";
       if (st.loading) {
         // Indicador animado + cartões "fantasma" no lugar dos resultados.
         const msg = catalogMode ? t("searchLoadingCatalog") : t("searchLoading");
@@ -1455,7 +1582,6 @@
             : rows(never, statsNote),
       },
       { id: "errors", label: t("secErrors"), count: errors.length, content: () => rows(errors, (s) => s.error) },
-      { id: "search", label: t("secSearch"), count: null, always: true, icon: searchIcon, content: searchPanel },
       {
         id: "hidden",
         label: t("secHidden"),
@@ -1478,6 +1604,8 @@
             )
           ),
       },
+      // Pesquisa e Configurações (ícones) ficam sempre no fim: penúltima e última.
+      { id: "search", label: t("secSearch"), count: null, always: true, icon: searchIcon, content: searchPanel },
       { id: "settings", label: t("btnSettings"), count: null, always: true, icon: gearIcon, content: () => null },
     ]);
   }
@@ -1715,6 +1843,7 @@
         settings.anilist = false;
         await saveSettings();
       }
+      searchState.aniStatus = await anilistStatus(); // a caixa "AniList" da Pesquisa acompanha
     });
     $("set-compact").addEventListener("change", async (e) => {
       settings.compact = e.target.checked;

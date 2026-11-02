@@ -740,8 +740,8 @@
   "searchAgeAny": {
     "message": "ทั้งหมด"
   },
-  "searchAgeUpTo": {
-    "message": "ไม่เกิน $P1$+",
+  "searchAgeYears": {
+    "message": "$P1$ ปี",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -772,13 +772,41 @@
     "message": "กำลังโหลด…"
   },
   "searchNeedAniList": {
-    "message": "การค้นหาของ Crunchyroll ไม่เข้าใจชื่อภาษาญี่ปุ่น เมื่อเปิด AniList ข้อความค้นหาจะถูกส่งไปที่ AniList เพื่อหาชื่อเรื่อง"
+    "message": "การค้นหาของ Crunchyroll ไม่เข้าใจชื่อภาษาญี่ปุ่นหรือโรมาจิ เมื่อเปิด AniList ข้อความค้นหาจะถูกส่งไปยัง AniList เพื่อหาชื่อเรื่องและชื่อภาษาอังกฤษ"
   },
   "searchEnableAniList": {
     "message": "เปิด AniList"
   },
   "searchAniListError": {
     "message": "ตอนนี้ติดต่อ AniList ไม่ได้ ผลลัพธ์มาจากการค้นหาของ Crunchyroll เท่านั้น"
+  },
+  "searchAniListNoPermission": {
+    "message": "เปิดการค้นหาภาษาญี่ปุ่นและโรมาจิแล้ว แต่เบราว์เซอร์นี้ยังไม่อนุญาตให้ส่งข้อความค้นหาไปยัง AniList"
+  },
+  "searchAniListAllow": {
+    "message": "อนุญาต"
+  },
+  "searchAniListMatch": {
+    "message": "ชื่อภาษาอังกฤษของ “$P1$” คือ “$P2$”",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "searchAltTitle": {
+    "message": "โรมาจิ: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAniListTooltip": {
+    "message": "ค้นหาชื่อภาษาญี่ปุ่น (คันจิและคานะ) และโรมาจิด้วย: ข้อความค้นหาจะถูกส่งไปยัง AniList ซึ่งจะส่งชื่อภาษาอังกฤษและลิงก์ Crunchyroll กลับมา เป็นตัวเลือกเดียวกับในการตั้งค่า"
   },
   "searchMineEmpty": {
     "message": "ยังไม่ได้อ่านรายการที่จะดู คลิกรีเฟรชแล้วลองอีกครั้ง"

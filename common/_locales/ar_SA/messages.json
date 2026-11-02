@@ -740,8 +740,8 @@
   "searchAgeAny": {
     "message": "الكل"
   },
-  "searchAgeUpTo": {
-    "message": "حتى $P1$+",
+  "searchAgeYears": {
+    "message": "$P1$ سنة",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -772,13 +772,41 @@
     "message": "جارٍ التحميل…"
   },
   "searchNeedAniList": {
-    "message": "بحث Crunchyroll لا يفهم الأسماء اليابانية. عند تفعيل AniList يُرسل نص البحث إليه للعثور على العنوان."
+    "message": "بحث Crunchyroll لا يفهم الأسماء اليابانية أو المكتوبة بالروماجي. عند تشغيل AniList يُرسَل نص البحث إليه للعثور على العنوان واسمه بالإنجليزية."
   },
   "searchEnableAniList": {
     "message": "تفعيل AniList"
   },
   "searchAniListError": {
     "message": "تعذّر الاتصال بـ AniList الآن؛ النتائج من بحث Crunchyroll فقط."
+  },
+  "searchAniListNoPermission": {
+    "message": "البحث باليابانية والروماجي مفعّل، لكن هذا المتصفح لم يسمح بعد بإرسال نص البحث إلى AniList."
+  },
+  "searchAniListAllow": {
+    "message": "سماح"
+  },
+  "searchAniListMatch": {
+    "message": "اسم «$P1$» بالإنجليزية هو «$P2$».",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "searchAltTitle": {
+    "message": "روماجي: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAniListTooltip": {
+    "message": "يبحث أيضًا بالأسماء اليابانية (كانجي وكانا) وبالروماجي: يُرسَل نص البحث إلى AniList الذي يعيد الاسم الإنجليزي ورابط Crunchyroll. هو نفس الخيار الموجود في الإعدادات."
   },
   "searchMineEmpty": {
     "message": "لم تتم قراءة قائمة المشاهدة بعد. انقر تحديث وحاول مجددًا."

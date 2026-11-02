@@ -740,8 +740,8 @@
   "searchAgeAny": {
     "message": "전체"
   },
-  "searchAgeUpTo": {
-    "message": "$P1$세 이용가까지",
+  "searchAgeYears": {
+    "message": "$P1$세 이상",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -772,13 +772,41 @@
     "message": "불러오는 중…"
   },
   "searchNeedAniList": {
-    "message": "Crunchyroll 검색은 일본어 이름을 이해하지 못합니다. AniList를 켜면 검색어를 AniList로 보내 제목을 찾습니다."
+    "message": "Crunchyroll 검색은 일본어나 로마자 이름을 인식하지 못합니다. AniList를 켜면 검색어를 AniList로 보내 작품과 영어 제목을 찾습니다."
   },
   "searchEnableAniList": {
     "message": "AniList 켜기"
   },
   "searchAniListError": {
     "message": "지금은 AniList에 연결할 수 없어 Crunchyroll 검색 결과만 표시합니다."
+  },
+  "searchAniListNoPermission": {
+    "message": "일본어·로마자 검색이 켜져 있지만, 이 브라우저에서 아직 AniList로 검색어를 보내도록 허용하지 않았습니다."
+  },
+  "searchAniListAllow": {
+    "message": "허용"
+  },
+  "searchAniListMatch": {
+    "message": "‘$P1$’의 영어 제목은 ‘$P2$’입니다.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "searchAltTitle": {
+    "message": "로마자: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAniListTooltip": {
+    "message": "일본어(한자·가나)와 로마자 이름으로도 검색합니다. 검색어를 AniList로 보내 영어 제목과 Crunchyroll 링크를 받아옵니다. 설정의 같은 옵션과 연동됩니다."
   },
   "searchMineEmpty": {
     "message": "아직 관심 목록을 읽지 않았습니다. 새로고침을 누른 뒤 다시 시도하세요."

@@ -740,8 +740,8 @@
   "searchAgeAny": {
     "message": "سب"
   },
-  "searchAgeUpTo": {
-    "message": "$P1$+ تک",
+  "searchAgeYears": {
+    "message": "$P1$ سال",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -772,13 +772,41 @@
     "message": "لوڈ ہو رہا ہے…"
   },
   "searchNeedAniList": {
-    "message": "Crunchyroll کی تلاش جاپانی نام نہیں سمجھتی۔ AniList آن ہونے پر تلاش کا متن عنوان ڈھونڈنے کے لیے AniList کو بھیجا جاتا ہے۔"
+    "message": "Crunchyroll کی تلاش جاپانی یا رومانجی نام نہیں سمجھتی۔ AniList آن ہو تو تلاش کا متن اسے بھیجا جاتا ہے تاکہ عنوان اور اس کا انگریزی نام مل سکے۔"
   },
   "searchEnableAniList": {
     "message": "AniList آن کریں"
   },
   "searchAniListError": {
     "message": "ابھی AniList سے رابطہ نہ ہو سکا؛ نتائج صرف Crunchyroll کی تلاش سے۔"
+  },
+  "searchAniListNoPermission": {
+    "message": "جاپانی اور رومانجی تلاش آن ہے، لیکن اس براؤزر نے ابھی تک تلاش کا متن AniList کو بھیجنے کی اجازت نہیں دی۔"
+  },
+  "searchAniListAllow": {
+    "message": "اجازت دیں"
+  },
+  "searchAniListMatch": {
+    "message": "“$P1$” کا انگریزی نام “$P2$” ہے۔",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "searchAltTitle": {
+    "message": "رومانجی: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAniListTooltip": {
+    "message": "جاپانی (کانجی اور کانا) اور رومانجی ناموں سے بھی تلاش کریں: تلاش کا متن AniList کو بھیجا جاتا ہے، جو انگریزی نام اور Crunchyroll لنک واپس دیتا ہے۔ یہ ترتیبات والا ہی آپشن ہے۔"
   },
   "searchMineEmpty": {
     "message": "آپ کی واچ لسٹ ابھی پڑھی نہیں گئی۔ تازہ کریں اور دوبارہ کوشش کریں۔"

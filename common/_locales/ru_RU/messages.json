@@ -740,8 +740,8 @@
   "searchAgeAny": {
     "message": "Любой"
   },
-  "searchAgeUpTo": {
-    "message": "До $P1$+",
+  "searchAgeYears": {
+    "message": "$P1$+",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -772,13 +772,41 @@
     "message": "Загрузка…"
   },
   "searchNeedAniList": {
-    "message": "Поиск Crunchyroll не понимает японские названия. С AniList текст запроса отправляется туда, чтобы найти название."
+    "message": "Поиск Crunchyroll не понимает японские названия и ромадзи. Если включён AniList, текст поиска отправляется туда, чтобы найти тайтл и его английское название."
   },
   "searchEnableAniList": {
     "message": "Включить AniList"
   },
   "searchAniListError": {
     "message": "AniList сейчас недоступен; результаты только из поиска Crunchyroll."
+  },
+  "searchAniListNoPermission": {
+    "message": "Поиск на японском и ромадзи включён, но этот браузер ещё не разрешил отправлять текст поиска в AniList."
+  },
+  "searchAniListAllow": {
+    "message": "Разрешить"
+  },
+  "searchAniListMatch": {
+    "message": "«$P1$» по-английски — «$P2$».",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "searchAltTitle": {
+    "message": "Ромадзи: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchAniListTooltip": {
+    "message": "Искать также по японским (кандзи и кана) названиям и ромадзи: текст поиска отправляется в AniList, который возвращает английское название и ссылку на Crunchyroll. Та же настройка, что и в разделе «Настройки»."
   },
   "searchMineEmpty": {
     "message": "Ваш список ещё не загружен. Нажмите «Обновить» и попробуйте снова."
