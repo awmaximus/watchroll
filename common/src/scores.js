@@ -1,7 +1,7 @@
 // Notas de outros sites: AniList (nota média, 0–100) e MyAnimeList (0–10).
 //
 // Manda os nomes das séries (o slug da Crunchyroll) ao AniList e os IDs do
-// MyAnimeList à API oficial do MyAnimeList (ou, sem Client ID, ao Jikan).
+// MyAnimeList à API oficial do MyAnimeList.
 // Sem servidor próprio: as consultas saem direto do navegador.
 //
 //  - AniList: GraphQL, várias séries por consulta (apelidos a0, a1…). A busca usa o
@@ -13,15 +13,14 @@
 //    nov/2026: 90 consultas por minuto, 30 quando o AniList está sobrecarregado.
 //  - MyAnimeList: o AniList dá o ID (idMal); a nota vem da API oficial
 //    (api.myanimelist.net/v2/anime/{id}, com o Client ID de mal-client.js; sem CORS,
-//    por isso a extensão tem permissão para esse endereço). Sem Client ID, vem do
-//    Jikan (api.jikan.moe/v4/anime/{id}), no máximo ~1 consulta por segundo.
+//    por isso a extensão tem permissão para esse endereço). Sem Client ID, não há
+//    nota do MyAnimeList.
 //  - Tudo fica guardado por série por 4, 8, 12 ou 24 horas (Configurações). Falhas:
 //    AniList tenta de novo em 1 dia, MyAnimeList em 1 hora (no máximo o mesmo prazo).
 
 /* global browser, MAL_CLIENT_ID */
 var CRScores = (() => {
   const ANILIST = "https://graphql.anilist.co";
-  const JIKAN = "https://api.jikan.moe/v4/anime/";
   const MAL_API = "https://api.myanimelist.net/v2/anime/";
   const MAL_ORIGIN = "https://api.myanimelist.net/*";
   const KEY = "crnovos:scores";
@@ -40,14 +39,16 @@ var CRScores = (() => {
   // custa 13 (conferido em nov/2026: 38 passam, 39 dão "Max query complexity"). 35 deixa
   // folga; se mesmo assim passar do limite, a consulta é dividida ao meio.
   const BATCH = 35;
-  const JIKAN_GAP = 1100; // ms entre consultas ao Jikan
   const MAL_GAP = 400; // ms entre consultas de cada trabalhador à API oficial do MyAnimeList
-  const MAL_PARALLEL = 3; // consultas ao mesmo tempo à API oficial (o Jikan: uma por vez)
+  const MAL_PARALLEL = 3; // consultas ao mesmo tempo à API oficial
   const MAL_429_TRIES = 3; // "pedidos demais" seguidos na mesma série: desiste dela por ora
 
   let clientId = typeof MAL_CLIENT_ID === "string" ? MAL_CLIENT_ID.trim() : "";
-  // "mal-api": as falhas guardadas como "mal" (antes do aviso de permissão) saem já.
-  const malSource = () => (clientId ? "mal-api" : "jikan");
+  // Fonte gravada em cada nota: falhas de outra fonte (o Jikan, que saiu, ou a gravada
+  // como "mal" antes do aviso de permissão) não esperam o prazo para tentar de novo.
+  const malSource = () => "mal-api";
+  /** Há como buscar as notas do MyAnimeList (Client ID configurado)? */
+  const malActive = () => !!clientId;
 
   let sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -193,25 +194,18 @@ var CRScores = (() => {
 
   /** Nota do MyAnimeList: { score, users } (score null = sem nota). */
   async function malScore(idMal, fetchFn) {
+    if (!clientId) throw new Error("MyAnimeList: sem Client ID (common/src/mal-client.js)");
     const id = encodeURIComponent(idMal);
-    if (clientId) {
-      const res = await fetchWithTimeout(fetchFn, `${MAL_API}${id}?fields=mean,num_scoring_users`, {
-        headers: { "X-MAL-CLIENT-ID": clientId, Accept: "application/json" },
-        cache: "no-store",
-        credentials: "omit",
-      });
-      if (res.status === 404) return { score: null, users: 0 };
-      if (res.status === 429) throw tooMany(res, "MyAnimeList");
-      if (!res.ok) throw new Error(`MyAnimeList HTTP ${res.status}`);
-      const d = (await res.json()) || {};
-      return { score: typeof d.mean === "number" ? d.mean : null, users: Number(d.num_scoring_users) || 0 };
-    }
-    const res = await fetchWithTimeout(fetchFn, JIKAN + id, { cache: "no-store", credentials: "omit" });
+    const res = await fetchWithTimeout(fetchFn, `${MAL_API}${id}?fields=mean,num_scoring_users`, {
+      headers: { "X-MAL-CLIENT-ID": clientId, Accept: "application/json" },
+      cache: "no-store",
+      credentials: "omit",
+    });
     if (res.status === 404) return { score: null, users: 0 };
-    if (res.status === 429) throw tooMany(res, "Jikan");
-    if (!res.ok) throw new Error(`Jikan HTTP ${res.status}`);
-    const d = ((await res.json()) || {}).data || {};
-    return { score: typeof d.score === "number" ? d.score : null, users: Number(d.scored_by) || 0 };
+    if (res.status === 429) throw tooMany(res, "MyAnimeList");
+    if (!res.ok) throw new Error(`MyAnimeList HTTP ${res.status}`);
+    const d = (await res.json()) || {};
+    return { score: typeof d.mean === "number" ? d.mean : null, users: Number(d.num_scoring_users) || 0 };
   }
 
   async function load(b = browser) {
@@ -233,7 +227,7 @@ var CRScores = (() => {
   /**
    * A API oficial do MyAnimeList não tem CORS: só funciona com a permissão para
    * api.myanimelist.net. No Firefox o usuário pode tê-la desligada (ou ela não foi
-   * dada na atualização). Sem Client ID (Jikan) não precisa.
+   * dada na atualização). Sem Client ID não há o que pedir (devolve true).
    */
   async function malAllowed(b = browser) {
     if (!clientId) return true;
@@ -275,13 +269,14 @@ var CRScores = (() => {
     // O AniList e o MyAnimeList andam juntos: cada lote que volta do AniList (com o ID
     // do MyAnimeList) entra na fila do MyAnimeList, que já vai consultando enquanto o
     // AniList busca o lote seguinte. Sem a permissão para api.myanimelist.net, o
-    // MyAnimeList nem é tentado (a página mostra o botão para dar a permissão).
-    const malOk = await malAllowed(b);
+    // MyAnimeList nem é tentado (a página mostra o botão para dar a permissão); sem
+    // Client ID, também não.
+    const malOk = clientId && (await malAllowed(b));
     const needsMal = (s) => {
       const e = all[s.id];
       if (!e || !e.al || !e.al.idMal) return false;
       const m = e.mal && e.mal.id === e.al.idMal ? e.mal : null;
-      // Uma falha de outra fonte (ex.: o Jikan, antes do Client ID) não espera o prazo.
+      // Uma falha de outra fonte (ex.: o Jikan, que saiu) não espera o prazo.
       return !fresh(m && m.failed && m.src !== malSource() ? null : m, now, ttl, MAL_RETRY);
     };
     const queue = [];
@@ -304,14 +299,14 @@ var CRScores = (() => {
     };
     let alDone = false;
 
-    // 2. MyAnimeList: até 3 consultas ao mesmo tempo (o Jikan, uma). Se o site
+    // 2. MyAnimeList: até 3 consultas ao mesmo tempo. Se o site
     // responder "pedidos demais" (429), recua para uma por vez, espera e tenta de novo.
     // 2 falhas seguidas (fora do ar): para e tenta de novo mais tarde.
-    let limit = clientId ? MAL_PARALLEL : 1;
+    let limit = MAL_PARALLEL;
     let failures = 0;
     let changed = 0;
     const tries429 = new Map();
-    const gap = clientId ? MAL_GAP : JIKAN_GAP;
+    const gap = MAL_GAP;
     const malFailed = (s) => {
       all[s.id].mal = { id: all[s.id].al.idMal, failed: true, src: malSource(), at: Date.now() };
     };
@@ -347,7 +342,7 @@ var CRScores = (() => {
               continue;
             }
           } else if (!failures) {
-            console.warn(`[Watchroll] MyAnimeList${clientId ? "" : " (Jikan)"}:`, err);
+            console.warn("[Watchroll] MyAnimeList:", err);
           }
           malFailed(s);
           if (!(err && err.status === 429)) failures++;
@@ -438,6 +433,7 @@ var CRScores = (() => {
     setSleep: (fn) => (sleep = fn),
     setClientId: (id) => (clientId = String(id || "").trim()),
     malAllowed,
+    malActive,
     TTL_HOURS,
     ttlHoursFrom,
     requestMal,

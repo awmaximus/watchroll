@@ -65,16 +65,6 @@ describe("MyAnimeList — API oficial (api.myanimelist.net)", () => {
   });
 });
 
-describe("MyAnimeList — Jikan (api.jikan.moe, reserva sem Client ID)", () => {
-  test("responde com a nota", { timeout: TIMEOUT }, async () => {
-    const { S } = setup();
-    S.setClientId("");
-    const r = await S.malScore(APOTHECARY_MAL, fetch);
-    assert.equal(typeof r.score, "number");
-    assert.ok(r.score > 0 && r.score <= 10);
-  });
-});
-
 describe("de ponta a ponta (como a extensão faz)", () => {
   test("AniList e depois MyAnimeList, com as notas guardadas", { timeout: 60000 }, async () => {
     const { S, b } = setup();

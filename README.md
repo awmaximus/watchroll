@@ -285,11 +285,10 @@ Watchroll has no server of its own: the scores come straight from the sources, f
   [official MyAnimeList API](https://myanimelist.net/apiconfig/references/api/v2)
   (`api.myanimelist.net/v2/anime/{id}?fields=mean,num_scoring_users`). It needs a Client ID
   (not a secret) in `common/src/mal-client.js`, and the API doesn't send CORS headers, so the
-  extension has a host permission for `https://api.myanimelist.net/*`. Without a Client ID the
-  score comes from [Jikan](https://jikan.moe), a public service with MyAnimeList's data, about
-  one series per second. If the service doesn't answer twice in a row, MyAnimeList scores are
-  skipped and tried again later (an hour for the official API, a day for Jikan); AniList and
-  Crunchyroll scores still show. The official API is queried 3 series at a time; if it answers
+  extension has a host permission for `https://api.myanimelist.net/*`. Without a Client ID there
+  are no MyAnimeList scores. If the API doesn't answer twice in a row, MyAnimeList scores are
+  skipped and tried again an hour later; AniList and Crunchyroll scores still show. The API is
+  queried 3 series at a time; if it answers
   "too many requests" (HTTP 429), Watchroll drops to one at a time, waits as asked and tries that
   series again. MyAnimeList doesn't wait for AniList to finish: each AniList batch that comes
   back goes straight to the MyAnimeList queue. Firefox lets you turn the `api.myanimelist.net` permission off
@@ -342,7 +341,7 @@ Watchroll has no server of its own: the scores come straight from the sources, f
 - Settings (not the token, history or results) go through the browser's own sync, to your
   other computers signed in to the same account.
 - Besides Crunchyroll, Watchroll talks to AniList (series names from your lists and Advanced
-  Search text) and to MyAnimeList (MyAnimeList IDs; Jikan without a Client ID), only to get scores and titles; see
+  Search text) and to MyAnimeList (MyAnimeList IDs), only to get scores and titles; see
   [Scores from AniList and MyAnimeList](#scores-from-anilist-and-myanimelist). Nothing else is
   sent to third parties.
   See [PRIVACY.md](PRIVACY.md).
@@ -400,8 +399,8 @@ npm --prefix firefox run test:live   # real requests to AniList and MyAnimeList 
 ```
 
 `npm test` never uses the network and runs in CI. `test:live` (`common/tests/live/`) calls the
-real AniList, official MyAnimeList (with the Client ID from `common/src/mal-client.js`) and
-Jikan APIs, to check that they answer from your network and that the Client ID is accepted.
+real AniList and official MyAnimeList (with the Client ID from `common/src/mal-client.js`)
+APIs, to check that they answer from your network and that the Client ID is accepted.
 Node has no CORS or extension permissions: if these pass but the extension shows no
 MyAnimeList scores, check the `api.myanimelist.net` permission in the browser.
 
@@ -467,7 +466,7 @@ in [chrome/README.md](chrome/README.md); the store texts are in
 ### Versions
 
 Keep the same `version` in `firefox/manifest.json`, `firefox/package.json`,
-`chrome/manifest.json` and `chrome/package.json` (current: 1.4.13). Publish only even versions to
+`chrome/manifest.json` and `chrome/package.json` (current: 1.4.9). Publish only even versions to
 the Chrome Web Store, like the AMO listing.
 
 `set-version.sh`, at the root, changes all of them (and the version above) at once:

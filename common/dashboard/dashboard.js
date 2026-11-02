@@ -1210,9 +1210,10 @@
     // Notas do AniList e do MyAnimeList: quantos resultados já têm. Só dá para
     // ordenar por elas com todas carregadas (senão a ordem mudaria enquanto chegam).
     const items = st.items || [];
-    const scoresDone = items.filter((r) => CRScores.loaded(extraScores, r.id, { mal: malPermitted })).length;
+    const malOn = malPermitted && CRScores.malActive(); // sem permissão ou Client ID, não espera o MyAnimeList
+    const scoresDone = items.filter((r) => CRScores.loaded(extraScores, r.id, { mal: malOn })).length;
     const scoresReady = scoresDone >= items.length;
-    if (!scoresReady && (f.sort === "alScore" || f.sort === "malScore")) f.sort = "default";
+    if ((!scoresReady && (f.sort === "alScore" || f.sort === "malScore")) || (!malOn && f.sort === "malScore")) f.sort = "default";
     const now = new Date().getFullYear();
     const years = Array.from({ length: now + 1 - 1970 + 1 }, (_, i) => String(now + 1 - i));
     const onFilter = (key) => (e) => {
@@ -1365,7 +1366,7 @@
             opt("title", t("searchSortTitle"), f.sort),
             opt("crScore", t("sortCrScore"), f.sort),
             opt("alScore", t("sortAlScore"), f.sort, !scoresReady),
-            opt("malScore", t("sortMalScore"), f.sort, !scoresReady || !malPermitted)
+            opt("malScore", t("sortMalScore"), f.sort, !scoresReady || !malOn)
           )
         )
       )
