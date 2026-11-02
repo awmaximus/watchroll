@@ -58,7 +58,8 @@ romaji names, the extension sends, directly from your browser:
   Advanced Search results (as they appear in Crunchyroll's web addresses, in English), and the
   text you type in Advanced Search;
 - to **MyAnimeList** (`api.myanimelist.net`, its official API): the MyAnimeList IDs of those
-  series, with the extension's Client ID (which identifies the extension, not you);
+  series, with the Client ID you created and saved in Settings (only if you did, and only
+  while "Fetch MyAnimeList scores" is on);
 - the score badges show each site's icon, loaded from the site itself (`anilist.co`,
   `myanimelist.net`, `crunchyroll.com`).
 

@@ -12,14 +12,15 @@
 //    Até 35 séries por consulta (limite de complexidade do AniList). Conferido em
 //    nov/2026: 90 consultas por minuto, 30 quando o AniList está sobrecarregado.
 //  - MyAnimeList: o AniList dá o ID (idMal); a nota vem da API oficial
-//    (api.myanimelist.net/v2/anime/{id}, com o Client ID de mal-client.js; sem CORS,
+//    (api.myanimelist.net/v2/anime/{id}, com o Client ID que o usuário põe nas
+//    Configurações; sem CORS,
 //    por isso a extensão tem permissão para esse endereço). Sem Client ID, não há
 //    nota do MyAnimeList.
 //  - Tudo fica guardado por série por 4, 8, 12 ou 24 horas (Configurações). Falhas:
 //    tenta de novo em 1 hora (no máximo o mesmo prazo). Só nota válida vai para o
 //    storage (ver "cache" abaixo): falha ou nota vazia nunca impede tentar de novo.
 
-/* global browser, MAL_CLIENT_ID */
+/* global browser */
 var CRScores = (() => {
   const ANILIST = "https://graphql.anilist.co";
   const MAL_API = "https://api.myanimelist.net/v2/anime/";
@@ -57,7 +58,11 @@ var CRScores = (() => {
   let malCooldownUntil = 0;
   let malStrikes = 0;
 
-  let clientId = typeof MAL_CLIENT_ID === "string" ? MAL_CLIENT_ID.trim() : "";
+  // Client ID do MyAnimeList: cada usuário cria o seu (Configurações). A página o
+  // passa com setClientId; vazio = sem notas do MyAnimeList.
+  let clientId = "";
+  /** Formato de um Client ID do MyAnimeList: 32 caracteres hexadecimais. */
+  const validClientId = (id) => /^[0-9a-f]{32}$/i.test(String(id || "").trim());
   // Fonte gravada em cada nota: falhas de outra fonte (o Jikan, que saiu, ou a gravada
   // como "mal" antes do aviso de permissão) não esperam o prazo para tentar de novo.
   const malSource = () => "mal-api";
@@ -208,7 +213,7 @@ var CRScores = (() => {
 
   /** Nota do MyAnimeList: { score, users } (score null = sem nota). */
   async function malScore(idMal, fetchFn) {
-    if (!clientId) throw new Error("MyAnimeList: sem Client ID (common/src/mal-client.js)");
+    if (!clientId) throw new Error("MyAnimeList: sem Client ID (Configurações)");
     const id = encodeURIComponent(idMal);
     const res = await fetchWithTimeout(fetchFn, `${MAL_API}${id}?fields=mean,num_scoring_users`, {
       headers: { "X-MAL-CLIENT-ID": clientId, Accept: "application/json" },
@@ -541,7 +546,17 @@ var CRScores = (() => {
     malScore,
     simplify,
     setSleep: (fn) => (sleep = fn),
-    setClientId: (id) => (clientId = String(id || "").trim()),
+    setClientId: (id) => {
+      const next = String(id || "").trim();
+      if (next !== clientId) {
+        clientId = next;
+        misses = {}; // outro Client ID: o que falhou com o anterior pode dar certo agora
+        malCooldownUntil = 0;
+        malStrikes = 0;
+      }
+      return clientId;
+    },
+    validClientId,
     malAllowed,
     malActive,
     forgetMisses,

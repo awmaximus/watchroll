@@ -1208,5 +1208,37 @@
   },
   "searchScoresLoadAll": {
     "message": "모두 불러오기"
+  },
+  "setMalClientLabel": {
+    "message": "MyAnimeList Client ID (MyAnimeList 점수용)"
+  },
+  "btnMalClientSave": {
+    "message": "저장"
+  },
+  "setMalClientHelp": {
+    "message": "선택 사항. MyAnimeList 점수를 보려면 MyAnimeList 사이트에서 무료 Client ID를 만들고(Create ID, App Type은 \"other\") 여기에 붙여 넣으세요. Client Secret이 아니라 Client ID를 사용하세요. 없어도 Crunchyroll과 AniList 점수는 표시됩니다."
+  },
+  "setMalClientInvalid": {
+    "message": "MyAnimeList Client ID가 아닌 것 같습니다(0–9, a–f로 된 32자)."
+  },
+  "setMalClientSaved": {
+    "message": "Client ID를 저장했습니다. MyAnimeList 점수가 표시되기 시작합니다."
+  },
+  "setMalClientRemoved": {
+    "message": "Client ID를 삭제했습니다: MyAnimeList 점수를 더 이상 가져오지 않습니다."
+  },
+  "setMalClientNoPermission": {
+    "message": "Client ID를 저장했지만 api.myanimelist.net 접근을 아직 허용해야 합니다."
+  },
+  "setShowTabLabel": {
+    "message": "“$P1$” 탭 표시",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setMalScoresLabel": {
+    "message": "MyAnimeList 점수 가져오기"
   }
 }

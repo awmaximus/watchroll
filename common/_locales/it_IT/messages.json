@@ -1208,5 +1208,37 @@
   },
   "searchScoresLoadAll": {
     "message": "Carica tutti"
+  },
+  "setMalClientLabel": {
+    "message": "Client ID di MyAnimeList (per i voti di MyAnimeList)"
+  },
+  "btnMalClientSave": {
+    "message": "Salva"
+  },
+  "setMalClientHelp": {
+    "message": "Facoltativo. Per vedere i voti di MyAnimeList, crea un Client ID gratuito sul sito di MyAnimeList (Create ID; come App Type scegli \"other\") e incollalo qui. Usa il Client ID, mai il Client Secret. Senza, restano i voti di Crunchyroll e AniList."
+  },
+  "setMalClientInvalid": {
+    "message": "Questo non sembra un Client ID di MyAnimeList (32 lettere e cifre, 0–9 e a–f)."
+  },
+  "setMalClientSaved": {
+    "message": "Client ID salvato. I voti di MyAnimeList inizieranno ad apparire."
+  },
+  "setMalClientRemoved": {
+    "message": "Client ID rimosso: i voti di MyAnimeList non vengono più recuperati."
+  },
+  "setMalClientNoPermission": {
+    "message": "Client ID salvato, ma va ancora consentito l’accesso a api.myanimelist.net."
+  },
+  "setShowTabLabel": {
+    "message": "Mostra la scheda «$P1$»",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setMalScoresLabel": {
+    "message": "Recupera i voti di MyAnimeList"
   }
 }

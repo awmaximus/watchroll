@@ -1208,5 +1208,37 @@
   },
   "searchScoresLoadAll": {
     "message": "Загрузить все"
+  },
+  "setMalClientLabel": {
+    "message": "Client ID MyAnimeList (для оценок MyAnimeList)"
+  },
+  "btnMalClientSave": {
+    "message": "Сохранить"
+  },
+  "setMalClientHelp": {
+    "message": "Необязательно. Чтобы видеть оценки MyAnimeList, создайте бесплатный Client ID на сайте MyAnimeList (Create ID; в App Type выберите «other») и вставьте его сюда. Используйте Client ID, а не Client Secret. Без него остаются оценки Crunchyroll и AniList."
+  },
+  "setMalClientInvalid": {
+    "message": "Это не похоже на Client ID MyAnimeList (32 символа из 0–9 и a–f)."
+  },
+  "setMalClientSaved": {
+    "message": "Client ID сохранён. Оценки MyAnimeList начнут появляться."
+  },
+  "setMalClientRemoved": {
+    "message": "Client ID удалён: оценки MyAnimeList больше не загружаются."
+  },
+  "setMalClientNoPermission": {
+    "message": "Client ID сохранён, но нужно ещё разрешить доступ к api.myanimelist.net."
+  },
+  "setShowTabLabel": {
+    "message": "Показывать вкладку «$P1$»",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setMalScoresLabel": {
+    "message": "Загружать оценки MyAnimeList"
   }
 }

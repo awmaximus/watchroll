@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "__MSG_extName__",
   "default_locale": "en_US",
-  "version": "1.4.19",
+  "version": "1.4.21",
   "description": "__MSG_extDescriptionShort__",
   "homepage_url": "https://github.com/awmaximus/watchroll",
   "minimum_chrome_version": "120",
@@ -30,7 +30,9 @@
     "notifications"
   ],
   "host_permissions": [
-    "https://www.crunchyroll.com/*",
+    "https://www.crunchyroll.com/*"
+  ],
+  "optional_host_permissions": [
     "https://api.myanimelist.net/*"
   ],
   "content_scripts": [

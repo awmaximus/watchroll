@@ -1208,5 +1208,37 @@
   },
   "searchScoresLoadAll": {
     "message": "Carregar todas"
+  },
+  "setMalClientLabel": {
+    "message": "Client ID do MyAnimeList (para as classificações do MyAnimeList)"
+  },
+  "btnMalClientSave": {
+    "message": "Guardar"
+  },
+  "setMalClientHelp": {
+    "message": "Opcional. Para ver as classificações do MyAnimeList, crie um Client ID gratuito no site do MyAnimeList (Create ID; em App Type, escolha \"other\") e cole-o aqui. Use o Client ID, nunca o Client Secret. Sem ele, mantêm-se as classificações do Crunchyroll e do AniList."
+  },
+  "setMalClientInvalid": {
+    "message": "Isto não parece um Client ID do MyAnimeList (32 letras e algarismos, de 0–9 e a–f)."
+  },
+  "setMalClientSaved": {
+    "message": "Client ID guardado. As classificações do MyAnimeList vão aparecendo."
+  },
+  "setMalClientRemoved": {
+    "message": "Client ID removido: as classificações do MyAnimeList deixam de ser obtidas."
+  },
+  "setMalClientNoPermission": {
+    "message": "Client ID guardado, mas falta permitir o acesso a api.myanimelist.net."
+  },
+  "setShowTabLabel": {
+    "message": "Mostrar o separador «$P1$»",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setMalScoresLabel": {
+    "message": "Obter as classificações do MyAnimeList"
   }
 }

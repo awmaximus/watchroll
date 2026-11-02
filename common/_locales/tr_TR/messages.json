@@ -1208,5 +1208,37 @@
   },
   "searchScoresLoadAll": {
     "message": "Tümünü yükle"
+  },
+  "setMalClientLabel": {
+    "message": "MyAnimeList Client ID (MyAnimeList puanları için)"
+  },
+  "btnMalClientSave": {
+    "message": "Kaydet"
+  },
+  "setMalClientHelp": {
+    "message": "İsteğe bağlı. MyAnimeList puanlarını görmek için MyAnimeList sitesinde ücretsiz bir Client ID oluşturun (Create ID; App Type olarak \"other\" seçin) ve buraya yapıştırın. Client ID kullanın, asla Client Secret değil. Olmadan da Crunchyroll ve AniList puanları görünür."
+  },
+  "setMalClientInvalid": {
+    "message": "Bu bir MyAnimeList Client ID gibi görünmüyor (0–9 ve a–f'den 32 karakter)."
+  },
+  "setMalClientSaved": {
+    "message": "Client ID kaydedildi. MyAnimeList puanları görünmeye başlayacak."
+  },
+  "setMalClientRemoved": {
+    "message": "Client ID kaldırıldı: MyAnimeList puanları artık alınmıyor."
+  },
+  "setMalClientNoPermission": {
+    "message": "Client ID kaydedildi, ancak api.myanimelist.net erişimine hâlâ izin verilmesi gerekiyor."
+  },
+  "setShowTabLabel": {
+    "message": "“$P1$” sekmesini göster",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setMalScoresLabel": {
+    "message": "MyAnimeList puanlarını al"
   }
 }

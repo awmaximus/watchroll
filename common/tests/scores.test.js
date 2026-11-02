@@ -33,7 +33,7 @@ function setup(answer) {
   const b = fakeBrowser();
   const ctx = load(["src/scores.js"], { browser: b });
   ctx.CRScores.setSleep(async () => {});
-  ctx.CRScores.setClientId("abc123"); // Client ID de teste (o de verdade fica em mal-client.js)
+  ctx.CRScores.setClientId("abc123"); // Client ID de teste (o de verdade o usuário põe nas Configurações)
   return { S: ctx.CRScores, fetchFn, calls, b };
 }
 
@@ -486,6 +486,23 @@ describe("atualização e cache", () => {
     assert.ok(mal.every((c) => c.init.redirect === "manual"), "não segue o redirecionamento");
     assert.ok(waits.some((ms) => ms >= 5000), "esperou o bloqueio passar");
     assert.ok(fakeSeries(6).every((s) => S.scoresOf(all, s.id).mal === 8.4), "nenhuma série ficou sem nota");
+  });
+
+  test("Client ID: formato (32 hexadecimais) e trocar de Client ID esquece as falhas", async () => {
+    const { S, fetchFn, calls } = setup((url, body) => (url.includes("myanimelist") ? json({}, 401) : aniList(() => [APOTHECARY])(body)));
+    assert.equal(S.validClientId("8fa8d73c8bb01f96a6e62d728e16a5fe"), true);
+    assert.equal(S.validClientId(" 8FA8D73C8BB01F96A6E62D728E16A5FE "), true);
+    assert.equal(S.validClientId("abc"), false);
+    assert.equal(S.validClientId(""), false);
+    await S.update(series, { fetchFn });
+    const n = calls.filter((c) => c.url.includes("myanimelist")).length;
+    await S.update(series, { fetchFn });
+    assert.equal(calls.filter((c) => c.url.includes("myanimelist")).length, n, "mesmo Client ID: não insiste");
+    S.setClientId("0123456789abcdef0123456789abcdef");
+    await S.update(series, { fetchFn });
+    const mal = calls.filter((c) => c.url.includes("myanimelist"));
+    assert.ok(mal.length > n, "outro Client ID: tenta de novo");
+    assert.equal(mal[mal.length - 1].init.headers["X-MAL-CLIENT-ID"], "0123456789abcdef0123456789abcdef");
   });
 
   test("AniList fora do ar: nada quebra", async () => {

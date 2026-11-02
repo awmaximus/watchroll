@@ -217,6 +217,9 @@ Changes are saved immediately and synced to your other computers (see
 | Show specials and recaps | Shows them, tagged and uncounted (on by default). |
 | Show skipped episodes | Unwatched episodes before the last one you watched, tagged and uncounted (off by default). |
 | Show "To watch" in compact mode | Rows instead of cards (off by default). |
+| Show the "Caught up" tab | Turn it off to hide that tab (on by default). |
+| Fetch MyAnimeList scores | Turn it off to stop asking MyAnimeList (on by default; needs a Client ID). |
+| MyAnimeList Client ID | Your own free Client ID from <https://myanimelist.net/apiconfig>, for MyAnimeList scores (optional). Never paste the Client Secret. |
 | Count as started after (seconds) | Ignores playback records shorter than this (default 60, 0–600); Crunchyroll records a few seconds just from opening an episode page. |
 | Series checked at the same time | Parallel requests (default 4, 1–32). Lower it if you get HTTP 429 errors. |
 | Batch size | Episodes per progress request and items per list/history page (default 100, 10–300). Lower it if checks start failing. |
@@ -283,10 +286,12 @@ Watchroll has no server of its own: the scores come straight from the sources, f
   no score is shown (better no score than another anime's).
 - **MyAnimeList:** AniList gives the MyAnimeList ID; the score comes from the
   [official MyAnimeList API](https://myanimelist.net/apiconfig/references/api/v2)
-  (`api.myanimelist.net/v2/anime/{id}?fields=mean,num_scoring_users`). It needs a Client ID
-  (not a secret) in `common/src/mal-client.js`, and the API doesn't send CORS headers, so the
-  extension has a host permission for `https://api.myanimelist.net/*`. Without a Client ID there
-  are no MyAnimeList scores. If the API doesn't answer twice in a row, MyAnimeList scores are
+  (`api.myanimelist.net/v2/anime/{id}?fields=mean,num_scoring_users`). It needs a Client ID,
+  and each user creates their own, for free, at <https://myanimelist.net/apiconfig> (**Create
+  ID**, App Type "other") and pastes it in **Settings → MyAnimeList Client ID**; it is stored with
+  the other settings and is not in the code. The API doesn't send CORS headers, so saving the
+  Client ID asks for the optional permission for `https://api.myanimelist.net/*`. Without a
+  Client ID, or with **Fetch MyAnimeList scores** turned off, there are no MyAnimeList scores. If the API doesn't answer twice in a row, MyAnimeList scores are
   skipped and tried again later; AniList and Crunchyroll scores still show. The API is
   queried 2 series at a time. When it says there are too many requests (HTTP 429, or the
   redirect to `/error.json` the API sends instead, seen after about 100 requests in 30 s),
@@ -407,8 +412,9 @@ npm --prefix firefox run test:live   # real requests to AniList and MyAnimeList 
 ```
 
 `npm test` never uses the network and runs in CI. `test:live` (`common/tests/live/`) calls the
-real AniList and official MyAnimeList (with the Client ID from `common/src/mal-client.js`)
-APIs, to check that they answer from your network and that the Client ID is accepted.
+real AniList and official MyAnimeList APIs (with your Client ID:
+`WATCHROLL_MAL_CLIENT_ID=… npm --prefix firefox run test:live`; without it the MyAnimeList tests
+are skipped), to check that they answer from your network and that the Client ID is accepted.
 Node has no CORS or extension permissions: if these pass but the extension shows no
 MyAnimeList scores, check the `api.myanimelist.net` permission in the browser.
 
@@ -474,7 +480,7 @@ in [chrome/README.md](chrome/README.md); the store texts are in
 ### Versions
 
 Keep the same `version` in `firefox/manifest.json`, `firefox/package.json`,
-`chrome/manifest.json` and `chrome/package.json` (current: 1.4.19). Publish only even versions to
+`chrome/manifest.json` and `chrome/package.json` (current: 1.4.21). Publish only even versions to
 the Chrome Web Store, like the AMO listing.
 
 `set-version.sh`, at the root, changes all of them (and the version above) at once:

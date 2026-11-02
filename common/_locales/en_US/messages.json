@@ -1214,5 +1214,37 @@
   },
   "searchScoresLoadAll": {
     "message": "Load all"
+  },
+  "setMalClientLabel": {
+    "message": "MyAnimeList Client ID (for MyAnimeList scores)"
+  },
+  "btnMalClientSave": {
+    "message": "Save"
+  },
+  "setMalClientHelp": {
+    "message": "Optional. To see MyAnimeList scores, create a free Client ID on the MyAnimeList website (Create ID; for App Type, choose \"other\") and paste it here. Use the Client ID, never the Client Secret. Without it, Crunchyroll and AniList scores still show."
+  },
+  "setMalClientInvalid": {
+    "message": "This doesn't look like a MyAnimeList Client ID (32 letters and digits, 0–9 and a–f)."
+  },
+  "setMalClientSaved": {
+    "message": "Client ID saved. MyAnimeList scores will start showing."
+  },
+  "setMalClientRemoved": {
+    "message": "Client ID removed: MyAnimeList scores are no longer fetched."
+  },
+  "setMalClientNoPermission": {
+    "message": "Client ID saved, but access to api.myanimelist.net still needs to be allowed."
+  },
+  "setShowTabLabel": {
+    "message": "Show the “$P1$” tab",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setMalScoresLabel": {
+    "message": "Fetch MyAnimeList scores"
   }
 }

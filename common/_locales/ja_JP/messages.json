@@ -1208,5 +1208,37 @@
   },
   "searchScoresLoadAll": {
     "message": "すべて読み込む"
+  },
+  "setMalClientLabel": {
+    "message": "MyAnimeList の Client ID（MyAnimeList のスコア用）"
+  },
+  "btnMalClientSave": {
+    "message": "保存"
+  },
+  "setMalClientHelp": {
+    "message": "任意。MyAnimeList のスコアを表示するには、MyAnimeList のサイトで無料の Client ID を作成し（Create ID。App Type は「other」）、ここに貼り付けてください。使うのは Client ID で、Client Secret は絶対に使わないでください。なくても Crunchyroll と AniList のスコアは表示されます。"
+  },
+  "setMalClientInvalid": {
+    "message": "MyAnimeList の Client ID ではないようです（0–9 と a–f の 32 文字）。"
+  },
+  "setMalClientSaved": {
+    "message": "Client ID を保存しました。MyAnimeList のスコアが順に表示されます。"
+  },
+  "setMalClientRemoved": {
+    "message": "Client ID を削除しました：MyAnimeList のスコアは取得しません。"
+  },
+  "setMalClientNoPermission": {
+    "message": "Client ID を保存しましたが、api.myanimelist.net へのアクセス許可がまだです。"
+  },
+  "setShowTabLabel": {
+    "message": "「$P1$」タブを表示",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setMalScoresLabel": {
+    "message": "MyAnimeList のスコアを取得"
   }
 }

@@ -1208,5 +1208,37 @@
   },
   "searchScoresLoadAll": {
     "message": "Alle laden"
+  },
+  "setMalClientLabel": {
+    "message": "MyAnimeList-Client-ID (für MyAnimeList-Bewertungen)"
+  },
+  "btnMalClientSave": {
+    "message": "Speichern"
+  },
+  "setMalClientHelp": {
+    "message": "Optional. Um MyAnimeList-Bewertungen zu sehen, erstelle auf der MyAnimeList-Website eine kostenlose Client ID (Create ID; bei App Type \"other\" wählen) und füge sie hier ein. Verwende die Client ID, niemals das Client Secret. Ohne sie bleiben die Bewertungen von Crunchyroll und AniList."
+  },
+  "setMalClientInvalid": {
+    "message": "Das sieht nicht nach einer MyAnimeList-Client-ID aus (32 Zeichen aus 0–9 und a–f)."
+  },
+  "setMalClientSaved": {
+    "message": "Client ID gespeichert. Die MyAnimeList-Bewertungen erscheinen nach und nach."
+  },
+  "setMalClientRemoved": {
+    "message": "Client ID entfernt: MyAnimeList-Bewertungen werden nicht mehr abgerufen."
+  },
+  "setMalClientNoPermission": {
+    "message": "Client ID gespeichert, aber der Zugriff auf api.myanimelist.net muss noch erlaubt werden."
+  },
+  "setShowTabLabel": {
+    "message": "Tab „$P1$“ anzeigen",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setMalScoresLabel": {
+    "message": "MyAnimeList-Bewertungen abrufen"
   }
 }

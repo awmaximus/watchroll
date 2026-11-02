@@ -1208,5 +1208,37 @@
   },
   "searchScoresLoadAll": {
     "message": "सभी लोड करें"
+  },
+  "setMalClientLabel": {
+    "message": "MyAnimeList का Client ID (MyAnimeList रेटिंग के लिए)"
+  },
+  "btnMalClientSave": {
+    "message": "सहेजें"
+  },
+  "setMalClientHelp": {
+    "message": "वैकल्पिक। MyAnimeList की रेटिंग देखने के लिए MyAnimeList की साइट पर मुफ़्त Client ID बनाएँ (Create ID; App Type में \"other\" चुनें) और यहाँ चिपकाएँ। Client ID इस्तेमाल करें, Client Secret कभी नहीं। इसके बिना Crunchyroll और AniList की रेटिंग बनी रहती हैं।"
+  },
+  "setMalClientInvalid": {
+    "message": "यह MyAnimeList का Client ID नहीं लगता (0–9 और a–f के 32 अक्षर)।"
+  },
+  "setMalClientSaved": {
+    "message": "Client ID सहेजा गया। MyAnimeList की रेटिंग दिखने लगेंगी।"
+  },
+  "setMalClientRemoved": {
+    "message": "Client ID हटाया गया: MyAnimeList की रेटिंग अब नहीं लाई जाएँगी।"
+  },
+  "setMalClientNoPermission": {
+    "message": "Client ID सहेजा गया, लेकिन api.myanimelist.net तक पहुँच की अनुमति देनी बाकी है।"
+  },
+  "setShowTabLabel": {
+    "message": "“$P1$” टैब दिखाएँ",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setMalScoresLabel": {
+    "message": "MyAnimeList की रेटिंग लाएँ"
   }
 }

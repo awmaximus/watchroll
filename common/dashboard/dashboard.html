@@ -87,6 +87,24 @@
             <input id="set-compact" type="checkbox" />
             <span data-i18n="setCompactLabel"></span>
           </label>
+          <label class="check">
+            <input id="set-uptodate" type="checkbox" />
+            <span id="set-uptodate-label"></span>
+          </label>
+          <label class="check">
+            <input id="set-malscores" type="checkbox" />
+            <span data-i18n="setMalScoresLabel"></span>
+          </label>
+          <div class="field">
+            <label for="set-malclient" data-i18n="setMalClientLabel"></label>
+            <div class="malclient">
+              <input id="set-malclient" type="text" spellcheck="false" autocomplete="off" maxlength="64" />
+              <button id="btn-malclient" class="btn ghost small" type="button" data-i18n="btnMalClientSave"></button>
+            </div>
+            <small id="malclient-status" class="malclient-status" role="status" hidden></small>
+            <small data-i18n="setMalClientHelp"></small>
+            <small id="malclient-link"></small>
+          </div>
           <label>
             <span data-i18n="setScoresTtlLabel"></span>
             <select id="set-scorettl"></select>
@@ -167,7 +185,6 @@
     <script src="../src/analyzer.js"></script>
     <script src="../src/checker.js"></script>
     <script src="../src/search.js"></script>
-    <script src="../src/mal-client.js"></script>
     <script src="../src/scores.js"></script>
     <script src="dashboard.js"></script>
   </body>

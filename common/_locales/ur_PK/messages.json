@@ -1208,5 +1208,37 @@
   },
   "searchScoresLoadAll": {
     "message": "سب لوڈ کریں"
+  },
+  "setMalClientLabel": {
+    "message": "MyAnimeList کا Client ID (MyAnimeList اسکور کے لیے)"
+  },
+  "btnMalClientSave": {
+    "message": "محفوظ کریں"
+  },
+  "setMalClientHelp": {
+    "message": "اختیاری۔ MyAnimeList کے اسکور دیکھنے کے لیے MyAnimeList کی سائٹ پر مفت Client ID بنائیں (Create ID؛ App Type میں \"other\" چنیں) اور یہاں چسپاں کریں۔ Client ID استعمال کریں، Client Secret کبھی نہیں۔ اس کے بغیر Crunchyroll اور AniList کے اسکور رہتے ہیں۔"
+  },
+  "setMalClientInvalid": {
+    "message": "یہ MyAnimeList کا Client ID نہیں لگتا (0–9 اور a–f کے 32 حروف)۔"
+  },
+  "setMalClientSaved": {
+    "message": "Client ID محفوظ ہو گیا۔ MyAnimeList کے اسکور ظاہر ہونے لگیں گے۔"
+  },
+  "setMalClientRemoved": {
+    "message": "Client ID ہٹا دیا گیا: MyAnimeList کے اسکور اب نہیں لائے جائیں گے۔"
+  },
+  "setMalClientNoPermission": {
+    "message": "Client ID محفوظ ہو گیا، لیکن api.myanimelist.net تک رسائی کی اجازت دینا باقی ہے۔"
+  },
+  "setShowTabLabel": {
+    "message": "“$P1$” ٹیب دکھائیں",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setMalScoresLabel": {
+    "message": "MyAnimeList کے اسکور لائیں"
   }
 }

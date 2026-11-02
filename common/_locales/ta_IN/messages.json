@@ -1208,5 +1208,37 @@
   },
   "searchScoresLoadAll": {
     "message": "அனைத்தையும் ஏற்று"
+  },
+  "setMalClientLabel": {
+    "message": "MyAnimeList Client ID (MyAnimeList மதிப்பெண்களுக்கு)"
+  },
+  "btnMalClientSave": {
+    "message": "சேமி"
+  },
+  "setMalClientHelp": {
+    "message": "விருப்பத்தேர்வு. MyAnimeList மதிப்பெண்களைப் பார்க்க, MyAnimeList தளத்தில் இலவச Client ID ஒன்றை உருவாக்கி (Create ID; App Type-இல் \"other\") இங்கே ஒட்டவும். Client ID-யைப் பயன்படுத்தவும், Client Secret-ஐ ஒருபோதும் வேண்டாம். அது இல்லாமலும் Crunchyroll, AniList மதிப்பெண்கள் இருக்கும்."
+  },
+  "setMalClientInvalid": {
+    "message": "இது MyAnimeList Client ID போல் இல்லை (0–9, a–f கொண்ட 32 எழுத்துகள்)."
+  },
+  "setMalClientSaved": {
+    "message": "Client ID சேமிக்கப்பட்டது. MyAnimeList மதிப்பெண்கள் தோன்றத் தொடங்கும்."
+  },
+  "setMalClientRemoved": {
+    "message": "Client ID நீக்கப்பட்டது: MyAnimeList மதிப்பெண்கள் இனி பெறப்படாது."
+  },
+  "setMalClientNoPermission": {
+    "message": "Client ID சேமிக்கப்பட்டது, ஆனால் api.myanimelist.net அணுகலை இன்னும் அனுமதிக்க வேண்டும்."
+  },
+  "setShowTabLabel": {
+    "message": "“$P1$” தாவலைக் காட்டு",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setMalScoresLabel": {
+    "message": "MyAnimeList மதிப்பெண்களைப் பெறு"
   }
 }

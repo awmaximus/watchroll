@@ -50,6 +50,11 @@
   // ---------- preferências ----------
   async function loadSettings() {
     settings = await CRChecker.loadSettings();
+    applyMalClient();
+  }
+  // Notas do MyAnimeList: só com o Client ID e com a opção ligada.
+  function applyMalClient() {
+    CRScores.setClientId(settings.malScores === false ? "" : settings.malClientId);
   }
   const saveSettings = () => CRChecker.saveSettings(settings);
 
@@ -95,10 +100,19 @@
     $("set-extras").checked = settings.showExtras !== false;
     $("set-skipped").checked = !!settings.showSkipped;
     $("set-compact").checked = !!settings.compact;
+    $("set-uptodate").checked = settings.showUpToDate !== false;
+    $("set-uptodate-label").textContent = t("setShowTabLabel", t("secUpToDate"));
+    $("set-malscores").checked = settings.malScores !== false;
     fillSelect(
       $("set-scorettl"),
       CRScores.TTL_HOURS.map((h) => [String(h), t("setScoresTtlHours", h)]),
       String(CRScores.ttlHoursFrom(settings))
+    );
+    $("set-malclient").value = settings.malClientId || "";
+    $("set-malclient").placeholder = "0123456789abcdef0123456789abcdef"; // 32 hexadecimais
+    // Onde criar o Client ID (endereço, igual em todos os idiomas).
+    $("malclient-link").replaceChildren(
+      el("a", { href: "https://myanimelist.net/apiconfig", target: "_blank", rel: "noopener", text: "myanimelist.net/apiconfig ↗" })
     );
     const ms = $("set-minstarted");
     ms.min = CRAnalyzer.MIN_STARTED.min;
@@ -1039,7 +1053,8 @@
   // Cada seção é uma aba. A escolhida fica salva (settings.tab). Durante uma busca,
   // se a aba atual não tiver resultado, mostra a primeira que tiver (sem salvar).
   function renderTabs(tabs) {
-    const shown = tabs.filter((tb) => tb.always || tb.count > 0);
+    // "Em dia" pode ser escondida nas Configurações.
+    const shown = tabs.filter((tb) => (tb.always || tb.count > 0) && !(tb.id === "upToDate" && settings.showUpToDate === false));
     const searching = query.trim() !== "" || filtersActive();
     let active = shown.find((tb) => tb.id === settings.tab) || shown[0];
     if (searching && active.count === 0) active = shown.find((tb) => tb.count > 0) || active;
@@ -1986,6 +2001,30 @@
       e.target.value = settings.autoCheckMinutes;
       await saveSettings(); // o segundo plano reagenda ao ver a mudança
     });
+    // Client ID do MyAnimeList: confere o formato, pede a permissão para
+    // api.myanimelist.net (tem de ser no clique) e busca as notas da tela.
+    const malStatus = (key) => {
+      const st = $("malclient-status");
+      st.hidden = !key;
+      st.textContent = key ? t(key) : "";
+      st.classList.toggle("bad", key === "setMalClientInvalid" || key === "setMalClientNoPermission");
+    };
+    $("btn-malclient").addEventListener("click", async () => {
+      const id = $("set-malclient").value.trim();
+      if (id && !CRScores.validClientId(id)) return malStatus("setMalClientInvalid");
+      const granted = id ? await CRScores.requestMal() : true;
+      settings.malClientId = id;
+      applyMalClient();
+      await saveSettings();
+      malStatus(!id ? "setMalClientRemoved" : granted ? "setMalClientSaved" : "setMalClientNoPermission");
+      malPermitted = granted;
+      checkMalPermission();
+      scoresDoneKey = null;
+      render();
+    });
+    $("set-malclient").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") $("btn-malclient").click();
+    });
     $("set-scorettl").addEventListener("change", async (e) => {
       settings.scoresTtlHours = CRScores.ttlHoursFrom({ scoresTtlHours: e.target.value });
       await saveSettings();
@@ -2012,6 +2051,21 @@
     $("set-compact").addEventListener("change", async (e) => {
       settings.compact = e.target.checked;
       await saveSettings();
+      render();
+    });
+    $("set-uptodate").addEventListener("change", async (e) => {
+      settings.showUpToDate = e.target.checked;
+      await saveSettings();
+      render();
+    });
+    $("set-malscores").addEventListener("change", async (e) => {
+      settings.malScores = e.target.checked;
+      applyMalClient();
+      await saveSettings();
+      if (settings.malScores && settings.malClientId) await CRScores.requestMal(); // no clique
+      malPermitted = await CRScores.malAllowed();
+      checkMalPermission();
+      scoresDoneKey = null;
       render();
     });
     $("btn-export").addEventListener("click", exportSettings);
@@ -2120,6 +2174,11 @@
       if (same(c.newValue, settings)) return;
       const before = settings;
       settings = { ...(await CRChecker.loadSettings()), ...pick(before, ["tab", "listFilter", "genreFilters", "audioFilter"]) };
+      if ((before.malClientId || "") !== (settings.malClientId || "") || before.malScores !== settings.malScores) {
+        applyMalClient();
+        scoresDoneKey = null;
+        checkMalPermission();
+      }
       if ((before.uiLang || "auto") !== (settings.uiLang || "auto")) return location.reload(); // abre já traduzida
       renderSettingsForm();
       renderListsField();

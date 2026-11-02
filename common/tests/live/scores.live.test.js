@@ -1,10 +1,12 @@
 // Testes de acesso real ao AniList e ao MyAnimeList (precisam de internet).
 //
-// Ficam fora de `npm test` (que não usa a rede e roda no CI). Rode à mão:
-//   npm --prefix firefox run test:live
+// Ficam fora de `npm test` (que não usa a rede e roda no CI). Rode à mão, com o seu
+// Client ID do MyAnimeList (o mesmo que você põe nas Configurações da extensão):
+//   WATCHROLL_MAL_CLIENT_ID=seu-client-id npm --prefix firefox run test:live
+// Sem ele, os testes do MyAnimeList são pulados.
 //
 // Servem para saber se, da sua rede, as APIs respondem e se o Client ID do
-// MyAnimeList (common/src/mal-client.js) é aceito. Usam o mesmo código da extensão
+// MyAnimeList é aceito. Usam o mesmo código da extensão
 // (common/src/scores.js); só o armazenamento é falso.
 //
 // Obs.: no Node não existe CORS nem permissão de extensão. Se aqui passar e na
@@ -20,10 +22,13 @@ const FRIEREN = { id: "GG5H5XQX4", title: "Frieren", slug: "frieren-beyond-journ
 const APOTHECARY_MAL = 54492; // ID do MyAnimeList (conferido em nov/2026)
 const TIMEOUT = 30000;
 
+const CLIENT_ID = (process.env.WATCHROLL_MAL_CLIENT_ID || "").trim();
+
 function setup() {
   const b = fakeBrowser();
-  const ctx = load(["src/mal-client.js", "src/scores.js"], { browser: b, AbortController, fetch });
-  return { S: ctx.CRScores, clientId: ctx.MAL_CLIENT_ID, b };
+  const ctx = load(["src/scores.js"], { browser: b, AbortController, fetch });
+  ctx.CRScores.setClientId(CLIENT_ID);
+  return { S: ctx.CRScores, clientId: CLIENT_ID, b };
 }
 
 describe("AniList (graphql.anilist.co)", () => {
@@ -42,10 +47,10 @@ describe("AniList (graphql.anilist.co)", () => {
 });
 
 describe("MyAnimeList — API oficial (api.myanimelist.net)", () => {
-  test("Client ID configurado em common/src/mal-client.js", () => {
-    const { clientId } = setup();
-    assert.ok(clientId && clientId.trim(), "MAL_CLIENT_ID está vazio");
-    assert.match(clientId.trim(), /^[0-9a-f]{32}$/, "o Client ID do MyAnimeList tem 32 caracteres hexadecimais");
+  test("Client ID em WATCHROLL_MAL_CLIENT_ID, no formato certo", (t) => {
+    const { S, clientId } = setup();
+    if (!clientId) return t.skip("defina WATCHROLL_MAL_CLIENT_ID para testar o MyAnimeList");
+    assert.ok(S.validClientId(clientId), "o Client ID do MyAnimeList tem 32 caracteres hexadecimais");
   });
 
   test("o Client ID é aceito e a nota vem", { timeout: TIMEOUT }, async (t) => {
@@ -67,11 +72,11 @@ describe("MyAnimeList — API oficial (api.myanimelist.net)", () => {
 
 describe("de ponta a ponta (como a extensão faz)", () => {
   test("AniList e depois MyAnimeList, com as notas guardadas", { timeout: 60000 }, async () => {
-    const { S, b } = setup();
+    const { S, b, clientId } = setup();
     const all = await S.update([APOTHECARY], { fetchFn: fetch, b });
     const sc = S.scoresOf(all, APOTHECARY.id);
     assert.equal(typeof sc.al, "number", "sem nota do AniList");
     assert.equal(sc.malId, APOTHECARY_MAL);
-    assert.equal(typeof sc.mal, "number", `sem nota do MyAnimeList (guardado: ${JSON.stringify(all[APOTHECARY.id].mal)})`);
+    if (clientId) assert.equal(typeof sc.mal, "number", `sem nota do MyAnimeList (guardado: ${JSON.stringify(all[APOTHECARY.id].mal)})`);
   });
 });

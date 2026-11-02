@@ -1208,5 +1208,37 @@
   },
   "searchScoresLoadAll": {
     "message": "تحميل الكل"
+  },
+  "setMalClientLabel": {
+    "message": "معرّف العميل (Client ID) في MyAnimeList (لتقييمات MyAnimeList)"
+  },
+  "btnMalClientSave": {
+    "message": "حفظ"
+  },
+  "setMalClientHelp": {
+    "message": "اختياري. لعرض تقييمات MyAnimeList، أنشئ Client ID مجانيًا في موقع MyAnimeList (Create ID؛ في App Type اختر \"other\") والصقه هنا. استخدم Client ID وليس Client Secret أبدًا. بدونه تبقى تقييمات Crunchyroll وAniList."
+  },
+  "setMalClientInvalid": {
+    "message": "لا يبدو هذا Client ID من MyAnimeList (‏32 حرفًا ورقمًا من 0–9 وa–f)."
+  },
+  "setMalClientSaved": {
+    "message": "تم حفظ Client ID. ستظهر تقييمات MyAnimeList تدريجيًا."
+  },
+  "setMalClientRemoved": {
+    "message": "تمت إزالة Client ID: لم تعد تقييمات MyAnimeList تُجلب."
+  },
+  "setMalClientNoPermission": {
+    "message": "تم حفظ Client ID، لكن ما زال يجب السماح بالوصول إلى api.myanimelist.net."
+  },
+  "setShowTabLabel": {
+    "message": "إظهار تبويب «$P1$»",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setMalScoresLabel": {
+    "message": "جلب تقييمات MyAnimeList"
   }
 }

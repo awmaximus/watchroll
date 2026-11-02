@@ -1208,5 +1208,37 @@
   },
   "searchScoresLoadAll": {
     "message": "โหลดทั้งหมด"
+  },
+  "setMalClientLabel": {
+    "message": "Client ID ของ MyAnimeList (สำหรับคะแนน MyAnimeList)"
+  },
+  "btnMalClientSave": {
+    "message": "บันทึก"
+  },
+  "setMalClientHelp": {
+    "message": "ไม่บังคับ หากต้องการดูคะแนน MyAnimeList ให้สร้าง Client ID ฟรีที่เว็บไซต์ MyAnimeList (Create ID; ที่ App Type เลือก \"other\") แล้ววางที่นี่ ใช้ Client ID เท่านั้น ห้ามใช้ Client Secret หากไม่มี ยังมีคะแนนจาก Crunchyroll และ AniList"
+  },
+  "setMalClientInvalid": {
+    "message": "ดูเหมือนไม่ใช่ Client ID ของ MyAnimeList (ตัวอักษร 0–9 และ a–f จำนวน 32 ตัว)"
+  },
+  "setMalClientSaved": {
+    "message": "บันทึก Client ID แล้ว คะแนน MyAnimeList จะเริ่มแสดง"
+  },
+  "setMalClientRemoved": {
+    "message": "ลบ Client ID แล้ว: จะไม่ดึงคะแนน MyAnimeList อีก"
+  },
+  "setMalClientNoPermission": {
+    "message": "บันทึก Client ID แล้ว แต่ยังต้องอนุญาตการเข้าถึง api.myanimelist.net"
+  },
+  "setShowTabLabel": {
+    "message": "แสดงแท็บ “$P1$”",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setMalScoresLabel": {
+    "message": "ดึงคะแนน MyAnimeList"
   }
 }

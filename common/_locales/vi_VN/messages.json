@@ -1208,5 +1208,37 @@
   },
   "searchScoresLoadAll": {
     "message": "Tải tất cả"
+  },
+  "setMalClientLabel": {
+    "message": "Client ID của MyAnimeList (cho điểm MyAnimeList)"
+  },
+  "btnMalClientSave": {
+    "message": "Lưu"
+  },
+  "setMalClientHelp": {
+    "message": "Không bắt buộc. Để xem điểm MyAnimeList, hãy tạo Client ID miễn phí trên trang MyAnimeList (Create ID; ở App Type chọn \"other\") rồi dán vào đây. Dùng Client ID, tuyệt đối không dùng Client Secret. Không có nó, vẫn có điểm Crunchyroll và AniList."
+  },
+  "setMalClientInvalid": {
+    "message": "Đây có vẻ không phải Client ID của MyAnimeList (32 ký tự gồm 0–9 và a–f)."
+  },
+  "setMalClientSaved": {
+    "message": "Đã lưu Client ID. Điểm MyAnimeList sẽ dần hiện ra."
+  },
+  "setMalClientRemoved": {
+    "message": "Đã xóa Client ID: không tải điểm MyAnimeList nữa."
+  },
+  "setMalClientNoPermission": {
+    "message": "Đã lưu Client ID, nhưng vẫn cần cho phép truy cập api.myanimelist.net."
+  },
+  "setShowTabLabel": {
+    "message": "Hiện thẻ “$P1$”",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setMalScoresLabel": {
+    "message": "Tải điểm MyAnimeList"
   }
 }

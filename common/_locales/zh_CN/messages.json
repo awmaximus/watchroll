@@ -1208,5 +1208,37 @@
   },
   "searchScoresLoadAll": {
     "message": "全部加载"
+  },
+  "setMalClientLabel": {
+    "message": "MyAnimeList Client ID（用于 MyAnimeList 评分）"
+  },
+  "btnMalClientSave": {
+    "message": "保存"
+  },
+  "setMalClientHelp": {
+    "message": "可选。要查看 MyAnimeList 评分，请在 MyAnimeList 网站创建一个免费的 Client ID（Create ID；App Type 选择“other”）并粘贴到这里。请使用 Client ID，切勿使用 Client Secret。没有它，仍会显示 Crunchyroll 和 AniList 评分。"
+  },
+  "setMalClientInvalid": {
+    "message": "这看起来不是 MyAnimeList 的 Client ID（由 0–9 和 a–f 组成的 32 个字符）。"
+  },
+  "setMalClientSaved": {
+    "message": "已保存 Client ID。MyAnimeList 评分将陆续显示。"
+  },
+  "setMalClientRemoved": {
+    "message": "已移除 Client ID：不再获取 MyAnimeList 评分。"
+  },
+  "setMalClientNoPermission": {
+    "message": "已保存 Client ID，但仍需允许访问 api.myanimelist.net。"
+  },
+  "setShowTabLabel": {
+    "message": "显示“$P1$”标签页",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setMalScoresLabel": {
+    "message": "获取 MyAnimeList 评分"
   }
 }

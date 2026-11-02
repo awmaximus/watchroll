@@ -354,7 +354,8 @@ main {
 }
 
 select,
-input[type="number"] {
+input[type="number"],
+input[type="text"] {
   background: var(--surface-2);
   color: var(--text);
   border: 1px solid var(--line);
@@ -1445,4 +1446,23 @@ a.rating:focus-visible .score-value {
 .result-info .score-line,
 .row-text .score-line {
   margin: 2px 0 0;
+}
+
+/* Client ID do MyAnimeList (Configurações) */
+.malclient {
+  display: flex;
+  gap: 8px;
+  min-width: 0;
+}
+.malclient input {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.85rem;
+}
+.malclient-status {
+  color: var(--green, #3ec46d) !important;
+}
+.malclient-status.bad {
+  color: var(--orange) !important;
 }

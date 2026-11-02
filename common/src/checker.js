@@ -41,6 +41,9 @@ var CRChecker = (() => {
     compact: false, // "Para assistir" em linhas em vez de cards
     groupNever: true, // "A iniciar" agrupado pela temporada de lançamento
     scoresTtlHours: 24, // notas do AniList e do MyAnimeList guardadas por 4, 8, 12 ou 24 h
+    malClientId: "", // Client ID do MyAnimeList do próprio usuário (vazio = sem notas do MyAnimeList)
+    malScores: true, // buscar as notas do MyAnimeList (com o Client ID)
+    showUpToDate: true, // mostrar a aba "Em dia"
   };
 
   // ---------- preferências: locais + sincronizadas (storage.sync) ----------

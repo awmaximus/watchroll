@@ -22,7 +22,7 @@ Features
 - Week tab: the next 7 days of releases. Crunchyroll only lists an episode once it's out, so simulcast times are estimated from the weekly pace. Series releasing in the next few hours get a countdown.
 - Tabs: To watch, Dub pending, Subs pending, Caught up, Week, To start (grouped by anime season), Errors and Hidden, each with its own sorting.
 - Filter bar on every tab: list, category (pick several) and sub/dub.
-- Scores from Crunchyroll, AniList and MyAnimeList on every series, with sorting by any of them; categories (Action, Fantasy, Romance…) on every series.
+- Scores from Crunchyroll, AniList and MyAnimeList (with your own free MyAnimeList Client ID) on every series, with sorting by any of them; categories (Action, Fantasy, Romance…) on every series.
 - Advanced Search over the whole Crunchyroll catalog or only your lists, filtered by dub, category, minimum number of seasons, age rating, year and season. Japanese and romaji title search through AniList.
 - Hide or snooze a series, compact mode, settings export and import.
 - Interface in 27 languages; series titles and links in the language you choose.
@@ -45,7 +45,7 @@ Funções
 - Aba Semana: os lançamentos dos próximos 7 dias. Como a Crunchyroll só mostra o episódio quando ele sai, os horários de simulcast são previstos pelo ritmo semanal. Séries que estreiam nas próximas horas ganham contagem regressiva.
 - Abas: Para assistir, Dub pendente, Legenda pendente, Em dia, Semana, A iniciar (por temporada de anime), Erros e Ocultas, cada uma com sua ordenação.
 - Barra de filtros em todas as abas: lista, categoria (várias de uma vez) e legendado/dublado.
-- Notas da Crunchyroll, do AniList e do MyAnimeList em todas as séries, com ordenação por qualquer uma delas; categorias (Ação, Fantasia, Romance…) em todas as séries.
+- Notas da Crunchyroll, do AniList e do MyAnimeList (com o seu Client ID grátis do MyAnimeList) em todas as séries, com ordenação por qualquer uma delas; categorias (Ação, Fantasia, Romance…) em todas as séries.
 - Pesquisa no catálogo inteiro da Crunchyroll ou só nas suas listas, com filtros de dublagem, categoria, número mínimo de temporadas, classificação indicativa, ano e temporada. Busca por nomes em japonês e romaji pelo AniList.
 - Ocultar ou adiar séries, modo compacto, exportar e importar configurações.
 - Interface em 27 idiomas; títulos e links no idioma que você escolher.
@@ -79,7 +79,7 @@ Shows which episodes of the anime in your Crunchyroll Watchlist and Crunchylists
 | `alarms` | Schedules the periodic background check and an extra check right after each known release time. |
 | `notifications` | Shows a desktop notification when a new episode of a series in the user's lists is out. |
 | Host `https://www.crunchyroll.com/*` | Reads the user's Watchlist, Crunchylists, watch history and the public catalog through Crunchyroll's API, and runs the content scripts that pick up the site's session token. |
-| Host `https://api.myanimelist.net/*` | Reads the public MyAnimeList score of each series (by its MyAnimeList ID) from the official MyAnimeList API, which does not allow cross-origin requests without this permission. Nothing about the user is sent. |
+| Optional host `https://api.myanimelist.net/*` | Requested only when the user saves their own MyAnimeList Client ID in Settings: reads the public MyAnimeList score of each series (by its MyAnimeList ID) from the official MyAnimeList API, which does not allow cross-origin requests without this permission. Nothing about the user is sent. |
 
 **Remote code:** No, I am not using remote code (all scripts are in the package).
 

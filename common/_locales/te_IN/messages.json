@@ -1208,5 +1208,37 @@
   },
   "searchScoresLoadAll": {
     "message": "అన్నీ లోడ్ చేయి"
+  },
+  "setMalClientLabel": {
+    "message": "MyAnimeList Client ID (MyAnimeList స్కోర్‌ల కోసం)"
+  },
+  "btnMalClientSave": {
+    "message": "సేవ్ చేయి"
+  },
+  "setMalClientHelp": {
+    "message": "ఐచ్ఛికం. MyAnimeList స్కోర్‌లు చూడటానికి MyAnimeList సైట్‌లో ఉచిత Client ID సృష్టించి (Create ID; App Typeలో \"other\" ఎంచుకోండి) ఇక్కడ అతికించండి. Client ID వాడండి, Client Secret ఎప్పుడూ వద్దు. అది లేకపోయినా Crunchyroll, AniList స్కోర్‌లు ఉంటాయి."
+  },
+  "setMalClientInvalid": {
+    "message": "ఇది MyAnimeList Client IDలా లేదు (0–9, a–fలతో 32 అక్షరాలు)."
+  },
+  "setMalClientSaved": {
+    "message": "Client ID సేవ్ అయ్యింది. MyAnimeList స్కోర్‌లు కనిపించడం మొదలవుతుంది."
+  },
+  "setMalClientRemoved": {
+    "message": "Client ID తీసివేయబడింది: MyAnimeList స్కోర్‌లు ఇకపై తీసుకురాబడవు."
+  },
+  "setMalClientNoPermission": {
+    "message": "Client ID సేవ్ అయ్యింది, కానీ api.myanimelist.net యాక్సెస్‌ను ఇంకా అనుమతించాలి."
+  },
+  "setShowTabLabel": {
+    "message": "“$P1$” ట్యాబ్ చూపించు",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setMalScoresLabel": {
+    "message": "MyAnimeList స్కోర్‌లు తీసుకురా"
   }
 }

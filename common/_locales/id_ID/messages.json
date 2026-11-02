@@ -1208,5 +1208,37 @@
   },
   "searchScoresLoadAll": {
     "message": "Muat semua"
+  },
+  "setMalClientLabel": {
+    "message": "Client ID MyAnimeList (untuk skor MyAnimeList)"
+  },
+  "btnMalClientSave": {
+    "message": "Simpan"
+  },
+  "setMalClientHelp": {
+    "message": "Opsional. Untuk melihat skor MyAnimeList, buat Client ID gratis di situs MyAnimeList (Create ID; pada App Type, pilih \"other\") lalu tempel di sini. Gunakan Client ID, jangan pernah Client Secret. Tanpanya, skor Crunchyroll dan AniList tetap ada."
+  },
+  "setMalClientInvalid": {
+    "message": "Ini tidak tampak seperti Client ID MyAnimeList (32 huruf dan angka, 0–9 dan a–f)."
+  },
+  "setMalClientSaved": {
+    "message": "Client ID disimpan. Skor MyAnimeList akan mulai muncul."
+  },
+  "setMalClientRemoved": {
+    "message": "Client ID dihapus: skor MyAnimeList tidak diambil lagi."
+  },
+  "setMalClientNoPermission": {
+    "message": "Client ID disimpan, tetapi akses ke api.myanimelist.net masih perlu diizinkan."
+  },
+  "setShowTabLabel": {
+    "message": "Tampilkan tab “$P1$”",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setMalScoresLabel": {
+    "message": "Ambil skor MyAnimeList"
   }
 }
