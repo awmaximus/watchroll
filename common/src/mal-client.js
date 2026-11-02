@@ -7,4 +7,4 @@
 // às vezes fica fora do ar.
 
 // eslint-disable-next-line no-unused-vars
-var MAL_CLIENT_ID = "";
+var MAL_CLIENT_ID = "8fa8d73c8bb01f96a6e62d728e16a5fe";

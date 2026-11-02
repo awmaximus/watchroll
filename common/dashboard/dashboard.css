@@ -1025,6 +1025,7 @@ body.busy select.actions {
 }
 .result-thumb {
   flex: 0 0 120px;
+  align-self: flex-start;
   aspect-ratio: 16 / 9;
   background: var(--surface-2);
   overflow: hidden;
@@ -1049,6 +1050,9 @@ body.busy select.actions {
   flex-wrap: wrap;
   align-items: center;
   gap: 6px;
+}
+.result-tags:empty {
+  display: none;
 }
 .result-tags .dub {
   margin: 0;
@@ -1382,4 +1386,26 @@ a.rating:focus-visible .score-value {
 
 .cal-note {
   margin: 0 0 12px;
+}
+
+/* Notas numa linha só delas (com a classificação indicativa, na Pesquisa);
+   categorias na linha de baixo. */
+.score-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 6px;
+  margin: 2px 0 6px;
+  min-width: 0;
+}
+.result-info .score-line,
+.row-text .score-line {
+  margin: 2px 0 0;
+}
+.row-text .score-line a.rating {
+  font-size: 0.72rem;
+  overflow: visible;
+}
+.row-text .genres {
+  margin-top: 2px;
 }

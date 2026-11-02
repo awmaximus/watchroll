@@ -575,6 +575,13 @@
     return out.length === 1 ? out[0] : el("span", { class: `scores${compact ? " compact" : ""}` }, out);
   }
 
+  // Linha só das notas (e, na Pesquisa, da classificação indicativa).
+  function scoreLine(s, extra = null) {
+    const badge = ratingBadge(s);
+    if (!badge && !extra) return null;
+    return el("div", { class: "score-line" }, badge, extra);
+  }
+
   // Notas do AniList e do MyAnimeList das séries na tela (as que faltam ou estão
   // velhas), depois da verificação, sem atrasar a lista. Redesenha aos poucos.
   // Uma atualização por vez; pedidos feitos no meio esperam e viram um só (o último).
@@ -849,7 +856,8 @@
         "div",
         { class: "info" },
         el("a", { class: "series", href: seriesUrl(s), target: "_blank", rel: "noopener", text: s.title, title: s.title }),
-        el("div", { class: "badges" }, ratingBadge(s), dubBadge(s), listChips(s)),
+        scoreLine(s),
+        el("div", { class: "badges" }, dubBadge(s), listChips(s)),
         genreLine(s),
         el(
           "ul",
@@ -885,7 +893,9 @@
       el(
         "div",
         { class: "row-text" },
-        el("span", { class: "row-title" }, el("a", { href: seriesUrl(s), target: "_blank", rel: "noopener", text: s.title }), ratingBadge(s, { compact: true }), dubBadge(s, { compact: true }), listChips(s, { compact: true }), genreLine(s, { compact: true })),
+        el("span", { class: "row-title" }, el("a", { href: seriesUrl(s), target: "_blank", rel: "noopener", text: s.title }), dubBadge(s, { compact: true }), listChips(s, { compact: true })),
+        scoreLine(s),
+        genreLine(s),
         note ? el("small", { text: note, title: note }) : null
       ),
       el("div", { class: "row-actions" }, extraButton, modeSelect(s), actionsSelect(s))
@@ -1132,11 +1142,10 @@
         { class: "result-info" },
         el("a", { class: "series", href: resultUrl(r), target: "_blank", rel: "noopener", text: r.title, title: r.title }),
         altTitleLine(r),
+        scoreLine(r, r.age == null ? null : el("span", { class: `age age-${r.age}`, text: r.age === 0 ? "L" : String(r.age), title: r.age === 0 ? t("ageFree") : t("ageMin", r.age) })),
         el(
           "div",
           { class: "result-tags" },
-          ratingBadge(r),
-          r.age == null ? null : el("span", { class: `age age-${r.age}`, text: r.age === 0 ? "L" : String(r.age), title: r.age === 0 ? t("ageFree") : t("ageMin", r.age) }),
           dubBadge(s),
           r.inWatchlist ? el("span", { class: "in-list", text: t("searchInList") }) : null
         ),

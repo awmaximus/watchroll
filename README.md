@@ -447,7 +447,7 @@ in [chrome/README.md](chrome/README.md); the store texts are in
 ### Versions
 
 Keep the same `version` in `firefox/manifest.json`, `firefox/package.json`,
-`chrome/manifest.json` and `chrome/package.json` (current: 1.4.3). Publish only even versions to
+`chrome/manifest.json` and `chrome/package.json` (current: 1.4.5). Publish only even versions to
 the Chrome Web Store, like the AMO listing.
 
 ### Continuous integration and releases

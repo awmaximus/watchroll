@@ -30,6 +30,7 @@ var CRScores = (() => {
   const MAL_GAP = 400; // ms entre consultas à API oficial do MyAnimeList
 
   let clientId = typeof MAL_CLIENT_ID === "string" ? MAL_CLIENT_ID.trim() : "";
+  const malSource = () => (clientId ? "mal" : "jikan");
 
   let sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -236,7 +237,10 @@ var CRScores = (() => {
     // 2. MyAnimeList (pelo ID que o AniList deu), um por vez
     const needMal = unique.filter((s) => {
       const e = all[s.id];
-      return e && e.al && e.al.idMal && !fresh(e.mal && e.mal.id === e.al.idMal ? e.mal : null, now);
+      if (!e || !e.al || !e.al.idMal) return false;
+      const m = e.mal && e.mal.id === e.al.idMal ? e.mal : null;
+      // Uma falha de outra fonte (ex.: o Jikan, antes do Client ID) não espera o dia.
+      return !fresh(m && m.failed && m.src !== malSource() ? null : m, now);
     });
     let changed = 0;
     let failures = 0; // 2 falhas seguidas: o serviço está fora; tenta de novo outro dia
@@ -244,15 +248,15 @@ var CRScores = (() => {
       const s = needMal[i];
       const idMal = all[s.id].al.idMal;
       if (failures >= 2) {
-        all[s.id].mal = { id: idMal, failed: true, at: Date.now() };
+        all[s.id].mal = { id: idMal, failed: true, src: malSource(), at: Date.now() };
         continue;
       }
       try {
         const r = await malScore(idMal, fetchFn);
-        all[s.id].mal = { id: idMal, score: r.score, users: r.users, at: Date.now() };
+        all[s.id].mal = { id: idMal, score: r.score, users: r.users, src: malSource(), at: Date.now() };
         failures = 0;
       } catch (err) {
-        all[s.id].mal = { id: idMal, failed: true, at: Date.now() };
+        all[s.id].mal = { id: idMal, failed: true, src: malSource(), at: Date.now() };
         if (!failures) console.warn(`[Watchroll] MyAnimeList${clientId ? "" : " (Jikan)"}:`, err);
         failures++;
       }
