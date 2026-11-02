@@ -287,6 +287,10 @@ var CRSearch = (() => {
         .map(([r]) => r);
     }
     if (sort === "title") return items.slice().sort((a, b) => a.title.localeCompare(b.title, uiLang || undefined));
+    if (sort === "crScore") {
+      const v = (r) => (r.rating ? r.rating.average : -Infinity);
+      return items.slice().sort((a, b) => v(b) - v(a));
+    }
     return items;
   }
 

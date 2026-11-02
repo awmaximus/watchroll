@@ -771,20 +771,8 @@
   "searchLoading": {
     "message": "読み込み中…"
   },
-  "searchNeedAniList": {
-    "message": "Crunchyroll の検索は日本語やローマ字の作品名を理解しません。AniList をオンにすると、検索テキストを AniList に送って作品と英語名を見つけます。"
-  },
-  "searchEnableAniList": {
-    "message": "AniList をオンにする"
-  },
   "searchAniListError": {
     "message": "現在 AniList に接続できません。結果は Crunchyroll の検索のみです。"
-  },
-  "searchAniListNoPermission": {
-    "message": "日本語・ローマ字検索はオンですが、このブラウザではまだ AniList への検索テキストの送信が許可されていません。"
-  },
-  "searchAniListAllow": {
-    "message": "許可"
   },
   "searchAniListMatch": {
     "message": "「$P1$」の英語名は「$P2$」です。",
@@ -804,9 +792,6 @@
         "content": "$1"
       }
     }
-  },
-  "searchAniListTooltip": {
-    "message": "日本語（漢字・かな）やローマ字の作品名でも検索します。検索テキストを AniList に送り、英語名と Crunchyroll のリンクを取得します。設定の同じオプションと連動します。"
   },
   "searchMineEmpty": {
     "message": "ウォッチリストをまだ読み込んでいません。「更新」を押してからもう一度試してください。"
@@ -830,9 +815,6 @@
   },
   "searchInList": {
     "message": "リストにあり"
-  },
-  "setAniListLabel": {
-    "message": "日本語・ローマ字の名前でも検索する(検索テキストを AniList に送信します)"
   },
   "searchCount_one": {
     "message": "1 件"
@@ -1009,6 +991,15 @@
   "sortEpisodesTotal": {
     "message": "総話数が多い順"
   },
+  "sortCrScore": {
+    "message": "Crunchyroll の評価"
+  },
+  "sortAlScore": {
+    "message": "AniList の評価"
+  },
+  "sortMalScore": {
+    "message": "MyAnimeList の評価"
+  },
   "linkHome": {
     "message": "ホーム"
   },
@@ -1017,6 +1008,25 @@
   },
   "ratingTitle": {
     "message": "Crunchyroll の評価: 5 点中 $P1$ · 評価数: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "scoreAlTitle": {
+    "message": "AniList の平均スコア: $P1$%",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "scoreMalTitle": {
+    "message": "MyAnimeList の評価: $P1$ / 10 · 評価数: $P2$",
     "placeholders": {
       "p1": {
         "content": "$1"

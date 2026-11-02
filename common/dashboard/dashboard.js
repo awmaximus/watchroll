@@ -94,11 +94,6 @@
     $("set-openapp").checked = settings.openInApp !== false;
     $("set-extras").checked = settings.showExtras !== false;
     $("set-skipped").checked = !!settings.showSkipped;
-    // Marcada só se a busca pelo AniList funciona de fato neste navegador: ligada e com
-    // a permissão de enviar o texto (a opção sincroniza entre computadores, a
-    // permissão não). Marcar de novo pede a permissão.
-    $("set-anilist").checked = !!settings.anilist;
-    anilistStatus().then((st) => ($("set-anilist").checked = st === "on"));
     $("set-compact").checked = !!settings.compact;
     const ms = $("set-minstarted");
     ms.min = CRAnalyzer.MIN_STARTED.min;
@@ -508,26 +503,99 @@
   const ratingItems = (list) =>
     list.map((s) => ({ id: s.seriesId || s.id, kind: s.kind === "movie" || s.type === "movie" ? "movie" : "series", inline: !!s.rating }));
 
-  // s: resultado da verificação ou da Pesquisa. Primeiro a nota que veio junto.
-  function ratingBadge(s, { compact = false } = {}) {
-    const r = s.rating || ratings[s.seriesId || s.id];
-    if (!r || r.none) return null;
-    const avg = r.average.toLocaleString(UI, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-    const tip = t("ratingTitle", avg, r.total.toLocaleString(UI));
-    // Quantidade de avaliações, abreviada como no site ("63,2 mil", "63.2K"…).
-    let count = "";
+  // ---------- notas: Crunchyroll, AniList e MyAnimeList ----------
+  // Cada nota vem com o ícone do site (o favicon oficial, carregado do próprio site;
+  // sem rede, fica a sigla). AniList e MyAnimeList só com a opção ligada.
+  const SCORE_SITES = {
+    cr: { icon: "https://static.crunchyroll.com/cxweb/assets/img/favicons/favicon-32x32.png", short: "CR", name: "Crunchyroll" },
+    al: { icon: "https://anilist.co/img/icons/favicon-32x32.png", short: "AL", name: "AniList" },
+    mal: { icon: "https://cdn.myanimelist.net/images/favicon.ico", short: "MAL", name: "MyAnimeList" },
+  };
+  let extraScores = {}; // CRScores: id -> { al, mal }
+
+  function siteIcon(site) {
+    const info = SCORE_SITES[site];
+    const img = el("img", { class: "score-icon", src: info.icon, alt: info.short, width: "14", height: "14", loading: "lazy", referrerpolicy: "no-referrer" });
+    img.addEventListener("error", () => img.replaceWith(el("span", { class: "score-abbr", text: info.short })), { once: true });
+    return img;
+  }
+
+  const compactNumber = (n) => {
     try {
-      count = new Intl.NumberFormat(UI, { notation: "compact", maximumFractionDigits: 1 }).format(r.total);
+      return new Intl.NumberFormat(UI, { notation: "compact", maximumFractionDigits: 1 }).format(n);
     } catch (_) {
-      count = r.total.toLocaleString(UI);
+      return Number(n).toLocaleString(UI);
     }
-    return el(
-      "span",
-      { class: `rating${compact ? " compact" : ""}`, title: tip, "aria-label": tip, role: "img" },
-      el("span", { class: "star", "aria-hidden": "true", text: "★" }),
-      avg,
-      r.total > 0 ? el("span", { class: "rating-count", "aria-hidden": "true", text: `(${count})` }) : null
-    );
+  };
+
+  // Nota da Crunchyroll de uma série (a que veio junto ou a guardada), ou null.
+  const crRating = (s) => {
+    const r = s.rating || ratings[s.seriesId || s.id];
+    return r && !r.none && typeof r.average === "number" ? r : null;
+  };
+
+  // Valor usado na ordenação por nota.
+  function scoreOf(s, key) {
+    if (key === "crScore") {
+      const r = crRating(s);
+      return r ? r.average : null;
+    }
+    const sc = CRScores.scoresOf(extraScores, s.seriesId || s.id);
+    if (key === "alScore") return sc.al;
+    if (key === "malScore") return sc.mal;
+    return null;
+  }
+
+  function scoreBadge(site, value, tip, { compact = false, href = null, count = null } = {}) {
+    const attrs = { class: `rating score-${site}${compact ? " compact" : ""}`, title: tip, "aria-label": tip };
+    const kids = [siteIcon(site), el("span", { class: "score-value", text: value })];
+    if (count) kids.push(el("span", { class: "rating-count", "aria-hidden": "true", text: `(${count})` }));
+    return href
+      ? el("a", { ...attrs, href, target: "_blank", rel: "noopener" }, kids)
+      : el("span", { ...attrs, role: "img" }, kids);
+  }
+
+  // s: resultado da verificação ou da Pesquisa.
+  function ratingBadge(s, { compact = false } = {}) {
+    const out = [];
+    const r = crRating(s);
+    if (r) {
+      const avg = r.average.toLocaleString(UI, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+      out.push(scoreBadge("cr", avg, t("ratingTitle", avg, r.total.toLocaleString(UI)), { compact, count: r.total > 0 ? compactNumber(r.total) : null }));
+    }
+    {
+      const sc = CRScores.scoresOf(extraScores, s.seriesId || s.id);
+      if (sc.al != null) {
+        out.push(scoreBadge("al", `${sc.al}%`, t("scoreAlTitle", sc.al), { compact, href: sc.alId ? `https://anilist.co/anime/${sc.alId}` : null }));
+      }
+      if (sc.mal != null) {
+        const v = sc.mal.toLocaleString(UI, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        out.push(
+          scoreBadge("mal", v, t("scoreMalTitle", v, sc.malUsers.toLocaleString(UI)), {
+            compact,
+            href: sc.malId ? `https://myanimelist.net/anime/${sc.malId}` : null,
+            count: sc.malUsers ? compactNumber(sc.malUsers) : null,
+          })
+        );
+      }
+    }
+    if (!out.length) return null;
+    return out.length === 1 ? out[0] : el("span", { class: `scores${compact ? " compact" : ""}` }, out);
+  }
+
+  // Notas do AniList e do MyAnimeList das séries na tela (as que faltam ou estão
+  // velhas), depois da verificação, sem atrasar a lista. Redesenha aos poucos.
+  let scoresRender = null;
+  async function wantScores(list) {
+    if (!list.length) return;
+    const series = list.map((x) => ({ id: x.seriesId || x.id, title: x.title, slug: x.slug }));
+    CRScores.update(series, {
+      onUpdate: (all) => {
+        extraScores = all;
+        clearTimeout(scoresRender);
+        scoresRender = setTimeout(() => render(), 150);
+      },
+    }).catch((err) => console.warn("[Watchroll]", err));
   }
 
   // ---------- links ----------
@@ -884,7 +952,7 @@
     const searching = query.trim() !== "" || filtersActive();
     let active = shown.find((tb) => tb.id === settings.tab) || shown[0];
     if (searching && active.count === 0) active = shown.find((tb) => tb.count > 0) || active;
-    const sorts = CRChecker.TAB_SORTS[active.id];
+    const sorts = CRChecker.sortsFor(settings, active.id);
     $("sort-wrap").hidden = !sorts || sorts.length < 2;
     if (sorts) fillSelect($("sort"), sorts.map((k) => [k, t(CRChecker.SORTS[k])]), CRChecker.sortFor(settings, active.id));
     $("sort").dataset.tab = active.id;
@@ -974,46 +1042,6 @@
       ? `https://www.crunchyroll.com${prefix()}/search?q=${encodeURIComponent(r.title)}`
       : `https://www.crunchyroll.com${prefix()}/series/${r.id}/${r.slug || ""}`;
 
-  // Busca pelo AniList: "off" (opção desligada), "noperm" (ligada, mas este Firefox
-  // ainda não deu a permissão de enviar o texto da busca; a opção vem sincronizada
-  // de outro computador, a permissão não) ou "on".
-  async function anilistStatus() {
-    if (!settings.anilist) return "off";
-    try {
-      return (await browser.permissions.contains({ data_collection: ["searchTerms"] })) ? "on" : "noperm";
-    } catch (_) {
-      return "on"; // Chrome / Firefox sem permissões de coleta de dados: vale a opção
-    }
-  }
-
-  // Estado da caixa "AniList" da Pesquisa: ligada e com a permissão (o status é
-  // conferido em segundo plano e a Pesquisa é redesenhada se mudar).
-  function aniChecked() {
-    if (!settings.anilist) return false;
-    if (searchState.aniStatus === undefined) {
-      searchState.aniStatus = null;
-      anilistStatus().then((st) => {
-        searchState.aniStatus = st;
-        if (settings.tab === "search" && st !== "on") render();
-      });
-    }
-    return searchState.aniStatus !== "noperm";
-  }
-
-  // Pede a permissão de enviar o texto da busca ao AniList (precisa de um clique).
-  async function enableAniList() {
-    let ok = true;
-    try {
-      ok = await browser.permissions.request({ data_collection: ["searchTerms"] });
-    } catch (_) {
-      ok = true;
-    }
-    settings.anilist = !!ok;
-    await saveSettings();
-    $("set-anilist").checked = settings.anilist;
-    return settings.anilist;
-  }
-
   function loadSeasons() {
     if (searchState.seasons || searchState.seasonsLoading) return;
     searchState.seasonsLoading = true;
@@ -1055,7 +1083,7 @@
         filters: searchState.filters,
         settings,
         watchIds: watchIds(),
-        useAniList: (searchState.aniStatus = await anilistStatus()) === "on",
+        useAniList: true, // romaji/kanji e nome em inglês: sempre pelo AniList
         uiLang: CRI18n.lang(),
       });
       searchState.items = r.items;
@@ -1152,32 +1180,6 @@
           { class: `btn${st.loading ? " is-loading" : ""}`, type: "submit", disabled: st.loading || null, "aria-busy": st.loading ? "true" : null },
           st.loading ? el("span", { class: "spinner small", "aria-hidden": "true" }) : null,
           el("span", { text: t("searchButton") })
-        ),
-        // Atalho para a opção das Configurações "Buscar também nomes em japonês e
-        // romaji": é a mesma preferência (e a mesma permissão do Firefox).
-        el(
-          "label",
-          { class: "ani-toggle", title: t("searchAniListTooltip") },
-          el("input", {
-            id: "sq-anilist",
-            type: "checkbox",
-            checked: aniChecked() || null,
-            "aria-describedby": "sq-anilist-tip",
-            onchange: async (e) => {
-              if (e.target.checked) {
-                if (!(await enableAniList())) e.target.checked = false; // permissão negada
-              } else {
-                settings.anilist = false;
-                await saveSettings();
-                $("set-anilist").checked = false;
-              }
-              searchState.aniStatus = await anilistStatus();
-              if (st.q.trim()) runSearch();
-              else render();
-            },
-          }),
-          el("span", { text: "AniList" }),
-          el("span", { id: "sq-anilist-tip", class: "visually-hidden", text: t("searchAniListTooltip") })
         )
       ),
       el(
@@ -1293,7 +1295,8 @@
             { id: "sf-sort", onchange: onFilter("sort") },
             opt("default", t("searchSortDefault"), f.sort),
             opt("year", t("searchSortYear"), f.sort),
-            opt("title", t("searchSortTitle"), f.sort)
+            opt("title", t("searchSortTitle"), f.sort),
+            opt("crScore", t("sortCrScore"), f.sort)
           )
         )
       )
@@ -1301,30 +1304,7 @@
 
     const parts = [form];
     const q = st.q.trim();
-    const askAniList = (text, label) =>
-      el(
-        "p",
-        { class: "notice-inline" },
-        el("span", { text }),
-        el("button", {
-          class: "btn ghost small",
-          type: "button",
-          text: label,
-          onclick: async () => {
-            if (await enableAniList()) runSearch();
-          },
-        })
-      );
-    if (q && st.items && st.aniStatus === "noperm") {
-      // Ligado nas Configurações, mas sem a permissão neste navegador (precisa de um clique).
-      parts.push(askAniList(t("searchAniListNoPermission"), t("searchAniListAllow")));
-    } else if (q && st.items && st.anilist === "off") {
-      // Desligado: sugere ligar quando o texto parece japonês/romaji (nada com esse nome
-      // na busca da Crunchyroll).
-      const want = CRSearch.simplify(q);
-      const hit = st.items.some((r) => CRSearch.simplify(r.title).includes(want));
-      if (CRSearch.hasCJK(q) || !hit) parts.push(askAniList(t("searchNeedAniList"), t("searchEnableAniList")));
-    } else if (st.anilist === "error") {
+    if (st.anilist === "error") {
       parts.push(el("p", { class: "notice-inline", text: t("searchAniListError") }));
     }
     // O que o AniList entendeu do texto: "romaji/japonês" → nome em inglês.
@@ -1385,9 +1365,12 @@
     } else {
       parts.push(el("p", { class: "result-count", text: tn("searchCount", st.items.length) }));
       if (st.items.length) {
-        const visible = st.items.slice(0, st.shown);
+        // Pela nota da Crunchyroll: também a das notas buscadas depois (não só as que vieram junto).
+        const ordered = f.sort === "crScore" ? CRChecker.sortResults(st.items, "crScore", scoreOf) : st.items;
+        const visible = ordered.slice(0, st.shown);
         parts.push(el("div", { class: "results" }, visible.map(resultCard)));
         wantRatings(ratingItems(visible));
+        wantScores(visible);
       }
       if (st.items.length > st.shown) {
         parts.push(
@@ -1476,7 +1459,7 @@
     const results = visible.filter(match);
     const hidden = hiddenAll.filter(match);
     const by = (tab) => CRChecker.sortFor(settings, tab);
-    const sorted = (tab, list) => CRChecker.sortResults(list, by(tab));
+    const sorted = (tab, list) => CRChecker.sortResults(list, by(tab), scoreOf);
     const pending = sorted("toWatch", results.filter((r) => r.status === "pending"));
     // Aguardando dublagem: episódios que já saíram sem a dublagem no seu idioma. Se a
     // temporada atual não tem nenhum episódio dublado (noDub), a nota avisa que a
@@ -1657,6 +1640,7 @@
       await CRApi.release();
       setBusy(false);
       wantRatings(ratingItems(results)); // notas que faltam, depois da verificação
+      wantScores(results.filter((r) => r.status !== "error"));
     }
   }
 
@@ -1780,6 +1764,7 @@
     document.documentElement.classList.toggle("android", onAndroid);
     document.addEventListener("click", openInAppHandler, true);
     await loadRatings();
+    extraScores = await CRScores.load();
     // Idioma da interface: o escolhido nas Configurações, ou o do navegador.
     await CRI18n.init(settings.uiLang || "auto");
     CRI18n.applyToDocument();
@@ -1836,14 +1821,6 @@
       settings.uiLang = e.target.value;
       await saveSettings();
       location.reload();
-    });
-    $("set-anilist").addEventListener("change", async (e) => {
-      if (e.target.checked) await enableAniList();
-      else {
-        settings.anilist = false;
-        await saveSettings();
-      }
-      searchState.aniStatus = await anilistStatus(); // a caixa "AniList" da Pesquisa acompanha
     });
     $("set-compact").addEventListener("change", async (e) => {
       settings.compact = e.target.checked;

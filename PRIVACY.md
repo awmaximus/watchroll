@@ -1,6 +1,6 @@
 # Privacy Policy – Watchroll
 
-Last updated: October 29, 2026
+Last updated: November 2, 2026
 
 Watchroll – New Episodes for Crunchyroll ("the extension") is an unofficial browser extension for Firefox and for Chrome and
 Chromium-based browsers (Edge, Brave, Opera, Vivaldi). It is not
@@ -9,10 +9,11 @@ affiliated with or endorsed by Crunchyroll.
 ## Summary
 
 - The extension has no servers of its own and collects no analytics or telemetry.
-- It only talks to Crunchyroll, using your own session, to read your lists and watch progress.
+- It talks to Crunchyroll, using your own session, to read your lists and watch progress.
+- To show scores and understand Japanese and romaji titles, it also sends anime names and IDs to
+  AniList and Jikan (a public MyAnimeList data service). Never your account, history or progress.
 - Everything it stores stays in your browser profile; your settings are also synced to your
   other computers through the browser's own sync, if you use it.
-- The only optional third party is AniList, and only if you turn that option on.
 - It does not run in private windows, so nothing from private browsing is read or stored.
 
 ## Data the extension reads
@@ -48,13 +49,24 @@ Apart from that, this data is never sent anywhere else. Removing the extension d
 creates a file with your settings only (no login data, tokens or history); the file stays
 wherever you save it.
 
-## Optional: AniList
+## AniList and MyAnimeList (Jikan)
 
-Advanced Search can also look up Japanese and romaji titles. This is **off by default**. If you
-turn on *Also search Japanese and romaji names* (in Firefox, the browser asks for permission to
-share search terms), then the text you type in Advanced Search is sent to AniList (`graphql.anilist.co`)
-to find the matching title. Nothing else is sent: no account data, lists or history. AniList's
-own privacy policy applies to that request. You can turn the option off at any time.
+To show the AniList and MyAnimeList scores of your series and to find anime by their Japanese or
+romaji names, the extension sends, directly from your browser:
+
+- to **AniList** (`graphql.anilist.co`): the names of the series in your lists and in your
+  Advanced Search results (as they appear in Crunchyroll's web addresses, in English), and the
+  text you type in Advanced Search;
+- to **Jikan** (`api.jikan.moe`, a public service with MyAnimeList's data): the MyAnimeList IDs
+  of those series;
+- the score badges show each site's icon, loaded from the site itself (`anilist.co`,
+  `myanimelist.net`, `crunchyroll.com`).
+
+Nothing else is sent: no Crunchyroll account data, watch history, progress, settings or
+identifiers. The scores are kept on your device for up to 7 days. These services' own privacy
+policies apply to those requests. In Firefox, these transfers are declared as the "search terms"
+and "website content" data-collection permissions the browser shows when you install the
+extension.
 
 ## Diagnostics
 

@@ -771,20 +771,8 @@
   "searchLoading": {
     "message": "Yükleniyor…"
   },
-  "searchNeedAniList": {
-    "message": "Crunchyroll araması Japonca veya romaji adları anlamaz. AniList açıkken arama metni ona gönderilir ve başlık ile İngilizce adı bulunur."
-  },
-  "searchEnableAniList": {
-    "message": "AniList'i aç"
-  },
   "searchAniListError": {
     "message": "AniList'e şu anda ulaşılamıyor; sonuçlar yalnızca Crunchyroll aramasından."
-  },
-  "searchAniListNoPermission": {
-    "message": "Japonca ve romaji arama açık, ancak bu tarayıcı arama metnini AniList'e göndermeye henüz izin vermedi."
-  },
-  "searchAniListAllow": {
-    "message": "İzin ver"
   },
   "searchAniListMatch": {
     "message": "“$P1$” İngilizce adı: “$P2$”.",
@@ -804,9 +792,6 @@
         "content": "$1"
       }
     }
-  },
-  "searchAniListTooltip": {
-    "message": "Japonca (kanji ve kana) ve romaji adlarla da arar: arama metni AniList'e gönderilir; o da İngilizce adı ve Crunchyroll bağlantısını döndürür. Ayarlar'daki seçenekle aynıdır."
   },
   "searchMineEmpty": {
     "message": "İzleme listen henüz okunmadı. Yenile'ye tıkla ve tekrar dene."
@@ -830,9 +815,6 @@
   },
   "searchInList": {
     "message": "Listelerinde"
-  },
-  "setAniListLabel": {
-    "message": "Japonca ve romaji adlarla da ara (arama metnini AniList'e gönderir)"
   },
   "searchCount_one": {
     "message": "1 sonuç"
@@ -1009,6 +991,15 @@
   "sortEpisodesTotal": {
     "message": "Toplamda en çok bölüm"
   },
+  "sortCrScore": {
+    "message": "Crunchyroll puanı"
+  },
+  "sortAlScore": {
+    "message": "AniList puanı"
+  },
+  "sortMalScore": {
+    "message": "MyAnimeList puanı"
+  },
   "linkHome": {
     "message": "Ana sayfa"
   },
@@ -1017,6 +1008,25 @@
   },
   "ratingTitle": {
     "message": "Crunchyroll puanı: 5 üzerinden $P1$ · oy sayısı: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "scoreAlTitle": {
+    "message": "AniList ortalama puanı: %$P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "scoreMalTitle": {
+    "message": "MyAnimeList puanı: 10 üzerinden $P1$ · oy: $P2$",
     "placeholders": {
       "p1": {
         "content": "$1"

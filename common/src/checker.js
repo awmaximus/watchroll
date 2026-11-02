@@ -31,7 +31,6 @@ var CRChecker = (() => {
     sortBy: "released",
     sortByTab: {},
     tab: "toWatch",
-    anilist: false,
     uiLang: "auto",
     sources: ["watchlist"], // "watchlist" (a Fila) e/ou IDs de Crunchylists
     listNames: {}, // ID da Crunchylist -> nome (o último lido da API)
@@ -356,16 +355,21 @@ var CRChecker = (() => {
     season: "sortSeason",
     seasons: "sortSeasonsCount",
     episodes: "sortEpisodesTotal",
+    crScore: "sortCrScore",
+    alScore: "sortAlScore",
+    malScore: "sortMalScore",
   };
+  // Pelas notas: Crunchyroll, AniList e MyAnimeList.
+  const SCORE_SORTS = ["crScore", "alScore", "malScore"];
   // Ordenações que fazem sentido em cada aba (a primeira é a padrão).
   const TAB_SORTS = {
-    toWatch: ["released", "watched", "count", "title"],
-    waitDub: ["waiting", "watched", "title"],
-    waitSub: ["waiting", "watched", "title"],
-    upToDate: ["watched", "next", "title"],
-    never: ["season", "title", "seasons", "episodes"],
+    toWatch: ["released", "watched", "count", "title", ...SCORE_SORTS],
+    waitDub: ["waiting", "watched", "title", ...SCORE_SORTS],
+    waitSub: ["waiting", "watched", "title", ...SCORE_SORTS],
+    upToDate: ["watched", "next", "title", ...SCORE_SORTS],
+    never: ["season", "title", "seasons", "episodes", ...SCORE_SORTS],
     errors: ["title"],
-    hidden: ["title", "watched"],
+    hidden: ["title", "watched", ...SCORE_SORTS],
   };
   const SEASON_RANK = { winter: 0, spring: 1, summer: 2, fall: 3 };
   const launchRank = (r) => (r.launch ? r.launch.year * 10 + (SEASON_RANK[r.launch.season] ?? 0) : -1);
@@ -375,13 +379,30 @@ var CRChecker = (() => {
   const statOf = (r, k) => (r.stats && typeof r.stats[k] === "number" ? r.stats[k] : -1);
 
   // Ordenação escolhida para a aba (salva por aba; "Para assistir" herda a antiga sortBy).
+  // Ordenações disponíveis na aba.
+  function sortsFor(settings, tab) {
+    return TAB_SORTS[tab] || ["title"];
+  }
+
   function sortFor(settings, tab) {
-    const allowed = TAB_SORTS[tab] || ["title"];
+    const allowed = sortsFor(settings, tab);
     const saved = (settings.sortByTab || {})[tab] || (tab === "toWatch" ? settings.sortBy : null);
     return allowed.includes(saved) ? saved : allowed[0];
   }
 
-  function sortResults(list, by) {
+  /**
+   * Ordena os resultados. scoreOf(r, "crScore"|"alScore"|"malScore") dá a nota da
+   * série (número ou null); nas ordenações por nota, a maior vem primeiro e quem não
+   * tem nota vai para o fim.
+   */
+  function sortResults(list, by, scoreOf = () => null) {
+    if (SCORE_SORTS.includes(by)) {
+      const val = (r) => {
+        const v = scoreOf(r, by);
+        return typeof v === "number" && Number.isFinite(v) ? v : -Infinity;
+      };
+      return [...list].sort((a, b) => val(b) - val(a) || byTitle(a, b));
+    }
     const cmp = {
       released: (a, b) => newestRelease(b) - newestRelease(a) || byTitle(a, b),
       watched: (a, b) => (b.lastWatchedAt || 0) - (a.lastWatchedAt || 0) || byTitle(a, b),
@@ -595,6 +616,8 @@ var CRChecker = (() => {
     hasAudio,
     SORTS,
     TAB_SORTS,
+    SCORE_SORTS,
+    sortsFor,
     sortFor,
     sortResults,
     sortPending,

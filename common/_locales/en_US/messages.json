@@ -777,20 +777,8 @@
   "searchLoading": {
     "message": "Loading…"
   },
-  "searchNeedAniList": {
-    "message": "Crunchyroll's search doesn't understand Japanese or romaji names. With AniList on, the search text is sent to it to find the title and its English name."
-  },
-  "searchEnableAniList": {
-    "message": "Turn on AniList"
-  },
   "searchAniListError": {
     "message": "Couldn't reach AniList right now; results come only from Crunchyroll's search."
-  },
-  "searchAniListNoPermission": {
-    "message": "Japanese and romaji search is on, but this browser hasn't allowed sending the search text to AniList yet."
-  },
-  "searchAniListAllow": {
-    "message": "Allow"
   },
   "searchAniListMatch": {
     "message": "“$P1$” in English is “$P2$”.",
@@ -810,9 +798,6 @@
         "content": "$1"
       }
     }
-  },
-  "searchAniListTooltip": {
-    "message": "Also search Japanese (kanji and kana) and romaji names: the search text is sent to AniList, which returns the English name and the Crunchyroll link. Same as the option in Settings."
   },
   "searchMineEmpty": {
     "message": "Your Watchlist hasn't been read yet. Click Refresh and try again."
@@ -836,9 +821,6 @@
   },
   "searchInList": {
     "message": "In your lists"
-  },
-  "setAniListLabel": {
-    "message": "Also search Japanese and romaji names (sends the search text to AniList)"
   },
   "searchCount_one": {
     "message": "1 result"
@@ -1015,6 +997,15 @@
   "sortEpisodesTotal": {
     "message": "Most episodes in total"
   },
+  "sortCrScore": {
+    "message": "Crunchyroll rating"
+  },
+  "sortAlScore": {
+    "message": "AniList score"
+  },
+  "sortMalScore": {
+    "message": "MyAnimeList score"
+  },
   "linkHome": {
     "message": "Home"
   },
@@ -1023,6 +1014,25 @@
   },
   "ratingTitle": {
     "message": "Crunchyroll rating: $P1$ out of 5 · ratings: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "scoreAlTitle": {
+    "message": "AniList average score: $P1$%",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "scoreMalTitle": {
+    "message": "MyAnimeList score: $P1$ of 10 · ratings: $P2$",
     "placeholders": {
       "p1": {
         "content": "$1"

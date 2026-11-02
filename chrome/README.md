@@ -25,9 +25,9 @@ dist/               generated packages (not in git)
   checks the URL itself before reusing the extension's tab.
 - The store description must be 132 characters or less, so the Chrome manifest uses
   `extDescriptionShort` (27 languages) instead of Firefox's longer `extDescription`.
-- Firefox-only features fall back silently: there is no "share search terms" permission (the
-  AniList option just turns on), and the "open in the Crunchyroll app" option (Firefox for
-  Android) never shows.
+- Firefox-only features fall back silently: Chrome has no data-collection permissions (the
+  AniList and MyAnimeList requests just work, as described in the privacy policy), and the
+  "open in the Crunchyroll app" option (Firefox for Android) never shows.
 
 ## Build
 

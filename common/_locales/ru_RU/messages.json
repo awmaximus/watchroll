@@ -771,20 +771,8 @@
   "searchLoading": {
     "message": "Загрузка…"
   },
-  "searchNeedAniList": {
-    "message": "Поиск Crunchyroll не понимает японские названия и ромадзи. Если включён AniList, текст поиска отправляется туда, чтобы найти тайтл и его английское название."
-  },
-  "searchEnableAniList": {
-    "message": "Включить AniList"
-  },
   "searchAniListError": {
     "message": "AniList сейчас недоступен; результаты только из поиска Crunchyroll."
-  },
-  "searchAniListNoPermission": {
-    "message": "Поиск на японском и ромадзи включён, но этот браузер ещё не разрешил отправлять текст поиска в AniList."
-  },
-  "searchAniListAllow": {
-    "message": "Разрешить"
   },
   "searchAniListMatch": {
     "message": "«$P1$» по-английски — «$P2$».",
@@ -804,9 +792,6 @@
         "content": "$1"
       }
     }
-  },
-  "searchAniListTooltip": {
-    "message": "Искать также по японским (кандзи и кана) названиям и ромадзи: текст поиска отправляется в AniList, который возвращает английское название и ссылку на Crunchyroll. Та же настройка, что и в разделе «Настройки»."
   },
   "searchMineEmpty": {
     "message": "Ваш список ещё не загружен. Нажмите «Обновить» и попробуйте снова."
@@ -830,9 +815,6 @@
   },
   "searchInList": {
     "message": "В ваших списках"
-  },
-  "setAniListLabel": {
-    "message": "Искать также японские названия и ромадзи (текст запроса отправляется в AniList)"
   },
   "searchCount_one": {
     "message": "Результатов: 1"
@@ -1009,6 +991,15 @@
   "sortEpisodesTotal": {
     "message": "Больше всего серий"
   },
+  "sortCrScore": {
+    "message": "Оценка Crunchyroll"
+  },
+  "sortAlScore": {
+    "message": "Оценка AniList"
+  },
+  "sortMalScore": {
+    "message": "Оценка MyAnimeList"
+  },
   "linkHome": {
     "message": "Главная"
   },
@@ -1017,6 +1008,25 @@
   },
   "ratingTitle": {
     "message": "Оценка на Crunchyroll: $P1$ из 5 · оценок: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "scoreAlTitle": {
+    "message": "Средняя оценка AniList: $P1$%",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "scoreMalTitle": {
+    "message": "Оценка MyAnimeList: $P1$ из 10 · оценок: $P2$",
     "placeholders": {
       "p1": {
         "content": "$1"

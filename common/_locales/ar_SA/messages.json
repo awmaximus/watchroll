@@ -771,20 +771,8 @@
   "searchLoading": {
     "message": "جارٍ التحميل…"
   },
-  "searchNeedAniList": {
-    "message": "بحث Crunchyroll لا يفهم الأسماء اليابانية أو المكتوبة بالروماجي. عند تشغيل AniList يُرسَل نص البحث إليه للعثور على العنوان واسمه بالإنجليزية."
-  },
-  "searchEnableAniList": {
-    "message": "تفعيل AniList"
-  },
   "searchAniListError": {
     "message": "تعذّر الاتصال بـ AniList الآن؛ النتائج من بحث Crunchyroll فقط."
-  },
-  "searchAniListNoPermission": {
-    "message": "البحث باليابانية والروماجي مفعّل، لكن هذا المتصفح لم يسمح بعد بإرسال نص البحث إلى AniList."
-  },
-  "searchAniListAllow": {
-    "message": "سماح"
   },
   "searchAniListMatch": {
     "message": "اسم «$P1$» بالإنجليزية هو «$P2$».",
@@ -804,9 +792,6 @@
         "content": "$1"
       }
     }
-  },
-  "searchAniListTooltip": {
-    "message": "يبحث أيضًا بالأسماء اليابانية (كانجي وكانا) وبالروماجي: يُرسَل نص البحث إلى AniList الذي يعيد الاسم الإنجليزي ورابط Crunchyroll. هو نفس الخيار الموجود في الإعدادات."
   },
   "searchMineEmpty": {
     "message": "لم تتم قراءة قائمة المشاهدة بعد. انقر تحديث وحاول مجددًا."
@@ -830,9 +815,6 @@
   },
   "searchInList": {
     "message": "في قوائمك"
-  },
-  "setAniListLabel": {
-    "message": "البحث أيضًا بالأسماء اليابانية والروماجي (يُرسل نص البحث إلى AniList)"
   },
   "searchCount_one": {
     "message": "النتائج: 1"
@@ -1009,6 +991,15 @@
   "sortEpisodesTotal": {
     "message": "الأكثر حلقات إجمالًا"
   },
+  "sortCrScore": {
+    "message": "تقييم Crunchyroll"
+  },
+  "sortAlScore": {
+    "message": "تقييم AniList"
+  },
+  "sortMalScore": {
+    "message": "تقييم MyAnimeList"
+  },
   "linkHome": {
     "message": "الرئيسية"
   },
@@ -1017,6 +1008,25 @@
   },
   "ratingTitle": {
     "message": "تقييم Crunchyroll: $P1$ من 5 · عدد التقييمات: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "scoreAlTitle": {
+    "message": "متوسط تقييم AniList: ‏$P1$%",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "scoreMalTitle": {
+    "message": "تقييم MyAnimeList: ‏$P1$ من 10 · عدد التقييمات: $P2$",
     "placeholders": {
       "p1": {
         "content": "$1"

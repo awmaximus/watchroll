@@ -771,20 +771,8 @@
   "searchLoading": {
     "message": "لوڈ ہو رہا ہے…"
   },
-  "searchNeedAniList": {
-    "message": "Crunchyroll کی تلاش جاپانی یا رومانجی نام نہیں سمجھتی۔ AniList آن ہو تو تلاش کا متن اسے بھیجا جاتا ہے تاکہ عنوان اور اس کا انگریزی نام مل سکے۔"
-  },
-  "searchEnableAniList": {
-    "message": "AniList آن کریں"
-  },
   "searchAniListError": {
     "message": "ابھی AniList سے رابطہ نہ ہو سکا؛ نتائج صرف Crunchyroll کی تلاش سے۔"
-  },
-  "searchAniListNoPermission": {
-    "message": "جاپانی اور رومانجی تلاش آن ہے، لیکن اس براؤزر نے ابھی تک تلاش کا متن AniList کو بھیجنے کی اجازت نہیں دی۔"
-  },
-  "searchAniListAllow": {
-    "message": "اجازت دیں"
   },
   "searchAniListMatch": {
     "message": "“$P1$” کا انگریزی نام “$P2$” ہے۔",
@@ -804,9 +792,6 @@
         "content": "$1"
       }
     }
-  },
-  "searchAniListTooltip": {
-    "message": "جاپانی (کانجی اور کانا) اور رومانجی ناموں سے بھی تلاش کریں: تلاش کا متن AniList کو بھیجا جاتا ہے، جو انگریزی نام اور Crunchyroll لنک واپس دیتا ہے۔ یہ ترتیبات والا ہی آپشن ہے۔"
   },
   "searchMineEmpty": {
     "message": "آپ کی واچ لسٹ ابھی پڑھی نہیں گئی۔ تازہ کریں اور دوبارہ کوشش کریں۔"
@@ -830,9 +815,6 @@
   },
   "searchInList": {
     "message": "آپ کی فہرستوں میں"
-  },
-  "setAniListLabel": {
-    "message": "جاپانی اور روماجی ناموں سے بھی تلاش کریں (تلاش کا متن AniList کو بھیجتا ہے)"
   },
   "searchCount_one": {
     "message": "1 نتیجہ"
@@ -1009,6 +991,15 @@
   "sortEpisodesTotal": {
     "message": "کل سب سے زیادہ اقساط"
   },
+  "sortCrScore": {
+    "message": "Crunchyroll ریٹنگ"
+  },
+  "sortAlScore": {
+    "message": "AniList ریٹنگ"
+  },
+  "sortMalScore": {
+    "message": "MyAnimeList ریٹنگ"
+  },
   "linkHome": {
     "message": "ہوم"
   },
@@ -1017,6 +1008,25 @@
   },
   "ratingTitle": {
     "message": "Crunchyroll ریٹنگ: 5 میں سے $P1$ · ریٹنگز: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "scoreAlTitle": {
+    "message": "AniList اوسط اسکور: $P1$%",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "scoreMalTitle": {
+    "message": "MyAnimeList ریٹنگ: 10 میں سے $P1$ · ریٹنگز: $P2$",
     "placeholders": {
       "p1": {
         "content": "$1"

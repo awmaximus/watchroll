@@ -771,20 +771,8 @@
   "searchLoading": {
     "message": "लोड हो रहा है…"
   },
-  "searchNeedAniList": {
-    "message": "Crunchyroll की खोज जापानी या रोमाजी नाम नहीं समझती। AniList चालू होने पर खोज का टेक्स्ट उसे भेजा जाता है, ताकि शीर्षक और उसका अंग्रेज़ी नाम मिल सके।"
-  },
-  "searchEnableAniList": {
-    "message": "AniList चालू करें"
-  },
   "searchAniListError": {
     "message": "अभी AniList से संपर्क नहीं हो सका; परिणाम केवल Crunchyroll की खोज से।"
-  },
-  "searchAniListNoPermission": {
-    "message": "जापानी और रोमाजी खोज चालू है, लेकिन इस ब्राउज़र ने अभी तक खोज का टेक्स्ट AniList को भेजने की अनुमति नहीं दी है।"
-  },
-  "searchAniListAllow": {
-    "message": "अनुमति दें"
   },
   "searchAniListMatch": {
     "message": "“$P1$” का अंग्रेज़ी नाम “$P2$” है।",
@@ -804,9 +792,6 @@
         "content": "$1"
       }
     }
-  },
-  "searchAniListTooltip": {
-    "message": "जापानी (कांजी और काना) और रोमाजी नामों से भी खोजें: खोज का टेक्स्ट AniList को भेजा जाता है, जो अंग्रेज़ी नाम और Crunchyroll लिंक लौटाता है। यह सेटिंग्स वाला ही विकल्प है।"
   },
   "searchMineEmpty": {
     "message": "आपकी वॉचलिस्ट अभी पढ़ी नहीं गई। रीफ़्रेश करें और फिर कोशिश करें।"
@@ -830,9 +815,6 @@
   },
   "searchInList": {
     "message": "आपकी सूचियों में"
-  },
-  "setAniListLabel": {
-    "message": "जापानी और रोमाजी नामों से भी खोजें (खोज का टेक्स्ट AniList को भेजता है)"
   },
   "searchCount_one": {
     "message": "1 परिणाम"
@@ -1009,6 +991,15 @@
   "sortEpisodesTotal": {
     "message": "कुल सबसे ज़्यादा एपिसोड"
   },
+  "sortCrScore": {
+    "message": "Crunchyroll रेटिंग"
+  },
+  "sortAlScore": {
+    "message": "AniList रेटिंग"
+  },
+  "sortMalScore": {
+    "message": "MyAnimeList रेटिंग"
+  },
   "linkHome": {
     "message": "होम"
   },
@@ -1017,6 +1008,25 @@
   },
   "ratingTitle": {
     "message": "Crunchyroll रेटिंग: 5 में से $P1$ · रेटिंग की संख्या: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "scoreAlTitle": {
+    "message": "AniList औसत स्कोर: $P1$%",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "scoreMalTitle": {
+    "message": "MyAnimeList रेटिंग: 10 में से $P1$ · रेटिंग: $P2$",
     "placeholders": {
       "p1": {
         "content": "$1"

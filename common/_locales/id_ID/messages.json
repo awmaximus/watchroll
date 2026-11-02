@@ -771,20 +771,8 @@
   "searchLoading": {
     "message": "Memuat…"
   },
-  "searchNeedAniList": {
-    "message": "Pencarian Crunchyroll tidak memahami nama dalam bahasa Jepang atau romaji. Jika AniList aktif, teks pencarian dikirim ke AniList untuk menemukan judul dan nama Inggrisnya."
-  },
-  "searchEnableAniList": {
-    "message": "Aktifkan AniList"
-  },
   "searchAniListError": {
     "message": "AniList tidak dapat dihubungi sekarang; hasil hanya dari pencarian Crunchyroll."
-  },
-  "searchAniListNoPermission": {
-    "message": "Pencarian Jepang dan romaji aktif, tetapi browser ini belum mengizinkan pengiriman teks pencarian ke AniList."
-  },
-  "searchAniListAllow": {
-    "message": "Izinkan"
   },
   "searchAniListMatch": {
     "message": "“$P1$” dalam bahasa Inggris adalah “$P2$”.",
@@ -804,9 +792,6 @@
         "content": "$1"
       }
     }
-  },
-  "searchAniListTooltip": {
-    "message": "Cari juga nama dalam bahasa Jepang (kanji dan kana) dan romaji: teks pencarian dikirim ke AniList, yang mengembalikan nama Inggris dan tautan Crunchyroll. Sama dengan opsi di Pengaturan."
   },
   "searchMineEmpty": {
     "message": "Daftar Tontonanmu belum dibaca. Klik Perbarui lalu coba lagi."
@@ -830,9 +815,6 @@
   },
   "searchInList": {
     "message": "Ada di daftarmu"
-  },
-  "setAniListLabel": {
-    "message": "Cari juga nama Jepang dan romaji (mengirim teks pencarian ke AniList)"
   },
   "searchCount_one": {
     "message": "1 hasil"
@@ -1009,6 +991,15 @@
   "sortEpisodesTotal": {
     "message": "Total episode terbanyak"
   },
+  "sortCrScore": {
+    "message": "Rating Crunchyroll"
+  },
+  "sortAlScore": {
+    "message": "Skor AniList"
+  },
+  "sortMalScore": {
+    "message": "Skor MyAnimeList"
+  },
   "linkHome": {
     "message": "Beranda"
   },
@@ -1017,6 +1008,25 @@
   },
   "ratingTitle": {
     "message": "Rating Crunchyroll: $P1$ dari 5 · jumlah rating: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "scoreAlTitle": {
+    "message": "Skor rata-rata AniList: $P1$%",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "scoreMalTitle": {
+    "message": "Skor MyAnimeList: $P1$ dari 10 · penilaian: $P2$",
     "placeholders": {
       "p1": {
         "content": "$1"

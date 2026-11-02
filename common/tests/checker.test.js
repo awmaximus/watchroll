@@ -415,7 +415,7 @@ describe("ordenação por aba", () => {
     ];
     assert.deepEqual(order(list, "seasons"), ["A", "D", "B", "C"]);
     assert.deepEqual(order(list, "episodes"), ["A", "B", "C", "D"]);
-    assert.deepEqual(plain(CRChecker.TAB_SORTS.never), ["season", "title", "seasons", "episodes"]);
+    assert.deepEqual(plain(CRChecker.TAB_SORTS.never), ["season", "title", "seasons", "episodes", "crScore", "alScore", "malScore"]);
     assert.equal(CRChecker.DEFAULT_SETTINGS.groupNever, true);
   });
 });

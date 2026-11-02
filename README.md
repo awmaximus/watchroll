@@ -40,10 +40,11 @@ and never changes anything on Crunchyroll.
 - **Tabs** for every state: to watch, dub pending, subtitles pending, caught up, week, to start,
   errors and hidden, each with its own sorting.
 - **Filter bar** on every tab: title search, list, categories (several at once) and sub/dub.
-- **Crunchyroll rating** (★ 4.9) and **categories** (Action, Fantasy, Romance…) on every series.
+- **Scores from Crunchyroll, AniList and MyAnimeList** on every series, each with the site's
+  icon, and sorting by any of them. **Categories** (Action, Fantasy, Romance…) on every series.
 - **Advanced Search** over the whole catalog or only your lists, with dub, category, minimum
-  seasons, age rating, year and season filters, and optional Japanese/romaji title lookup
-  through AniList.
+  seasons, age rating, year and season filters, and Japanese/romaji title lookup through
+  AniList.
 - **Hide or snooze** a series, **compact mode**, **settings export/import**.
 - **Settings synced** across your computers through the browser's own sync.
 - **27 interface languages**, including right-to-left Arabic and Urdu.
@@ -118,9 +119,18 @@ Above the list tabs, on one line on wide screens. A filter in use is outlined in
 | To start | Release season, Title, Most seasons, Most episodes in total |
 | Hidden | Title, Most recently watched |
 
+Every tab above can also sort by **Crunchyroll rating**, **AniList score** or **MyAnimeList
+score** (highest first; series without that score go last).
+
 ### On each series
 
-- **Rating:** the Crunchyroll average (★ 4.9); hover for the number of ratings.
+- **Scores:** each one starts with the site's icon (its official favicon, loaded from the site;
+  without network, the abbreviation CR, AL or MAL):
+  - **Crunchyroll:** the average out of 5 and the number of ratings, e.g. 4.7 (63.2K);
+  - **AniList:** the average score, e.g. 88%; click it to open the anime on AniList;
+  - **MyAnimeList:** the score out of 10 and the number of ratings, e.g. 8.87 (312K); click it
+    to open the anime on MyAnimeList.
+  Hover any of them for details. See [Scores from AniList and MyAnimeList](#scores-from-anilist-and-myanimelist).
 - **Dub indicator:** a microphone with your dub language. Green: the latest season has that
   dub. Yellow, dashed: only earlier seasons have it. Grey, crossed out: no dub.
 - **List labels:** with more than one list selected, the list(s) the series came from.
@@ -150,20 +160,14 @@ Above the list tabs, on one line on wide screens. A filter in use is outlined in
 
 - **Text** uses Crunchyroll's search, which understands titles in the site's languages but not
   Japanese script.
-- **Japanese and romaji names (optional):** with *Also search Japanese and romaji names* on, the
-  search text is also sent to [AniList](https://anilist.co), which knows each anime's romaji,
+- **Japanese and romaji names:** the search text is also sent to
+  [AniList](https://anilist.co), which knows each anime's romaji,
   English and Japanese titles and, often, its Crunchyroll link. Watchroll uses that link and
   also searches Crunchyroll for the English title AniList gives, so the series is found even
   without a link. A note shows the match ("“Tensei Kizoku, Kantei Skill de Nariagaru” in English
   is “As a Reincarnated Aristocrat, I'll Use My Appraisal Skill to Rise in the World”") and each
   result found this way shows its romaji name. Works the same for names typed in Japanese
-  (kanji and kana). Turn it on or off with the **AniList** checkbox next to the Search button
-  (hover it for an explanation), which is the same option as in Settings. Off by default; when it
-  is off and nothing matches the typed name, the search suggests turning it on.
-- **Permission (Firefox):** sending search text to AniList needs Firefox's "share search terms"
-  permission, granted per browser. The option itself is synced between computers, but the
-  permission is not: on a computer where it's missing, the search says so and offers an
-  **Allow** button, and the option in Settings shows unchecked until it's granted.
+  (kanji and kana).
 - **No text:** with a season, lists what Crunchyroll tags for that season. Otherwise the whole
   catalog (about 1,900 titles) is downloaded in under a second, kept for 6 hours and filtered
   locally, because Crunchyroll's ranking and its server-side "dubbed" filter are unreliable.
@@ -174,7 +178,7 @@ Above the list tabs, on one line on wide screens. A filter in use is outlined in
   tick several at once, e.g. 2024 and 2025, or Fall 2025 and Winter 2026) and **Min.
   seasons** (2 to 6; Crunchyroll's season count can include dubbed copies, so it may be higher
   than the real number; movies are left out).
-- **Sort:** Crunchyroll default, newest release or title. Results load 60 at a time, with a
+- **Sort:** Crunchyroll default, newest release, title or Crunchyroll rating. Results load 60 at a time, with a
   loading indicator.
 
 ### Firefox for Android
@@ -190,7 +194,7 @@ The same Firefox extension runs on Android. Differences:
 ### Chrome and Chromium-based browsers
 
 Same features as on Firefox desktop. The only differences are under the hood (service worker
-background, no "share search terms" permission for AniList); see
+background, no data-collection permissions); see
 [chrome/README.md](chrome/README.md).
 
 ## Settings
@@ -212,7 +216,6 @@ Changes are saved immediately and synced to your other computers (see
 | Show specials and recaps | Shows them, tagged and uncounted (on by default). |
 | Show skipped episodes | Unwatched episodes before the last one you watched, tagged and uncounted (off by default). |
 | Show "To watch" in compact mode | Rows instead of cards (off by default). |
-| Also search Japanese and romaji names | Sends Advanced Search text to AniList (off by default). |
 | Count as started after (seconds) | Ignores playback records shorter than this (default 60, 0–600); Crunchyroll records a few seconds just from opening an episode page. |
 | Series checked at the same time | Parallel requests (default 4, 1–32). Lower it if you get HTTP 429 errors. |
 | Batch size | Episodes per progress request and items per list/history page (default 100, 10–300). Lower it if checks start failing. |
@@ -265,6 +268,26 @@ Rules:
 Lists come from `/content/v2/discover/{account}/watchlist` and
 `/content/v2/{account}/custom-lists/{list}` (Crunchyroll caps a Crunchylist at 100 items).
 
+### Scores from AniList and MyAnimeList
+
+Watchroll has no server of its own: the scores come straight from the sources, from your browser.
+
+- **AniList:** for each series, its Crunchyroll URL name (always in English, e.g.
+  `the-apothecary-diaries`) is searched on AniList, ten series per request. The anime that counts
+  is the one whose AniList page links to the same Crunchyroll series, or with exactly the same
+  title. Crunchyroll keeps all seasons in one series while AniList has one entry per season, so
+  the first TV season is used. If nothing matches, shorter searches are tried; if still nothing,
+  no score is shown (better no score than another anime's).
+- **MyAnimeList:** AniList gives the MyAnimeList ID; the score comes from
+  [Jikan](https://jikan.moe), a public service with MyAnimeList's data, about one series per
+  second. If Jikan doesn't answer (it has outages), MyAnimeList scores are skipped and tried
+  again the next day; AniList and Crunchyroll scores still show.
+- Scores load after the check, a few at a time, without delaying the list. They are kept for 7
+  days per series (1 day when not found or when the service failed).
+- **Sorting:** every series tab can sort by the Crunchyroll, AniList or MyAnimeList score
+  (highest first; series without that score go last). Advanced Search can sort by the
+  Crunchyroll rating.
+
 ### Speed and freshness
 
 - The Watchlist, the Crunchylists and the history are read at the same time, with their pages in
@@ -298,7 +321,10 @@ Lists come from `/content/v2/discover/{account}/watchlist` and
 - Watchroll does not run in private windows, so nothing from private browsing is stored.
 - Settings (not the token, history or results) go through the browser's own sync, to your
   other computers signed in to the same account.
-- Nothing is sent to third parties, except Advanced Search text to AniList when you turn that on.
+- Besides Crunchyroll, Watchroll talks to AniList (series names from your lists and Advanced
+  Search text) and to Jikan (MyAnimeList IDs), only to get scores and titles; see
+  [Scores from AniList and MyAnimeList](#scores-from-anilist-and-myanimelist). Nothing else is
+  sent to third parties.
   See [PRIVACY.md](PRIVACY.md).
 
 ## Development
@@ -413,7 +439,7 @@ in [chrome/README.md](chrome/README.md); the store texts are in
 ### Versions
 
 Keep the same `version` in `firefox/manifest.json`, `firefox/package.json`,
-`chrome/manifest.json` and `chrome/package.json` (current: 1.3.2). Publish only even versions to
+`chrome/manifest.json` and `chrome/package.json` (current: 1.4.1). Publish only even versions to
 the Chrome Web Store, like the AMO listing.
 
 ### Continuous integration and releases

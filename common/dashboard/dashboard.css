@@ -888,27 +888,6 @@ body.busy select.actions {
   outline: 2px solid var(--orange);
   outline-offset: 1px;
 }
-/* Caixa "AniList" ao lado do botão Pesquisar */
-.ani-toggle {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 0 4px;
-  color: var(--muted);
-  font-size: 0.85rem;
-  cursor: help;
-  white-space: nowrap;
-}
-.ani-toggle input {
-  width: 16px;
-  height: 16px;
-  margin: 0;
-  accent-color: var(--orange);
-  cursor: pointer;
-}
-.ani-toggle:has(input:checked) {
-  color: var(--text);
-}
 /* Os 8 filtros da Pesquisa numa linha só (em telas estreitas, 4 e depois 2 por linha). */
 /* Larguras pensadas para o texto de cada um ("Todo o catálogo" > "Todas"). Os
    nomes não quebram linha: a fileira fica alinhada. */
@@ -1352,6 +1331,38 @@ body.busy select.actions {
 }
 .rating .star {
   color: #ffc83d;
+}
+/* Notas com o ícone de cada site (Crunchyroll, AniList, MyAnimeList) */
+.scores {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.scores.compact {
+  flex: 0 0 auto;
+  margin-inline-start: 6px;
+}
+.scores.compact .rating.compact {
+  margin-inline-start: 0;
+}
+a.rating {
+  text-decoration: none;
+}
+a.rating:hover .score-value,
+a.rating:focus-visible .score-value {
+  text-decoration: underline;
+}
+.score-icon {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  flex: none;
+}
+.score-abbr {
+  font-size: 0.62rem;
+  font-weight: 800;
+  color: var(--muted);
+  letter-spacing: 0.02em;
 }
 .rating .rating-count {
   margin-inline-start: 2px;

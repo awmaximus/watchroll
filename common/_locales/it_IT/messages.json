@@ -771,20 +771,8 @@
   "searchLoading": {
     "message": "Caricamento…"
   },
-  "searchNeedAniList": {
-    "message": "La ricerca di Crunchyroll non capisce i nomi in giapponese o in romaji. Con AniList attivo, il testo della ricerca viene inviato ad AniList per trovare il titolo e il nome inglese."
-  },
-  "searchEnableAniList": {
-    "message": "Attiva AniList"
-  },
   "searchAniListError": {
     "message": "Impossibile contattare AniList ora; i risultati vengono solo dalla ricerca di Crunchyroll."
-  },
-  "searchAniListNoPermission": {
-    "message": "La ricerca in giapponese e romaji è attiva, ma questo browser non ha ancora consentito l’invio del testo della ricerca ad AniList."
-  },
-  "searchAniListAllow": {
-    "message": "Consenti"
   },
   "searchAniListMatch": {
     "message": "“$P1$” in inglese è “$P2$”.",
@@ -804,9 +792,6 @@
         "content": "$1"
       }
     }
-  },
-  "searchAniListTooltip": {
-    "message": "Cerca anche i nomi in giapponese (kanji e kana) e in romaji: il testo della ricerca viene inviato ad AniList, che restituisce il nome inglese e il link di Crunchyroll. È la stessa opzione delle Impostazioni."
   },
   "searchMineEmpty": {
     "message": "La tua Lista non è ancora stata letta. Fai clic su Aggiorna e riprova."
@@ -830,9 +815,6 @@
   },
   "searchInList": {
     "message": "Nelle tue liste"
-  },
-  "setAniListLabel": {
-    "message": "Cerca anche nomi in giapponese e romaji (invia il testo della ricerca ad AniList)"
   },
   "searchCount_one": {
     "message": "1 risultato"
@@ -1009,6 +991,15 @@
   "sortEpisodesTotal": {
     "message": "Più episodi in totale"
   },
+  "sortCrScore": {
+    "message": "Voto Crunchyroll"
+  },
+  "sortAlScore": {
+    "message": "Voto AniList"
+  },
+  "sortMalScore": {
+    "message": "Voto MyAnimeList"
+  },
   "linkHome": {
     "message": "Home"
   },
@@ -1017,6 +1008,25 @@
   },
   "ratingTitle": {
     "message": "Valutazione su Crunchyroll: $P1$ su 5 · valutazioni: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "scoreAlTitle": {
+    "message": "Voto medio su AniList: $P1$%",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "scoreMalTitle": {
+    "message": "Voto su MyAnimeList: $P1$ su 10 · valutazioni: $P2$",
     "placeholders": {
       "p1": {
         "content": "$1"

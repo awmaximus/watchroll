@@ -771,20 +771,8 @@
   "searchLoading": {
     "message": "ஏற்றுகிறது…"
   },
-  "searchNeedAniList": {
-    "message": "Crunchyroll தேடல் ஜப்பானிய அல்லது ரோமாஜி பெயர்களைப் புரிந்துகொள்ளாது. AniList இயக்கத்தில் இருந்தால், தேடல் உரை அதற்கு அனுப்பப்பட்டு தலைப்பும் அதன் ஆங்கிலப் பெயரும் கண்டறியப்படும்."
-  },
-  "searchEnableAniList": {
-    "message": "AniList-ஐ இயக்கு"
-  },
   "searchAniListError": {
     "message": "இப்போது AniList-ஐத் தொடர்புகொள்ள முடியவில்லை; முடிவுகள் Crunchyroll தேடலில் இருந்து மட்டும்."
-  },
-  "searchAniListNoPermission": {
-    "message": "ஜப்பானிய, ரோமாஜி தேடல் இயக்கத்தில் உள்ளது, ஆனால் இந்த உலாவி தேடல் உரையை AniList-க்கு அனுப்ப இன்னும் அனுமதிக்கவில்லை."
-  },
-  "searchAniListAllow": {
-    "message": "அனுமதி"
   },
   "searchAniListMatch": {
     "message": "“$P1$” என்பதன் ஆங்கிலப் பெயர் “$P2$”.",
@@ -804,9 +792,6 @@
         "content": "$1"
       }
     }
-  },
-  "searchAniListTooltip": {
-    "message": "ஜப்பானிய (கஞ்சி, கானா) மற்றும் ரோமாஜி பெயர்களிலும் தேடும்: தேடல் உரை AniList-க்கு அனுப்பப்படும்; அது ஆங்கிலப் பெயரையும் Crunchyroll இணைப்பையும் தரும். இது அமைப்புகளில் உள்ள அதே விருப்பம்."
   },
   "searchMineEmpty": {
     "message": "உங்கள் வாட்ச்லிஸ்ட் இன்னும் படிக்கப்படவில்லை. புதுப்பி என்பதை அழுத்தி மீண்டும் முயலுங்கள்."
@@ -830,9 +815,6 @@
   },
   "searchInList": {
     "message": "உங்கள் பட்டியல்களில்"
-  },
-  "setAniListLabel": {
-    "message": "ஜப்பானிய மற்றும் ரோமாஜி பெயர்களாலும் தேடு (தேடல் உரையை AniList-க்கு அனுப்பும்)"
   },
   "searchCount_one": {
     "message": "1 முடிவு"
@@ -1009,6 +991,15 @@
   "sortEpisodesTotal": {
     "message": "மொத்தம் அதிக எபிசோடுகள்"
   },
+  "sortCrScore": {
+    "message": "Crunchyroll மதிப்பீடு"
+  },
+  "sortAlScore": {
+    "message": "AniList மதிப்பீடு"
+  },
+  "sortMalScore": {
+    "message": "MyAnimeList மதிப்பீடு"
+  },
   "linkHome": {
     "message": "முகப்பு"
   },
@@ -1017,6 +1008,25 @@
   },
   "ratingTitle": {
     "message": "Crunchyroll மதிப்பீடு: 5-க்கு $P1$ · மதிப்பீடுகள்: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "scoreAlTitle": {
+    "message": "AniList சராசரி மதிப்பெண்: $P1$%",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "scoreMalTitle": {
+    "message": "MyAnimeList மதிப்பீடு: 10-க்கு $P1$ · மதிப்பீடுகள்: $P2$",
     "placeholders": {
       "p1": {
         "content": "$1"

@@ -771,20 +771,8 @@
   "searchLoading": {
     "message": "Đang tải…"
   },
-  "searchNeedAniList": {
-    "message": "Tìm kiếm của Crunchyroll không hiểu tên tiếng Nhật hay romaji. Khi bật AniList, nội dung tìm kiếm được gửi đến AniList để tìm tựa phim và tên tiếng Anh của nó."
-  },
-  "searchEnableAniList": {
-    "message": "Bật AniList"
-  },
   "searchAniListError": {
     "message": "Hiện không kết nối được AniList; kết quả chỉ từ tìm kiếm của Crunchyroll."
-  },
-  "searchAniListNoPermission": {
-    "message": "Đã bật tìm kiếm tiếng Nhật và romaji, nhưng trình duyệt này chưa cho phép gửi nội dung tìm kiếm đến AniList."
-  },
-  "searchAniListAllow": {
-    "message": "Cho phép"
   },
   "searchAniListMatch": {
     "message": "Tên tiếng Anh của “$P1$” là “$P2$”.",
@@ -804,9 +792,6 @@
         "content": "$1"
       }
     }
-  },
-  "searchAniListTooltip": {
-    "message": "Tìm cả tên tiếng Nhật (kanji và kana) và romaji: nội dung tìm kiếm được gửi đến AniList, nơi trả về tên tiếng Anh và liên kết Crunchyroll. Giống tùy chọn trong Cài đặt."
   },
   "searchMineEmpty": {
     "message": "Danh sách theo dõi chưa được đọc. Bấm Làm mới rồi thử lại."
@@ -830,9 +815,6 @@
   },
   "searchInList": {
     "message": "Trong danh sách của bạn"
-  },
-  "setAniListLabel": {
-    "message": "Tìm cả tên tiếng Nhật và romaji (gửi nội dung tìm kiếm tới AniList)"
   },
   "searchCount_one": {
     "message": "1 kết quả"
@@ -1009,6 +991,15 @@
   "sortEpisodesTotal": {
     "message": "Nhiều tập nhất"
   },
+  "sortCrScore": {
+    "message": "Điểm Crunchyroll"
+  },
+  "sortAlScore": {
+    "message": "Điểm AniList"
+  },
+  "sortMalScore": {
+    "message": "Điểm MyAnimeList"
+  },
   "linkHome": {
     "message": "Trang chủ"
   },
@@ -1017,6 +1008,25 @@
   },
   "ratingTitle": {
     "message": "Điểm trên Crunchyroll: $P1$/5 · số lượt đánh giá: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "scoreAlTitle": {
+    "message": "Điểm trung bình AniList: $P1$%",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "scoreMalTitle": {
+    "message": "Điểm MyAnimeList: $P1$/10 · lượt đánh giá: $P2$",
     "placeholders": {
       "p1": {
         "content": "$1"

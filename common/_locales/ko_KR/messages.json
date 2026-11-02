@@ -771,20 +771,8 @@
   "searchLoading": {
     "message": "불러오는 중…"
   },
-  "searchNeedAniList": {
-    "message": "Crunchyroll 검색은 일본어나 로마자 이름을 인식하지 못합니다. AniList를 켜면 검색어를 AniList로 보내 작품과 영어 제목을 찾습니다."
-  },
-  "searchEnableAniList": {
-    "message": "AniList 켜기"
-  },
   "searchAniListError": {
     "message": "지금은 AniList에 연결할 수 없어 Crunchyroll 검색 결과만 표시합니다."
-  },
-  "searchAniListNoPermission": {
-    "message": "일본어·로마자 검색이 켜져 있지만, 이 브라우저에서 아직 AniList로 검색어를 보내도록 허용하지 않았습니다."
-  },
-  "searchAniListAllow": {
-    "message": "허용"
   },
   "searchAniListMatch": {
     "message": "‘$P1$’의 영어 제목은 ‘$P2$’입니다.",
@@ -804,9 +792,6 @@
         "content": "$1"
       }
     }
-  },
-  "searchAniListTooltip": {
-    "message": "일본어(한자·가나)와 로마자 이름으로도 검색합니다. 검색어를 AniList로 보내 영어 제목과 Crunchyroll 링크를 받아옵니다. 설정의 같은 옵션과 연동됩니다."
   },
   "searchMineEmpty": {
     "message": "아직 관심 목록을 읽지 않았습니다. 새로고침을 누른 뒤 다시 시도하세요."
@@ -830,9 +815,6 @@
   },
   "searchInList": {
     "message": "내 목록에 있음"
-  },
-  "setAniListLabel": {
-    "message": "일본어·로마자 이름도 검색(검색어를 AniList로 보냄)"
   },
   "searchCount_one": {
     "message": "결과 1개"
@@ -1009,6 +991,15 @@
   "sortEpisodesTotal": {
     "message": "총 에피소드 많은 순"
   },
+  "sortCrScore": {
+    "message": "Crunchyroll 평점"
+  },
+  "sortAlScore": {
+    "message": "AniList 평점"
+  },
+  "sortMalScore": {
+    "message": "MyAnimeList 평점"
+  },
   "linkHome": {
     "message": "홈"
   },
@@ -1017,6 +1008,25 @@
   },
   "ratingTitle": {
     "message": "Crunchyroll 평점: 5점 중 $P1$ · 평가 수: $P2$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
+  "scoreAlTitle": {
+    "message": "AniList 평균 점수: $P1$%",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "scoreMalTitle": {
+    "message": "MyAnimeList 평점: $P1$/10 · 평가 수: $P2$",
     "placeholders": {
       "p1": {
         "content": "$1"
