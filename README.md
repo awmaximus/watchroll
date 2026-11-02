@@ -287,7 +287,7 @@ Watchroll has no server of its own: the scores come straight from the sources, f
   (not a secret) in `common/src/mal-client.js`, and the API doesn't send CORS headers, so the
   extension has a host permission for `https://api.myanimelist.net/*`. Without a Client ID there
   are no MyAnimeList scores. If the API doesn't answer twice in a row, MyAnimeList scores are
-  skipped and tried again an hour later; AniList and Crunchyroll scores still show. The API is
+  skipped and tried again later; AniList and Crunchyroll scores still show. The API is
   queried 3 series at a time; if it answers
   "too many requests" (HTTP 429), Watchroll drops to one at a time, waits as asked and tries that
   series again. MyAnimeList doesn't wait for AniList to finish: each AniList batch that comes
@@ -299,8 +299,11 @@ Watchroll has no server of its own: the scores come straight from the sources, f
   previous fetch (what already arrived stays cached). They load a few at a time, without
   delaying the list, and are kept per
   series for 4, 8, 12 or 24 hours (**Settings → Keep AniList and MyAnimeList scores for**;
-  24 by default). Failures are retried sooner: a day for AniList, an hour for MyAnimeList
-  (never later than the chosen time).
+  24 by default). Only real scores are cached (AniList 0–100, MyAnimeList 0–10 for the ID
+  AniList gave): a failure, a series not found or an empty score stays only in the open page,
+  so reopening the page or **Refresh** tries again (on a page left open, after an hour). A
+  series AniList found without a MyAnimeList ID is looked up again after an hour too. Invalid
+  values left by older versions are ignored.
 - **Sorting:** every series tab can sort by the Crunchyroll, AniList or MyAnimeList score
   (highest first; series without that score go last). In Advanced Search, only the results on
   screen get AniList and MyAnimeList scores, with a progress note; to sort by them, **Load all**

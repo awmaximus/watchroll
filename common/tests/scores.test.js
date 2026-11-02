@@ -395,6 +395,77 @@ describe("atualização e cache", () => {
     assert.equal(S.scoresOf(all, "S70").al, null, "o resto fica para depois");
   });
 
+  // Outra página (reload): o mesmo storage, sem a memória da página anterior.
+  const reopen = (b) => {
+    const ctx = load(["src/scores.js"], { browser: b });
+    ctx.CRScores.setSleep(async () => {});
+    ctx.CRScores.setClientId("abc123");
+    return ctx.CRScores;
+  };
+
+  test("nota vazia do MyAnimeList não vai para o cache: ao abrir de novo, tenta de novo", async () => {
+    let mean = null;
+    const { S, fetchFn, calls, b } = setup((url, body) => (url.includes("myanimelist") ? json(mean == null ? {} : { mean }) : aniList(() => [APOTHECARY])(body)));
+    let all = await S.update(series, { fetchFn });
+    assert.equal(S.scoresOf(all, "G3KHEVDJ7").mal, null);
+    assert.equal(b.storage.local.data[S.KEY].G3KHEVDJ7.mal, undefined, "nada de nota null no storage");
+    assert.equal(b.storage.local.data[S.KEY].G3KHEVDJ7.al.score, 88, "a do AniList fica");
+    const before = calls.filter((c) => c.url.includes("myanimelist")).length;
+    await S.update(series, { fetchFn });
+    assert.equal(calls.filter((c) => c.url.includes("myanimelist")).length, before, "na mesma página não insiste");
+    mean = 8.9;
+    const S2 = reopen(b);
+    all = await S2.update(series, { fetchFn });
+    assert.equal(S2.scoresOf(all, "G3KHEVDJ7").mal, 8.9, "outra página: tentou de novo");
+  });
+
+  test("falha não vai para o cache: Atualizar (forgetMisses) tenta de novo na mesma página", async () => {
+    let up = false;
+    const { S, fetchFn, b } = setup((url, body) => (url.includes("myanimelist") ? (up ? json({ mean: 8.1 }) : json({}, 500)) : aniList(() => [APOTHECARY])(body)));
+    let all = await S.update(series, { fetchFn });
+    assert.equal(all.G3KHEVDJ7.mal.failed, true);
+    assert.equal(b.storage.local.data[S.KEY].G3KHEVDJ7.mal, undefined);
+    up = true;
+    all = await S.update(series, { fetchFn });
+    assert.equal(S.scoresOf(all, "G3KHEVDJ7").mal, null, "sem Atualizar, espera");
+    S.forgetMisses();
+    all = await S.update(series, { fetchFn });
+    assert.equal(S.scoresOf(all, "G3KHEVDJ7").mal, 8.1);
+  });
+
+  test("valores inválidos já guardados (versões antigas) são ignorados ao ler", async () => {
+    const { S, b } = setup(() => json({}));
+    const at = Date.now();
+    await b.storage.local.set({
+      [S.KEY]: {
+        A: { al: { id: 1, score: null, idMal: 10, at } }, // nota vazia
+        B: { al: { id: 2, score: 150, idMal: 20, at } }, // fora de 0–100
+        C: { al: { none: true, at } }, // não achada
+        D: { al: { id: 4, score: 80, idMal: 40, at }, mal: { id: 40, score: null, at } }, // MAL vazia
+        E: { al: { id: 5, score: 75, idMal: 50, at }, mal: { id: 99, score: 7, at } }, // MAL de outro anime
+        F: { al: { id: 6, score: 90, idMal: 60, at }, mal: { id: 60, score: 8.5, users: 3, at } }, // ok
+        G: "lixo",
+      },
+    });
+    const all = await S.load(b);
+    assert.deepEqual(Object.keys(all).sort(), ["D", "E", "F"]);
+    assert.equal(all.D.mal, undefined);
+    assert.equal(all.E.mal, undefined);
+    assert.equal(S.scoresOf(all, "F").mal, 8.5);
+  });
+
+  test("achada no AniList sem ID do MyAnimeList: confere de novo depois de 1 hora", async () => {
+    const noMal = { ...APOTHECARY, idMal: null };
+    const { S, fetchFn, calls } = setup((url, body) => aniList(() => [noMal])(body));
+    const t0 = Date.now();
+    await S.update(series, { fetchFn, now: t0 });
+    const n = calls.length;
+    await S.update(series, { fetchFn, now: t0 + 30 * 60000 });
+    assert.equal(calls.length, n);
+    await S.update(series, { fetchFn, now: t0 + 2 * 3600000 });
+    assert.ok(calls.length > n);
+  });
+
   test("AniList fora do ar: nada quebra", async () => {
     const { S, fetchFn } = setup(() => json({}, 500));
     const all = await S.update(series, { fetchFn });

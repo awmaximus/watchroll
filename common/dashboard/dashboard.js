@@ -452,6 +452,7 @@
       ratings = {};
       extraScores = {};
       stopScores();
+      CRScores.forgetMisses();
       scoresDoneKey = null;
       CRSearch.clearCache();
       searchState.items = null;
@@ -1763,6 +1764,11 @@
 
   async function refresh(force = false) {
     if (busy) return;
+    if (force) {
+      // Atualizar: as notas que falharam ou vieram vazias nesta página são pedidas de novo.
+      CRScores.forgetMisses();
+      scoresDoneKey = null;
+    }
     setBusy(true);
     notice("");
     try {

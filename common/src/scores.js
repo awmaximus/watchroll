@@ -16,7 +16,8 @@
 //    por isso a extensão tem permissão para esse endereço). Sem Client ID, não há
 //    nota do MyAnimeList.
 //  - Tudo fica guardado por série por 4, 8, 12 ou 24 horas (Configurações). Falhas:
-//    AniList tenta de novo em 1 dia, MyAnimeList em 1 hora (no máximo o mesmo prazo).
+//    tenta de novo em 1 hora (no máximo o mesmo prazo). Só nota válida vai para o
+//    storage (ver "cache" abaixo): falha ou nota vazia nunca impede tentar de novo.
 
 /* global browser, MAL_CLIENT_ID */
 var CRScores = (() => {
@@ -32,7 +33,7 @@ var CRScores = (() => {
     const h = Number(settings && settings.scoresTtlHours);
     return TTL_HOURS.includes(h) ? h : DEFAULT_TTL_HOURS;
   };
-  const RETRY = DAY;
+  const RETRY = 3600000; // falha ou série não achada no AniList: tenta de novo em 1 hora
   const MAL_RETRY = 3600000; // falha no MyAnimeList: tenta de novo em 1 hora
   // Séries por consulta ao AniList (cada uma vira um apelido a0, a1… na mesma consulta).
   // O AniList limita a "complexidade" da consulta a 500, e cada série com estes campos
@@ -208,21 +209,67 @@ var CRScores = (() => {
     return { score: typeof d.mean === "number" ? d.mean : null, users: Number(d.num_scoring_users) || 0 };
   }
 
-  async function load(b = browser) {
-    try {
-      return (await b.storage.local.get(KEY))[KEY] || {};
-    } catch (_) {
-      return {};
+  // ---------- cache ----------
+  // Só nota de verdade vai para o storage: AniList com ID e nota de 0 a 100,
+  // MyAnimeList com o ID que o AniList deu e nota de 0 a 10. Falha, série não
+  // achada, nota vazia (null) ou qualquer outro valor ficam só na memória desta
+  // página ("misses"), para não insistir a cada redesenho; abrir a página de novo
+  // (ou Atualizar) tenta outra vez. Ao ler, o que estiver inválido no storage (de
+  // versões antigas) é ignorado.
+  const validAl = (p) => !!p && Number.isFinite(p.id) && typeof p.score === "number" && p.score >= 0 && p.score <= 100 && Number.isFinite(p.at);
+  const validMal = (p, al) =>
+    !!p && !!al && p.id != null && p.id === al.idMal && typeof p.score === "number" && p.score >= 0 && p.score <= 10 && Number.isFinite(p.at);
+  let misses = {}; // id -> { al?, mal? } que não deram nota (só nesta página)
+
+  function cleanStored(stored) {
+    const out = {};
+    for (const [id, e] of Object.entries(stored && typeof stored === "object" ? stored : {})) {
+      const al = e && validAl(e.al) ? e.al : null;
+      if (!al) continue;
+      out[id] = validMal(e.mal, al) ? { al, mal: e.mal } : { al };
     }
-  }
-  async function save(all, b = browser) {
-    try {
-      await b.storage.local.set({ [KEY]: all });
-    } catch (_) {}
+    return out;
   }
 
-  // Falha (ou série não achada) tenta de novo antes: no máximo no mesmo prazo das notas.
-  const fresh = (part, now, ttl, retry = RETRY) => part && now - (part.at || 0) < (part.failed || part.none ? Math.min(retry, ttl) : ttl);
+  async function load(b = browser) {
+    let stored = {};
+    try {
+      stored = (await b.storage.local.get(KEY))[KEY] || {};
+    } catch (_) {}
+    const all = cleanStored(stored);
+    for (const [id, m] of Object.entries(misses)) {
+      const e = all[id] || {};
+      const al = e.al || m.al;
+      const mal = e.mal || m.mal;
+      all[id] = mal ? { al, mal } : { al };
+    }
+    return all;
+  }
+  async function save(all, b = browser) {
+    const keep = {};
+    misses = {};
+    for (const [id, e] of Object.entries(all || {})) {
+      const al = e && validAl(e.al) ? e.al : null;
+      const mal = al && validMal(e.mal, al) ? e.mal : null;
+      if (al) keep[id] = mal ? { al, mal } : { al };
+      const miss = {};
+      if (e && e.al && !al) miss.al = e.al;
+      if (e && e.mal && !mal) miss.mal = e.mal;
+      if (miss.al || miss.mal) misses[id] = { ...(al ? { al } : {}), ...miss };
+    }
+    try {
+      await b.storage.local.set({ [KEY]: keep });
+    } catch (_) {}
+  }
+  /** Esquece as falhas desta página (Atualizar, apagar o cache): tenta tudo de novo. */
+  function forgetMisses() {
+    misses = {};
+  }
+
+  // Nota válida vale pelo prazo escolhido; falha, série não achada ou nota vazia
+  // tentam de novo antes (no máximo no mesmo prazo).
+  const isValidPart = (part) => !part.failed && !part.none && typeof part.score === "number";
+  const fresh = (part, now, ttl, retry = RETRY) => part && now - (part.at || 0) < (isValidPart(part) ? ttl : Math.min(retry, ttl));
 
   /**
    * A API oficial do MyAnimeList não tem CORS: só funciona com a permissão para
@@ -363,7 +410,13 @@ var CRScores = (() => {
     enqueue(unique); // as que já têm o AniList guardado começam na hora
 
     // 1. AniList, de 35 em 35 séries (grava e avisa a página a cada lote)
-    const needAl = unique.filter((s) => !fresh(all[s.id] && all[s.id].al, now, ttl));
+    // Achada no AniList mas sem o ID do MyAnimeList: confere de novo antes do prazo (o
+    // AniList pode ganhar o ID; sem ele, a nota do MyAnimeList nunca viria).
+    const needAl = unique.filter((s) => {
+      const al = all[s.id] && all[s.id].al;
+      if (!fresh(al, now, ttl)) return true;
+      return clientId && al && !al.idMal && now - (al.at || 0) >= Math.min(RETRY, ttl);
+    });
     for (let i = 0; i < needAl.length; i += BATCH) {
       if (shouldStop()) break;
       const chunk = needAl.slice(i, i + BATCH);
@@ -439,6 +492,7 @@ var CRScores = (() => {
     setClientId: (id) => (clientId = String(id || "").trim()),
     malAllowed,
     malActive,
+    forgetMisses,
     TTL_HOURS,
     ttlHoursFrom,
     requestMal,
