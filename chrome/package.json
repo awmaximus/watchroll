@@ -1,6 +1,6 @@
 {
   "name": "watchroll",
-  "version": "1.4.17",
+  "version": "1.4.19",
   "private": true,
   "description": "Watchroll for Chrome and Chromium-based browsers (Edge, Brave, Opera, Vivaldi): tracks new anime episodes from your Crunchyroll Watchlist and Crunchylists, sub or dub.",
   "license": "MIT",
