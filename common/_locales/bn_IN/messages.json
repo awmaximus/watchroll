@@ -854,7 +854,7 @@
     "message": "Crunchyroll ক্যাটালগ ডাউনলোড হচ্ছে (শুধু প্রথমবার, কয়েক সেকেন্ড)…"
   },
   "searchScoresLoading": {
-    "message": "রেটিং লোড হচ্ছে: $P2$টির মধ্যে $P1$টি সিরিজ…",
+    "message": "AniList ও MyAnimeList-এর রেটিং লোড হচ্ছে: $P2$টির মধ্যে $P1$টি সিরিজ… শেষ হলে এগুলো দিয়ে সাজানো যাবে।",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -1171,5 +1171,19 @@
   },
   "malPermissionAllow": {
     "message": "অ্যাক্সেস দিন"
+  },
+  "setScoresTtlLabel": {
+    "message": "AniList ও MyAnimeList-এর রেটিং রাখুন"
+  },
+  "setScoresTtlHours": {
+    "message": "$P1$ ঘণ্টা",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setScoresTtlHelp": {
+    "message": "এই সময়ের পরে রেটিং আবার আনা হয়।"
   }
 }

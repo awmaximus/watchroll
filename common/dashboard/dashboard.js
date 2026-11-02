@@ -95,6 +95,11 @@
     $("set-extras").checked = settings.showExtras !== false;
     $("set-skipped").checked = !!settings.showSkipped;
     $("set-compact").checked = !!settings.compact;
+    fillSelect(
+      $("set-scorettl"),
+      CRScores.TTL_HOURS.map((h) => [String(h), t("setScoresTtlHours", h)]),
+      String(CRScores.ttlHoursFrom(settings))
+    );
     const ms = $("set-minstarted");
     ms.min = CRAnalyzer.MIN_STARTED.min;
     ms.max = CRAnalyzer.MIN_STARTED.max;
@@ -575,11 +580,18 @@
     return out.length === 1 ? out[0] : el("span", { class: `scores${compact ? " compact" : ""}` }, out);
   }
 
-  // Linha só das notas (e, na Pesquisa, da classificação indicativa).
-  function scoreLine(s, extra = null) {
+  // Classificação indicativa (padrão brasileiro: L, 10, 12, 14, 16, 18).
+  function ageBadge(s) {
+    if (s.age == null) return null;
+    return el("span", { class: `age age-${s.age}`, text: s.age === 0 ? "L" : String(s.age), title: s.age === 0 ? t("ageFree") : t("ageMin", s.age) });
+  }
+
+  // Linha só das notas, com a classificação indicativa.
+  function scoreLine(s) {
     const badge = ratingBadge(s);
-    if (!badge && !extra) return null;
-    return el("div", { class: "score-line" }, badge, extra);
+    const age = ageBadge(s);
+    if (!badge && !age) return null;
+    return el("div", { class: "score-line" }, badge, age);
   }
 
   // Notas do AniList e do MyAnimeList das séries na tela (as que faltam ou estão
@@ -597,6 +609,7 @@
     scoresBusy = true;
     const series = list.map((x) => ({ id: x.seriesId || x.id, title: x.title, slug: x.slug }));
     CRScores.update(series, {
+      ttlHours: CRScores.ttlHoursFrom(settings),
       onUpdate: (all) => {
         extraScores = all;
         clearTimeout(scoresRender);
@@ -1142,7 +1155,7 @@
         { class: "result-info" },
         el("a", { class: "series", href: resultUrl(r), target: "_blank", rel: "noopener", text: r.title, title: r.title }),
         altTitleLine(r),
-        scoreLine(r, r.age == null ? null : el("span", { class: `age age-${r.age}`, text: r.age === 0 ? "L" : String(r.age), title: r.age === 0 ? t("ageFree") : t("ageMin", r.age) })),
+        scoreLine(r),
         el(
           "div",
           { class: "result-tags" },
@@ -1161,7 +1174,14 @@
     const st = searchState;
     const f = st.filters;
     const name = langName(settings.dubLang);
-    const opt = (v, label, cur) => el("option", { value: v, text: label, selected: String(cur) === String(v) || null });
+    const opt = (v, label, cur, disabled = false) =>
+      el("option", { value: v, text: label, selected: String(cur) === String(v) || null, disabled: disabled || null });
+    // Notas do AniList e do MyAnimeList: quantos resultados já têm. Só dá para
+    // ordenar por elas com todas carregadas (senão a ordem mudaria enquanto chegam).
+    const items = st.items || [];
+    const scoresDone = items.filter((r) => CRScores.loaded(extraScores, r.id, { mal: malPermitted })).length;
+    const scoresReady = scoresDone >= items.length;
+    if (!scoresReady && (f.sort === "alScore" || f.sort === "malScore")) f.sort = "default";
     const now = new Date().getFullYear();
     const years = Array.from({ length: now + 1 - 1970 + 1 }, (_, i) => String(now + 1 - i));
     const onFilter = (key) => (e) => {
@@ -1313,8 +1333,8 @@
             opt("year", t("searchSortYear"), f.sort),
             opt("title", t("searchSortTitle"), f.sort),
             opt("crScore", t("sortCrScore"), f.sort),
-            opt("alScore", t("sortAlScore"), f.sort),
-            opt("malScore", t("sortMalScore"), f.sort)
+            opt("alScore", t("sortAlScore"), f.sort, !scoresReady),
+            opt("malScore", t("sortMalScore"), f.sort, !scoresReady || !malPermitted)
           )
         )
       )
@@ -1387,23 +1407,22 @@
         const byScore = CRChecker.SCORE_SORTS.includes(f.sort);
         const ordered = byScore ? CRChecker.sortResults(st.items, f.sort, scoreOf) : st.items;
         const visible = ordered.slice(0, st.shown);
-        // Pelas notas do AniList/MyAnimeList: busca as de todos os resultados (aos
-        // poucos; a lista se reordena conforme chegam) e mostra o progresso.
-        if (f.sort === "alScore" || f.sort === "malScore") {
-          wantScores(st.items);
-          const key = f.sort === "alScore" ? "al" : "mal";
-          // Pronto: o AniList já respondeu e, para o MyAnimeList, a nota também veio (ou não
-          // há ID do MyAnimeList).
-          const done = st.items.filter((r) => {
-            const e = extraScores[r.id];
-            if (!e || !e.al) return false;
-            return key === "al" || !e.al.idMal || !!e.mal;
-          }).length;
-          if (done < st.items.length) parts.push(el("p", { class: "notice-inline", text: t("searchScoresLoading", done, st.items.length) }));
+        // Notas do AniList/MyAnimeList: primeiro as dos resultados na tela, depois as de
+        // todos (para poder ordenar por elas), com o progresso enquanto faltam.
+        if (!scoresReady) {
+          parts.push(
+            el(
+              "p",
+              { class: "notice-inline scores-loading", role: "status", "aria-live": "polite" },
+              el("span", { class: "spinner small", "aria-hidden": "true" }),
+              el("span", { text: t("searchScoresLoading", scoresDone, items.length) })
+            )
+          );
         }
         parts.push(el("div", { class: "results" }, visible.map(resultCard)));
         wantRatings(ratingItems(visible));
-        if (!byScore || f.sort === "crScore") wantScores(visible);
+        wantScores(visible);
+        if (!scoresReady) wantScores(st.items);
       }
       if (st.items.length > st.shown) {
         parts.push(
@@ -1680,10 +1699,15 @@
 
   // Sem a permissão para api.myanimelist.net (o Firefox deixa desligar), as notas do
   // MyAnimeList não vêm: mostra um aviso com o botão para dar a permissão.
+  let malPermitted = true; // permissão para api.myanimelist.net (sem ela, não espera o MyAnimeList)
   async function checkMalPermission() {
     const box = $("mal-perm");
     if (!box) return;
     const ok = await CRScores.malAllowed();
+    if (ok !== malPermitted) {
+      malPermitted = ok;
+      if (settings.tab === "search") render();
+    }
     box.hidden = ok;
     if (ok) return box.replaceChildren();
     const btn = el("button", { type: "button", class: "btn small", text: t("malPermissionAllow") });
@@ -1691,6 +1715,7 @@
       // Tem de ser direto no clique (o navegador só pede a permissão assim).
       if (await CRScores.requestMal()) {
         box.hidden = true;
+        malPermitted = true;
         wantScores(results.filter((r) => r.status !== "error"));
       }
     });
@@ -1855,6 +1880,10 @@
       settings.autoCheckMinutes = CRChecker.autoCheckMinutes({ autoCheckMinutes: e.target.value });
       e.target.value = settings.autoCheckMinutes;
       await saveSettings(); // o segundo plano reagenda ao ver a mudança
+    });
+    $("set-scorettl").addEventListener("change", async (e) => {
+      settings.scoresTtlHours = CRScores.ttlHoursFrom({ scoresTtlHours: e.target.value });
+      await saveSettings();
     });
     $("set-openapp").addEventListener("change", async (e) => {
       settings.openInApp = e.target.checked;

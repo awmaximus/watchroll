@@ -854,7 +854,7 @@
     "message": "جارٍ تنزيل كتالوج Crunchyroll (أول مرة فقط، بضع ثوانٍ)…"
   },
   "searchScoresLoading": {
-    "message": "جارٍ تحميل التقييمات: $P1$ من $P2$ مسلسل…",
+    "message": "جارٍ تحميل تقييمات AniList وMyAnimeList: $P1$ من $P2$ مسلسلات… يصبح الترتيب حسبها متاحًا عند الانتهاء.",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -1171,5 +1171,19 @@
   },
   "malPermissionAllow": {
     "message": "السماح بالوصول"
+  },
+  "setScoresTtlLabel": {
+    "message": "الاحتفاظ بتقييمات AniList وMyAnimeList لمدة"
+  },
+  "setScoresTtlHours": {
+    "message": "$P1$ ساعة",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setScoresTtlHelp": {
+    "message": "بعد هذه المدة، تُجلب التقييمات من جديد."
   }
 }

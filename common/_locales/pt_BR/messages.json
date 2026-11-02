@@ -860,7 +860,7 @@
     "message": "Baixando o catálogo da Crunchyroll (só na primeira vez, leva alguns segundos)…"
   },
   "searchScoresLoading": {
-    "message": "Carregando as notas: $P1$ de $P2$ séries…",
+    "message": "Carregando as notas do AniList e do MyAnimeList: $P1$ de $P2$ séries… A ordenação por elas fica disponível quando terminar.",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -1177,5 +1177,19 @@
   },
   "malPermissionAllow": {
     "message": "Permitir acesso"
+  },
+  "setScoresTtlLabel": {
+    "message": "Guardar as notas do AniList e do MyAnimeList por"
+  },
+  "setScoresTtlHours": {
+    "message": "$P1$ horas",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setScoresTtlHelp": {
+    "message": "Depois desse tempo, as notas são buscadas de novo."
   }
 }

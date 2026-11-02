@@ -854,7 +854,7 @@
     "message": "Crunchyroll कैटलॉग डाउनलोड हो रहा है (सिर्फ़ पहली बार, कुछ सेकंड)…"
   },
   "searchScoresLoading": {
-    "message": "रेटिंग लोड हो रही हैं: $P2$ में से $P1$ सीरीज़…",
+    "message": "AniList और MyAnimeList की रेटिंग लोड हो रही हैं: $P2$ में से $P1$ सीरीज़… पूरा होने पर इनसे क्रम लगाया जा सकेगा।",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -1171,5 +1171,19 @@
   },
   "malPermissionAllow": {
     "message": "पहुँच की अनुमति दें"
+  },
+  "setScoresTtlLabel": {
+    "message": "AniList और MyAnimeList की रेटिंग इतनी देर रखें"
+  },
+  "setScoresTtlHours": {
+    "message": "$P1$ घंटे",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setScoresTtlHelp": {
+    "message": "इस समय के बाद रेटिंग फिर से लाई जाती हैं।"
   }
 }

@@ -854,7 +854,7 @@
     "message": "Crunchyroll kataloğu indiriliyor (yalnızca ilk sefer, birkaç saniye sürer)…"
   },
   "searchScoresLoading": {
-    "message": "Puanlar yükleniyor: $P2$ diziden $P1$…",
+    "message": "AniList ve MyAnimeList puanları yükleniyor: $P2$ diziden $P1$… Bunlara göre sıralama bitince kullanılabilir.",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -1171,5 +1171,19 @@
   },
   "malPermissionAllow": {
     "message": "Erişime izin ver"
+  },
+  "setScoresTtlLabel": {
+    "message": "AniList ve MyAnimeList puanlarını sakla"
+  },
+  "setScoresTtlHours": {
+    "message": "$P1$ saat",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setScoresTtlHelp": {
+    "message": "Bu süreden sonra puanlar yeniden alınır."
   }
 }

@@ -854,7 +854,7 @@
     "message": "Загружаю каталог Crunchyroll (только в первый раз, несколько секунд)…"
   },
   "searchScoresLoading": {
-    "message": "Загрузка оценок: $P1$ из $P2$ сериалов…",
+    "message": "Загрузка оценок AniList и MyAnimeList: $P1$ из $P2$ сериалов… Сортировка по ним станет доступна после загрузки.",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -1171,5 +1171,19 @@
   },
   "malPermissionAllow": {
     "message": "Разрешить доступ"
+  },
+  "setScoresTtlLabel": {
+    "message": "Хранить оценки AniList и MyAnimeList"
+  },
+  "setScoresTtlHours": {
+    "message": "$P1$ ч",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setScoresTtlHelp": {
+    "message": "По истечении этого времени оценки загружаются заново."
   }
 }

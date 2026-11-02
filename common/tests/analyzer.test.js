@@ -1983,6 +1983,25 @@ describe("categorias da Crunchyroll", () => {
     assert.deepEqual(plain(r.genres), ["fantasy", "adventure", "drama", "seinen"]);
   });
 
+  test("item real de Crunchylist: a classificação indicativa chega ao resultado", async () => {
+    const { analyzer: a } = setup({ watchlist: [], lists: { LIST: real.data }, seasons: {}, episodes: {}, playheads: {} });
+    const [r] = await a.run({ settings: settings({ sources: ["LIST"] }) });
+    assert.equal(r.age, 12);
+  });
+
+  test("classificação indicativa: L, A16 e episódio da Fila; a de outra lista completa a que falta", () => {
+    const ep = (meta) => ({ panel: { type: "episode", id: "e1", episode_metadata: { series_id: "S", series_title: "S", ...meta } } });
+    const one = (meta) => analyzer.mergeSources([{ id: "watchlist", items: [ep(meta)] }])[0].age;
+    assert.equal(one({ maturity_ratings: ["L"] }), 0);
+    assert.equal(one({ extended_maturity_rating: { rating: "A16" } }), 16);
+    assert.equal(one({}), null);
+    const merged = analyzer.mergeSources([
+      { id: "watchlist", items: [ep({})] },
+      { id: "L1", items: [ep({ maturity_ratings: ["A14"] })] },
+    ]);
+    assert.equal(merged[0].age, 14);
+  });
+
   test("Fila com episódio (episode_metadata) e junção de listas sem repetir", () => {
     const ep = (cats) => ({ panel: { type: "episode", id: "e1", episode_metadata: { series_id: "S", series_title: "S", tenant_categories: cats } } });
     const merged = analyzer.mergeSources([

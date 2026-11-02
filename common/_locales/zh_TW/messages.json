@@ -854,7 +854,7 @@
     "message": "正在下載 Crunchyroll 片庫(僅首次,需要幾秒鐘)…"
   },
   "searchScoresLoading": {
-    "message": "正在載入評分：$P1$ / $P2$ 部…",
+    "message": "正在載入 AniList 和 MyAnimeList 評分：$P1$/$P2$ 部… 載入完成後即可依這些評分排序。",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -1171,5 +1171,19 @@
   },
   "malPermissionAllow": {
     "message": "允許存取"
+  },
+  "setScoresTtlLabel": {
+    "message": "AniList 和 MyAnimeList 評分保存時間"
+  },
+  "setScoresTtlHours": {
+    "message": "$P1$ 小時",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setScoresTtlHelp": {
+    "message": "超過這段時間後會重新取得評分。"
   }
 }

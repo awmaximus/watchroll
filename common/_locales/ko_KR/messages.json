@@ -854,7 +854,7 @@
     "message": "Crunchyroll 카탈로그를 내려받는 중(처음 한 번만, 몇 초 걸립니다)…"
   },
   "searchScoresLoading": {
-    "message": "평점 불러오는 중: $P2$개 중 $P1$개…",
+    "message": "AniList 및 MyAnimeList 점수 불러오는 중: $P2$개 중 $P1$개 시리즈… 완료되면 점수순 정렬을 사용할 수 있습니다.",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -1171,5 +1171,19 @@
   },
   "malPermissionAllow": {
     "message": "접근 허용"
+  },
+  "setScoresTtlLabel": {
+    "message": "AniList 및 MyAnimeList 점수 보관 기간"
+  },
+  "setScoresTtlHours": {
+    "message": "$P1$시간",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setScoresTtlHelp": {
+    "message": "이 시간이 지나면 점수를 다시 가져옵니다."
   }
 }

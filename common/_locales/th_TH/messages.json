@@ -854,7 +854,7 @@
     "message": "กำลังดาวน์โหลดแคตตาล็อก Crunchyroll (เฉพาะครั้งแรก ใช้เวลาไม่กี่วินาที)…"
   },
   "searchScoresLoading": {
-    "message": "กำลังโหลดคะแนน: $P1$ จาก $P2$ เรื่อง…",
+    "message": "กำลังโหลดคะแนน AniList และ MyAnimeList: $P1$ จาก $P2$ เรื่อง… จะเรียงตามคะแนนเหล่านี้ได้เมื่อโหลดเสร็จ",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -1171,5 +1171,19 @@
   },
   "malPermissionAllow": {
     "message": "อนุญาตการเข้าถึง"
+  },
+  "setScoresTtlLabel": {
+    "message": "เก็บคะแนน AniList และ MyAnimeList ไว้"
+  },
+  "setScoresTtlHours": {
+    "message": "$P1$ ชั่วโมง",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setScoresTtlHelp": {
+    "message": "หลังจากนั้นจะดึงคะแนนใหม่"
   }
 }

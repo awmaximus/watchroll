@@ -854,7 +854,7 @@
     "message": "A transferir o catálogo da Crunchyroll (só da primeira vez, demora alguns segundos)…"
   },
   "searchScoresLoading": {
-    "message": "A carregar as notas: $P1$ de $P2$ séries…",
+    "message": "A carregar as classificações do AniList e do MyAnimeList: $P1$ de $P2$ séries… A ordenação por elas fica disponível quando terminar.",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -1171,5 +1171,19 @@
   },
   "malPermissionAllow": {
     "message": "Permitir acesso"
+  },
+  "setScoresTtlLabel": {
+    "message": "Guardar as classificações do AniList e do MyAnimeList durante"
+  },
+  "setScoresTtlHours": {
+    "message": "$P1$ horas",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setScoresTtlHelp": {
+    "message": "Depois desse tempo, as classificações são obtidas de novo."
   }
 }

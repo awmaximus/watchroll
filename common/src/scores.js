@@ -14,7 +14,8 @@
 //    (api.myanimelist.net/v2/anime/{id}, com o Client ID de mal-client.js; sem CORS,
 //    por isso a extensão tem permissão para esse endereço). Sem Client ID, vem do
 //    Jikan (api.jikan.moe/v4/anime/{id}), no máximo ~1 consulta por segundo.
-//  - Tudo fica guardado por 7 dias (falhas: tenta de novo em 1 dia), por série.
+//  - Tudo fica guardado por série por 4, 8, 12 ou 24 horas (Configurações). Falhas:
+//    AniList tenta de novo em 1 dia, MyAnimeList em 1 hora (no máximo o mesmo prazo).
 
 /* global browser, MAL_CLIENT_ID */
 var CRScores = (() => {
@@ -24,7 +25,13 @@ var CRScores = (() => {
   const MAL_ORIGIN = "https://api.myanimelist.net/*";
   const KEY = "crnovos:scores";
   const DAY = 86400000;
-  const TTL = 7 * DAY;
+  // Quanto tempo as notas ficam guardadas: 4, 8, 12 ou 24 horas (Configurações).
+  const TTL_HOURS = [4, 8, 12, 24];
+  const DEFAULT_TTL_HOURS = 24;
+  const ttlHoursFrom = (settings) => {
+    const h = Number(settings && settings.scoresTtlHours);
+    return TTL_HOURS.includes(h) ? h : DEFAULT_TTL_HOURS;
+  };
   const RETRY = DAY;
   const MAL_RETRY = 3600000; // falha no MyAnimeList: tenta de novo em 1 hora
   const BATCH = 10; // séries por consulta ao AniList
@@ -191,7 +198,8 @@ var CRScores = (() => {
     } catch (_) {}
   }
 
-  const fresh = (part, now, retry = RETRY) => part && now - (part.at || 0) < (part.failed || part.none ? retry : TTL);
+  // Falha (ou série não achada) tenta de novo antes: no máximo no mesmo prazo das notas.
+  const fresh = (part, now, ttl, retry = RETRY) => part && now - (part.at || 0) < (part.failed || part.none ? Math.min(retry, ttl) : ttl);
 
   /**
    * A API oficial do MyAnimeList não tem CORS: só funciona com a permissão para
@@ -228,14 +236,15 @@ var CRScores = (() => {
     return job;
   }
 
-  async function doUpdate(series, { fetchFn = fetch, b = browser, onUpdate = () => {}, now = Date.now() } = {}) {
+  async function doUpdate(series, { fetchFn = fetch, b = browser, onUpdate = () => {}, now = Date.now(), ttlHours = DEFAULT_TTL_HOURS } = {}) {
+    const ttl = (TTL_HOURS.includes(Number(ttlHours)) ? Number(ttlHours) : DEFAULT_TTL_HOURS) * 3600000;
     const all = await load(b);
     const list = (series || []).filter((s) => s && s.id && (s.slug || s.title));
     const seen = new Set();
     const unique = list.filter((s) => !seen.has(s.id) && seen.add(s.id));
 
     // 1. AniList, de 10 em 10 séries (grava e avisa a página a cada parte)
-    const needAl = unique.filter((s) => !fresh(all[s.id] && all[s.id].al, now));
+    const needAl = unique.filter((s) => !fresh(all[s.id] && all[s.id].al, now, ttl));
     for (let i = 0; i < needAl.length; i += BATCH) {
       const chunk = needAl.slice(i, i + BATCH);
       try {
@@ -267,7 +276,7 @@ var CRScores = (() => {
       if (!e || !e.al || !e.al.idMal) return false;
       const m = e.mal && e.mal.id === e.al.idMal ? e.mal : null;
       // Uma falha de outra fonte (ex.: o Jikan, antes do Client ID) não espera o dia.
-      return !fresh(m && m.failed && m.src !== malSource() ? null : m, now, MAL_RETRY);
+      return !fresh(m && m.failed && m.src !== malSource() ? null : m, now, ttl, MAL_RETRY);
     });
     let changed = 0;
     let failures = 0; // 2 falhas seguidas: o serviço está fora; tenta de novo outro dia
@@ -299,12 +308,23 @@ var CRScores = (() => {
       onUpdate(all);
     }
 
-    // Entradas sem uso há 60 dias saem.
+    // Entradas sem uso há 7 dias saem.
     for (const [id, e] of Object.entries(all)) {
       const last = Math.max((e.al && e.al.at) || 0, (e.mal && e.mal.at) || 0);
-      if (now - last > 60 * DAY) delete all[id];
+      if (now - last > 7 * DAY) delete all[id];
     }
     return all;
+  }
+
+  /**
+   * A série já tem as notas (ou a resposta de que não há): o AniList respondeu e, se
+   * houver ID do MyAnimeList, ele também (mal: false = sem contar o MyAnimeList).
+   */
+  function loaded(all, id, { mal = true } = {}) {
+    const e = (all || {})[id];
+    if (!e || !e.al) return false;
+    if (!mal || !e.al.idMal) return true;
+    return !!(e.mal && e.mal.id === e.al.idMal);
   }
 
   /** Notas guardadas de uma série: { al: número|null, alId, mal: número|null, malId }. */
@@ -320,6 +340,7 @@ var CRScores = (() => {
     load,
     update,
     scoresOf,
+    loaded,
     pick,
     queryText,
     anilistFor,
@@ -328,6 +349,8 @@ var CRScores = (() => {
     setSleep: (fn) => (sleep = fn),
     setClientId: (id) => (clientId = String(id || "").trim()),
     malAllowed,
+    TTL_HOURS,
+    ttlHoursFrom,
     requestMal,
   };
 })();

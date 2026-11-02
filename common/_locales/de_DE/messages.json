@@ -854,7 +854,7 @@
     "message": "Lade den Crunchyroll-Katalog (nur beim ersten Mal, dauert ein paar Sekunden)…"
   },
   "searchScoresLoading": {
-    "message": "Bewertungen werden geladen: $P1$ von $P2$ Serien …",
+    "message": "AniList- und MyAnimeList-Bewertungen werden geladen: $P1$ von $P2$ Serien … Die Sortierung danach ist verfügbar, sobald alle geladen sind.",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -1171,5 +1171,19 @@
   },
   "malPermissionAllow": {
     "message": "Zugriff erlauben"
+  },
+  "setScoresTtlLabel": {
+    "message": "AniList- und MyAnimeList-Bewertungen speichern für"
+  },
+  "setScoresTtlHours": {
+    "message": "$P1$ Stunden",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setScoresTtlHelp": {
+    "message": "Danach werden die Bewertungen neu abgerufen."
   }
 }

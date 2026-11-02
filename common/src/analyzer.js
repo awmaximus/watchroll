@@ -335,6 +335,19 @@ var CRAnalyzer = (() => {
         p.tenant_categories
     );
 
+  // Classificação indicativa que vem no item ("L", "A12", "16"…): idade mínima (L = 0).
+  // Mesma regra da Pesquisa (search.js).
+  function itemAge(p) {
+    const m = p.series_metadata || p.movie_listing_metadata || p.episode_metadata || p.movie_metadata || {};
+    const ext = m.extended_maturity_rating && m.extended_maturity_rating.rating;
+    const raw = [ext, ...(m.maturity_ratings || [])].find((x) => x != null && x !== "");
+    if (raw == null) return null;
+    const s = String(raw).trim().toUpperCase();
+    if (s === "L" || s === "AL" || s === "LIVRE") return 0;
+    const d = /(\d{1,2})/.exec(s);
+    return d ? Number(d[1]) : null;
+  }
+
   function normalizeItem(item) {
     const p = item.panel || {};
     const meta = p.episode_metadata || {};
@@ -351,6 +364,7 @@ var CRAnalyzer = (() => {
         neverWatchedFlag: !!item.never_watched,
         rating: itemRating(p),
         genres: itemGenres(p),
+        age: itemAge(p),
       };
     }
     const seriesId = p.type === "series" ? p.id : meta.series_id || p.series_id;
@@ -363,6 +377,7 @@ var CRAnalyzer = (() => {
       neverWatchedFlag: !!item.never_watched,
       rating: itemRating(p),
       genres: itemGenres(p),
+      age: itemAge(p),
     };
   }
 
@@ -933,6 +948,7 @@ var CRAnalyzer = (() => {
           prev.neverWatchedFlag = prev.neverWatchedFlag || e.neverWatchedFlag;
           if (!prev.image) prev.image = e.image;
           if (!prev.rating) prev.rating = e.rating;
+          if (prev.age == null) prev.age = e.age;
           for (const g of e.genres || []) if (!prev.genres.includes(g)) prev.genres.push(g);
         }
       }
@@ -1032,6 +1048,7 @@ var CRAnalyzer = (() => {
         lists: entry.lists,
         rating: entry.rating || result.rating || null,
         genres: entry.genres && entry.genres.length ? entry.genres : result.genres || [],
+        age: entry.age != null ? entry.age : result.age != null ? result.age : null,
       };
     });
 

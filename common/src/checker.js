@@ -40,6 +40,7 @@ var CRChecker = (() => {
     openInApp: true, // Firefox para Android: links da Crunchyroll abrem no app
     compact: false, // "Para assistir" em linhas em vez de cards
     groupNever: true, // "A iniciar" agrupado pela temporada de lançamento
+    scoresTtlHours: 24, // notas do AniList e do MyAnimeList guardadas por 4, 8, 12 ou 24 h
   };
 
   // ---------- preferências: locais + sincronizadas (storage.sync) ----------

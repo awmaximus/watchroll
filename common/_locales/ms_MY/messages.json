@@ -854,7 +854,7 @@
     "message": "Memuat turun katalog Crunchyroll (hanya kali pertama, beberapa saat)…"
   },
   "searchScoresLoading": {
-    "message": "Memuatkan skor: $P1$ daripada $P2$ siri…",
+    "message": "Memuatkan skor AniList dan MyAnimeList: $P1$ daripada $P2$ siri… Susunan mengikut skor ini tersedia apabila selesai.",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -1171,5 +1171,19 @@
   },
   "malPermissionAllow": {
     "message": "Benarkan akses"
+  },
+  "setScoresTtlLabel": {
+    "message": "Simpan skor AniList dan MyAnimeList selama"
+  },
+  "setScoresTtlHours": {
+    "message": "$P1$ jam",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setScoresTtlHelp": {
+    "message": "Selepas tempoh itu, skor diambil semula."
   }
 }

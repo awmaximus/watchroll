@@ -854,7 +854,7 @@
     "message": "Crunchyroll کا کیٹلاگ ڈاؤن لوڈ ہو رہا ہے (صرف پہلی بار، چند سیکنڈ)…"
   },
   "searchScoresLoading": {
-    "message": "ریٹنگز لوڈ ہو رہی ہیں: $P2$ میں سے $P1$ سیریز…",
+    "message": "AniList اور MyAnimeList کے اسکور لوڈ ہو رہے ہیں: $P2$ میں سے $P1$ سیریز… مکمل ہونے پر ان کے مطابق ترتیب دستیاب ہوگی۔",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -1171,5 +1171,19 @@
   },
   "malPermissionAllow": {
     "message": "رسائی کی اجازت دیں"
+  },
+  "setScoresTtlLabel": {
+    "message": "AniList اور MyAnimeList کے اسکور اتنی دیر رکھیں"
+  },
+  "setScoresTtlHours": {
+    "message": "$P1$ گھنٹے",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setScoresTtlHelp": {
+    "message": "اس وقت کے بعد اسکور دوبارہ لائے جاتے ہیں۔"
   }
 }

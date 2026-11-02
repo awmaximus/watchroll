@@ -290,14 +290,17 @@ Watchroll has no server of its own: the scores come straight from the sources, f
   Crunchyroll scores still show. Firefox lets you turn the `api.myanimelist.net` permission off
   (and doesn't always grant a new one on update); without it, the page shows a notice with an
   **Allow access** button.
-- Scores load after the check, a few at a time, without delaying the list. They are kept for 7
-  days per series (1 day when not found or when the service failed).
+- Scores load after the check, a few at a time, without delaying the list. They are kept per
+  series for 4, 8, 12 or 24 hours (**Settings → Keep AniList and MyAnimeList scores for**;
+  24 by default). Failures are retried sooner: a day for AniList, an hour for MyAnimeList
+  (never later than the chosen time).
 - **Sorting:** every series tab can sort by the Crunchyroll, AniList or MyAnimeList score
-  (highest first; series without that score go last). Advanced Search can sort by any of the
-  three too; for AniList and MyAnimeList, the scores of all results are loaded a few at a time
-  (a note shows the progress) and the list reorders as they arrive. AniList answers up to 30
-  requests a minute and MyAnimeList is queried one series at a time, so a large result set (the whole catalog)
-  takes a while the first time; after that the scores are cached.
+  (highest first; series without that score go last). In Advanced Search, the AniList and
+  MyAnimeList scores of the results on screen load first, then those of all results, with a
+  progress note; sorting by them is only offered once all of them have loaded (otherwise the
+  order would keep changing). AniList answers up to 30 requests a minute and MyAnimeList is
+  queried one series at a time, so a large result set (the whole catalog) takes a while the
+  first time; after that the scores come from the cache.
 
 ### Speed and freshness
 

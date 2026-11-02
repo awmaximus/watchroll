@@ -854,7 +854,7 @@
     "message": "Pobieranie katalogu Crunchyroll (tylko za pierwszym razem, kilka sekund)…"
   },
   "searchScoresLoading": {
-    "message": "Wczytywanie ocen: $P1$ z $P2$ serii…",
+    "message": "Wczytywanie ocen z AniList i MyAnimeList: $P1$ z $P2$ serii… Sortowanie według nich będzie dostępne po zakończeniu.",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -1171,5 +1171,19 @@
   },
   "malPermissionAllow": {
     "message": "Zezwól na dostęp"
+  },
+  "setScoresTtlLabel": {
+    "message": "Przechowuj oceny z AniList i MyAnimeList przez"
+  },
+  "setScoresTtlHours": {
+    "message": "$P1$ godz.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setScoresTtlHelp": {
+    "message": "Po tym czasie oceny są pobierane ponownie."
   }
 }

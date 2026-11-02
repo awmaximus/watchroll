@@ -854,7 +854,7 @@
     "message": "Crunchyroll కేటలాగ్ డౌన్‌లోడ్ అవుతోంది (మొదటిసారి మాత్రమే, కొన్ని సెకన్లు)…"
   },
   "searchScoresLoading": {
-    "message": "రేటింగ్‌లు లోడ్ అవుతున్నాయి: $P2$లో $P1$ సిరీస్‌లు…",
+    "message": "AniList, MyAnimeList స్కోర్‌లు లోడ్ అవుతున్నాయి: $P2$లో $P1$ సిరీస్‌లు… పూర్తయ్యాక వాటి ప్రకారం క్రమబద్ధీకరించవచ్చు.",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -1171,5 +1171,19 @@
   },
   "malPermissionAllow": {
     "message": "యాక్సెస్ అనుమతించు"
+  },
+  "setScoresTtlLabel": {
+    "message": "AniList, MyAnimeList స్కోర్‌లను ఉంచే వ్యవధి"
+  },
+  "setScoresTtlHours": {
+    "message": "$P1$ గంటలు",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setScoresTtlHelp": {
+    "message": "ఈ సమయం తర్వాత స్కోర్‌లు మళ్లీ తీసుకురాబడతాయి."
   }
 }

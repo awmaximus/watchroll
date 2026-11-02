@@ -854,7 +854,7 @@
     "message": "Crunchyroll のカタログをダウンロード中(初回のみ、数秒かかります)…"
   },
   "searchScoresLoading": {
-    "message": "評価を読み込み中: $P2$ 作品中 $P1$…",
+    "message": "AniList と MyAnimeList のスコアを読み込み中：$P2$ 作品中 $P1$ 作品… 完了するとスコアで並べ替えられます。",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -1171,5 +1171,19 @@
   },
   "malPermissionAllow": {
     "message": "アクセスを許可"
+  },
+  "setScoresTtlLabel": {
+    "message": "AniList と MyAnimeList のスコアの保存期間"
+  },
+  "setScoresTtlHours": {
+    "message": "$P1$ 時間",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setScoresTtlHelp": {
+    "message": "この時間が過ぎると、スコアを再取得します。"
   }
 }

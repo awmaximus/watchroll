@@ -860,7 +860,7 @@
     "message": "Downloading the Crunchyroll catalog (first time only, takes a few seconds)…"
   },
   "searchScoresLoading": {
-    "message": "Loading scores: $P1$ of $P2$ series…",
+    "message": "Loading AniList and MyAnimeList scores: $P1$ of $P2$ series… Sorting by them becomes available when done.",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -1177,5 +1177,19 @@
   },
   "malPermissionAllow": {
     "message": "Allow access"
+  },
+  "setScoresTtlLabel": {
+    "message": "Keep AniList and MyAnimeList scores for"
+  },
+  "setScoresTtlHours": {
+    "message": "$P1$ hours",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setScoresTtlHelp": {
+    "message": "After that, the scores are fetched again."
   }
 }

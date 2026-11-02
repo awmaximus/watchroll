@@ -854,7 +854,7 @@
     "message": "Baixant el catàleg de Crunchyroll (només la primera vegada, uns segons)…"
   },
   "searchScoresLoading": {
-    "message": "S’estan carregant les notes: $P1$ de $P2$ sèries…",
+    "message": "S'estan carregant les notes d'AniList i MyAnimeList: $P1$ de $P2$ sèries… L'ordenació per aquestes notes estarà disponible quan acabi.",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -1171,5 +1171,19 @@
   },
   "malPermissionAllow": {
     "message": "Permet l'accés"
+  },
+  "setScoresTtlLabel": {
+    "message": "Desa les notes d'AniList i MyAnimeList durant"
+  },
+  "setScoresTtlHours": {
+    "message": "$P1$ hores",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setScoresTtlHelp": {
+    "message": "Passat aquest temps, les notes es tornen a buscar."
   }
 }

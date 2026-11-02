@@ -854,7 +854,7 @@
     "message": "Mengunduh katalog Crunchyroll (hanya pertama kali, beberapa detik)…"
   },
   "searchScoresLoading": {
-    "message": "Memuat skor: $P1$ dari $P2$ serial…",
+    "message": "Memuat skor AniList dan MyAnimeList: $P1$ dari $P2$ serial… Urutan berdasarkan skor ini tersedia setelah selesai.",
     "placeholders": {
       "p1": {
         "content": "$1"
@@ -1171,5 +1171,19 @@
   },
   "malPermissionAllow": {
     "message": "Izinkan akses"
+  },
+  "setScoresTtlLabel": {
+    "message": "Simpan skor AniList dan MyAnimeList selama"
+  },
+  "setScoresTtlHours": {
+    "message": "$P1$ jam",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "setScoresTtlHelp": {
+    "message": "Setelah itu, skor diambil lagi."
   }
 }

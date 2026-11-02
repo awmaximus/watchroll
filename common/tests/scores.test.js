@@ -238,6 +238,48 @@ describe("atualização e cache", () => {
     assert.ok(!all.G3KHEVDJ7.mal.failed);
   });
 
+  test("prazo configurável (4 h): depois de 5 h consulta de novo; com 3 h, não", async () => {
+    const { S, fetchFn, calls } = setup(answer);
+    const t0 = Date.now();
+    await S.update(series, { fetchFn, now: t0, ttlHours: 4 });
+    const n = calls.length;
+    await S.update(series, { fetchFn, now: t0 + 3 * 3600000, ttlHours: 4 });
+    assert.equal(calls.length, n);
+    await S.update(series, { fetchFn, now: t0 + 5 * 3600000, ttlHours: 4 });
+    assert.ok(calls.length > n);
+  });
+
+  test("prazo padrão é 24 h; valores fora de 4, 8, 12 e 24 voltam ao padrão", async () => {
+    const { S, fetchFn, calls } = setup(answer);
+    assert.deepEqual(plain(S.TTL_HOURS), [4, 8, 12, 24]);
+    assert.equal(S.ttlHoursFrom({}), 24);
+    assert.equal(S.ttlHoursFrom({ scoresTtlHours: "8" }), 8);
+    assert.equal(S.ttlHoursFrom({ scoresTtlHours: 5 }), 24);
+    const t0 = Date.now();
+    await S.update(series, { fetchFn, now: t0 });
+    const n = calls.length;
+    await S.update(series, { fetchFn, now: t0 + 23 * 3600000 });
+    assert.equal(calls.length, n);
+    await S.update(series, { fetchFn, now: t0 + 25 * 3600000 });
+    assert.ok(calls.length > n);
+  });
+
+  test("loaded: só com o AniList e o MyAnimeList respondidos (ou sem ID do MyAnimeList)", () => {
+    const { S } = setup(() => json({}));
+    const all = {
+      A: { al: { id: 1, score: 80, idMal: 10 }, mal: { id: 10, score: 8 } },
+      B: { al: { id: 2, score: 70, idMal: 20 } },
+      C: { al: { none: true } },
+      D: { al: { id: 4, score: 60, idMal: 40 }, mal: { id: 40, failed: true } },
+    };
+    assert.equal(S.loaded(all, "A"), true);
+    assert.equal(S.loaded(all, "B"), false, "falta o MyAnimeList");
+    assert.equal(S.loaded(all, "B", { mal: false }), true, "sem permissão, não espera o MyAnimeList");
+    assert.equal(S.loaded(all, "C"), true, "não achada no AniList: nada mais a esperar");
+    assert.equal(S.loaded(all, "D"), true, "falha também encerra a espera");
+    assert.equal(S.loaded(all, "E"), false);
+  });
+
   test("AniList fora do ar: nada quebra", async () => {
     const { S, fetchFn } = setup(() => json({}, 500));
     const all = await S.update(series, { fetchFn });
