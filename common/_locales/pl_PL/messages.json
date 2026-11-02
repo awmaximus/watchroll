@@ -853,6 +853,17 @@
   "searchLoadingCatalog": {
     "message": "Pobieranie katalogu Crunchyroll (tylko za pierwszym razem, kilka sekund)…"
   },
+  "searchScoresLoading": {
+    "message": "Wczytywanie ocen: $P1$ z $P2$ serii…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
   "sortWaiting": {
     "message": "Najwięcej oczekujących"
   },

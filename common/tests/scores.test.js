@@ -27,7 +27,7 @@ const ARISTOCRAT = {
 function setup(answer) {
   const calls = [];
   const fetchFn = async (url, init = {}) => {
-    calls.push({ url, body: init.body ? JSON.parse(init.body) : null });
+    calls.push({ url, init, body: init.body ? JSON.parse(init.body) : null });
     return answer(url, init.body ? JSON.parse(init.body) : null, calls);
   };
   const b = fakeBrowser();
@@ -156,6 +156,49 @@ describe("atualização e cache", () => {
     assert.equal(calls.filter((c) => c.url.includes("jikan")).length, 2);
     assert.ok(many.every((s) => all[s.id].mal && all[s.id].mal.failed), "tenta de novo outro dia");
     assert.ok(many.every((s) => S.scoresOf(all, s.id).al === 70), "as notas do AniList ficam");
+  });
+
+  test("limite do AniList (HTTP 429): espera o Retry-After e tenta de novo", async () => {
+    let first = true;
+    const waits = [];
+    const { S, fetchFn } = setup((url, body) => {
+      if (url.includes("jikan")) return json({ data: { score: 8.87, scored_by: 1 } });
+      if (first) {
+        first = false;
+        return { ok: false, status: 429, headers: { get: (h) => (h === "retry-after" ? "7" : null) }, json: async () => ({}) };
+      }
+      return aniList(() => [APOTHECARY])(body);
+    });
+    S.setSleep(async (ms) => waits.push(ms));
+    const all = await S.update(series, { fetchFn });
+    assert.equal(S.scoresOf(all, "G3KHEVDJ7").al, 88);
+    assert.ok(waits.includes(7000));
+  });
+
+  test("com Client ID: usa a API oficial do MyAnimeList (e não o Jikan)", async () => {
+    const { S, fetchFn, calls } = setup((url, body) =>
+      url.startsWith("https://api.myanimelist.net/v2/anime/54492?")
+        ? json({ id: 54492, mean: 8.88, num_scoring_users: 400000 })
+        : aniList(() => [APOTHECARY])(body)
+    );
+    S.setClientId("abc123");
+    const all = await S.update(series, { fetchFn });
+    const sc = S.scoresOf(all, "G3KHEVDJ7");
+    assert.equal(sc.mal, 8.88);
+    assert.equal(sc.malUsers, 400000);
+    const mal = calls.find((c) => c.url.includes("myanimelist"));
+    assert.match(mal.url, /fields=mean,num_scoring_users/);
+    assert.equal(mal.init.headers["X-MAL-CLIENT-ID"], "abc123");
+    assert.equal(mal.init.credentials, "omit");
+    assert.ok(!calls.some((c) => c.url.includes("jikan")));
+  });
+
+  test("API oficial do MyAnimeList: série sem nota (404) não é falha", async () => {
+    const { S, fetchFn } = setup((url, body) => (url.includes("myanimelist") ? json({}, 404) : aniList(() => [APOTHECARY])(body)));
+    S.setClientId("abc123");
+    const all = await S.update(series, { fetchFn });
+    assert.equal(S.scoresOf(all, "G3KHEVDJ7").mal, null);
+    assert.ok(!all.G3KHEVDJ7.mal.failed);
   });
 
   test("AniList fora do ar: nada quebra", async () => {

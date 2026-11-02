@@ -853,6 +853,17 @@
   "searchLoadingCatalog": {
     "message": "Descargando el catálogo de Crunchyroll (solo la primera vez, tarda unos segundos)…"
   },
+  "searchScoresLoading": {
+    "message": "Cargando las calificaciones: $P1$ de $P2$ series…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
   "sortWaiting": {
     "message": "Más episodios esperando"
   },

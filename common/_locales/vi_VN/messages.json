@@ -853,6 +853,17 @@
   "searchLoadingCatalog": {
     "message": "Đang tải thư viện Crunchyroll (chỉ lần đầu, mất vài giây)…"
   },
+  "searchScoresLoading": {
+    "message": "Đang tải điểm: $P1$ / $P2$ phim…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
   "sortWaiting": {
     "message": "Nhiều tập chờ nhất"
   },

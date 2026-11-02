@@ -11,7 +11,7 @@ affiliated with or endorsed by Crunchyroll.
 - The extension has no servers of its own and collects no analytics or telemetry.
 - It talks to Crunchyroll, using your own session, to read your lists and watch progress.
 - To show scores and understand Japanese and romaji titles, it also sends anime names and IDs to
-  AniList and Jikan (a public MyAnimeList data service). Never your account, history or progress.
+  AniList and MyAnimeList. Never your account, history or progress.
 - Everything it stores stays in your browser profile; your settings are also synced to your
   other computers through the browser's own sync, if you use it.
 - It does not run in private windows, so nothing from private browsing is read or stored.
@@ -49,7 +49,7 @@ Apart from that, this data is never sent anywhere else. Removing the extension d
 creates a file with your settings only (no login data, tokens or history); the file stays
 wherever you save it.
 
-## AniList and MyAnimeList (Jikan)
+## AniList and MyAnimeList
 
 To show the AniList and MyAnimeList scores of your series and to find anime by their Japanese or
 romaji names, the extension sends, directly from your browser:
@@ -57,8 +57,10 @@ romaji names, the extension sends, directly from your browser:
 - to **AniList** (`graphql.anilist.co`): the names of the series in your lists and in your
   Advanced Search results (as they appear in Crunchyroll's web addresses, in English), and the
   text you type in Advanced Search;
-- to **Jikan** (`api.jikan.moe`, a public service with MyAnimeList's data): the MyAnimeList IDs
-  of those series;
+- to **MyAnimeList** (`api.myanimelist.net`, its official API): the MyAnimeList IDs of those
+  series, with the extension's Client ID (which identifies the extension, not you). Builds
+  without a Client ID ask **Jikan** (`api.jikan.moe`, a public service with MyAnimeList's
+  data) instead;
 - the score badges show each site's icon, loaded from the site itself (`anilist.co`,
   `myanimelist.net`, `crunchyroll.com`).
 

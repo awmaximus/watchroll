@@ -853,6 +853,17 @@
   "searchLoadingCatalog": {
     "message": "Crunchyroll kataloğu indiriliyor (yalnızca ilk sefer, birkaç saniye sürer)…"
   },
+  "searchScoresLoading": {
+    "message": "Puanlar yükleniyor: $P2$ diziden $P1$…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
   "sortWaiting": {
     "message": "En çok bekleyen bölüm"
   },

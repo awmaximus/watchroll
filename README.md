@@ -126,10 +126,10 @@ score** (highest first; series without that score go last).
 
 - **Scores:** each one starts with the site's icon (its official favicon, loaded from the site;
   without network, the abbreviation CR, AL or MAL):
-  - **Crunchyroll:** the average out of 5 and the number of ratings, e.g. 4.7 (63.2K);
-  - **AniList:** the average score, e.g. 88%; click it to open the anime on AniList;
-  - **MyAnimeList:** the score out of 10 and the number of ratings, e.g. 8.87 (312K); click it
-    to open the anime on MyAnimeList.
+  - **Crunchyroll:** the average out of 5, e.g. 4.7;
+  - **AniList:** the average score as a percentage, as AniList shows it, e.g. 88%; click it to
+    open the anime on AniList;
+  - **MyAnimeList:** the score out of 10, e.g. 8.87; click it to open the anime on MyAnimeList.
   Hover any of them for details. See [Scores from AniList and MyAnimeList](#scores-from-anilist-and-myanimelist).
 - **Dub indicator:** a microphone with your dub language. Green: the latest season has that
   dub. Yellow, dashed: only earlier seasons have it. Grey, crossed out: no dub.
@@ -178,7 +178,8 @@ score** (highest first; series without that score go last).
   tick several at once, e.g. 2024 and 2025, or Fall 2025 and Winter 2026) and **Min.
   seasons** (2 to 6; Crunchyroll's season count can include dubbed copies, so it may be higher
   than the real number; movies are left out).
-- **Sort:** Crunchyroll default, newest release, title or Crunchyroll rating. Results load 60 at a time, with a
+- **Sort:** Crunchyroll default, newest release, title, or the Crunchyroll, AniList or
+  MyAnimeList score (see [Scores from AniList and MyAnimeList](#scores-from-anilist-and-myanimelist)). Results load 60 at a time, with a
   loading indicator.
 
 ### Firefox for Android
@@ -278,15 +279,22 @@ Watchroll has no server of its own: the scores come straight from the sources, f
   title. Crunchyroll keeps all seasons in one series while AniList has one entry per season, so
   the first TV season is used. If nothing matches, shorter searches are tried; if still nothing,
   no score is shown (better no score than another anime's).
-- **MyAnimeList:** AniList gives the MyAnimeList ID; the score comes from
-  [Jikan](https://jikan.moe), a public service with MyAnimeList's data, about one series per
-  second. If Jikan doesn't answer (it has outages), MyAnimeList scores are skipped and tried
-  again the next day; AniList and Crunchyroll scores still show.
+- **MyAnimeList:** AniList gives the MyAnimeList ID; the score comes from the
+  [official MyAnimeList API](https://myanimelist.net/apiconfig/references/api/v2)
+  (`api.myanimelist.net/v2/anime/{id}?fields=mean,num_scoring_users`). It needs a Client ID
+  (not a secret) in `common/src/mal-client.js`, and the API doesn't send CORS headers, so the
+  extension has a host permission for `https://api.myanimelist.net/*`. Without a Client ID the
+  score comes from [Jikan](https://jikan.moe), a public service with MyAnimeList's data, about
+  one series per second. If the service doesn't answer twice in a row, MyAnimeList scores are
+  skipped and tried again the next day; AniList and Crunchyroll scores still show.
 - Scores load after the check, a few at a time, without delaying the list. They are kept for 7
   days per series (1 day when not found or when the service failed).
 - **Sorting:** every series tab can sort by the Crunchyroll, AniList or MyAnimeList score
-  (highest first; series without that score go last). Advanced Search can sort by the
-  Crunchyroll rating.
+  (highest first; series without that score go last). Advanced Search can sort by any of the
+  three too; for AniList and MyAnimeList, the scores of all results are loaded a few at a time
+  (a note shows the progress) and the list reorders as they arrive. AniList answers up to 30
+  requests a minute and MyAnimeList is queried one series at a time, so a large result set (the whole catalog)
+  takes a while the first time; after that the scores are cached.
 
 ### Speed and freshness
 
@@ -322,7 +330,7 @@ Watchroll has no server of its own: the scores come straight from the sources, f
 - Settings (not the token, history or results) go through the browser's own sync, to your
   other computers signed in to the same account.
 - Besides Crunchyroll, Watchroll talks to AniList (series names from your lists and Advanced
-  Search text) and to Jikan (MyAnimeList IDs), only to get scores and titles; see
+  Search text) and to MyAnimeList (MyAnimeList IDs; Jikan without a Client ID), only to get scores and titles; see
   [Scores from AniList and MyAnimeList](#scores-from-anilist-and-myanimelist). Nothing else is
   sent to third parties.
   See [PRIVACY.md](PRIVACY.md).

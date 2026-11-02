@@ -30,7 +30,8 @@
     "notifications"
   ],
   "host_permissions": [
-    "https://www.crunchyroll.com/*"
+    "https://www.crunchyroll.com/*",
+    "https://api.myanimelist.net/*"
   ],
   "content_scripts": [
     {

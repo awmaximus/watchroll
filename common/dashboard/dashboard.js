@@ -520,14 +520,6 @@
     return img;
   }
 
-  const compactNumber = (n) => {
-    try {
-      return new Intl.NumberFormat(UI, { notation: "compact", maximumFractionDigits: 1 }).format(n);
-    } catch (_) {
-      return Number(n).toLocaleString(UI);
-    }
-  };
-
   // Nota da Crunchyroll de uma série (a que veio junto ou a guardada), ou null.
   const crRating = (s) => {
     const r = s.rating || ratings[s.seriesId || s.id];
@@ -561,11 +553,12 @@
     const r = crRating(s);
     if (r) {
       const avg = r.average.toLocaleString(UI, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-      out.push(scoreBadge("cr", avg, t("ratingTitle", avg, r.total.toLocaleString(UI)), { compact, count: r.total > 0 ? compactNumber(r.total) : null }));
+      out.push(scoreBadge("cr", avg, t("ratingTitle", avg, r.total.toLocaleString(UI)), { compact }));
     }
     {
       const sc = CRScores.scoresOf(extraScores, s.seriesId || s.id);
       if (sc.al != null) {
+        // Em percentual, como o próprio AniList mostra.
         out.push(scoreBadge("al", `${sc.al}%`, t("scoreAlTitle", sc.al), { compact, href: sc.alId ? `https://anilist.co/anime/${sc.alId}` : null }));
       }
       if (sc.mal != null) {
@@ -574,7 +567,6 @@
           scoreBadge("mal", v, t("scoreMalTitle", v, sc.malUsers.toLocaleString(UI)), {
             compact,
             href: sc.malId ? `https://myanimelist.net/anime/${sc.malId}` : null,
-            count: sc.malUsers ? compactNumber(sc.malUsers) : null,
           })
         );
       }
@@ -585,17 +577,32 @@
 
   // Notas do AniList e do MyAnimeList das séries na tela (as que faltam ou estão
   // velhas), depois da verificação, sem atrasar a lista. Redesenha aos poucos.
+  // Uma atualização por vez; pedidos feitos no meio esperam e viram um só (o último).
   let scoresRender = null;
-  async function wantScores(list) {
+  let scoresBusy = false;
+  let scoresNext = null;
+  function wantScores(list) {
     if (!list.length) return;
+    if (scoresBusy) {
+      scoresNext = list;
+      return;
+    }
+    scoresBusy = true;
     const series = list.map((x) => ({ id: x.seriesId || x.id, title: x.title, slug: x.slug }));
     CRScores.update(series, {
       onUpdate: (all) => {
         extraScores = all;
         clearTimeout(scoresRender);
-        scoresRender = setTimeout(() => render(), 150);
+        scoresRender = setTimeout(() => render(), 300);
       },
-    }).catch((err) => console.warn("[Watchroll]", err));
+    })
+      .catch((err) => console.warn("[Watchroll]", err))
+      .finally(() => {
+        scoresBusy = false;
+        const next = scoresNext;
+        scoresNext = null;
+        if (next) wantScores(next);
+      });
   }
 
   // ---------- links ----------
@@ -1296,7 +1303,9 @@
             opt("default", t("searchSortDefault"), f.sort),
             opt("year", t("searchSortYear"), f.sort),
             opt("title", t("searchSortTitle"), f.sort),
-            opt("crScore", t("sortCrScore"), f.sort)
+            opt("crScore", t("sortCrScore"), f.sort),
+            opt("alScore", t("sortAlScore"), f.sort),
+            opt("malScore", t("sortMalScore"), f.sort)
           )
         )
       )
@@ -1366,11 +1375,26 @@
       parts.push(el("p", { class: "result-count", text: tn("searchCount", st.items.length) }));
       if (st.items.length) {
         // Pela nota da Crunchyroll: também a das notas buscadas depois (não só as que vieram junto).
-        const ordered = f.sort === "crScore" ? CRChecker.sortResults(st.items, "crScore", scoreOf) : st.items;
+        const byScore = CRChecker.SCORE_SORTS.includes(f.sort);
+        const ordered = byScore ? CRChecker.sortResults(st.items, f.sort, scoreOf) : st.items;
         const visible = ordered.slice(0, st.shown);
+        // Pelas notas do AniList/MyAnimeList: busca as de todos os resultados (aos
+        // poucos; a lista se reordena conforme chegam) e mostra o progresso.
+        if (f.sort === "alScore" || f.sort === "malScore") {
+          wantScores(st.items);
+          const key = f.sort === "alScore" ? "al" : "mal";
+          // Pronto: o AniList já respondeu e, para o MyAnimeList, a nota também veio (ou não
+          // há ID do MyAnimeList).
+          const done = st.items.filter((r) => {
+            const e = extraScores[r.id];
+            if (!e || !e.al) return false;
+            return key === "al" || !e.al.idMal || !!e.mal;
+          }).length;
+          if (done < st.items.length) parts.push(el("p", { class: "notice-inline", text: t("searchScoresLoading", done, st.items.length) }));
+        }
         parts.push(el("div", { class: "results" }, visible.map(resultCard)));
         wantRatings(ratingItems(visible));
-        wantScores(visible);
+        if (!byScore || f.sort === "crScore") wantScores(visible);
       }
       if (st.items.length > st.shown) {
         parts.push(

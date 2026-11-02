@@ -853,6 +853,17 @@
   "searchLoadingCatalog": {
     "message": "Загружаю каталог Crunchyroll (только в первый раз, несколько секунд)…"
   },
+  "searchScoresLoading": {
+    "message": "Загрузка оценок: $P1$ из $P2$ сериалов…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
   "sortWaiting": {
     "message": "Больше ждущих серий"
   },

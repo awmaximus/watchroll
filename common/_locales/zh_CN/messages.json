@@ -853,6 +853,17 @@
   "searchLoadingCatalog": {
     "message": "正在下载 Crunchyroll 片库(仅首次,需要几秒钟)…"
   },
+  "searchScoresLoading": {
+    "message": "正在加载评分：$P1$ / $P2$ 部…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
   "sortWaiting": {
     "message": "等待剧集最多"
   },

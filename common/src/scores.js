@@ -1,7 +1,7 @@
 // Notas de outros sites: AniList (nota média, 0–100) e MyAnimeList (0–10).
 //
 // Manda os nomes das séries (o slug da Crunchyroll) ao AniList e os IDs do
-// MyAnimeList ao Jikan (serviço público que entrega os dados do MyAnimeList).
+// MyAnimeList à API oficial do MyAnimeList (ou, sem Client ID, ao Jikan).
 // Sem servidor próprio: as consultas saem direto do navegador.
 //
 //  - AniList: GraphQL, várias séries por consulta (apelidos a0, a1…). A busca usa o
@@ -10,20 +10,26 @@
 //    título igual. Sem resultado, tenta de novo com as primeiras palavras (o
 //    AniList não acha títulos longos com a pontuação tirada, ex.: "ill" de "I'll").
 //    Conferido em nov/2026: limite de 30 consultas por minuto.
-//  - MyAnimeList: o AniList dá o ID (idMal); a nota vem do Jikan
-//    (api.jikan.moe/v4/anime/{id}), no máximo ~1 consulta por segundo.
+//  - MyAnimeList: o AniList dá o ID (idMal); a nota vem da API oficial
+//    (api.myanimelist.net/v2/anime/{id}, com o Client ID de mal-client.js; sem CORS,
+//    por isso a extensão tem permissão para esse endereço). Sem Client ID, vem do
+//    Jikan (api.jikan.moe/v4/anime/{id}), no máximo ~1 consulta por segundo.
 //  - Tudo fica guardado por 7 dias (falhas: tenta de novo em 1 dia), por série.
 
-/* global browser */
+/* global browser, MAL_CLIENT_ID */
 var CRScores = (() => {
   const ANILIST = "https://graphql.anilist.co";
   const JIKAN = "https://api.jikan.moe/v4/anime/";
+  const MAL_API = "https://api.myanimelist.net/v2/anime/";
   const KEY = "crnovos:scores";
   const DAY = 86400000;
   const TTL = 7 * DAY;
   const RETRY = DAY;
   const BATCH = 10; // séries por consulta ao AniList
   const JIKAN_GAP = 1100; // ms entre consultas ao Jikan
+  const MAL_GAP = 400; // ms entre consultas à API oficial do MyAnimeList
+
+  let clientId = typeof MAL_CLIENT_ID === "string" ? MAL_CLIENT_ID.trim() : "";
 
   let sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -103,13 +109,21 @@ var CRScores = (() => {
       return `a${i}:Page(perPage:10){media(search:$s${i},type:ANIME){${MEDIA_FIELDS}}}`;
     });
     const decl = queries.map((_, i) => `$s${i}:String`).join(",");
-    const res = await fetchWithTimeout(fetchFn, ANILIST, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify({ query: `query(${decl}){${parts.join(" ")}}`, variables: vars }),
-      cache: "no-store",
-      credentials: "omit",
-    });
+    const body = JSON.stringify({ query: `query(${decl}){${parts.join(" ")}}`, variables: vars });
+    let res;
+    // Limite do AniList (30 consultas/min em nov/2026): no 429, espera o Retry-After.
+    for (let attempt = 0; ; attempt++) {
+      res = await fetchWithTimeout(fetchFn, ANILIST, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body,
+        cache: "no-store",
+        credentials: "omit",
+      });
+      if (res.status !== 429 || attempt >= 3) break;
+      const wait = Number(res.headers && res.headers.get && res.headers.get("retry-after"));
+      await sleep(Math.min(90, Number.isFinite(wait) && wait > 0 ? wait : 60) * 1000);
+    }
     if (!res.ok) throw new Error(`AniList HTTP ${res.status}`);
     const j = await res.json();
     const data = (j && j.data) || {};
@@ -139,9 +153,21 @@ var CRScores = (() => {
     return out;
   }
 
-  /** Nota do MyAnimeList pelo Jikan: { score, users } (score null = sem nota). */
+  /** Nota do MyAnimeList: { score, users } (score null = sem nota). */
   async function malScore(idMal, fetchFn) {
-    const res = await fetchWithTimeout(fetchFn, JIKAN + encodeURIComponent(idMal), { cache: "no-store", credentials: "omit" });
+    const id = encodeURIComponent(idMal);
+    if (clientId) {
+      const res = await fetchWithTimeout(fetchFn, `${MAL_API}${id}?fields=mean,num_scoring_users`, {
+        headers: { "X-MAL-CLIENT-ID": clientId, Accept: "application/json" },
+        cache: "no-store",
+        credentials: "omit",
+      });
+      if (res.status === 404) return { score: null, users: 0 };
+      if (!res.ok) throw new Error(`MyAnimeList HTTP ${res.status}`);
+      const d = (await res.json()) || {};
+      return { score: typeof d.mean === "number" ? d.mean : null, users: Number(d.num_scoring_users) || 0 };
+    }
+    const res = await fetchWithTimeout(fetchFn, JIKAN + id, { cache: "no-store", credentials: "omit" });
     if (res.status === 404) return { score: null, users: 0 };
     if (!res.ok) throw new Error(`Jikan HTTP ${res.status}`);
     const d = ((await res.json()) || {}).data || {};
@@ -182,22 +208,26 @@ var CRScores = (() => {
     const seen = new Set();
     const unique = list.filter((s) => !seen.has(s.id) && seen.add(s.id));
 
-    // 1. AniList
+    // 1. AniList, de 10 em 10 séries (grava e avisa a página a cada parte)
     const needAl = unique.filter((s) => !fresh(all[s.id] && all[s.id].al, now));
-    if (needAl.length) {
+    for (let i = 0; i < needAl.length; i += BATCH) {
+      const chunk = needAl.slice(i, i + BATCH);
       try {
-        const found = await anilistFor(needAl, fetchFn);
-        for (const s of needAl) {
+        const found = await anilistFor(chunk, fetchFn);
+        for (const s of chunk) {
           const r = found.get(s.id);
           const prev = all[s.id] || {};
           all[s.id] = { ...prev, al: r ? { ...r, at: now } : { none: true, at: now } };
         }
       } catch (err) {
         console.warn("[Watchroll] AniList:", err);
-        for (const s of needAl) {
+        for (const s of needAl.slice(i)) {
           const prev = all[s.id] || {};
           if (!prev.al || !prev.al.id) all[s.id] = { ...prev, al: { failed: true, at: now } };
         }
+        await save(all, b);
+        onUpdate(all);
+        break; // fora do ar: tenta de novo outro dia
       }
       await save(all, b);
       onUpdate(all);
@@ -209,7 +239,7 @@ var CRScores = (() => {
       return e && e.al && e.al.idMal && !fresh(e.mal && e.mal.id === e.al.idMal ? e.mal : null, now);
     });
     let changed = 0;
-    let failures = 0; // 2 falhas seguidas: o Jikan está fora; tenta de novo outro dia
+    let failures = 0; // 2 falhas seguidas: o serviço está fora; tenta de novo outro dia
     for (let i = 0; i < needMal.length; i++) {
       const s = needMal[i];
       const idMal = all[s.id].al.idMal;
@@ -223,7 +253,7 @@ var CRScores = (() => {
         failures = 0;
       } catch (err) {
         all[s.id].mal = { id: idMal, failed: true, at: Date.now() };
-        if (!failures) console.warn("[Watchroll] MyAnimeList (Jikan):", err);
+        if (!failures) console.warn(`[Watchroll] MyAnimeList${clientId ? "" : " (Jikan)"}:`, err);
         failures++;
       }
       changed++;
@@ -231,7 +261,7 @@ var CRScores = (() => {
         await save(all, b);
         onUpdate(all);
       }
-      if (i < needMal.length - 1) await sleep(JIKAN_GAP);
+      if (i < needMal.length - 1) await sleep(clientId ? MAL_GAP : JIKAN_GAP);
     }
     if (needMal.length) {
       await save(all, b);
@@ -265,5 +295,6 @@ var CRScores = (() => {
     malScore,
     simplify,
     setSleep: (fn) => (sleep = fn),
+    setClientId: (id) => (clientId = String(id || "").trim()),
   };
 })();

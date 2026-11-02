@@ -853,6 +853,17 @@
   "searchLoadingCatalog": {
     "message": "جارٍ تنزيل كتالوج Crunchyroll (أول مرة فقط، بضع ثوانٍ)…"
   },
+  "searchScoresLoading": {
+    "message": "جارٍ تحميل التقييمات: $P1$ من $P2$ مسلسل…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
   "sortWaiting": {
     "message": "الأكثر حلقات منتظرة"
   },

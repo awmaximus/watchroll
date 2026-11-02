@@ -853,6 +853,17 @@
   "searchLoadingCatalog": {
     "message": "Crunchyroll కేటలాగ్ డౌన్‌లోడ్ అవుతోంది (మొదటిసారి మాత్రమే, కొన్ని సెకన్లు)…"
   },
+  "searchScoresLoading": {
+    "message": "రేటింగ్‌లు లోడ్ అవుతున్నాయి: $P2$లో $P1$ సిరీస్‌లు…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
   "sortWaiting": {
     "message": "ఎక్కువగా వేచి ఉన్నవి"
   },

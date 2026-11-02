@@ -853,6 +853,17 @@
   "searchLoadingCatalog": {
     "message": "Memuat turun katalog Crunchyroll (hanya kali pertama, beberapa saat)…"
   },
+  "searchScoresLoading": {
+    "message": "Memuatkan skor: $P1$ daripada $P2$ siri…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
   "sortWaiting": {
     "message": "Paling banyak menunggu"
   },

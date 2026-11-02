@@ -853,6 +853,17 @@
   "searchLoadingCatalog": {
     "message": "Crunchyroll کا کیٹلاگ ڈاؤن لوڈ ہو رہا ہے (صرف پہلی بار، چند سیکنڈ)…"
   },
+  "searchScoresLoading": {
+    "message": "ریٹنگز لوڈ ہو رہی ہیں: $P2$ میں سے $P1$ سیریز…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
   "sortWaiting": {
     "message": "زیادہ منتظر اقساط"
   },

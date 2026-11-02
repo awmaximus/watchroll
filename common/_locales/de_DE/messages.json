@@ -853,6 +853,17 @@
   "searchLoadingCatalog": {
     "message": "Lade den Crunchyroll-Katalog (nur beim ersten Mal, dauert ein paar Sekunden)…"
   },
+  "searchScoresLoading": {
+    "message": "Bewertungen werden geladen: $P1$ von $P2$ Serien …",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
   "sortWaiting": {
     "message": "Meiste wartende Folgen"
   },

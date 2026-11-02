@@ -597,7 +597,7 @@ select.actions:hover {
   padding: 6px;
   background: var(--surface);
 }
-.row img,
+.row > img,
 .row .noimg {
   width: 64px;
   aspect-ratio: 16 / 9;
@@ -1352,9 +1352,12 @@ a.rating:hover .score-value,
 a.rating:focus-visible .score-value {
   text-decoration: underline;
 }
-.score-icon {
+.rating .score-icon {
   width: 14px;
   height: 14px;
+  aspect-ratio: 1;
+  object-fit: contain;
+  background: none;
   border-radius: 3px;
   flex: none;
 }

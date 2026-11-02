@@ -853,6 +853,17 @@
   "searchLoadingCatalog": {
     "message": "Crunchyroll ক্যাটালগ ডাউনলোড হচ্ছে (শুধু প্রথমবার, কয়েক সেকেন্ড)…"
   },
+  "searchScoresLoading": {
+    "message": "রেটিং লোড হচ্ছে: $P2$টির মধ্যে $P1$টি সিরিজ…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
   "sortWaiting": {
     "message": "সবচেয়ে বেশি অপেক্ষমাণ"
   },

@@ -853,6 +853,17 @@
   "searchLoadingCatalog": {
     "message": "Mengunduh katalog Crunchyroll (hanya pertama kali, beberapa detik)…"
   },
+  "searchScoresLoading": {
+    "message": "Memuat skor: $P1$ dari $P2$ serial…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
   "sortWaiting": {
     "message": "Paling banyak menunggu"
   },

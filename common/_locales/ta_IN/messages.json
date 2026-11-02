@@ -853,6 +853,17 @@
   "searchLoadingCatalog": {
     "message": "Crunchyroll அட்டவணை பதிவிறக்கப்படுகிறது (முதல் முறை மட்டும், சில வினாடிகள்)…"
   },
+  "searchScoresLoading": {
+    "message": "மதிப்பீடுகள் ஏற்றப்படுகின்றன: $P2$ இல் $P1$ தொடர்கள்…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
   "sortWaiting": {
     "message": "அதிகம் காத்திருப்பவை"
   },

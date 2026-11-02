@@ -853,6 +853,17 @@
   "searchLoadingCatalog": {
     "message": "Crunchyroll のカタログをダウンロード中(初回のみ、数秒かかります)…"
   },
+  "searchScoresLoading": {
+    "message": "評価を読み込み中: $P2$ 作品中 $P1$…",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      },
+      "p2": {
+        "content": "$2"
+      }
+    }
+  },
   "sortWaiting": {
     "message": "待ちエピソードが多い順"
   },

@@ -28,7 +28,7 @@ Features
 - Interface in 27 languages; series titles and links in the language you choose.
 
 Privacy
-Watchroll uses Crunchyroll's own API with the session you already have in your browser, only to read your lists, watch history and playback progress. If Crunchyroll blocks direct access, it may open a Crunchyroll tab in the background and close it when done (never during automatic checks). It does not change anything on Crunchyroll, has no servers of its own and collects no analytics. To show AniList and MyAnimeList scores and to understand Japanese and romaji titles, it sends anime names and the Advanced Search text to AniList, and MyAnimeList IDs to Jikan (a public MyAnimeList data service); never your account, history or progress. It does not run in incognito windows.
+Watchroll uses Crunchyroll's own API with the session you already have in your browser, only to read your lists, watch history and playback progress. If Crunchyroll blocks direct access, it may open a Crunchyroll tab in the background and close it when done (never during automatic checks). It does not change anything on Crunchyroll, has no servers of its own and collects no analytics. To show AniList and MyAnimeList scores and to understand Japanese and romaji titles, it sends anime names and the Advanced Search text to AniList, and MyAnimeList IDs to MyAnimeList; never your account, history or progress. It does not run in incognito windows.
 
 Watchroll is not affiliated with or endorsed by Crunchyroll.
 ```
@@ -51,7 +51,7 @@ Funções
 - Interface em 27 idiomas; títulos e links no idioma que você escolher.
 
 Privacidade
-O Watchroll usa a própria API da Crunchyroll com a sessão que você já tem no navegador, só para ler suas listas, histórico e progresso. Se a Crunchyroll bloquear o acesso direto, ele pode abrir uma aba da Crunchyroll em segundo plano e fechá-la no fim (nunca nas verificações automáticas). Não altera nada na Crunchyroll, não tem servidores próprios e não coleta estatísticas. Para mostrar as notas do AniList e do MyAnimeList e entender nomes em japonês e romaji, envia nomes de animes e o texto da Pesquisa ao AniList, e IDs do MyAnimeList ao Jikan (serviço público com os dados do MyAnimeList); nunca sua conta, histórico ou progresso. Não funciona em janelas anônimas.
+O Watchroll usa a própria API da Crunchyroll com a sessão que você já tem no navegador, só para ler suas listas, histórico e progresso. Se a Crunchyroll bloquear o acesso direto, ele pode abrir uma aba da Crunchyroll em segundo plano e fechá-la no fim (nunca nas verificações automáticas). Não altera nada na Crunchyroll, não tem servidores próprios e não coleta estatísticas. Para mostrar as notas do AniList e do MyAnimeList e entender nomes em japonês e romaji, envia nomes de animes e o texto da Pesquisa ao AniList, e IDs do MyAnimeList ao MyAnimeList; nunca sua conta, histórico ou progresso. Não funciona em janelas anônimas.
 
 O Watchroll não tem relação com a Crunchyroll nem é endossado por ela.
 ```
@@ -79,6 +79,7 @@ Shows which episodes of the anime in your Crunchyroll Watchlist and Crunchylists
 | `alarms` | Schedules the periodic background check and an extra check right after each known release time. |
 | `notifications` | Shows a desktop notification when a new episode of a series in the user's lists is out. |
 | Host `https://www.crunchyroll.com/*` | Reads the user's Watchlist, Crunchylists, watch history and the public catalog through Crunchyroll's API, and runs the content scripts that pick up the site's session token. |
+| Host `https://api.myanimelist.net/*` | Reads the public MyAnimeList score of each series (by its MyAnimeList ID) from the official MyAnimeList API, which does not allow cross-origin requests without this permission. Nothing about the user is sent. |
 
 **Remote code:** No, I am not using remote code (all scripts are in the package).
 
