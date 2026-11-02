@@ -449,6 +449,9 @@ var CRSearch = (() => {
   }
 
   return {
+    clearCache: () => {
+      catalogCache = null;
+    },
     run,
     seasons,
     categories,

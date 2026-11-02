@@ -1191,5 +1191,17 @@
   },
   "setScoresTtlHelp": {
     "message": "After that, the scores are fetched again."
+  },
+  "setCacheLabel": {
+    "message": "Cache"
+  },
+  "btnClearCache": {
+    "message": "Clear cache"
+  },
+  "setCacheHelp": {
+    "message": "Deletes what is kept on this device to open faster (series analyses, the last result and the Crunchyroll, AniList and MyAnimeList scores) and checks everything again. Your settings and already notified episodes stay."
+  },
+  "cacheCleared": {
+    "message": "Cache cleared: everything was checked again."
   }
 }

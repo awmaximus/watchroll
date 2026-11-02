@@ -1185,5 +1185,17 @@
   },
   "setScoresTtlHelp": {
     "message": "超过这个时间后会重新获取评分。"
+  },
+  "setCacheLabel": {
+    "message": "缓存"
+  },
+  "btnClearCache": {
+    "message": "清除缓存"
+  },
+  "setCacheHelp": {
+    "message": "删除为加快打开而保存在此设备上的数据（作品分析、上次结果以及 Crunchyroll、AniList 和 MyAnimeList 评分），并重新检查全部内容。你的设置和已通知过的剧集会保留。"
+  },
+  "cacheCleared": {
+    "message": "缓存已清除：已重新检查全部内容。"
   }
 }

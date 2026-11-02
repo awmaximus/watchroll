@@ -1185,5 +1185,17 @@
   },
   "setScoresTtlHelp": {
     "message": "Setelah itu, skor diambil lagi."
+  },
+  "setCacheLabel": {
+    "message": "Cache"
+  },
+  "btnClearCache": {
+    "message": "Hapus cache"
+  },
+  "setCacheHelp": {
+    "message": "Menghapus data yang disimpan di perangkat ini agar terbuka lebih cepat (analisis serial, hasil terakhir, serta skor Crunchyroll, AniList, dan MyAnimeList) lalu memeriksa semuanya lagi. Pengaturan dan episode yang sudah diberitahukan tetap ada."
+  },
+  "cacheCleared": {
+    "message": "Cache dihapus: semuanya sudah diperiksa lagi."
   }
 }

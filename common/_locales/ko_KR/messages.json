@@ -1185,5 +1185,17 @@
   },
   "setScoresTtlHelp": {
     "message": "이 시간이 지나면 점수를 다시 가져옵니다."
+  },
+  "setCacheLabel": {
+    "message": "캐시"
+  },
+  "btnClearCache": {
+    "message": "캐시 삭제"
+  },
+  "setCacheHelp": {
+    "message": "빠르게 열기 위해 이 기기에 저장한 데이터(시리즈 분석, 마지막 결과, Crunchyroll·AniList·MyAnimeList 점수)를 삭제하고 모두 다시 확인합니다. 설정과 이미 알린 에피소드는 그대로 유지됩니다."
+  },
+  "cacheCleared": {
+    "message": "캐시를 삭제했습니다: 모두 다시 확인했습니다."
   }
 }

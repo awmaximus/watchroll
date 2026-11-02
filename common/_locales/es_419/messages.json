@@ -1185,5 +1185,17 @@
   },
   "setScoresTtlHelp": {
     "message": "Después de ese tiempo, las calificaciones se vuelven a buscar."
+  },
+  "setCacheLabel": {
+    "message": "Caché"
+  },
+  "btnClearCache": {
+    "message": "Borrar la caché"
+  },
+  "setCacheHelp": {
+    "message": "Borra lo que se guarda en este dispositivo para abrir más rápido (análisis de las series, el último resultado y las calificaciones de Crunchyroll, AniList y MyAnimeList) y vuelve a verificar todo. Tu configuración y los episodios ya notificados se mantienen."
+  },
+  "cacheCleared": {
+    "message": "Caché borrada: se volvió a verificar todo."
   }
 }

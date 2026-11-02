@@ -1185,5 +1185,17 @@
   },
   "setScoresTtlHelp": {
     "message": "এই সময়ের পরে রেটিং আবার আনা হয়।"
+  },
+  "setCacheLabel": {
+    "message": "ক্যাশ"
+  },
+  "btnClearCache": {
+    "message": "ক্যাশ মুছুন"
+  },
+  "setCacheHelp": {
+    "message": "দ্রুত খোলার জন্য এই ডিভাইসে যা রাখা থাকে (সিরিজের বিশ্লেষণ, শেষ ফলাফল এবং Crunchyroll, AniList ও MyAnimeList-এর রেটিং) তা মুছে আবার সব যাচাই করে। আপনার সেটিংস ও আগে জানানো পর্বগুলো থেকে যায়।"
+  },
+  "cacheCleared": {
+    "message": "ক্যাশ মোছা হয়েছে: সব আবার যাচাই করা হয়েছে।"
   }
 }

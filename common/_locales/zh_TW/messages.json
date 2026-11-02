@@ -1185,5 +1185,17 @@
   },
   "setScoresTtlHelp": {
     "message": "超過這段時間後會重新取得評分。"
+  },
+  "setCacheLabel": {
+    "message": "快取"
+  },
+  "btnClearCache": {
+    "message": "清除快取"
+  },
+  "setCacheHelp": {
+    "message": "刪除為加快開啟而儲存在此裝置上的資料（作品分析、上次結果以及 Crunchyroll、AniList 和 MyAnimeList 評分），並重新檢查全部內容。你的設定和已通知過的集數會保留。"
+  },
+  "cacheCleared": {
+    "message": "快取已清除：已重新檢查全部內容。"
   }
 }

@@ -442,6 +442,28 @@
     }
   }
 
+  // Apaga o cache (análises, último resultado, notas) e verifica de novo do zero.
+  async function clearCache(e) {
+    const btn = e && e.currentTarget;
+    if (busy) return;
+    if (btn) btn.disabled = true;
+    try {
+      await CRChecker.clearCache();
+      ratings = {};
+      extraScores = {};
+      CRSearch.clearCache();
+      searchState.items = null;
+      searchState.seasons = null;
+      searchState.categories = null;
+    } catch (err) {
+      console.warn("[Watchroll] clear cache:", err);
+    } finally {
+      if (btn) btn.disabled = false;
+    }
+    await refresh(true);
+    notice(t("cacheCleared"));
+  }
+
   // ---------- nota da Crunchyroll ----------
   // Uma consulta por série, guardada por 24 h (a nota muda devagar). As notas são
   // buscadas depois da verificação e dos resultados da Pesquisa, sem atrasar a lista.
@@ -1919,6 +1941,7 @@
       render();
     });
     $("btn-export").addEventListener("click", exportSettings);
+    $("btn-clear-cache").addEventListener("click", clearCache);
     $("btn-import").addEventListener("click", () => $("import-file").click());
     $("import-file").addEventListener("change", (e) => {
       const f = e.target.files && e.target.files[0];

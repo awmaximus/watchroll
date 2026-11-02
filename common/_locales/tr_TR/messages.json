@@ -1185,5 +1185,17 @@
   },
   "setScoresTtlHelp": {
     "message": "Bu süreden sonra puanlar yeniden alınır."
+  },
+  "setCacheLabel": {
+    "message": "Önbellek"
+  },
+  "btnClearCache": {
+    "message": "Önbelleği temizle"
+  },
+  "setCacheHelp": {
+    "message": "Daha hızlı açılması için bu cihazda tutulanları (dizi analizleri, son sonuç ve Crunchyroll, AniList ve MyAnimeList puanları) siler ve her şeyi yeniden kontrol eder. Ayarlarınız ve bildirimi yapılmış bölümler korunur."
+  },
+  "cacheCleared": {
+    "message": "Önbellek temizlendi: her şey yeniden kontrol edildi."
   }
 }

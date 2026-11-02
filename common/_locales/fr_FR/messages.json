@@ -1185,5 +1185,17 @@
   },
   "setScoresTtlHelp": {
     "message": "Passé ce délai, les notes sont récupérées à nouveau."
+  },
+  "setCacheLabel": {
+    "message": "Cache"
+  },
+  "btnClearCache": {
+    "message": "Vider le cache"
+  },
+  "setCacheHelp": {
+    "message": "Supprime ce qui est conservé sur cet appareil pour ouvrir plus vite (analyses des séries, dernier résultat et notes Crunchyroll, AniList et MyAnimeList) et revérifie tout. Vos paramètres et les épisodes déjà notifiés sont conservés."
+  },
+  "cacheCleared": {
+    "message": "Cache vidé : tout a été revérifié."
   }
 }

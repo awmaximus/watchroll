@@ -1185,5 +1185,17 @@
   },
   "setScoresTtlHelp": {
     "message": "Passat aquest temps, les notes es tornen a buscar."
+  },
+  "setCacheLabel": {
+    "message": "Memòria cau"
+  },
+  "btnClearCache": {
+    "message": "Esborra la memòria cau"
+  },
+  "setCacheHelp": {
+    "message": "Esborra el que es desa en aquest dispositiu per obrir més ràpid (anàlisis de les sèries, l'últim resultat i les notes de Crunchyroll, AniList i MyAnimeList) i ho torna a comprovar tot. La configuració i els episodis ja notificats es mantenen."
+  },
+  "cacheCleared": {
+    "message": "Memòria cau esborrada: s'ha tornat a comprovar tot."
   }
 }

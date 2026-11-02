@@ -1185,5 +1185,17 @@
   },
   "setScoresTtlHelp": {
     "message": "Selepas tempoh itu, skor diambil semula."
+  },
+  "setCacheLabel": {
+    "message": "Cache"
+  },
+  "btnClearCache": {
+    "message": "Kosongkan cache"
+  },
+  "setCacheHelp": {
+    "message": "Memadam data yang disimpan pada peranti ini supaya dibuka lebih pantas (analisis siri, keputusan terakhir dan skor Crunchyroll, AniList serta MyAnimeList) dan menyemak semuanya semula. Tetapan anda dan episod yang sudah dimaklumkan kekal."
+  },
+  "cacheCleared": {
+    "message": "Cache dikosongkan: semuanya telah disemak semula."
   }
 }

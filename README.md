@@ -45,7 +45,7 @@ and never changes anything on Crunchyroll.
 - **Advanced Search** over the whole catalog or only your lists, with dub, category, minimum
   seasons, age rating, year and season filters, and Japanese/romaji title lookup through
   AniList.
-- **Hide or snooze** a series, **compact mode**, **settings export/import**.
+- **Hide or snooze** a series, **compact mode**, **settings export/import**, **clear cache**.
 - **Settings synced** across your computers through the browser's own sync.
 - **27 interface languages**, including right-to-left Arabic and Urdu.
 
@@ -221,6 +221,7 @@ Changes are saved immediately and synced to your other computers (see
 | Series checked at the same time | Parallel requests (default 4, 1–32). Lower it if you get HTTP 429 errors. |
 | Batch size | Episodes per progress request and items per list/history page (default 100, 10–300). Lower it if checks start failing. |
 | Settings backup | **Export** saves your settings to a JSON file; **Import** restores them. No login, token or history is included. |
+| Cache | **Clear cache** deletes what is kept on the device to open faster (series analyses, the last result, the Crunchyroll, AniList and MyAnimeList scores, and the page sizes the API accepted) and runs a full check. Settings and already notified episodes stay. |
 
 ### Settings sync
 
@@ -461,7 +462,7 @@ in [chrome/README.md](chrome/README.md); the store texts are in
 ### Versions
 
 Keep the same `version` in `firefox/manifest.json`, `firefox/package.json`,
-`chrome/manifest.json` and `chrome/package.json` (current: 1.4.11). Publish only even versions to
+`chrome/manifest.json` and `chrome/package.json` (current: 1.4.9). Publish only even versions to
 the Chrome Web Store, like the AMO listing.
 
 `set-version.sh`, at the root, changes all of them (and the version above) at once:

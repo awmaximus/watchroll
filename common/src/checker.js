@@ -557,6 +557,21 @@ var CRChecker = (() => {
     return releaseAlertsOn(settings) ? when : null;
   }
 
+  // ---------- apagar o cache (Configurações) ----------
+  // Só o que é refeito sozinho: análises das séries, último resultado, notas
+  // (Crunchyroll, AniList, MyAnimeList) e o tamanho de página que a API aceitou.
+  // Ficam as preferências, o sync, o "já visto/notificado" (senão viriam notificações
+  // de tudo de novo) e os alertas de lançamento.
+  const CACHE_KEYS = [LAST_KEY, "crnovos:scores", "crnovos:ratings", "crnovos:pageHints"];
+  const isCacheKey = (k) => CACHE_KEYS.includes(k) || /^crnovos:v\d+:cache$/.test(k);
+  /** Apaga o cache do storage.local; devolve as chaves apagadas. */
+  async function clearCache(b = browser) {
+    const all = (await b.storage.local.get(null)) || {};
+    const keys = Object.keys(all).filter(isCacheKey);
+    for (const k of keys) await b.storage.local.remove(k);
+    return keys;
+  }
+
   async function lastResults(b = browser) {
     return (await b.storage.local.get(LAST_KEY))[LAST_KEY] || null;
   }
@@ -588,6 +603,8 @@ var CRChecker = (() => {
   }
 
   return {
+    clearCache,
+    isCacheKey,
     SETTINGS_KEY,
     LAST_KEY,
     SEEN_KEY,

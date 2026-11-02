@@ -1185,5 +1185,17 @@
   },
   "setScoresTtlHelp": {
     "message": "この時間が過ぎると、スコアを再取得します。"
+  },
+  "setCacheLabel": {
+    "message": "キャッシュ"
+  },
+  "btnClearCache": {
+    "message": "キャッシュを削除"
+  },
+  "setCacheHelp": {
+    "message": "速く開くためにこの端末に保存しているデータ（作品の分析、前回の結果、Crunchyroll・AniList・MyAnimeList のスコア）を削除し、すべて確認し直します。設定と通知済みのエピソードはそのままです。"
+  },
+  "cacheCleared": {
+    "message": "キャッシュを削除しました：すべて確認し直しました。"
   }
 }

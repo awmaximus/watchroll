@@ -1191,5 +1191,17 @@
   },
   "setScoresTtlHelp": {
     "message": "Depois desse tempo, as notas são buscadas de novo."
+  },
+  "setCacheLabel": {
+    "message": "Cache"
+  },
+  "btnClearCache": {
+    "message": "Apagar o cache"
+  },
+  "setCacheHelp": {
+    "message": "Apaga o que fica guardado neste aparelho para abrir mais rápido (análises das séries, último resultado e notas da Crunchyroll, do AniList e do MyAnimeList) e verifica tudo de novo. Suas configurações e os episódios já notificados continuam."
+  },
+  "cacheCleared": {
+    "message": "Cache apagado: tudo foi verificado de novo."
   }
 }

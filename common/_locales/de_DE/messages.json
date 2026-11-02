@@ -1185,5 +1185,17 @@
   },
   "setScoresTtlHelp": {
     "message": "Danach werden die Bewertungen neu abgerufen."
+  },
+  "setCacheLabel": {
+    "message": "Cache"
+  },
+  "btnClearCache": {
+    "message": "Cache leeren"
+  },
+  "setCacheHelp": {
+    "message": "Löscht, was auf diesem Gerät für schnelleres Öffnen gespeichert ist (Serienanalysen, das letzte Ergebnis und die Bewertungen von Crunchyroll, AniList und MyAnimeList), und prüft alles neu. Deine Einstellungen und bereits gemeldete Folgen bleiben erhalten."
+  },
+  "cacheCleared": {
+    "message": "Cache geleert: Alles wurde neu geprüft."
   }
 }

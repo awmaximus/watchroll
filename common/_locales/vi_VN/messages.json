@@ -1185,5 +1185,17 @@
   },
   "setScoresTtlHelp": {
     "message": "Sau thời gian đó, điểm sẽ được tải lại."
+  },
+  "setCacheLabel": {
+    "message": "Bộ nhớ đệm"
+  },
+  "btnClearCache": {
+    "message": "Xóa bộ nhớ đệm"
+  },
+  "setCacheHelp": {
+    "message": "Xóa dữ liệu lưu trên thiết bị này để mở nhanh hơn (phân tích bộ phim, kết quả gần nhất và điểm Crunchyroll, AniList, MyAnimeList) rồi kiểm tra lại tất cả. Cài đặt và các tập đã thông báo vẫn được giữ."
+  },
+  "cacheCleared": {
+    "message": "Đã xóa bộ nhớ đệm: mọi thứ đã được kiểm tra lại."
   }
 }

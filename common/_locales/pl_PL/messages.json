@@ -1185,5 +1185,17 @@
   },
   "setScoresTtlHelp": {
     "message": "Po tym czasie oceny są pobierane ponownie."
+  },
+  "setCacheLabel": {
+    "message": "Pamięć podręczna"
+  },
+  "btnClearCache": {
+    "message": "Wyczyść pamięć podręczną"
+  },
+  "setCacheHelp": {
+    "message": "Usuwa to, co jest zapisane na tym urządzeniu dla szybszego otwierania (analizy serii, ostatni wynik oraz oceny z Crunchyroll, AniList i MyAnimeList), i sprawdza wszystko od nowa. Ustawienia i odcinki, o których już powiadomiono, zostają."
+  },
+  "cacheCleared": {
+    "message": "Pamięć podręczna wyczyszczona: wszystko sprawdzono od nowa."
   }
 }
