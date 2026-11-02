@@ -40,9 +40,22 @@ var CRScores = (() => {
   // custa 13 (conferido em nov/2026: 38 passam, 39 dão "Max query complexity"). 35 deixa
   // folga; se mesmo assim passar do limite, a consulta é dividida ao meio.
   const BATCH = 35;
-  const MAL_GAP = 400; // ms entre consultas de cada trabalhador à API oficial do MyAnimeList
-  const MAL_PARALLEL = 3; // consultas ao mesmo tempo à API oficial
+  const MAL_GAP = 500; // ms entre consultas de cada trabalhador à API oficial do MyAnimeList
+  // Consultas ao mesmo tempo à API oficial. Com 3 (e 0,4 s entre elas), o MyAnimeList
+  // bloqueou depois de ~100 em 30 s (nov/2026); 2 deixa folga.
+  const MAL_PARALLEL = 2;
   const MAL_429_TRIES = 3; // "pedidos demais" seguidos na mesma série: desiste dela por ora
+  // Bloqueio do MyAnimeList (429, ou o redirecionamento para /error.json que a API faz
+  // quando há consultas demais: conferido em nov/2026, depois de ~100 em 30 s). A
+  // espera vale para as buscas seguintes também e dobra a cada bloqueio seguido (30 s,
+  // 1 min, 2 min… até 5 min); depois do primeiro, a página segue com uma consulta por
+  // vez e pausa maior.
+  const MAL_COOLDOWN = 30000;
+  const MAL_COOLDOWN_MAX = 300000;
+  const MAL_SLOW_GAP = 1500;
+  let malSlow = false;
+  let malCooldownUntil = 0;
+  let malStrikes = 0;
 
   let clientId = typeof MAL_CLIENT_ID === "string" ? MAL_CLIENT_ID.trim() : "";
   // Fonte gravada em cada nota: falhas de outra fonte (o Jikan, que saiu, ou a gravada
@@ -189,7 +202,7 @@ var CRScores = (() => {
     const err = new Error(`${name} HTTP 429`);
     err.status = 429;
     const wait = Number(res.headers && res.headers.get && res.headers.get("retry-after"));
-    err.retryAfter = Math.min(60, Number.isFinite(wait) && wait > 0 ? wait : 5) * 1000;
+    err.retryAfter = Number.isFinite(wait) && wait > 0 ? Math.min(300, wait) * 1000 : null;
     return err;
   }
 
@@ -201,9 +214,14 @@ var CRScores = (() => {
       headers: { "X-MAL-CLIENT-ID": clientId, Accept: "application/json" },
       cache: "no-store",
       credentials: "omit",
+      // Bloqueada, a API redireciona para /error.json (sem CORS: seguir daria só um
+      // erro de rede). Sem seguir, dá para reconhecer o bloqueio.
+      redirect: "manual",
     });
     if (res.status === 404) return { score: null, users: 0 };
-    if (res.status === 429) throw tooMany(res, "MyAnimeList");
+    if (res.status === 429 || res.type === "opaqueredirect" || res.status === 0 || (res.status >= 300 && res.status < 400)) {
+      throw tooMany(res, "MyAnimeList");
+    }
     if (!res.ok) throw new Error(`MyAnimeList HTTP ${res.status}`);
     const d = (await res.json()) || {};
     return { score: typeof d.mean === "number" ? d.mean : null, users: Number(d.num_scoring_users) || 0 };
@@ -349,20 +367,33 @@ var CRScores = (() => {
     };
     let alDone = false;
 
-    // 2. MyAnimeList: até 3 consultas ao mesmo tempo. Se o site
+    // 2. MyAnimeList: até 2 consultas ao mesmo tempo. Se o site
     // responder "pedidos demais" (429), recua para uma por vez, espera e tenta de novo.
     // 2 falhas seguidas (fora do ar): para e tenta de novo mais tarde.
-    let limit = MAL_PARALLEL;
+    let limit = malSlow ? 1 : MAL_PARALLEL;
     let failures = 0;
     let changed = 0;
     const tries429 = new Map();
-    const gap = MAL_GAP;
+    // Espera em pedaços, para parar logo se a página desistir.
+    const pause = async (ms) => {
+      for (let left = ms; left > 0 && !shouldStop(); left -= 5000) await sleep(Math.min(5000, left));
+    };
     const malFailed = (s) => {
       all[s.id].mal = { id: all[s.id].al.idMal, failed: true, src: malSource(), at: Date.now() };
     };
+    let active = 0; // trabalhadores ainda rodando
     async function worker(n) {
+      active++;
+      try {
+        await work(n);
+      } finally {
+        active--;
+      }
+    }
+    async function work(n) {
       for (;;) {
-        if (n >= limit) return; // recuou: sobra só o primeiro trabalhador
+        // Recuou para uma por vez: os outros saem (sem deixar a fila sem ninguém).
+        if (n >= limit && active > 1) return;
         if (shouldStop()) return;
         const s = queue.shift();
         if (!s) {
@@ -376,20 +407,41 @@ var CRScores = (() => {
           changed++;
           continue;
         }
+        // Ainda no tempo de espera de um bloqueio (desta busca ou de uma anterior).
+        const cooling = malCooldownUntil - Date.now();
+        if (cooling > 0) {
+          queue.unshift(s);
+          await pause(cooling);
+          if (!shouldStop()) malCooldownUntil = 0; // já esperou o tempo todo
+          continue;
+        }
         try {
           const r = await malScore(idMal, fetchFn);
           all[s.id].mal = { id: idMal, score: r.score, users: r.users, src: malSource(), at: Date.now() };
           failures = 0;
+          malStrikes = 0;
         } catch (err) {
           if (err && err.status === 429) {
             const t = (tries429.get(s.id) || 0) + 1;
             tries429.set(s.id, t);
-            if (limit > 1) console.warn("[Watchroll] MyAnimeList: pedidos demais; uma consulta por vez");
+            // As consultas que estavam a caminho também voltam bloqueadas: conta um
+            // bloqueio só (senão a espera dobraria à toa).
+            let waitMs = malCooldownUntil - Date.now();
+            if (waitMs <= 0) {
+              malStrikes++;
+              const wait = err.retryAfter || Math.min(MAL_COOLDOWN_MAX, MAL_COOLDOWN * 2 ** (malStrikes - 1));
+              malCooldownUntil = Date.now() + wait;
+              waitMs = wait;
+              console.warn(`[Watchroll] MyAnimeList: consultas demais; esperando ${Math.round(wait / 1000)} s e seguindo uma por vez`);
+            }
+            malSlow = true;
             limit = 1;
             if (t < MAL_429_TRIES) {
               queue.unshift(s); // volta para a fila e espera o que o site pediu
               wake();
-              await sleep(err.retryAfter || 5000);
+              if (n >= limit && active > 1) return; // um só continua
+              await pause(waitMs);
+              if (!shouldStop()) malCooldownUntil = 0; // já esperou o tempo todo
               continue;
             }
           } else if (!failures) {
@@ -403,7 +455,7 @@ var CRScores = (() => {
           await save(all, b);
           onUpdate(all);
         }
-        await sleep(gap);
+        await sleep(malSlow ? MAL_SLOW_GAP : MAL_GAP);
       }
     }
     const workers = malOk ? Array.from({ length: limit }, (_, n) => worker(n)) : [];

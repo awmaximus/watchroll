@@ -288,9 +288,11 @@ Watchroll has no server of its own: the scores come straight from the sources, f
   extension has a host permission for `https://api.myanimelist.net/*`. Without a Client ID there
   are no MyAnimeList scores. If the API doesn't answer twice in a row, MyAnimeList scores are
   skipped and tried again later; AniList and Crunchyroll scores still show. The API is
-  queried 3 series at a time; if it answers
-  "too many requests" (HTTP 429), Watchroll drops to one at a time, waits as asked and tries that
-  series again. MyAnimeList doesn't wait for AniList to finish: each AniList batch that comes
+  queried 2 series at a time. When it says there are too many requests (HTTP 429, or the
+  redirect to `/error.json` the API sends instead, seen after about 100 requests in 30 s),
+  Watchroll waits (30 s, doubling on each block in a row, up to 5 min; also for the next
+  fetches), goes on one series at a time with a longer pause, and tries that series again; a
+  block is not counted as a failure. MyAnimeList doesn't wait for AniList to finish: each AniList batch that comes
   back goes straight to the MyAnimeList queue. Firefox lets you turn the `api.myanimelist.net` permission off
   (and doesn't always grant a new one on update); without it, the page shows a notice with an
   **Allow access** button.
@@ -310,7 +312,7 @@ Watchroll has no server of its own: the scores come straight from the sources, f
   fetches the scores of every result, and the sort options are offered once all have loaded
   (otherwise the order would keep changing). AniList answers 90 requests a minute (30 when it is overloaded),
   so up to about 1,000 series a minute in batches of 35; MyAnimeList takes one request per
-  series (3 at a time), so a large result set (the whole catalog) takes a while the first time;
+  series (2 at a time), so a large result set (the whole catalog) takes a while the first time;
   after that the scores come from the cache.
 
 ### Speed and freshness

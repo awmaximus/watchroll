@@ -329,7 +329,7 @@ describe("atualização e cache", () => {
     assert.ok(fakeSeries(40).every((s) => S.scoresOf(all, s.id).mal === 8));
   });
 
-  test("API oficial do MyAnimeList: até 3 consultas ao mesmo tempo", async () => {
+  test("API oficial do MyAnimeList: até 2 consultas ao mesmo tempo", async () => {
     let inFlight = 0;
     let max = 0;
     const { S, fetchFn } = setup(async (url, body) => {
@@ -341,7 +341,7 @@ describe("atualização e cache", () => {
     });
     S.setClientId("abc123");
     const all = await S.update(fakeSeries(12), { fetchFn });
-    assert.equal(max, 3);
+    assert.equal(max, 2);
     assert.ok(fakeSeries(12).every((s) => S.scoresOf(all, s.id).mal === 7.5));
   });
 
@@ -367,7 +367,7 @@ describe("atualização e cache", () => {
       await later(null, 1);
     });
     const all = await S.update(fakeSeries(10), { fetchFn });
-    assert.ok(waits.includes(2000), "esperou o Retry-After");
+    assert.ok(waits.some((ms) => ms >= 1900 && ms <= 2000), "esperou o Retry-After");
     assert.equal(S.scoresOf(all, "S1").mal, 9, "a série do 429 foi consultada de novo");
     assert.ok(fakeSeries(10).every((s) => S.scoresOf(all, s.id).mal === 9));
     // Depois do 429, as consultas novas não se sobrepõem (uma por vez).
@@ -464,6 +464,28 @@ describe("atualização e cache", () => {
     assert.equal(calls.length, n);
     await S.update(series, { fetchFn, now: t0 + 2 * 3600000 });
     assert.ok(calls.length > n);
+  });
+
+  test("bloqueio do MyAnimeList por redirecionamento (/error.json): espera, não conta como falha e não perde a nota", async () => {
+    let blocked = 2; // as 2 primeiras respostas: bloqueio
+    const waits = [];
+    const { S, fetchFn, calls } = setup((url, body) => {
+      if (!url.includes("myanimelist")) return aniAll(body);
+      if (blocked > 0) {
+        blocked--;
+        return { ok: false, status: 0, type: "opaqueredirect", headers: { get: () => null }, json: async () => ({}) };
+      }
+      return json({ mean: 8.4 });
+    });
+    S.setSleep(async (ms) => {
+      waits.push(ms);
+      await later(null, 1);
+    });
+    const all = await S.update(fakeSeries(6), { fetchFn });
+    const mal = calls.filter((c) => c.url.includes("myanimelist"));
+    assert.ok(mal.every((c) => c.init.redirect === "manual"), "não segue o redirecionamento");
+    assert.ok(waits.some((ms) => ms >= 5000), "esperou o bloqueio passar");
+    assert.ok(fakeSeries(6).every((s) => S.scoresOf(all, s.id).mal === 8.4), "nenhuma série ficou sem nota");
   });
 
   test("AniList fora do ar: nada quebra", async () => {
