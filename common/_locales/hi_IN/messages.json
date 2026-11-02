@@ -1197,5 +1197,16 @@
   },
   "cacheCleared": {
     "message": "कैश हटा दिया गया: सब फिर से जाँचा गया।"
+  },
+  "searchScoresPartial": {
+    "message": "AniList और MyAnimeList की रेटिंग सिर्फ़ स्क्रीन पर दिख रहे नतीजों के लिए लाई गई हैं। इनसे क्रम लगाने के लिए सभी $P1$ नतीजों की रेटिंग लोड करें।",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchScoresLoadAll": {
+    "message": "सभी लोड करें"
   }
 }

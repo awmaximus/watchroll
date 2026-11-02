@@ -1197,5 +1197,16 @@
   },
   "cacheCleared": {
     "message": "تم مسح ذاكرة التخزين المؤقت: تم التحقق من كل شيء من جديد."
+  },
+  "searchScoresPartial": {
+    "message": "جُلبت تقييمات AniList وMyAnimeList للنتائج المعروضة فقط. للترتيب حسبها، حمّل تقييمات كل النتائج البالغة $P1$.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchScoresLoadAll": {
+    "message": "تحميل الكل"
   }
 }

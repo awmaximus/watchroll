@@ -1197,5 +1197,16 @@
   },
   "cacheCleared": {
     "message": "キャッシュを削除しました：すべて確認し直しました。"
+  },
+  "searchScoresPartial": {
+    "message": "AniList と MyAnimeList のスコアは画面に表示中の結果だけ取得しました。スコアで並べ替えるには、全 $P1$ 件のスコアを読み込んでください。",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchScoresLoadAll": {
+    "message": "すべて読み込む"
   }
 }

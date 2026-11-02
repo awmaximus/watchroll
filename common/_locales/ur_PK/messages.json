@@ -1197,5 +1197,16 @@
   },
   "cacheCleared": {
     "message": "کیش صاف ہو گیا: سب کچھ دوبارہ چیک کیا گیا۔"
+  },
+  "searchScoresPartial": {
+    "message": "AniList اور MyAnimeList کے اسکور صرف اسکرین پر موجود نتائج کے لیے لائے گئے ہیں۔ ان کے مطابق ترتیب دینے کے لیے تمام $P1$ نتائج کے اسکور لوڈ کریں۔",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchScoresLoadAll": {
+    "message": "سب لوڈ کریں"
   }
 }

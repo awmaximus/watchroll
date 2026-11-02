@@ -1197,5 +1197,16 @@
   },
   "cacheCleared": {
     "message": "快取已清除：已重新檢查全部內容。"
+  },
+  "searchScoresPartial": {
+    "message": "只取得了畫面上結果的 AniList 和 MyAnimeList 評分。若要依這些評分排序，請載入全部 $P1$ 個結果的評分。",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchScoresLoadAll": {
+    "message": "全部載入"
   }
 }

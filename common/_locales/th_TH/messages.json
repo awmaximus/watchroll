@@ -1197,5 +1197,16 @@
   },
   "cacheCleared": {
     "message": "ล้างแคชแล้ว: ตรวจสอบทั้งหมดใหม่แล้ว"
+  },
+  "searchScoresPartial": {
+    "message": "ดึงคะแนน AniList และ MyAnimeList เฉพาะผลลัพธ์ที่แสดงบนหน้าจอ หากต้องการเรียงตามคะแนนเหล่านี้ ให้โหลดคะแนนของผลลัพธ์ทั้งหมด $P1$ รายการ",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchScoresLoadAll": {
+    "message": "โหลดทั้งหมด"
   }
 }

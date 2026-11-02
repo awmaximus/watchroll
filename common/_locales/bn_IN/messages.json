@@ -1197,5 +1197,16 @@
   },
   "cacheCleared": {
     "message": "ক্যাশ মোছা হয়েছে: সব আবার যাচাই করা হয়েছে।"
+  },
+  "searchScoresPartial": {
+    "message": "AniList ও MyAnimeList-এর রেটিং শুধু স্ক্রিনের ফলাফলের জন্য আনা হয়েছে। এগুলো দিয়ে সাজাতে $P1$টি ফলাফলের সবগুলোর রেটিং লোড করুন।",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchScoresLoadAll": {
+    "message": "সব লোড করুন"
   }
 }

@@ -376,6 +376,25 @@ describe("atualização e cache", () => {
     for (let i = 1; i < after.length; i++) assert.ok(after[i][0] >= after[i - 1][1], "uma por vez depois do 429");
   });
 
+  test("cancelada (a pesquisa mudou): para no próximo ponto seguro e guarda o que já veio", async () => {
+    let stop = false;
+    const { S, fetchFn, calls, b } = setup((url, body) => {
+      if (url.includes("myanimelist")) {
+        stop = true; // a página desistiu logo depois da primeira nota do MyAnimeList
+        return json({ mean: 8 });
+      }
+      return aniAll(body);
+    });
+    const all = await S.update(fakeSeries(80), { fetchFn, shouldStop: () => stop });
+    const al = calls.filter((c) => !c.url.includes("myanimelist")).length;
+    const mal = calls.filter((c) => c.url.includes("myanimelist")).length;
+    assert.equal(al, 1, "não pede os outros lotes do AniList");
+    assert.ok(mal <= 3, "só as consultas que já tinham saído");
+    assert.equal(S.scoresOf(all, "S0").al, 70);
+    assert.ok(b.storage.local.data[S.KEY].S0, "o que veio fica no cache");
+    assert.equal(S.scoresOf(all, "S70").al, null, "o resto fica para depois");
+  });
+
   test("AniList fora do ar: nada quebra", async () => {
     const { S, fetchFn } = setup(() => json({}, 500));
     const all = await S.update(series, { fetchFn });

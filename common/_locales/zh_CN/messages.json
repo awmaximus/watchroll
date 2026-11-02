@@ -1197,5 +1197,16 @@
   },
   "cacheCleared": {
     "message": "缓存已清除：已重新检查全部内容。"
+  },
+  "searchScoresPartial": {
+    "message": "只获取了屏幕上结果的 AniList 和 MyAnimeList 评分。要按这些评分排序，请加载全部 $P1$ 个结果的评分。",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchScoresLoadAll": {
+    "message": "全部加载"
   }
 }

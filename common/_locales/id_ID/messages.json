@@ -1197,5 +1197,16 @@
   },
   "cacheCleared": {
     "message": "Cache dihapus: semuanya sudah diperiksa lagi."
+  },
+  "searchScoresPartial": {
+    "message": "Skor AniList dan MyAnimeList hanya diambil untuk hasil di layar. Untuk mengurutkan berdasarkan skor ini, muat skor semua $P1$ hasil.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchScoresLoadAll": {
+    "message": "Muat semua"
   }
 }

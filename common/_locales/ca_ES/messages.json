@@ -1197,5 +1197,16 @@
   },
   "cacheCleared": {
     "message": "Memòria cau esborrada: s'ha tornat a comprovar tot."
+  },
+  "searchScoresPartial": {
+    "message": "Les notes d'AniList i MyAnimeList només s'han buscat per als resultats en pantalla. Per ordenar-hi, carrega les dels $P1$ resultats.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchScoresLoadAll": {
+    "message": "Carrega-les totes"
   }
 }

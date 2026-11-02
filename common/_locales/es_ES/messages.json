@@ -1197,5 +1197,16 @@
   },
   "cacheCleared": {
     "message": "Caché borrada: se ha vuelto a comprobar todo."
+  },
+  "searchScoresPartial": {
+    "message": "Las notas de AniList y MyAnimeList solo se han buscado para los resultados en pantalla. Para ordenar por ellas, carga las de los $P1$ resultados.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchScoresLoadAll": {
+    "message": "Cargar todas"
   }
 }

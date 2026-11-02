@@ -259,7 +259,10 @@ var CRScores = (() => {
     return job;
   }
 
-  async function doUpdate(series, { fetchFn = fetch, b = browser, onUpdate = () => {}, now = Date.now(), ttlHours = DEFAULT_TTL_HOURS } = {}) {
+  // shouldStop(): a página não precisa mais destas notas (ex.: a pesquisa mudou). Para
+  // no próximo ponto seguro (entre lotes do AniList, antes de cada consulta ao
+  // MyAnimeList); o que já veio fica guardado.
+  async function doUpdate(series, { fetchFn = fetch, b = browser, onUpdate = () => {}, now = Date.now(), ttlHours = DEFAULT_TTL_HOURS, shouldStop = () => false } = {}) {
     const ttl = (TTL_HOURS.includes(Number(ttlHours)) ? Number(ttlHours) : DEFAULT_TTL_HOURS) * 3600000;
     const all = await load(b);
     const list = (series || []).filter((s) => s && s.id && (s.slug || s.title));
@@ -313,6 +316,7 @@ var CRScores = (() => {
     async function worker(n) {
       for (;;) {
         if (n >= limit) return; // recuou: sobra só o primeiro trabalhador
+        if (shouldStop()) return;
         const s = queue.shift();
         if (!s) {
           if (alDone) return;
@@ -361,6 +365,7 @@ var CRScores = (() => {
     // 1. AniList, de 35 em 35 séries (grava e avisa a página a cada lote)
     const needAl = unique.filter((s) => !fresh(all[s.id] && all[s.id].al, now, ttl));
     for (let i = 0; i < needAl.length; i += BATCH) {
+      if (shouldStop()) break;
       const chunk = needAl.slice(i, i + BATCH);
       try {
         const found = await anilistFor(chunk, fetchFn);

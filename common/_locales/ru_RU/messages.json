@@ -1197,5 +1197,16 @@
   },
   "cacheCleared": {
     "message": "Кэш очищен: всё проверено заново."
+  },
+  "searchScoresPartial": {
+    "message": "Оценки AniList и MyAnimeList загружены только для результатов на экране. Чтобы сортировать по ним, загрузите оценки всех результатов ($P1$).",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchScoresLoadAll": {
+    "message": "Загрузить все"
   }
 }

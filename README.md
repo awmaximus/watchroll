@@ -294,15 +294,18 @@ Watchroll has no server of its own: the scores come straight from the sources, f
   back goes straight to the MyAnimeList queue. Firefox lets you turn the `api.myanimelist.net` permission off
   (and doesn't always grant a new one on update); without it, the page shows a notice with an
   **Allow access** button.
-- Scores load after the check, a few at a time, without delaying the list. They are kept per
+- Scores are only fetched for the series on screen: the open tab (with its filters) or, in
+  Advanced Search, the results shown. Switching tabs or running another search cancels the
+  previous fetch (what already arrived stays cached). They load a few at a time, without
+  delaying the list, and are kept per
   series for 4, 8, 12 or 24 hours (**Settings → Keep AniList and MyAnimeList scores for**;
   24 by default). Failures are retried sooner: a day for AniList, an hour for MyAnimeList
   (never later than the chosen time).
 - **Sorting:** every series tab can sort by the Crunchyroll, AniList or MyAnimeList score
-  (highest first; series without that score go last). In Advanced Search, the AniList and
-  MyAnimeList scores of the results on screen load first, then those of all results, with a
-  progress note; sorting by them is only offered once all of them have loaded (otherwise the
-  order would keep changing). AniList answers 90 requests a minute (30 when it is overloaded),
+  (highest first; series without that score go last). In Advanced Search, only the results on
+  screen get AniList and MyAnimeList scores, with a progress note; to sort by them, **Load all**
+  fetches the scores of every result, and the sort options are offered once all have loaded
+  (otherwise the order would keep changing). AniList answers 90 requests a minute (30 when it is overloaded),
   so up to about 1,000 series a minute in batches of 35; MyAnimeList takes one request per
   series (3 at a time), so a large result set (the whole catalog) takes a while the first time;
   after that the scores come from the cache.
@@ -466,7 +469,7 @@ in [chrome/README.md](chrome/README.md); the store texts are in
 ### Versions
 
 Keep the same `version` in `firefox/manifest.json`, `firefox/package.json`,
-`chrome/manifest.json` and `chrome/package.json` (current: 1.4.15). Publish only even versions to
+`chrome/manifest.json` and `chrome/package.json` (current: 1.4.9). Publish only even versions to
 the Chrome Web Store, like the AMO listing.
 
 `set-version.sh`, at the root, changes all of them (and the version above) at once:

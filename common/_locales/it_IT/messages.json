@@ -1197,5 +1197,16 @@
   },
   "cacheCleared": {
     "message": "Cache svuotata: è stato ricontrollato tutto."
+  },
+  "searchScoresPartial": {
+    "message": "I voti di AniList e MyAnimeList sono stati recuperati solo per i risultati sullo schermo. Per ordinare in base a essi, carica quelli di tutti i $P1$ risultati.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchScoresLoadAll": {
+    "message": "Carica tutti"
   }
 }

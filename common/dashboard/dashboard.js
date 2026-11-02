@@ -451,6 +451,8 @@
       await CRChecker.clearCache();
       ratings = {};
       extraScores = {};
+      stopScores();
+      scoresDoneKey = null;
       CRSearch.clearCache();
       searchState.items = null;
       searchState.seasons = null;
@@ -624,22 +626,37 @@
     return el("div", { class: "age-line", title: text || null }, age, text ? el("span", { class: "age-notes", text }) : null);
   }
 
-  // Notas do AniList e do MyAnimeList das séries na tela (as que faltam ou estão
-  // velhas), depois da verificação, sem atrasar a lista. Redesenha aos poucos.
-  // Uma atualização por vez; pedidos feitos no meio esperam e viram um só (o último).
+  // Notas do AniList e do MyAnimeList: só das séries que a página mostra (a aba
+  // aberta, com os filtros; na Pesquisa, os resultados na tela), as que faltam ou
+  // estão velhas. Redesenha aos poucos, sem atrasar a lista.
+  // Uma busca por vez. Se o que está na tela muda (outra aba, outra pesquisa), a
+  // busca anterior é cancelada no próximo ponto seguro e a nova começa; o que já
+  // veio fica no cache.
   let scoresRender = null;
-  let scoresBusy = false;
-  let scoresNext = null;
-  function wantScores(list) {
-    if (!list.length) return;
-    if (scoresBusy) {
-      scoresNext = list;
+  let scoresJob = null; // { key, stopped }
+  let scoresNext = null; // { list, key } esperando a anterior parar
+  let scoresDoneKey = null; // última lista já atendida (não refaz a cada redesenho)
+  const scoresKey = (list) =>
+    list
+      .map((x) => x.seriesId || x.id)
+      .sort()
+      .join(",");
+  function wantScores(list, tag = "") {
+    if (!list || !list.length) return;
+    const key = `${tag}|${scoresKey(list)}`;
+    if (scoresJob && scoresJob.key === key && !scoresJob.stopped) return; // já está buscando
+    if (!scoresJob && key === scoresDoneKey) return; // já buscou estas
+    if (scoresJob) {
+      scoresJob.stopped = true; // a anterior para e esta começa em seguida
+      scoresNext = { list, key };
       return;
     }
-    scoresBusy = true;
+    const job = { key, stopped: false };
+    scoresJob = job;
     const series = list.map((x) => ({ id: x.seriesId || x.id, title: x.title, slug: x.slug }));
     CRScores.update(series, {
       ttlHours: CRScores.ttlHoursFrom(settings),
+      shouldStop: () => job.stopped,
       onUpdate: (all) => {
         extraScores = all;
         clearTimeout(scoresRender);
@@ -648,11 +665,22 @@
     })
       .catch((err) => console.warn("[Watchroll]", err))
       .finally(() => {
-        scoresBusy = false;
+        scoresJob = null;
+        if (!job.stopped) scoresDoneKey = key;
         const next = scoresNext;
         scoresNext = null;
-        if (next) wantScores(next);
+        if (next) wantScores(next.list, next.key.slice(0, next.key.indexOf("|")));
       });
+  }
+  // Nada na tela precisa de notas (ex.: Configurações, pesquisa nova carregando).
+  function stopScores() {
+    if (scoresJob) scoresJob.stopped = true;
+    scoresNext = null;
+  }
+  // Depois de apagar o cache ou de ganhar a permissão: pede de novo o que está na tela.
+  function rewantScores() {
+    scoresDoneKey = null;
+    render();
   }
 
   // ---------- links ----------
@@ -1014,6 +1042,9 @@
     const searching = query.trim() !== "" || filtersActive();
     let active = shown.find((tb) => tb.id === settings.tab) || shown[0];
     if (searching && active.count === 0) active = shown.find((tb) => tb.count > 0) || active;
+    // Notas do AniList/MyAnimeList: só das séries desta aba (com os filtros), não de todas.
+    if (active.items) wantScores(active.items, `tab:${active.id}`);
+    else if (active.id !== "search") stopScores();
     const sorts = CRChecker.sortsFor(settings, active.id);
     $("sort-wrap").hidden = !sorts || sorts.length < 2;
     if (sorts) fillSelect($("sort"), sorts.map((k) => [k, t(CRChecker.SORTS[k])]), CRChecker.sortFor(settings, active.id));
@@ -1147,6 +1178,8 @@
     searchState.error = null;
     searchState.items = null;
     searchState.shown = CRSearch.PAGE;
+    searchState.allScores = false; // notas de todos os resultados: só se pedir de novo
+    stopScores(); // as notas da pesquisa anterior não importam mais
     render();
     try {
       const r = await CRSearch.run({
@@ -1450,22 +1483,40 @@
         const byScore = CRChecker.SCORE_SORTS.includes(f.sort);
         const ordered = byScore ? CRChecker.sortResults(st.items, f.sort, scoreOf) : st.items;
         const visible = ordered.slice(0, st.shown);
-        // Notas do AniList/MyAnimeList: primeiro as dos resultados na tela, depois as de
-        // todos (para poder ordenar por elas), com o progresso enquanto faltam.
-        if (!scoresReady) {
+        // Notas do AniList/MyAnimeList: só dos resultados na tela. As de todos os
+        // resultados (para ordenar por elas) só quando o usuário pede.
+        const want = st.allScores ? ordered : visible;
+        const wantDone = want.filter((r) => CRScores.loaded(extraScores, r.id, { mal: malOn })).length;
+        if (wantDone < want.length) {
           parts.push(
             el(
               "p",
               { class: "notice-inline scores-loading", role: "status", "aria-live": "polite" },
               el("span", { class: "spinner small", "aria-hidden": "true" }),
-              el("span", { text: t("searchScoresLoading", scoresDone, items.length) })
+              el("span", { text: t("searchScoresLoading", wantDone, want.length) })
+            )
+          );
+        } else if (!scoresReady) {
+          parts.push(
+            el(
+              "p",
+              { class: "notice-inline" },
+              el("span", { text: t("searchScoresPartial", items.length) }),
+              el("button", {
+                type: "button",
+                class: "btn ghost small",
+                text: t("searchScoresLoadAll"),
+                onclick: () => {
+                  st.allScores = true;
+                  render();
+                },
+              })
             )
           );
         }
         parts.push(el("div", { class: "results" }, visible.map(resultCard)));
         wantRatings(ratingItems(visible));
-        wantScores(visible);
-        if (!scoresReady) wantScores(st.items);
+        wantScores(want, "search");
       }
       if (st.items.length > st.shown) {
         parts.push(
@@ -1581,6 +1632,7 @@
         id: "toWatch",
         label: t("secToWatch"),
         count: pending.length,
+        items: pending, // séries na tela (só delas se buscam as notas)
         always: true,
         content: () =>
           pending.length
@@ -1593,6 +1645,7 @@
         id: "waitDub",
         label: t("secWaitDub"),
         count: waiting.length,
+        items: waiting, // séries na tela (só delas se buscam as notas)
         content: () =>
           el(
             "ul",
@@ -1618,6 +1671,7 @@
         id: "waitSub",
         label: t("secWaitSub"),
         count: waitingSub.length,
+        items: waitingSub, // séries na tela (só delas se buscam as notas)
         content: () =>
           el(
             "ul",
@@ -1643,14 +1697,16 @@
         id: "upToDate",
         label: t("secUpToDate"),
         count: upToDate.length,
+        items: upToDate, // séries na tela (só delas se buscam as notas)
         always: true,
         content: () => rows(upToDate, (s) => (s.noDub ? t("noteNoDubSeason", settings.dubLang) : null)),
       },
-      { id: "week", label: t("secCalendar"), count: week.length, always: true, content: () => weekPanel(week) },
+      { id: "week", label: t("secCalendar"), count: week.length, items: week, always: true, content: () => weekPanel(week) },
       {
         id: "never",
         label: t("secNever"),
         count: never.length,
+        items: never, // séries na tela (só delas se buscam as notas)
         always: true,
         content: () =>
           !never.length
@@ -1664,6 +1720,7 @@
         id: "hidden",
         label: t("secHidden"),
         count: hidden.length,
+        items: hiddenSorted,
         content: () =>
           el(
             "ul",
@@ -1735,7 +1792,6 @@
       await CRApi.release();
       setBusy(false);
       wantRatings(ratingItems(results)); // notas que faltam, depois da verificação
-      wantScores(results.filter((r) => r.status !== "error"));
       checkMalPermission();
     }
   }
@@ -1759,7 +1815,7 @@
       if (await CRScores.requestMal()) {
         box.hidden = true;
         malPermitted = true;
-        wantScores(results.filter((r) => r.status !== "error"));
+        rewantScores();
       }
     });
     box.replaceChildren(el("span", { text: t("malPermissionNeeded") }), btn);

@@ -1197,5 +1197,16 @@
   },
   "cacheCleared": {
     "message": "Cache geleert: Alles wurde neu geprüft."
+  },
+  "searchScoresPartial": {
+    "message": "AniList- und MyAnimeList-Bewertungen wurden nur für die angezeigten Ergebnisse geladen. Um danach zu sortieren, lade die Bewertungen aller $P1$ Ergebnisse.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchScoresLoadAll": {
+    "message": "Alle laden"
   }
 }

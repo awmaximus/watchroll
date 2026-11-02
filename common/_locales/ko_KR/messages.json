@@ -1197,5 +1197,16 @@
   },
   "cacheCleared": {
     "message": "캐시를 삭제했습니다: 모두 다시 확인했습니다."
+  },
+  "searchScoresPartial": {
+    "message": "AniList 및 MyAnimeList 점수는 화면에 보이는 결과만 가져왔습니다. 점수순으로 정렬하려면 결과 $P1$개 전체의 점수를 불러오세요.",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "searchScoresLoadAll": {
+    "message": "모두 불러오기"
   }
 }
