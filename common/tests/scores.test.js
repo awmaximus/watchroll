@@ -280,6 +280,25 @@ describe("atualização e cache", () => {
     assert.equal(S.loaded(all, "E"), false);
   });
 
+  test("até 35 séries numa consulta ao AniList", async () => {
+    const many = Array.from({ length: 40 }, (_, i) => ({ id: "S" + i, title: "T" + i, slug: "t" + i }));
+    const { S, fetchFn, calls } = setup((url, body) => aniList(() => [])(body));
+    await S.anilistFor(many.slice(0, 35), fetchFn);
+    assert.equal(Object.keys(calls[0].body.variables).length, 35);
+  });
+
+  test("consulta complexa demais para o AniList (HTTP 400): divide ao meio e tenta de novo", async () => {
+    const many = Array.from({ length: 35 }, (_, i) => ({ id: "S" + i, title: "T" + i, slug: "t" + i }));
+    const { S, fetchFn, calls } = setup((url, body) =>
+      Object.keys(body.variables).length > 20
+        ? json({ errors: [{ message: "Max query complexity should be 500 but got 507." }] }, 400)
+        : aniList((q) => (q === "t3" ? [{ id: 9, idMal: 90, averageScore: 77, title: { english: "T3" }, externalLinks: [] }] : []))(body)
+    );
+    const r = await S.anilistFor(many, fetchFn);
+    assert.equal(r.get("S3").score, 77);
+    assert.deepEqual(calls.slice(0, 3).map((c) => Object.keys(c.body.variables).length), [35, 18, 17]);
+  });
+
   test("AniList fora do ar: nada quebra", async () => {
     const { S, fetchFn } = setup(() => json({}, 500));
     const all = await S.update(series, { fetchFn });

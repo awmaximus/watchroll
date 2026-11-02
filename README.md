@@ -275,7 +275,8 @@ Lists come from `/content/v2/discover/{account}/watchlist` and
 Watchroll has no server of its own: the scores come straight from the sources, from your browser.
 
 - **AniList:** for each series, its Crunchyroll URL name (always in English, e.g.
-  `the-apothecary-diaries`) is searched on AniList, ten series per request. The anime that counts
+  `the-apothecary-diaries`) is searched on AniList, up to 35 series per request (AniList caps a
+  query's complexity at 500, and each series costs 13). The anime that counts
   is the one whose AniList page links to the same Crunchyroll series, or with exactly the same
   title. Crunchyroll keeps all seasons in one series while AniList has one entry per season, so
   the first TV season is used. If nothing matches, shorter searches are tried; if still nothing,
@@ -299,9 +300,10 @@ Watchroll has no server of its own: the scores come straight from the sources, f
   (highest first; series without that score go last). In Advanced Search, the AniList and
   MyAnimeList scores of the results on screen load first, then those of all results, with a
   progress note; sorting by them is only offered once all of them have loaded (otherwise the
-  order would keep changing). AniList answers up to 30 requests a minute and MyAnimeList is
-  queried one series at a time, so a large result set (the whole catalog) takes a while the
-  first time; after that the scores come from the cache.
+  order would keep changing). AniList answers 90 requests a minute (30 when it is overloaded),
+  so up to about 1,000 series a minute in batches of 35; MyAnimeList is queried one series at a
+  time, so a large result set (the whole catalog) takes a while the first time; after that the
+  scores come from the cache.
 
 ### Speed and freshness
 

@@ -9,7 +9,8 @@
 //    certa é a que tem o link da Crunchyroll com o mesmo ID; sem link, só vale o
 //    título igual. Sem resultado, tenta de novo com as primeiras palavras (o
 //    AniList não acha títulos longos com a pontuação tirada, ex.: "ill" de "I'll").
-//    Conferido em nov/2026: limite de 30 consultas por minuto.
+//    Até 35 séries por consulta (limite de complexidade do AniList). Conferido em
+//    nov/2026: 90 consultas por minuto, 30 quando o AniList está sobrecarregado.
 //  - MyAnimeList: o AniList dá o ID (idMal); a nota vem da API oficial
 //    (api.myanimelist.net/v2/anime/{id}, com o Client ID de mal-client.js; sem CORS,
 //    por isso a extensão tem permissão para esse endereço). Sem Client ID, vem do
@@ -34,7 +35,11 @@ var CRScores = (() => {
   };
   const RETRY = DAY;
   const MAL_RETRY = 3600000; // falha no MyAnimeList: tenta de novo em 1 hora
-  const BATCH = 10; // séries por consulta ao AniList
+  // Séries por consulta ao AniList (cada uma vira um apelido a0, a1… na mesma consulta).
+  // O AniList limita a "complexidade" da consulta a 500, e cada série com estes campos
+  // custa 13 (conferido em nov/2026: 38 passam, 39 dão "Max query complexity"). 35 deixa
+  // folga; se mesmo assim passar do limite, a consulta é dividida ao meio.
+  const BATCH = 35;
   const JIKAN_GAP = 1100; // ms entre consultas ao Jikan
   const MAL_GAP = 400; // ms entre consultas à API oficial do MyAnimeList
 
@@ -134,6 +139,17 @@ var CRScores = (() => {
       if (res.status !== 429 || attempt >= 3) break;
       const wait = Number(res.headers && res.headers.get && res.headers.get("retry-after"));
       await sleep(Math.min(90, Number.isFinite(wait) && wait > 0 ? wait : 60) * 1000);
+    }
+    if (res.status === 400 && queries.length > 1) {
+      const j = await res.json().catch(() => null);
+      const msg = ((j && j.errors) || []).map((e) => e && e.message).join(" ");
+      if (/complexity/i.test(msg)) {
+        const half = Math.ceil(queries.length / 2);
+        const a = await anilistSearch(queries.slice(0, half), fetchFn);
+        const b = await anilistSearch(queries.slice(half), fetchFn);
+        return a.concat(b);
+      }
+      throw new Error(`AniList HTTP ${res.status}`);
     }
     if (!res.ok) throw new Error(`AniList HTTP ${res.status}`);
     const j = await res.json();
@@ -243,7 +259,7 @@ var CRScores = (() => {
     const seen = new Set();
     const unique = list.filter((s) => !seen.has(s.id) && seen.add(s.id));
 
-    // 1. AniList, de 10 em 10 séries (grava e avisa a página a cada parte)
+    // 1. AniList, de 35 em 35 séries (grava e avisa a página a cada parte)
     const needAl = unique.filter((s) => !fresh(all[s.id] && all[s.id].al, now, ttl));
     for (let i = 0; i < needAl.length; i += BATCH) {
       const chunk = needAl.slice(i, i + BATCH);
