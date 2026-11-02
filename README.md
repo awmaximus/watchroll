@@ -382,6 +382,7 @@ chrome/                       Chrome and Chromium-based browsers (see chrome/REA
   store/                      Chrome Web Store texts, screenshots and promo tile
   dist/                       generated packages, not in git
 PRIVACY.md                    privacy policy (both browsers)
+set-version.sh                sets the version of both extensions
 .github/workflows/ci.yml      CI and releases
 ```
 
@@ -460,8 +461,17 @@ in [chrome/README.md](chrome/README.md); the store texts are in
 ### Versions
 
 Keep the same `version` in `firefox/manifest.json`, `firefox/package.json`,
-`chrome/manifest.json` and `chrome/package.json` (current: 1.4.7). Publish only even versions to
+`chrome/manifest.json` and `chrome/package.json` (current: 1.4.9). Publish only even versions to
 the Chrome Web Store, like the AMO listing.
+
+`set-version.sh`, at the root, changes all of them (and the version above) at once:
+
+```sh
+./set-version.sh 1.4.10   # set the version
+./set-version.sh          # show the version in each file
+```
+
+An odd last number is a test version (AMO unlisted); an even one is published (listed).
 
 ### Continuous integration and releases
 

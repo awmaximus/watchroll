@@ -1049,12 +1049,19 @@
     // Re-renderizar não pode tirar o cursor de um campo em edição (ex.: a busca).
     const focused = document.activeElement && document.activeElement.id;
     const sel = focused && "selectionStart" in document.activeElement ? [document.activeElement.selectionStart, document.activeElement.selectionEnd] : null;
+    // Nem a rolagem: redesenhar (ex.: notas chegando na Pesquisa) não pode levar a
+    // página de volta ao topo. A troca deixa a página mais curta por um instante e o
+    // focus() rolaria até o campo focado; os dois são evitados.
+    const scrollX = window.scrollX;
+    const scrollY = window.scrollY;
+    const content = $("content");
+    content.style.minHeight = `${content.offsetHeight}px`;
     $("tabbar").replaceChildren(nav);
-    $("content").replaceChildren(...(panel ? [panel] : []));
+    content.replaceChildren(...(panel ? [panel] : []));
     if (focused && focused !== "content") {
       const again = document.getElementById(focused);
       if (again && again !== document.body) {
-        again.focus();
+        again.focus({ preventScroll: true });
         if (sel && again.setSelectionRange) {
           try {
             again.setSelectionRange(sel[0], sel[1]);
@@ -1062,6 +1069,8 @@
         }
       }
     }
+    content.style.minHeight = "";
+    if (window.scrollX !== scrollX || window.scrollY !== scrollY) window.scrollTo(scrollX, scrollY);
   }
 
   // ---------- aba Pesquisar ----------
