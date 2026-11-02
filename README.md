@@ -289,7 +289,10 @@ Watchroll has no server of its own: the scores come straight from the sources, f
   score comes from [Jikan](https://jikan.moe), a public service with MyAnimeList's data, about
   one series per second. If the service doesn't answer twice in a row, MyAnimeList scores are
   skipped and tried again later (an hour for the official API, a day for Jikan); AniList and
-  Crunchyroll scores still show. Firefox lets you turn the `api.myanimelist.net` permission off
+  Crunchyroll scores still show. The official API is queried 3 series at a time; if it answers
+  "too many requests" (HTTP 429), Watchroll drops to one at a time, waits as asked and tries that
+  series again. MyAnimeList doesn't wait for AniList to finish: each AniList batch that comes
+  back goes straight to the MyAnimeList queue. Firefox lets you turn the `api.myanimelist.net` permission off
   (and doesn't always grant a new one on update); without it, the page shows a notice with an
   **Allow access** button.
 - Scores load after the check, a few at a time, without delaying the list. They are kept per
@@ -301,9 +304,9 @@ Watchroll has no server of its own: the scores come straight from the sources, f
   MyAnimeList scores of the results on screen load first, then those of all results, with a
   progress note; sorting by them is only offered once all of them have loaded (otherwise the
   order would keep changing). AniList answers 90 requests a minute (30 when it is overloaded),
-  so up to about 1,000 series a minute in batches of 35; MyAnimeList is queried one series at a
-  time, so a large result set (the whole catalog) takes a while the first time; after that the
-  scores come from the cache.
+  so up to about 1,000 series a minute in batches of 35; MyAnimeList takes one request per
+  series (3 at a time), so a large result set (the whole catalog) takes a while the first time;
+  after that the scores come from the cache.
 
 ### Speed and freshness
 

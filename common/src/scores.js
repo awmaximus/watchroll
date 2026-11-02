@@ -41,7 +41,9 @@ var CRScores = (() => {
   // folga; se mesmo assim passar do limite, a consulta é dividida ao meio.
   const BATCH = 35;
   const JIKAN_GAP = 1100; // ms entre consultas ao Jikan
-  const MAL_GAP = 400; // ms entre consultas à API oficial do MyAnimeList
+  const MAL_GAP = 400; // ms entre consultas de cada trabalhador à API oficial do MyAnimeList
+  const MAL_PARALLEL = 3; // consultas ao mesmo tempo à API oficial (o Jikan: uma por vez)
+  const MAL_429_TRIES = 3; // "pedidos demais" seguidos na mesma série: desiste dela por ora
 
   let clientId = typeof MAL_CLIENT_ID === "string" ? MAL_CLIENT_ID.trim() : "";
   // "mal-api": as falhas guardadas como "mal" (antes do aviso de permissão) saem já.
@@ -180,6 +182,15 @@ var CRScores = (() => {
     return out;
   }
 
+  // "Pedidos demais" (HTTP 429): erro com o tempo de espera, para quem chamou recuar.
+  function tooMany(res, name) {
+    const err = new Error(`${name} HTTP 429`);
+    err.status = 429;
+    const wait = Number(res.headers && res.headers.get && res.headers.get("retry-after"));
+    err.retryAfter = Math.min(60, Number.isFinite(wait) && wait > 0 ? wait : 5) * 1000;
+    return err;
+  }
+
   /** Nota do MyAnimeList: { score, users } (score null = sem nota). */
   async function malScore(idMal, fetchFn) {
     const id = encodeURIComponent(idMal);
@@ -190,12 +201,14 @@ var CRScores = (() => {
         credentials: "omit",
       });
       if (res.status === 404) return { score: null, users: 0 };
+      if (res.status === 429) throw tooMany(res, "MyAnimeList");
       if (!res.ok) throw new Error(`MyAnimeList HTTP ${res.status}`);
       const d = (await res.json()) || {};
       return { score: typeof d.mean === "number" ? d.mean : null, users: Number(d.num_scoring_users) || 0 };
     }
     const res = await fetchWithTimeout(fetchFn, JIKAN + id, { cache: "no-store", credentials: "omit" });
     if (res.status === 404) return { score: null, users: 0 };
+    if (res.status === 429) throw tooMany(res, "Jikan");
     if (!res.ok) throw new Error(`Jikan HTTP ${res.status}`);
     const d = ((await res.json()) || {}).data || {};
     return { score: typeof d.score === "number" ? d.score : null, users: Number(d.scored_by) || 0 };
@@ -259,7 +272,98 @@ var CRScores = (() => {
     const seen = new Set();
     const unique = list.filter((s) => !seen.has(s.id) && seen.add(s.id));
 
-    // 1. AniList, de 35 em 35 séries (grava e avisa a página a cada parte)
+    // O AniList e o MyAnimeList andam juntos: cada lote que volta do AniList (com o ID
+    // do MyAnimeList) entra na fila do MyAnimeList, que já vai consultando enquanto o
+    // AniList busca o lote seguinte. Sem a permissão para api.myanimelist.net, o
+    // MyAnimeList nem é tentado (a página mostra o botão para dar a permissão).
+    const malOk = await malAllowed(b);
+    const needsMal = (s) => {
+      const e = all[s.id];
+      if (!e || !e.al || !e.al.idMal) return false;
+      const m = e.mal && e.mal.id === e.al.idMal ? e.mal : null;
+      // Uma falha de outra fonte (ex.: o Jikan, antes do Client ID) não espera o prazo.
+      return !fresh(m && m.failed && m.src !== malSource() ? null : m, now, ttl, MAL_RETRY);
+    };
+    const queue = [];
+    const queued = new Set();
+    let waiters = [];
+    const wake = () => {
+      const w = waiters;
+      waiters = [];
+      w.forEach((r) => r());
+    };
+    const enqueue = (list) => {
+      if (!malOk) return;
+      for (const s of list) {
+        if (!queued.has(s.id) && needsMal(s)) {
+          queued.add(s.id);
+          queue.push(s);
+        }
+      }
+      wake();
+    };
+    let alDone = false;
+
+    // 2. MyAnimeList: até 3 consultas ao mesmo tempo (o Jikan, uma). Se o site
+    // responder "pedidos demais" (429), recua para uma por vez, espera e tenta de novo.
+    // 2 falhas seguidas (fora do ar): para e tenta de novo mais tarde.
+    let limit = clientId ? MAL_PARALLEL : 1;
+    let failures = 0;
+    let changed = 0;
+    const tries429 = new Map();
+    const gap = clientId ? MAL_GAP : JIKAN_GAP;
+    const malFailed = (s) => {
+      all[s.id].mal = { id: all[s.id].al.idMal, failed: true, src: malSource(), at: Date.now() };
+    };
+    async function worker(n) {
+      for (;;) {
+        if (n >= limit) return; // recuou: sobra só o primeiro trabalhador
+        const s = queue.shift();
+        if (!s) {
+          if (alDone) return;
+          await new Promise((r) => waiters.push(r));
+          continue;
+        }
+        const idMal = all[s.id].al.idMal;
+        if (failures >= 2) {
+          malFailed(s);
+          changed++;
+          continue;
+        }
+        try {
+          const r = await malScore(idMal, fetchFn);
+          all[s.id].mal = { id: idMal, score: r.score, users: r.users, src: malSource(), at: Date.now() };
+          failures = 0;
+        } catch (err) {
+          if (err && err.status === 429) {
+            const t = (tries429.get(s.id) || 0) + 1;
+            tries429.set(s.id, t);
+            if (limit > 1) console.warn("[Watchroll] MyAnimeList: pedidos demais; uma consulta por vez");
+            limit = 1;
+            if (t < MAL_429_TRIES) {
+              queue.unshift(s); // volta para a fila e espera o que o site pediu
+              wake();
+              await sleep(err.retryAfter || 5000);
+              continue;
+            }
+          } else if (!failures) {
+            console.warn(`[Watchroll] MyAnimeList${clientId ? "" : " (Jikan)"}:`, err);
+          }
+          malFailed(s);
+          if (!(err && err.status === 429)) failures++;
+        }
+        changed++;
+        if (changed % 5 === 0) {
+          await save(all, b);
+          onUpdate(all);
+        }
+        await sleep(gap);
+      }
+    }
+    const workers = malOk ? Array.from({ length: limit }, (_, n) => worker(n)) : [];
+    enqueue(unique); // as que já têm o AniList guardado começam na hora
+
+    // 1. AniList, de 35 em 35 séries (grava e avisa a página a cada lote)
     const needAl = unique.filter((s) => !fresh(all[s.id] && all[s.id].al, now, ttl));
     for (let i = 0; i < needAl.length; i += BATCH) {
       const chunk = needAl.slice(i, i + BATCH);
@@ -276,50 +380,19 @@ var CRScores = (() => {
           const prev = all[s.id] || {};
           if (!prev.al || !prev.al.id) all[s.id] = { ...prev, al: { failed: true, at: now } };
         }
+        enqueue(needAl.slice(i)); // as que já tinham o ID do MyAnimeList seguem
         await save(all, b);
         onUpdate(all);
-        break; // fora do ar: tenta de novo outro dia
+        break; // fora do ar: tenta de novo mais tarde
       }
+      enqueue(chunk);
       await save(all, b);
       onUpdate(all);
     }
-
-    // 2. MyAnimeList (pelo ID que o AniList deu), um por vez. Sem a permissão,
-    // nem tenta (a página mostra o botão para dar a permissão).
-    const malOk = await malAllowed(b);
-    const needMal = !malOk ? [] : unique.filter((s) => {
-      const e = all[s.id];
-      if (!e || !e.al || !e.al.idMal) return false;
-      const m = e.mal && e.mal.id === e.al.idMal ? e.mal : null;
-      // Uma falha de outra fonte (ex.: o Jikan, antes do Client ID) não espera o dia.
-      return !fresh(m && m.failed && m.src !== malSource() ? null : m, now, ttl, MAL_RETRY);
-    });
-    let changed = 0;
-    let failures = 0; // 2 falhas seguidas: o serviço está fora; tenta de novo outro dia
-    for (let i = 0; i < needMal.length; i++) {
-      const s = needMal[i];
-      const idMal = all[s.id].al.idMal;
-      if (failures >= 2) {
-        all[s.id].mal = { id: idMal, failed: true, src: malSource(), at: Date.now() };
-        continue;
-      }
-      try {
-        const r = await malScore(idMal, fetchFn);
-        all[s.id].mal = { id: idMal, score: r.score, users: r.users, src: malSource(), at: Date.now() };
-        failures = 0;
-      } catch (err) {
-        all[s.id].mal = { id: idMal, failed: true, src: malSource(), at: Date.now() };
-        if (!failures) console.warn(`[Watchroll] MyAnimeList${clientId ? "" : " (Jikan)"}:`, err);
-        failures++;
-      }
-      changed++;
-      if (changed % 5 === 0) {
-        await save(all, b);
-        onUpdate(all);
-      }
-      if (i < needMal.length - 1) await sleep(clientId ? MAL_GAP : JIKAN_GAP);
-    }
-    if (needMal.length) {
+    alDone = true;
+    wake();
+    await Promise.all(workers);
+    if (changed) {
       await save(all, b);
       onUpdate(all);
     }

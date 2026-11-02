@@ -299,6 +299,86 @@ describe("atualização e cache", () => {
     assert.deepEqual(calls.slice(0, 3).map((c) => Object.keys(c.body.variables).length), [35, 18, 17]);
   });
 
+  // Séries falsas: o AniList acha todas (link da Crunchyroll) com ID do MyAnimeList 100+i.
+  const fakeSeries = (n) => Array.from({ length: n }, (_, i) => ({ id: "S" + i, title: "T" + i, slug: "t" + i }));
+  const aniAll = aniList((q) => [
+    { id: Number(q.slice(1)) + 1, idMal: 100 + Number(q.slice(1)), averageScore: 70, title: { english: q.toUpperCase() }, externalLinks: [{ url: "https://www.crunchyroll.com/series/S" + q.slice(1) + "/x" }] },
+  ]);
+  const later = (v, ms = 5) => new Promise((r) => setTimeout(() => r(v), ms));
+
+  test("MyAnimeList começa assim que o primeiro lote do AniList volta (não espera todos)", async () => {
+    const { S, fetchFn, calls } = setup((url, body) => (url.includes("myanimelist") ? json({ mean: 8 }) : aniAll(body)));
+    S.setClientId("abc123");
+    const all = await S.update(fakeSeries(40), { fetchFn });
+    const kinds = calls.map((c) => (c.url.includes("myanimelist") ? "mal" : "al"));
+    const secondAl = kinds.indexOf("al", kinds.indexOf("al") + 1);
+    assert.ok(secondAl > 0, "dois lotes no AniList (35 + 5)");
+    assert.ok(kinds.indexOf("mal") < secondAl, `MyAnimeList antes do 2º lote do AniList: ${kinds.join(",")}`);
+    assert.equal(kinds.filter((k) => k === "mal").length, 40);
+    assert.ok(fakeSeries(40).every((s) => S.scoresOf(all, s.id).mal === 8));
+  });
+
+  test("API oficial do MyAnimeList: até 3 consultas ao mesmo tempo", async () => {
+    let inFlight = 0;
+    let max = 0;
+    const { S, fetchFn } = setup(async (url, body) => {
+      if (!url.includes("myanimelist")) return aniAll(body);
+      max = Math.max(max, ++inFlight);
+      const r = await later(json({ mean: 7.5 }));
+      inFlight--;
+      return r;
+    });
+    S.setClientId("abc123");
+    const all = await S.update(fakeSeries(12), { fetchFn });
+    assert.equal(max, 3);
+    assert.ok(fakeSeries(12).every((s) => S.scoresOf(all, s.id).mal === 7.5));
+  });
+
+  test("Jikan (sem Client ID): uma consulta por vez", async () => {
+    let inFlight = 0;
+    let max = 0;
+    const { S, fetchFn } = setup(async (url, body) => {
+      if (!url.includes("jikan")) return aniAll(body);
+      max = Math.max(max, ++inFlight);
+      const r = await later(json({ data: { score: 7 } }));
+      inFlight--;
+      return r;
+    });
+    await S.update(fakeSeries(6), { fetchFn });
+    assert.equal(max, 1);
+  });
+
+  test("MyAnimeList responde 'pedidos demais' (429): recua para uma por vez, espera e não perde a nota", async () => {
+    let got429At = null;
+    const spans = []; // [início, fim] de cada consulta ao MyAnimeList
+    const waits = [];
+    const { S, fetchFn } = setup(async (url, body) => {
+      if (!url.includes("myanimelist")) return aniAll(body);
+      const span = [performance.now(), null];
+      spans.push(span);
+      let r;
+      if (got429At == null && url.includes("/anime/101?")) {
+        r = await later({ ok: false, status: 429, headers: { get: (h) => (h === "retry-after" ? "2" : null) }, json: async () => ({}) });
+        got429At = performance.now();
+      } else r = await later(json({ mean: 9 }));
+      span[1] = performance.now();
+      return r;
+    });
+    S.setClientId("abc123");
+    S.setSleep(async (ms) => {
+      waits.push(ms);
+      await later(null, 1);
+    });
+    const all = await S.update(fakeSeries(10), { fetchFn });
+    assert.ok(waits.includes(2000), "esperou o Retry-After");
+    assert.equal(S.scoresOf(all, "S1").mal, 9, "a série do 429 foi consultada de novo");
+    assert.ok(fakeSeries(10).every((s) => S.scoresOf(all, s.id).mal === 9));
+    // Depois do 429, as consultas novas não se sobrepõem (uma por vez).
+    const after = spans.filter(([a]) => a >= got429At).sort((x, y) => x[0] - y[0]);
+    assert.ok(after.length > 1);
+    for (let i = 1; i < after.length; i++) assert.ok(after[i][0] >= after[i - 1][1], "uma por vez depois do 429");
+  });
+
   test("AniList fora do ar: nada quebra", async () => {
     const { S, fetchFn } = setup(() => json({}, 500));
     const all = await S.update(series, { fetchFn });
