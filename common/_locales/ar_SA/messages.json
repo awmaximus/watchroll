@@ -1165,5 +1165,11 @@
   },
   "btnSeeAnyAudioTitle": {
     "message": "يحوّل هذا المسلسل إلى \"أي صوت\": تظهر الحلقات حتى بدون ترجمة بلغتك"
+  },
+  "malPermissionNeeded": {
+    "message": "لعرض تقييمات MyAnimeList، يحتاج Watchroll إلى الوصول إلى api.myanimelist.net."
+  },
+  "malPermissionAllow": {
+    "message": "السماح بالوصول"
   }
 }

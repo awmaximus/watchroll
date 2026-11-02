@@ -1165,5 +1165,11 @@
   },
   "btnSeeAnyAudioTitle": {
     "message": "Muda esta série para \"Qualquer áudio\": os episódios aparecem mesmo sem legendas no seu idioma"
+  },
+  "malPermissionNeeded": {
+    "message": "Para mostrar as classificações do MyAnimeList, o Watchroll precisa de acesso a api.myanimelist.net."
+  },
+  "malPermissionAllow": {
+    "message": "Permitir acesso"
   }
 }

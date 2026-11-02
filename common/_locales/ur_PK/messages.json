@@ -1165,5 +1165,11 @@
   },
   "btnSeeAnyAudioTitle": {
     "message": "اس سیریز کو \"کوئی بھی آڈیو\" پر کر دیتا ہے: آپ کی زبان میں سب ٹائٹل نہ ہونے پر بھی اقساط نظر آئیں گی"
+  },
+  "malPermissionNeeded": {
+    "message": "MyAnimeList کے اسکور دکھانے کے لیے Watchroll کو api.myanimelist.net تک رسائی درکار ہے۔"
+  },
+  "malPermissionAllow": {
+    "message": "رسائی کی اجازت دیں"
   }
 }

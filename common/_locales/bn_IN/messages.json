@@ -1165,5 +1165,11 @@
   },
   "btnSeeAnyAudioTitle": {
     "message": "এই সিরিজকে \"যেকোনো অডিও\"-তে বদলায়: আপনার ভাষায় সাবটাইটেল না থাকলেও পর্ব দেখাবে"
+  },
+  "malPermissionNeeded": {
+    "message": "MyAnimeList-এর রেটিং দেখাতে Watchroll-এর api.myanimelist.net-এ অ্যাক্সেস দরকার।"
+  },
+  "malPermissionAllow": {
+    "message": "অ্যাক্সেস দিন"
   }
 }

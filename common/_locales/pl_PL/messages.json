@@ -1165,5 +1165,11 @@
   },
   "btnSeeAnyAudioTitle": {
     "message": "Przełącza ten serial na „Dowolny dźwięk”: odcinki są widoczne nawet bez napisów w Twoim języku"
+  },
+  "malPermissionNeeded": {
+    "message": "Aby pokazać oceny z MyAnimeList, Watchroll potrzebuje dostępu do api.myanimelist.net."
+  },
+  "malPermissionAllow": {
+    "message": "Zezwól na dostęp"
   }
 }

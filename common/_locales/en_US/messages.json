@@ -1171,5 +1171,11 @@
   },
   "btnSeeAnyAudioTitle": {
     "message": "Switches this series to \"Any audio\": episodes show up even without subtitles in your language"
+  },
+  "malPermissionNeeded": {
+    "message": "To show MyAnimeList scores, Watchroll needs access to api.myanimelist.net."
+  },
+  "malPermissionAllow": {
+    "message": "Allow access"
   }
 }

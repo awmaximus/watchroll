@@ -1165,5 +1165,11 @@
   },
   "btnSeeAnyAudioTitle": {
     "message": "ఈ సిరీస్‌ను \"ఏ ఆడియో అయినా\"కు మారుస్తుంది: మీ భాషలో ఉపశీర్షికలు లేకపోయినా ఎపిసోడ్‌లు కనిపిస్తాయి"
+  },
+  "malPermissionNeeded": {
+    "message": "MyAnimeList స్కోర్‌లను చూపడానికి Watchroll‌కు api.myanimelist.net యాక్సెస్ కావాలి."
+  },
+  "malPermissionAllow": {
+    "message": "యాక్సెస్ అనుమతించు"
   }
 }

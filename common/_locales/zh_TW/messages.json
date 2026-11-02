@@ -1165,5 +1165,11 @@
   },
   "btnSeeAnyAudioTitle": {
     "message": "將此影集切換為「任意音訊」：即使沒有你所選語言的字幕，也會顯示集數"
+  },
+  "malPermissionNeeded": {
+    "message": "要顯示 MyAnimeList 評分，Watchroll 需要存取 api.myanimelist.net。"
+  },
+  "malPermissionAllow": {
+    "message": "允許存取"
   }
 }

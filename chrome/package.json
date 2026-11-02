@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "test": "node --test \"../common/tests/*.test.js\"",
+    "test:live": "node --test \"../common/tests/live/*.test.js\"",
     "build": "./build-chrome.sh",
     "check": "./build-chrome.sh --check"
   },

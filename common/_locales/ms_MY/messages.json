@@ -1165,5 +1165,11 @@
   },
   "btnSeeAnyAudioTitle": {
     "message": "Tukar siri ini kepada \"Mana-mana audio\": episod tetap dipaparkan walaupun tiada sari kata dalam bahasa anda"
+  },
+  "malPermissionNeeded": {
+    "message": "Untuk memaparkan skor MyAnimeList, Watchroll memerlukan akses ke api.myanimelist.net."
+  },
+  "malPermissionAllow": {
+    "message": "Benarkan akses"
   }
 }

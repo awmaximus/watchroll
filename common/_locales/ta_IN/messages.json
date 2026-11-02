@@ -1165,5 +1165,11 @@
   },
   "btnSeeAnyAudioTitle": {
     "message": "இந்தத் தொடரை \"எந்த ஆடியோவும்\" என மாற்றும்: உங்கள் மொழியில் வசனம் இல்லாவிட்டாலும் எபிசோடுகள் தெரியும்"
+  },
+  "malPermissionNeeded": {
+    "message": "MyAnimeList மதிப்பெண்களைக் காட்ட, Watchroll-க்கு api.myanimelist.net அணுகல் தேவை."
+  },
+  "malPermissionAllow": {
+    "message": "அணுகலை அனுமதி"
   }
 }

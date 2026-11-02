@@ -1165,5 +1165,11 @@
   },
   "btnSeeAnyAudioTitle": {
     "message": "इस सीरीज़ को \"कोई भी ऑडियो\" पर करता है: आपकी भाषा में उपशीर्षक न होने पर भी एपिसोड दिखेंगे"
+  },
+  "malPermissionNeeded": {
+    "message": "MyAnimeList की रेटिंग दिखाने के लिए Watchroll को api.myanimelist.net तक पहुँच चाहिए।"
+  },
+  "malPermissionAllow": {
+    "message": "पहुँच की अनुमति दें"
   }
 }

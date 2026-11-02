@@ -961,6 +961,15 @@ body.busy select.actions {
   font-size: 0.9rem;
   color: var(--text);
 }
+.perm-notice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+}
+.perm-notice[hidden] {
+  display: none;
+}
 .notice-inline {
   display: flex;
   flex-wrap: wrap;

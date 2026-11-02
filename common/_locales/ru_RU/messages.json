@@ -1165,5 +1165,11 @@
   },
   "btnSeeAnyAudioTitle": {
     "message": "Переключает этот сериал на «Любое аудио»: серии показываются даже без субтитров на вашем языке"
+  },
+  "malPermissionNeeded": {
+    "message": "Чтобы показывать оценки MyAnimeList, Watchroll нужен доступ к api.myanimelist.net."
+  },
+  "malPermissionAllow": {
+    "message": "Разрешить доступ"
   }
 }

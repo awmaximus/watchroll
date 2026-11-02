@@ -286,7 +286,10 @@ Watchroll has no server of its own: the scores come straight from the sources, f
   extension has a host permission for `https://api.myanimelist.net/*`. Without a Client ID the
   score comes from [Jikan](https://jikan.moe), a public service with MyAnimeList's data, about
   one series per second. If the service doesn't answer twice in a row, MyAnimeList scores are
-  skipped and tried again the next day; AniList and Crunchyroll scores still show.
+  skipped and tried again later (an hour for the official API, a day for Jikan); AniList and
+  Crunchyroll scores still show. Firefox lets you turn the `api.myanimelist.net` permission off
+  (and doesn't always grant a new one on update); without it, the page shows a notice with an
+  **Allow access** button.
 - Scores load after the check, a few at a time, without delaying the list. They are kept for 7
   days per series (1 day when not found or when the service failed).
 - **Sorting:** every series tab can sort by the Crunchyroll, AniList or MyAnimeList score
@@ -382,8 +385,15 @@ PRIVACY.md                    privacy policy (both browsers)
 ### Tests
 
 ```sh
-npm --prefix firefox test     # or: cd firefox && npm test (node:test, common/tests/)
+npm --prefix firefox test            # or: cd firefox && npm test (node:test, common/tests/)
+npm --prefix firefox run test:live   # real requests to AniList and MyAnimeList (needs internet)
 ```
+
+`npm test` never uses the network and runs in CI. `test:live` (`common/tests/live/`) calls the
+real AniList, official MyAnimeList (with the Client ID from `common/src/mal-client.js`) and
+Jikan APIs, to check that they answer from your network and that the Client ID is accepted.
+Node has no CORS or extension permissions: if these pass but the extension shows no
+MyAnimeList scores, check the `api.myanimelist.net` permission in the browser.
 
 ### Firefox build
 

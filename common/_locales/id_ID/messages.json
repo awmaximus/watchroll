@@ -1165,5 +1165,11 @@
   },
   "btnSeeAnyAudioTitle": {
     "message": "Mengubah seri ini ke \"Audio apa saja\": episode tetap muncul walau belum ada subtitle dalam bahasamu"
+  },
+  "malPermissionNeeded": {
+    "message": "Untuk menampilkan skor MyAnimeList, Watchroll perlu akses ke api.myanimelist.net."
+  },
+  "malPermissionAllow": {
+    "message": "Izinkan akses"
   }
 }

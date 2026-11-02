@@ -1674,7 +1674,27 @@
       setBusy(false);
       wantRatings(ratingItems(results)); // notas que faltam, depois da verificação
       wantScores(results.filter((r) => r.status !== "error"));
+      checkMalPermission();
     }
+  }
+
+  // Sem a permissão para api.myanimelist.net (o Firefox deixa desligar), as notas do
+  // MyAnimeList não vêm: mostra um aviso com o botão para dar a permissão.
+  async function checkMalPermission() {
+    const box = $("mal-perm");
+    if (!box) return;
+    const ok = await CRScores.malAllowed();
+    box.hidden = ok;
+    if (ok) return box.replaceChildren();
+    const btn = el("button", { type: "button", class: "btn small", text: t("malPermissionAllow") });
+    btn.addEventListener("click", async () => {
+      // Tem de ser direto no clique (o navegador só pede a permissão assim).
+      if (await CRScores.requestMal()) {
+        box.hidden = true;
+        wantScores(results.filter((r) => r.status !== "error"));
+      }
+    });
+    box.replaceChildren(el("span", { text: t("malPermissionNeeded") }), btn);
   }
 
   // Salva um JSON com tudo o que a análise da série usou (sem token/cookie/IDs de

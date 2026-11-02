@@ -1165,5 +1165,11 @@
   },
   "btnSeeAnyAudioTitle": {
     "message": "Bu diziyi \"Herhangi bir ses\" moduna alır: dilinizde altyazı olmasa da bölümler görünür"
+  },
+  "malPermissionNeeded": {
+    "message": "MyAnimeList puanlarını göstermek için Watchroll'un api.myanimelist.net'e erişmesi gerekiyor."
+  },
+  "malPermissionAllow": {
+    "message": "Erişime izin ver"
   }
 }

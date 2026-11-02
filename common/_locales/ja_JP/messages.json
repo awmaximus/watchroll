@@ -1165,5 +1165,11 @@
   },
   "btnSeeAnyAudioTitle": {
     "message": "このシリーズを「音声指定なし」に切り替えます: 選んだ言語の字幕がなくてもエピソードを表示します"
+  },
+  "malPermissionNeeded": {
+    "message": "MyAnimeList のスコアを表示するには、Watchroll が api.myanimelist.net にアクセスする必要があります。"
+  },
+  "malPermissionAllow": {
+    "message": "アクセスを許可"
   }
 }

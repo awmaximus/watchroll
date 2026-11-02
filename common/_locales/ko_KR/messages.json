@@ -1165,5 +1165,11 @@
   },
   "btnSeeAnyAudioTitle": {
     "message": "이 시리즈를 '모든 오디오'로 바꿉니다: 선택한 언어의 자막이 없어도 에피소드가 표시됩니다"
+  },
+  "malPermissionNeeded": {
+    "message": "MyAnimeList 점수를 표시하려면 Watchroll이 api.myanimelist.net에 접근해야 합니다."
+  },
+  "malPermissionAllow": {
+    "message": "접근 허용"
   }
 }

@@ -1165,5 +1165,11 @@
   },
   "btnSeeAnyAudioTitle": {
     "message": "将此剧集切换为“任意音频”：即使没有你所选语言的字幕，也会显示剧集"
+  },
+  "malPermissionNeeded": {
+    "message": "要显示 MyAnimeList 评分，Watchroll 需要访问 api.myanimelist.net。"
+  },
+  "malPermissionAllow": {
+    "message": "允许访问"
   }
 }

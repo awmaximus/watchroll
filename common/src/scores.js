@@ -21,16 +21,19 @@ var CRScores = (() => {
   const ANILIST = "https://graphql.anilist.co";
   const JIKAN = "https://api.jikan.moe/v4/anime/";
   const MAL_API = "https://api.myanimelist.net/v2/anime/";
+  const MAL_ORIGIN = "https://api.myanimelist.net/*";
   const KEY = "crnovos:scores";
   const DAY = 86400000;
   const TTL = 7 * DAY;
   const RETRY = DAY;
+  const MAL_RETRY = 3600000; // falha no MyAnimeList: tenta de novo em 1 hora
   const BATCH = 10; // séries por consulta ao AniList
   const JIKAN_GAP = 1100; // ms entre consultas ao Jikan
   const MAL_GAP = 400; // ms entre consultas à API oficial do MyAnimeList
 
   let clientId = typeof MAL_CLIENT_ID === "string" ? MAL_CLIENT_ID.trim() : "";
-  const malSource = () => (clientId ? "mal" : "jikan");
+  // "mal-api": as falhas guardadas como "mal" (antes do aviso de permissão) saem já.
+  const malSource = () => (clientId ? "mal-api" : "jikan");
 
   let sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -188,7 +191,29 @@ var CRScores = (() => {
     } catch (_) {}
   }
 
-  const fresh = (part, now) => part && now - (part.at || 0) < (part.failed || part.none ? RETRY : TTL);
+  const fresh = (part, now, retry = RETRY) => part && now - (part.at || 0) < (part.failed || part.none ? retry : TTL);
+
+  /**
+   * A API oficial do MyAnimeList não tem CORS: só funciona com a permissão para
+   * api.myanimelist.net. No Firefox o usuário pode tê-la desligada (ou ela não foi
+   * dada na atualização). Sem Client ID (Jikan) não precisa.
+   */
+  async function malAllowed(b = browser) {
+    if (!clientId) return true;
+    try {
+      if (!b.permissions || !b.permissions.contains) return true;
+      return await b.permissions.contains({ origins: [MAL_ORIGIN] });
+    } catch (_) {
+      return true;
+    }
+  }
+  async function requestMal(b = browser) {
+    try {
+      return await b.permissions.request({ origins: [MAL_ORIGIN] });
+    } catch (_) {
+      return false;
+    }
+  }
 
   /**
    * Atualiza as notas das séries (lista de { id, title, slug }) que faltam ou estão
@@ -234,13 +259,15 @@ var CRScores = (() => {
       onUpdate(all);
     }
 
-    // 2. MyAnimeList (pelo ID que o AniList deu), um por vez
-    const needMal = unique.filter((s) => {
+    // 2. MyAnimeList (pelo ID que o AniList deu), um por vez. Sem a permissão,
+    // nem tenta (a página mostra o botão para dar a permissão).
+    const malOk = await malAllowed(b);
+    const needMal = !malOk ? [] : unique.filter((s) => {
       const e = all[s.id];
       if (!e || !e.al || !e.al.idMal) return false;
       const m = e.mal && e.mal.id === e.al.idMal ? e.mal : null;
       // Uma falha de outra fonte (ex.: o Jikan, antes do Client ID) não espera o dia.
-      return !fresh(m && m.failed && m.src !== malSource() ? null : m, now);
+      return !fresh(m && m.failed && m.src !== malSource() ? null : m, now, MAL_RETRY);
     });
     let changed = 0;
     let failures = 0; // 2 falhas seguidas: o serviço está fora; tenta de novo outro dia
@@ -300,5 +327,7 @@ var CRScores = (() => {
     simplify,
     setSleep: (fn) => (sleep = fn),
     setClientId: (id) => (clientId = String(id || "").trim()),
+    malAllowed,
+    requestMal,
   };
 })();

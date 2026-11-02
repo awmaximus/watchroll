@@ -204,6 +204,32 @@ describe("atualização e cache", () => {
     assert.equal(S.scoresOf(all, "G3KHEVDJ7").mal, 8.88);
   });
 
+  test("sem a permissão para api.myanimelist.net: não tenta nem marca falha", async () => {
+    const { S, fetchFn, calls, b } = setup((url, body) => (url.includes("myanimelist") ? json({ mean: 8.88 }) : aniList(() => [APOTHECARY])(body)));
+    S.setClientId("abc123");
+    let allowed = false;
+    b.permissions = { contains: async () => allowed };
+    let all = await S.update(series, { fetchFn, b });
+    assert.ok(!calls.some((c) => c.url.includes("myanimelist")));
+    assert.equal(all.G3KHEVDJ7.mal, undefined);
+    allowed = true;
+    all = await S.update(series, { fetchFn, b });
+    assert.equal(S.scoresOf(all, "G3KHEVDJ7").mal, 8.88);
+  });
+
+  test("falha na API oficial: tenta de novo depois de 1 hora (não 1 dia)", async () => {
+    let up = false;
+    const { S, fetchFn } = setup((url, body) => (url.includes("myanimelist") ? (up ? json({ mean: 8.88 }) : json({}, 500)) : aniList(() => [APOTHECARY])(body)));
+    S.setClientId("abc123");
+    const t0 = Date.now();
+    await S.update(series, { fetchFn, now: t0 });
+    up = true;
+    let all = await S.update(series, { fetchFn, now: t0 + 30 * 60000 });
+    assert.equal(S.scoresOf(all, "G3KHEVDJ7").mal, null);
+    all = await S.update(series, { fetchFn, now: t0 + 2 * 3600000 });
+    assert.equal(S.scoresOf(all, "G3KHEVDJ7").mal, 8.88);
+  });
+
   test("API oficial do MyAnimeList: série sem nota (404) não é falha", async () => {
     const { S, fetchFn } = setup((url, body) => (url.includes("myanimelist") ? json({}, 404) : aniList(() => [APOTHECARY])(body)));
     S.setClientId("abc123");

@@ -1165,5 +1165,11 @@
   },
   "btnSeeAnyAudioTitle": {
     "message": "ही मालिका \"कोणताही ऑडिओ\" वर बदलते: तुमच्या भाषेत उपशीर्षक नसले तरी भाग दिसतील"
+  },
+  "malPermissionNeeded": {
+    "message": "MyAnimeList चे रेटिंग दाखवण्यासाठी Watchroll ला api.myanimelist.net चा ॲक्सेस हवा आहे."
+  },
+  "malPermissionAllow": {
+    "message": "ॲक्सेस द्या"
   }
 }

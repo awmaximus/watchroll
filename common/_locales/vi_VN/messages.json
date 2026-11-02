@@ -1165,5 +1165,11 @@
   },
   "btnSeeAnyAudioTitle": {
     "message": "Chuyển phim này sang \"Âm thanh bất kỳ\": các tập vẫn hiện dù chưa có phụ đề ngôn ngữ của bạn"
+  },
+  "malPermissionNeeded": {
+    "message": "Để hiển thị điểm MyAnimeList, Watchroll cần quyền truy cập api.myanimelist.net."
+  },
+  "malPermissionAllow": {
+    "message": "Cho phép truy cập"
   }
 }

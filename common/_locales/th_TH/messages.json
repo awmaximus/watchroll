@@ -1165,5 +1165,11 @@
   },
   "btnSeeAnyAudioTitle": {
     "message": "เปลี่ยนซีรีส์นี้เป็น \"เสียงใดก็ได้\": ตอนต่าง ๆ จะแสดงแม้ไม่มีซับภาษาของคุณ"
+  },
+  "malPermissionNeeded": {
+    "message": "Watchroll ต้องเข้าถึง api.myanimelist.net เพื่อแสดงคะแนนจาก MyAnimeList"
+  },
+  "malPermissionAllow": {
+    "message": "อนุญาตการเข้าถึง"
   }
 }
