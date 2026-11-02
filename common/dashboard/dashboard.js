@@ -608,12 +608,20 @@
     return el("span", { class: `age age-${s.age}`, text: s.age === 0 ? "L" : String(s.age), title: s.age === 0 ? t("ageFree") : t("ageMin", s.age) });
   }
 
-  // Linha só das notas, com a classificação indicativa.
+  // Linha só das notas.
   function scoreLine(s) {
     const badge = ratingBadge(s);
+    return badge ? el("div", { class: "score-line" }, badge) : null;
+  }
+
+  // Linha da classificação indicativa, com os descritores ("Violência, Linguagem
+  // Imprópria"), como na página da série na Crunchyroll.
+  function ageLine(s) {
     const age = ageBadge(s);
-    if (!badge && !age) return null;
-    return el("div", { class: "score-line" }, badge, age);
+    const notes = Array.isArray(s.ageNotes) ? s.ageNotes.filter(Boolean) : [];
+    if (!age && !notes.length) return null;
+    const text = notes.join(", ");
+    return el("div", { class: "age-line", title: text || null }, age, text ? el("span", { class: "age-notes", text }) : null);
   }
 
   // Notas do AniList e do MyAnimeList das séries na tela (as que faltam ou estão
@@ -892,6 +900,7 @@
         { class: "info" },
         el("a", { class: "series", href: seriesUrl(s), target: "_blank", rel: "noopener", text: s.title, title: s.title }),
         scoreLine(s),
+        ageLine(s),
         el("div", { class: "badges" }, dubBadge(s), listChips(s)),
         genreLine(s),
         el(
@@ -930,6 +939,7 @@
         { class: "row-text" },
         el("span", { class: "row-title" }, el("a", { href: seriesUrl(s), target: "_blank", rel: "noopener", text: s.title }), dubBadge(s, { compact: true }), listChips(s, { compact: true })),
         scoreLine(s),
+        ageLine(s),
         genreLine(s),
         note ? el("small", { text: note, title: note }) : null
       ),
@@ -1187,6 +1197,7 @@
         el("a", { class: "series", href: resultUrl(r), target: "_blank", rel: "noopener", text: r.title, title: r.title }),
         altTitleLine(r),
         scoreLine(r),
+        ageLine(r),
         el(
           "div",
           { class: "result-tags" },

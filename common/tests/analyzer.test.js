@@ -1987,6 +1987,7 @@ describe("categorias da Crunchyroll", () => {
     const { analyzer: a } = setup({ watchlist: [], lists: { LIST: real.data }, seasons: {}, episodes: {}, playheads: {} });
     const [r] = await a.run({ settings: settings({ sources: ["LIST"] }) });
     assert.equal(r.age, 12);
+    assert.deepEqual([...r.ageNotes], ["Violência Fantasiosa"]);
   });
 
   test("classificação indicativa: L, A16 e episódio da Fila; a de outra lista completa a que falta", () => {

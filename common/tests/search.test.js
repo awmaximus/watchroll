@@ -63,6 +63,13 @@ describe("normalização e classificação", () => {
     assert.equal(m.inWatchlist, false);
   });
 
+  test("descritores da classificação (Violência, Linguagem Imprópria), sem repetir", () => {
+    const it = item("G1", {});
+    it.series_metadata = { ...it.series_metadata, content_descriptors: ["Violência", "Linguagem Imprópria", "Violência", ""] };
+    assert.deepEqual([...S.normalize(it, new Set()).ageNotes], ["Violência", "Linguagem Imprópria"]);
+    assert.deepEqual([...S.normalize(item("G2", {}), new Set()).ageNotes], []);
+  });
+
   test("reconhece texto em japonês", () => {
     assert.equal(S.hasCJK("薬屋のひとりごと"), true);
     assert.equal(S.hasCJK("フリーレン"), true);

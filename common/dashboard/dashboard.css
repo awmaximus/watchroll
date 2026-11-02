@@ -1418,3 +1418,31 @@ a.rating:focus-visible .score-value {
 .row-text .genres {
   margin-top: 2px;
 }
+
+/* Classificação indicativa numa linha só dela, com os descritores ao lado. */
+.age-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 6px;
+  min-width: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+.age-line .age {
+  flex: none;
+}
+.age-notes {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+.result-info .age-line,
+.row-text .age-line {
+  margin: 2px 0 0;
+}
+.result-info .score-line,
+.row-text .score-line {
+  margin: 2px 0 0;
+}

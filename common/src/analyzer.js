@@ -348,6 +348,18 @@ var CRAnalyzer = (() => {
     return d ? Number(d[1]) : null;
   }
 
+  // Descritores da classificação ("Violência", "Linguagem Imprópria"…), no idioma
+  // das consultas; sem repetição.
+  function itemAgeNotes(p) {
+    const m = p.series_metadata || p.movie_listing_metadata || p.episode_metadata || p.movie_metadata || {};
+    const out = [];
+    for (const d of Array.isArray(m.content_descriptors) ? m.content_descriptors : []) {
+      const t = String(d || "").trim();
+      if (t && !out.includes(t)) out.push(t);
+    }
+    return out;
+  }
+
   function normalizeItem(item) {
     const p = item.panel || {};
     const meta = p.episode_metadata || {};
@@ -365,6 +377,7 @@ var CRAnalyzer = (() => {
         rating: itemRating(p),
         genres: itemGenres(p),
         age: itemAge(p),
+        ageNotes: itemAgeNotes(p),
       };
     }
     const seriesId = p.type === "series" ? p.id : meta.series_id || p.series_id;
@@ -378,6 +391,7 @@ var CRAnalyzer = (() => {
       rating: itemRating(p),
       genres: itemGenres(p),
       age: itemAge(p),
+      ageNotes: itemAgeNotes(p),
     };
   }
 
@@ -949,6 +963,7 @@ var CRAnalyzer = (() => {
           if (!prev.image) prev.image = e.image;
           if (!prev.rating) prev.rating = e.rating;
           if (prev.age == null) prev.age = e.age;
+          if (!(prev.ageNotes && prev.ageNotes.length)) prev.ageNotes = e.ageNotes;
           for (const g of e.genres || []) if (!prev.genres.includes(g)) prev.genres.push(g);
         }
       }
@@ -1049,6 +1064,7 @@ var CRAnalyzer = (() => {
         rating: entry.rating || result.rating || null,
         genres: entry.genres && entry.genres.length ? entry.genres : result.genres || [],
         age: entry.age != null ? entry.age : result.age != null ? result.age : null,
+        ageNotes: entry.ageNotes && entry.ageNotes.length ? entry.ageNotes : result.ageNotes || [],
       };
     });
 
