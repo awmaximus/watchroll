@@ -466,7 +466,7 @@ in [chrome/README.md](chrome/README.md); the store texts are in
 ### Versions
 
 Keep the same `version` in `firefox/manifest.json`, `firefox/package.json`,
-`chrome/manifest.json` and `chrome/package.json` (current: 1.4.9). Publish only even versions to
+`chrome/manifest.json` and `chrome/package.json` (current: 1.4.15). Publish only even versions to
 the Chrome Web Store, like the AMO listing.
 
 `set-version.sh`, at the root, changes all of them (and the version above) at once:
