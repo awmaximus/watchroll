@@ -12,7 +12,7 @@
 
 /* global browser, CRApi */
 var CRAnalyzer = (() => {
-  const CACHE_KEY = "crnovos:v10:cache"; // v10: "sem legenda" na temporada atual
+  const CACHE_KEY = "crnovos:v11:cache"; // v11: never_watched errado não esconde série que está sendo assistida
   const CACHE_TTL = 5 * 60 * 1000; // dentro disso: reaproveita sem nenhuma consulta
   const REVALIDATE_TTL = 6 * 60 * 60 * 1000; // até isso: reaproveita se nada mudou
   // Quantas séries são consultadas ao mesmo tempo (configurável na página).
@@ -447,7 +447,10 @@ var CRAnalyzer = (() => {
     // Episódios da temporada mais recente, para prever o próximo pelo ritmo semanal.
     let latest = null;
 
-    for (let i = seasons.length - 1, back = 0; i >= 0 && back < MAX_SEASONS_BACK; i--, back++) {
+    // Com atividade no histórico, a série está sendo assistida: procura em todas as
+    // temporadas (o último episódio visto pode estar bem antes da mais nova).
+    const maxBack = entry.inHistory ? Infinity : MAX_SEASONS_BACK;
+    for (let i = seasons.length - 1, back = 0; i >= 0 && back < maxBack; i--, back++) {
       const season = seasons[i];
 
       // Qual lista de episódios usar para esta temporada, conforme o modo.
@@ -1000,7 +1003,12 @@ var CRAnalyzer = (() => {
     const lastPlayedOf = (id) =>
       !history ? undefined : activity.has(id) ? activity.get(id) : history.complete ? 0 : undefined;
 
-    const results = await pool(unique, concurrencyFrom(settings), async (entry) => {
+    const results = await pool(unique, concurrencyFrom(settings), async (listed) => {
+      // A Crunchyroll às vezes marca como "nunca assistida" (never_watched) uma série
+      // que você está assistindo (conferido em nov/2026: Kaguya-sama e Golden Kamuy,
+      // com episódios vistos na véspera). Se o histórico mostra atividade, a marca
+      // está errada: não vale.
+      const entry = activity.has(listed.seriesId) ? { ...listed, neverWatchedFlag: false, inHistory: true } : listed;
       const sig = cacheSignature(modeFor(entry.seriesId, settings), settings);
       const hit = cache[entry.seriesId];
       const now = Date.now();

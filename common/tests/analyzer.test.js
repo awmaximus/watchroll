@@ -1287,6 +1287,30 @@ describe("atalho pelo histórico de reprodução", () => {
     assert.deepEqual(calls, ["A"]);
   });
 
+  test("never_watched errado, série no histórico: procura em todas as temporadas (Kaguya-sama, Golden Kamuy)", async () => {
+    // Formato real (nov/2026): Kaguya-sama tem 5 temporadas; viu a 1ª toda e a 2ª até o
+    // episódio 6, e a Crunchyroll marca a série como "nunca assistida". Antes, a marca
+    // fazia olhar só as 2 temporadas mais novas: a série ia para "A iniciar".
+    const S = [1, 2, 3, 5, 6].map((n, i) => ({ id: `K${n}`, season_sequence_number: i + 1, season_number: n, audio_locale: "ja-JP" }));
+    const eps = Object.fromEntries(S.map((s) => [s.id, Array.from({ length: s.id === "K1" ? 12 : 4 }, (_, k) => episode(`${s.id}-e${k + 1}`, k + 1, { season: s.season_number }))]));
+    eps.K2 = Array.from({ length: 12 }, (_, k) => episode(`K2-e${k + 1}`, k + 1, { season: 2 }));
+    const ph = new Map();
+    for (let k = 1; k <= 12; k++) ph.set(`K1-e${k}`, playhead(`K1-e${k}`, 1400, true));
+    for (let k = 1; k <= 6; k++) ph.set(`K2-e${k}`, playhead(`K2-e${k}`, 1400, true));
+    const CRApi = {
+      getAccountId: async () => "conta",
+      watchlist: async () => [series("A", { never_watched: true })],
+      watchHistory: async () => H([play("A", 1400, true)]),
+      seasons: async () => S,
+      episodes: async (id) => eps[id] || [],
+      playheads: async (ids) => new Map(ids.filter((id) => ph.has(id)).map((id) => [id, ph.get(id)])),
+    };
+    const ctx = load(["src/analyzer.js"], { browser: fakeBrowser(), CRApi, console: { ...console, warn: () => {} } });
+    const [r] = await ctx.CRAnalyzer.run({ settings: settings() });
+    assert.equal(r.status, "pending", "está assistindo: vai para 'Para assistir'");
+    assert.equal(r.pending[0].id, "K2-e7", "o próximo é o 7 da 2ª temporada");
+  });
+
   test("sem never_watched da Crunchyroll: análise completa", async () => {
     const { analyzer, calls } = withHistory(H([]), [series("A", { never_watched: false })]);
     await analyzer.run({ settings: settings() });
@@ -1347,7 +1371,7 @@ describe("revalidar só o que mudou", () => {
     const ctx = load(["src/analyzer.js"], { browser, CRApi });
     // Envelhece a análise guardada no cache.
     const age = (ms) => {
-      const all = browser.storage.local.data["crnovos:v10:cache"];
+      const all = browser.storage.local.data["crnovos:v11:cache"];
       for (const scope of Object.values(all)) {
         for (const r of Object.values(scope)) {
           r.checkedAt -= ms;
