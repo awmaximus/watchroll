@@ -12,7 +12,7 @@
 
 /* global browser, CRApi */
 var CRAnalyzer = (() => {
-  const CACHE_KEY = "crnovos:v11:cache"; // v11: never_watched errado não esconde série que está sendo assistida
+  const CACHE_KEY = "crnovos:v12:cache"; // v12: legendas das temporadas (filtro "Áudio"); v11: never_watched errado
   const CACHE_TTL = 5 * 60 * 1000; // dentro disso: reaproveita sem nenhuma consulta
   const REVALIDATE_TTL = 6 * 60 * 60 * 1000; // até isso: reaproveita se nada mudou
   // Quantas séries são consultadas ao mesmo tempo (configurável na página).
@@ -169,8 +169,12 @@ var CRAnalyzer = (() => {
   function seriesAudios(seasons) {
     if (!seasons.length) return null;
     const any = new Set();
-    for (const s of seasons) for (const a of seasonAudios(s)) any.add(a);
-    return { latest: seasonAudios(seasons[seasons.length - 1]), any: [...any] };
+    const subs = new Set();
+    for (const s of seasons) {
+      for (const a of seasonAudios(s)) any.add(a);
+      for (const l of s.subtitle_locales || []) if (l) subs.add(l);
+    }
+    return { latest: seasonAudios(seasons[seasons.length - 1]), any: [...any], subs: [...subs] };
   }
 
   // Situação da dublagem no idioma escolhido, a partir dos áudios guardados:
@@ -360,6 +364,14 @@ var CRAnalyzer = (() => {
     return out;
   }
 
+  // Áudios e legendas que a Crunchyroll informa no item da lista (da série toda).
+  // Servem ao filtro "Áudio" (Dublado/Legendado) mesmo antes de consultar a série.
+  function itemLangs(p) {
+    const m = p.series_metadata || p.movie_listing_metadata || p.episode_metadata || p.movie_metadata || {};
+    const list = (v) => (Array.isArray(v) ? v.filter(Boolean) : []);
+    return { audio: list(m.audio_locales), subs: list(m.subtitle_locales) };
+  }
+
   function normalizeItem(item) {
     const p = item.panel || {};
     const meta = p.episode_metadata || {};
@@ -378,6 +390,7 @@ var CRAnalyzer = (() => {
         genres: itemGenres(p),
         age: itemAge(p),
         ageNotes: itemAgeNotes(p),
+        langs: itemLangs(p),
       };
     }
     const seriesId = p.type === "series" ? p.id : meta.series_id || p.series_id;
@@ -392,6 +405,7 @@ var CRAnalyzer = (() => {
       genres: itemGenres(p),
       age: itemAge(p),
       ageNotes: itemAgeNotes(p),
+      langs: itemLangs(p),
     };
   }
 
@@ -967,6 +981,10 @@ var CRAnalyzer = (() => {
           if (!prev.rating) prev.rating = e.rating;
           if (prev.age == null) prev.age = e.age;
           if (!(prev.ageNotes && prev.ageNotes.length)) prev.ageNotes = e.ageNotes;
+          if (e.langs) {
+            const a = prev.langs || { audio: [], subs: [] };
+            prev.langs = { audio: [...new Set([...a.audio, ...e.langs.audio])], subs: [...new Set([...a.subs, ...e.langs.subs])] };
+          }
           for (const g of e.genres || []) if (!prev.genres.includes(g)) prev.genres.push(g);
         }
       }
@@ -1073,6 +1091,7 @@ var CRAnalyzer = (() => {
         genres: entry.genres && entry.genres.length ? entry.genres : result.genres || [],
         age: entry.age != null ? entry.age : result.age != null ? result.age : null,
         ageNotes: entry.ageNotes && entry.ageNotes.length ? entry.ageNotes : result.ageNotes || [],
+        langs: entry.langs || result.langs || null,
       };
     });
 

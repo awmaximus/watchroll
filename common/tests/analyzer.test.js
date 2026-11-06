@@ -1371,7 +1371,7 @@ describe("revalidar só o que mudou", () => {
     const ctx = load(["src/analyzer.js"], { browser, CRApi });
     // Envelhece a análise guardada no cache.
     const age = (ms) => {
-      const all = browser.storage.local.data["crnovos:v11:cache"];
+      const all = browser.storage.local.data["crnovos:v12:cache"];
       for (const scope of Object.values(all)) {
         for (const r of Object.values(scope)) {
           r.checkedAt -= ms;
@@ -2005,6 +2005,13 @@ describe("categorias da Crunchyroll", () => {
     const { analyzer: a } = setup({ watchlist: [], lists: { LIST: real.data }, seasons: {}, episodes: {}, playheads: {} });
     const [r] = await a.run({ settings: settings({ sources: ["LIST"] }) });
     assert.deepEqual(plain(r.genres), ["fantasy", "adventure", "drama", "seinen"]);
+  });
+
+  test("item real de Crunchylist: áudios e legendas da série chegam ao resultado (filtro Áudio)", async () => {
+    const { analyzer: a } = setup({ watchlist: [], lists: { LIST: real.data }, seasons: {}, episodes: {}, playheads: {} });
+    const [r] = await a.run({ settings: settings({ sources: ["LIST"] }) });
+    assert.ok(r.langs.audio.includes("pt-BR"));
+    assert.ok(r.langs.subs.includes("pt-BR"));
   });
 
   test("item real de Crunchylist: a classificação indicativa chega ao resultado", async () => {

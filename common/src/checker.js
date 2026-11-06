@@ -318,8 +318,9 @@ var CRChecker = (() => {
     const sources = (settings && settings.sources) || [];
     return f && sources.length > 1 && sources.includes(f) ? f : "";
   }
-  // Filtros por categoria e por modo de áudio da série (legendado/dublado/qualquer).
-  const AUDIO_FILTERS = ["sub", "dub", "auto"];
+  // Filtro "Áudio": séries que TÊM dublagem no idioma escolhido (Dublado) ou legenda
+  // no idioma escolhido (Legendado), seja qual for o modo em que você as assiste.
+  const AUDIO_FILTERS = ["sub", "dub"];
   const activeAudioFilter = (settings) =>
     AUDIO_FILTERS.includes(settings && settings.audioFilter) ? settings.audioFilter : "";
   // Várias categorias escolhidas: basta a série ter uma delas.
@@ -327,7 +328,22 @@ var CRChecker = (() => {
     const list = Array.isArray(keys) ? keys : keys ? [keys] : [];
     return !list.length || (Array.isArray(r.genres) && list.some((k) => r.genres.includes(k)));
   };
-  const hasAudio = (r, mode) => !mode || r.mode === mode;
+  // Áudios/legendas da série: os das temporadas (análise) e os do item da lista.
+  // Sem nenhuma informação, a série não entra no filtro.
+  const hasAudio = (r, filter, { dubLang = "", subLang = "" } = {}) => {
+    if (!filter) return true;
+    const a = (r && r.audios) || {};
+    const l = (r && r.langs) || {};
+    if (filter === "dub") {
+      if (!dubLang) return false;
+      return [...(a.any || []), ...(a.latest || []), ...(l.audio || [])].includes(dubLang);
+    }
+    if (filter === "sub") {
+      if (!subLang) return false;
+      return [...(a.subs || []), ...(l.subs || [])].includes(subLang);
+    }
+    return true;
+  };
   const inList = (r, listId) => !listId || (Array.isArray(r.lists) ? r.lists.includes(listId) : listId === "watchlist");
 
   const visibleResults = (results, settings, now = Date.now()) =>

@@ -517,10 +517,21 @@ describe("filtros por categoria e por áudio", () => {
     assert.equal(C.hasGenre({ genres: ["comedy"] }, ["action", "drama"]), false);
     assert.equal(C.hasGenre({ genres: ["comedy"] }, []), true, "nenhuma escolhida = todas");
   });
-  test("áudio: modo da série; filtro inválido vale como todos", () => {
-    assert.equal(C.hasAudio({ mode: "dub" }, "dub"), true);
-    assert.equal(C.hasAudio({ mode: "sub" }, "dub"), false);
+  test("áudio: Dublado = tem dublagem no idioma escolhido; Legendado = tem legenda no idioma (não o modo da série)", () => {
+    const L = { dubLang: "pt-BR", subLang: "pt-BR" };
+    const dubbed = { mode: "sub", audios: { latest: ["ja-JP"], any: ["ja-JP", "pt-BR"], subs: ["pt-BR"] } };
+    const jpOnly = { mode: "dub", audios: { latest: ["ja-JP"], any: ["ja-JP"], subs: ["en-US"] } };
+    assert.equal(C.hasAudio(dubbed, "dub", L), true, "marcada para legendado, mas tem dublagem pt-BR (temporada antiga vale)");
+    assert.equal(C.hasAudio(jpOnly, "dub", L), false, "marcada para dublado, mas não tem dublagem pt-BR");
+    assert.equal(C.hasAudio(dubbed, "sub", L), true);
+    assert.equal(C.hasAudio(jpOnly, "sub", L), false, "sem legenda pt-BR");
+    // Ainda não consultada: vale o que veio no item da lista.
+    assert.equal(C.hasAudio({ langs: { audio: ["ja-JP", "pt-BR"], subs: [] } }, "dub", L), true);
+    assert.equal(C.hasAudio({ langs: { audio: ["ja-JP"], subs: ["pt-BR"] } }, "sub", L), true);
+    assert.equal(C.hasAudio({}, "dub", L), false, "sem informação: fora do filtro");
+    assert.equal(C.hasAudio({}, "", L), true, "sem filtro: todas");
     assert.equal(C.activeAudioFilter({ audioFilter: "dub" }), "dub");
+    assert.equal(C.activeAudioFilter({ audioFilter: "auto" }), "", "'qualquer áudio' saiu do filtro");
     assert.equal(C.activeAudioFilter({ audioFilter: "xyz" }), "");
     assert.equal(C.activeAudioFilter({}), "");
   });

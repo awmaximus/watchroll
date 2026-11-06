@@ -391,7 +391,7 @@
     $("clear-filters").hidden = !(filtersActive() || query.trim());
     fillSelect(
       $("audio-filter"),
-      [["", t("audioFilterAll")], ["sub", t("modeSub")], ["dub", t("modeDub")], ["auto", t("modeAuto")]],
+      [["", t("audioFilterAll")], ["sub", t("modeSub")], ["dub", t("modeDub")]],
       CRChecker.activeAudioFilter(settings)
     );
   }
@@ -1614,7 +1614,7 @@
       CRChecker.matchesSearch(r.title, query) &&
       CRChecker.inList(r, listFilter) &&
       CRChecker.hasGenre(r, genreFilter) &&
-      CRChecker.hasAudio(r, audioFilter);
+      CRChecker.hasAudio(r, audioFilter, { dubLang: settings.dubLang, subLang: settings.subLang });
     const searching = query.trim() !== "" || filtersActive();
     renderListFilter();
     renderFilters();

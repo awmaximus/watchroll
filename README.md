@@ -108,7 +108,9 @@ Above the list tabs, on one line on wide screens. A filter in use is outlined in
 - **Category**: tick one or more; a series shows up if it has any of them. Only categories your
   series have are listed, with counts. Names Crunchyroll sends in mixed languages ("Fantasia"
   and "Fantasy") are merged and shown in the interface language.
-- **Audio**: Subbed, Dubbed or Any audio (each series' mode, or the default).
+- **Audio**: **Dubbed** shows the series that have a dub in your dub language (in any season),
+  **Subbed** the ones with subtitles in your subtitle language, whatever mode you watch each
+  series in. It uses the audios and subtitles of the seasons and of the list item.
 - **Sort**, saved per tab:
 
 | Tab | Sort options |
@@ -480,7 +482,7 @@ in [chrome/README.md](chrome/README.md); the store texts are in
 ### Versions
 
 Keep the same `version` in `firefox/manifest.json`, `firefox/package.json`,
-`chrome/manifest.json` and `chrome/package.json` (current: 1.6.0). Publish only even versions to
+`chrome/manifest.json` and `chrome/package.json` (current: 1.7.1). Publish only even versions to
 the Chrome Web Store, like the AMO listing.
 
 `set-version.sh`, at the root, changes all of them (and the version above) at once:
